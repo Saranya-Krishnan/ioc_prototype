@@ -1,8 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import {render} from 'react-dom';
+import './sass/index.scss';
+import Ioc from './containers/ioc';
 import registerServiceWorker from './registerServiceWorker';
-import './index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+render(
+    <Ioc />,
+    document.getElementById('ioc-app')
+);
 registerServiceWorker();

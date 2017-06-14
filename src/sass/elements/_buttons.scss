@@ -1,0 +1,129 @@
+@import '../bootstrap-utils/mixins/hover';
+
+$msbtn-font-weight:                400 !default;
+$msbtn-box-shadow:                 inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075) !default;
+$msbtn-focus-box-shadow:           0 0 0 2px rgba(41, 175, 222, .25) !default;
+$msbtn-active-box-shadow:          inset 0 3px 5px rgba(0,0,0,.125) !default;
+
+@mixin ms-btn(  $color: setcolor('white'),
+                $bgcolor:setcolor('red-orange'),
+                $hcolor:setcolor('white'),
+                $hbgcolor:setcolor('red-orange', dark),
+                $border-color: transparent,
+                $hborder-color: setcolor('red-orange'),
+                $icon: $fa-var-remove){
+  @extend .btn;
+  i{
+    margin-right: 0.5rem;
+    @include fa-icon();
+    &:before{
+      content: $icon;
+    }
+  }
+  @include button-size(0.5rem, 0.75rem, 1rem, 0.15rem);
+  color: $color;
+  background-color: $bgcolor;
+  border-color:  $border-color;
+  @include btn-box-shadow($msbtn-box-shadow);
+  &:hover,.hover{
+    color: $color;
+    background-color: $hbgcolor;
+    border-color: transparentize($hborder-color, 0.75);
+    cursor: pointer;
+  }
+  &:focus,
+  &.focus {
+    box-shadow: 0 0 0 2px rgba($border-color, .5);
+  }
+  &.disabled,
+  &:disabled {
+    background-color: $bgcolor;
+    border-color: $border-color;
+  }
+
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    color: $color;
+    background-color: $hbgcolor;
+    background-image: none;
+    border-color: $hborder-color;
+    @include box-shadow($msbtn-active-box-shadow);
+  }
+  &.large{
+      text-transform: uppercase;
+      font-weight: 800;
+      @include button-size(1.25rem, 1.75rem, 1.5rem, 0.25rem);
+    i{
+        margin-right: 1rem;
+    }
+  }
+  &.medium{
+      text-transform: uppercase;
+      @include button-size(0.5rem, 0.75rem, 1rem, 0.15rem);
+    i{
+        margin-right: 0.5rem;
+    }
+  }
+  &.small{
+      @include button-size(0.25rem, 0.5rem, 0.75rem, 0.05rem);
+    i{
+        margin-right: 0.25rem;
+
+    }
+  }
+}
+
+.moleskine-btn {
+  @include ms-btn(
+                  setcolor('black'),
+                  setcolor('white'),
+                  setcolor('cyan'),
+                  setcolor('white'),
+                  setcolor('black'),
+                  setcolor('cyan'),
+                  $fa-var-chevron-right
+  );
+}
+.moleskine-btn-primary {
+  @include ms-btn();
+}
+.moleskine-btn-go {
+  @include ms-btn(
+                  setcolor('white'),
+                  setcolor('green', dark),
+                  setcolor('white'),
+                  setcolor('green'),
+                  transparent,
+                  setcolor('green', dark),
+                  $fa-var-send-o
+  );
+}
+.moleskine-btn-warning {
+  @include ms-btn(
+                  setcolor('white'),
+                  setcolor('gold', dark),
+                  setcolor('white'),
+                  setcolor('gold'),
+                  transparent,
+                  setcolor('gold', dark),
+                  $fa-var-warning
+  );
+}
+.moleskine-btn-danger {
+  @include ms-btn(
+                  setcolor('white'),
+                  setcolor('crimson'),
+                  setcolor('white'),
+                  setcolor('crimson',dark),
+                  transparent,
+                  setcolor('crimson'),
+                  $fa-var-warning
+  );
+}
+
+button, a {
+  &:hover{
+    cursor: pointer;
+  }
+}

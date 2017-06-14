@@ -1,0 +1,33 @@
+// Moleskine Color Palette
+//
+// Colors based on Moleskine Style Guide.
+//
+// moleskine.styleguide.palette
+
+$moleskine_pallette: (
+        'indigo': (base:rgb(95, 91, 150), dark: rgb(69, 66, 109)),
+        'blue': (base:rgb(59, 97, 179), dark:rgb(50, 82, 152)),
+        'cyan': (base:rgb(41, 175, 222), dark:rgb(38, 163, 207)),
+        'aqua': (base:rgb(75, 178, 185), dark:rgb(67, 159, 165)),
+        'green': (base:rgb(102, 169, 72), dark:rgb(89, 147, 63)),
+        'lime': (base:rgb(200, 186, 50), dark:rgb(184, 171, 46)),
+        'creme': (base:rgb(255, 238, 215), dark:rgb(240, 240, 202)),
+        'clay': (base:rgb(187, 180, 157), dark:rgb(167, 161, 135)),
+        'olive': (base:rgb(87, 90, 68), dark:rgb(55, 57, 43)),
+        'magenta': (base:rgb(197, 54, 137), dark:rgb(177, 48, 123)),
+        'crimson': (base:rgb(193, 43, 52), dark:rgb(160, 35, 43)),
+        'red-orange': (base:rgb(255, 102, 48), dark:rgb(230, 92, 43)),
+        'orange': (base:rgb(252, 140, 42), dark:rgb(220, 122, 37)),
+        'sienna': (base:rgb(211, 148, 69), dark:rgb(193, 128, 60)),
+        'gold': (base:rgb(255, 202, 53), dark:rgb(226, 179, 47)),
+        'grey': (base:rgb(175, 175, 175), dark:rgb(149, 149, 149)),
+        'gunmetal': (base:rgb(127, 141, 146), dark:rgb(149, 149, 149)),
+        'taupe': (base:rgb(146, 127, 111), dark:rgb(129, 112, 98)),
+        'brown': (base:rgb(133, 100, 68), dark:rgb(105, 79, 54)),
+        'black': (base:rgb(0, 0, 0), dark:rgb(0, 0, 0)),
+        'white': (base:rgb(255, 255, 255), dark:rgb(255, 255, 255)),
+);
+
+@function setcolor($scheme, $tone: base) {
+  @return map-get(map-get($moleskine_pallette, $scheme), $tone);
+}

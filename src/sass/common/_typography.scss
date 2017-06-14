@@ -1,0 +1,18 @@
+*, body, html{
+  font-family: "brandon-grotesque",sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.caps{
+  text-transform: capitalize;
+}
+
+.intro{
+  font-weight: 100;
+  color: setcolor('gunmetal', dark);
+  font-style: italic;
+  padding: 1rem;
+  max-width: 65%;
+  margin-bottom: 1rem;
+}

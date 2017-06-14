@@ -1,0 +1,5 @@
+@mixin ul-cols($cols:3){
+  columns: $cols;
+  -webkit-columns: $cols;
+  -moz-columns: $cols;
+}

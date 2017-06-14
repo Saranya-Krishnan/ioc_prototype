@@ -1,0 +1,26 @@
+@mixin btn-box-shadow($shadow){
+  box-shadow: $shadow;
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+}
+
+@mixin box-shadow($x: 0, $y: 0.052rem, $blur: 0.25rem, $color: transparentize(setcolor('grey'), 0.6), $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $x $y $blur $color;
+    -moz-box-shadow:inset $x $y $blur $color;
+    box-shadow:inset $x $y $blur $color;
+  } @else {
+    -webkit-box-shadow: $x $y$blur $color;
+    -moz-box-shadow: $x $y $blur $color;
+    box-shadow: $x $y $blur $color;
+  }
+}
+
+@mixin radial-gradient($from, $to) {
+  background: -moz-radial-gradient(center, circle cover, $from 0%, $to 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $from), color-stop(100%, $to));
+  background: -webkit-radial-gradient(center, circle cover, $from 0%, $to 100%);
+  background: -o-radial-gradient(center, circle cover, $from 0%, $to 100%);
+  background: -ms-radial-gradient(center, circle cover, $from 0%, $to 100%);
+  background: radial-gradient(center, circle cover, $from 0%, $to 100%);
+}
