@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'semantic-ui-react'
 
 const LogIn = props => {
     return (
-        <div className="user">
+        <Button>
             {props.user}
-        </div>
+        </Button>
     );
 };
 

@@ -85,64 +85,7 @@ module.exports = require("express");
 module.exports = require("redux");
 
 /***/ }),
-/* 3 */,
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _express = __webpack_require__(1);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _index = __webpack_require__(14);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var app = (0, _express2.default)();
-
-app.use('/bin', _express2.default.static('./bin'));
-app.use('/', _index2.default);
-app.use('/view/*', _index2.default);
-
-app.listen(3000, function () {
-    console.log('Ioc Express Server started');
-});
-
-/***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("prop-types");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom/server");
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router");
-
-/***/ }),
-/* 14 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -166,7 +109,7 @@ var _server = __webpack_require__(11);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _index = __webpack_require__(18);
+var _index = __webpack_require__(8);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -174,7 +117,7 @@ var _redux = __webpack_require__(2);
 
 var _reactRedux = __webpack_require__(12);
 
-var _ioc = __webpack_require__(17);
+var _ioc = __webpack_require__(7);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -212,7 +155,34 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 15 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _express = __webpack_require__(1);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _index = __webpack_require__(3);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var app = (0, _express2.default)();
+
+app.use('/bin', _express2.default.static('./bin'));
+app.use('/', _index2.default);
+app.use('/view/*', _index2.default);
+
+app.listen(3000, function () {
+    console.log('Ioc Express Server started');
+});
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -232,7 +202,7 @@ function selectItem(listItem) {
 }
 
 /***/ }),
-/* 16 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -250,12 +220,14 @@ var _propTypes = __webpack_require__(10);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _semanticUiReact = __webpack_require__(14);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var LogIn = function LogIn(props) {
     return _react2.default.createElement(
-        'div',
-        { className: 'user' },
+        _semanticUiReact.Button,
+        null,
         props.user
     );
 };
@@ -267,7 +239,7 @@ LogIn.propTypes = {
 exports.default = LogIn;
 
 /***/ }),
-/* 17 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -283,7 +255,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _login = __webpack_require__(16);
+var _login = __webpack_require__(6);
 
 var _login2 = _interopRequireDefault(_login);
 
@@ -317,7 +289,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 18 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -329,7 +301,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(2);
 
-var _nav = __webpack_require__(19);
+var _nav = __webpack_require__(9);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -342,7 +314,7 @@ var rootReducer = (0, _redux.combineReducers)({
 exports.default = rootReducer;
 
 /***/ }),
-/* 19 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -364,11 +336,41 @@ exports.default = function () {
     }
 };
 
-var _nav_actions = __webpack_require__(15);
+var _nav_actions = __webpack_require__(5);
 
 var navItems = [{ name: 'a page' }];
 
 var INITIAL_STATE = { all: navItems, currentItem: null };
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("prop-types");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom/server");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router");
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("semantic-ui-react");
 
 /***/ })
 /******/ ]);

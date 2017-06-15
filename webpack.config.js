@@ -21,7 +21,7 @@ module.exports = [
         externals: [nodeExternals()]
     },
     {
-        entry: './src/views/index.js',
+        entry: './views/index.js',
         output: {
             path: __dirname + '/bin',
             filename: 'app.bundle.js'
