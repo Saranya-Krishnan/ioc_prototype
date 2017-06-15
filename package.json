@@ -42,6 +42,7 @@
     "start": "node server.bundle.js",
     "develop": "npm run build & nodemon server.bundle.js & webpack --watch",
     "build": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "heroku": "npm start"
   }
 }
