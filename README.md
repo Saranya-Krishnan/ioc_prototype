@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/doodlegabe/ioc_prototype.svg?branch=master)](https://travis-ci.org/doodlegabe/ioc_prototype)
+
 ## Internet of Creativity Concept App
 
 This application will outline some of the capabilities of a the actual application.
