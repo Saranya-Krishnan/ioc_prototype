@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import LogIn from '../components/login';
+import { Container } from 'semantic-ui-react'
+import Nav from '../components/nav';
+import SignUp from './sign-up';
 
 export default class Ioc extends Component {
     render() {
         return (
-            <LogIn user="Moleskine"/>
+            <Container>
+                <Container text>
+                    <Nav></Nav>
+                </Container>
+                <Container>
+
+                    {/*{this.props.content}*/}
+
+                    <SignUp></SignUp>
+                </Container>
+            </Container>
         );
     }
 }

@@ -1,10 +1,10 @@
 @import "palette";
 
 body{
-  background-color: setcolor('creme',dark);
+  background-color: setcolor('white');
   color: setcolor('black');
 }
 
-.notice, .alert{
-  display: none;
+.page-holder{
+  padding-top: 2rem;
 }
