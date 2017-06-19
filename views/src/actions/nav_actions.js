@@ -1,8 +1,8 @@
-export const ITEM_CLICKED = 'ITEM_CLICKED';
+import * as NavActionTypes from '../action_types/nav';
 
-export function selectItem(listItem) {
+export const clickMenuItem = name => {
     return {
-        type: ITEM_CLICKED,
-        payload: listItem
+        type: NavActionTypes.NAV_ITEM_CLICKED,
+        name
     };
-}
+};

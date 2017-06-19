@@ -1,15 +1,16 @@
-import {ITEM_CLICKED} from '../actions/nav_actions';
+import * as NavActionTypes from '../action_types/nav';
 
-const navItems = [
-    {name:'a page'}
-];
-
-const INITIAL_STATE  = {all: navItems, currentItem: null};
-
-export default function(state= INITIAL_STATE, action){
-    switch(action.type){
-        case ITEM_CLICKED:
-            return { state, item: action.payload };
+export default function Nav(state, action) {
+    switch(action.type) {
+        case NavActionTypes.NAV_ITEM_CLICKED:
+            //ToDo: fix ...
+            if(state.Nav){
+                state.Nav.activeItem = action.name;
+            }else{
+                state.activeItem = action.name;
+                state.Nav = state;
+            }
+           return state.Nav;
         default:
             return state;
     }

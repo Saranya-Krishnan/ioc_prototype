@@ -63,20 +63,20 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("react");
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react");
+module.exports = require("semantic-ui-react");
 
 /***/ }),
 /* 2 */
@@ -86,6 +86,24 @@ module.exports = require("redux");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var NAV_ITEM_CLICKED = exports.NAV_ITEM_CLICKED = 'NAV_ITEM_CLICKED';
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95,29 +113,162 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(0);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _propTypes = __webpack_require__(23);
 
-var _server = __webpack_require__(9);
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Nav = function Nav(props) {
+    return _react2.default.createElement(
+        _semanticUiReact.Container,
+        { text: true },
+        _react2.default.createElement(
+            _semanticUiReact.Menu,
+            { pointing: true, secondary: true },
+            _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'home', active: props.activeItem === 'home', onClick: function onClick() {
+                    return props.clickMenuItem('home');
+                } }),
+            !props.isLoggedIn && _react2.default.createElement(
+                _semanticUiReact.Menu.Menu,
+                { position: 'right' },
+                _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'sign up', active: props.activeItem === 'sign up', onClick: function onClick() {
+                        return props.clickMenuItem('sign up');
+                    } }),
+                _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'sign in', active: props.activeItem === 'sign in', onClick: function onClick() {
+                        return props.clickMenuItem('sign in');
+                    } })
+            ),
+            props.isLoggedIn && _react2.default.createElement(
+                _semanticUiReact.Menu.Menu,
+                { position: 'right' },
+                _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'profile', active: props.activeItem === 'profile', onClick: function onClick() {
+                        return props.clickMenuItem('profile');
+                    } })
+            )
+        )
+    );
+};
+
+Nav.propTypes = {
+    clickMenuItem: _propTypes2.default.func.isRequired,
+    activeItem: _propTypes2.default.string,
+    isLoggedIn: _propTypes2.default.bool,
+    redirect: _propTypes2.default.bool
+};
+
+exports.default = Nav;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var sw = __webpack_require__(27);
+var _ = __webpack_require__(21);
+
+exports.writeResponse = function writeResponse(res, response, status) {
+  sw.setHeaders(res);
+  res.status(status || 200).send(JSON.stringify(response));
+};
+
+exports.writeError = function writeError(res, error, status) {
+  sw.setHeaders(res);
+  res.status(error.status || status || 400).send(JSON.stringify(_.omit(error, ['status'])));
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _nconf = __webpack_require__(22);
+
+var _nconf2 = _interopRequireDefault(_nconf);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_nconf2.default.env(['PORT', 'NODE_ENV']).argv({
+    'e': {
+        alias: 'NODE_ENV',
+        describe: 'Set production or development mode.',
+        demand: false,
+        default: 'development'
+    },
+    'p': {
+        alias: 'PORT',
+        describe: 'Port to run on.',
+        demand: false,
+        default: 3030
+    },
+    'n': {
+        alias: "neo4j",
+        describe: "Use local or remote neo4j instance",
+        demand: false,
+        default: "local"
+    }
+}).defaults({
+    'USERNAME': process.env.MOVIE_DATABASE_USERNAME,
+    'PASSWORD': process.env.MOVIE_DATABASE_PASSWORD,
+    'neo4j': 'local',
+    'neo4j-local': 'bolt://localhost:7687',
+    'neo4j-remote': 'bolt:http://162.243.100.222:7687',
+    'base_url': 'http://localhost:3030',
+    'api_path': '/api/v0'
+});
+
+module.exports = _nconf2.default;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _express = __webpack_require__(3);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(25);
+
+var _server = __webpack_require__(24);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _index = __webpack_require__(7);
+var _nav = __webpack_require__(20);
 
-var _index2 = _interopRequireDefault(_index);
+var _nav2 = _interopRequireDefault(_nav);
 
 var _redux = __webpack_require__(2);
 
-var _reactRedux = __webpack_require__(10);
+var _reactRedux = __webpack_require__(6);
 
-var _ioc = __webpack_require__(6);
+var _ioc = __webpack_require__(17);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -127,7 +278,7 @@ var router = _express2.default.Router();
 
 router.get('*', function (req, res) {
     var context = {};
-    var store = (0, _redux.createStore)(_index2.default);
+    var store = (0, _redux.createStore)(_nav2.default);
     var html = _server2.default.renderToString(_react2.default.createElement(
         _reactRouter.StaticRouter,
         { location: req.url, context: context },
@@ -155,34 +306,136 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 4 */
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("body-parser");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("method-override");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("swagger-jsdoc");
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {
 
-
-var _express = __webpack_require__(0);
+var _express = __webpack_require__(3);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(3);
+var _index = __webpack_require__(9);
 
 var _index2 = _interopRequireDefault(_index);
 
+var _neo4j = __webpack_require__(8);
+
+var _neo4j2 = _interopRequireDefault(_neo4j);
+
+var _methodOverride = __webpack_require__(11);
+
+var _methodOverride2 = _interopRequireDefault(_methodOverride);
+
+var _swaggerJsdoc = __webpack_require__(13);
+
+var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
+
+var _bodyParser = __webpack_require__(10);
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+var _response = __webpack_require__(7);
+
+var _response2 = _interopRequireDefault(_response);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var path = __webpack_require__(12);
+//import setAuthUser from './middlewares/setAuthUser';
+//import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
+
+
 var app = (0, _express2.default)();
+var api = (0, _express2.default)();
+
+app.use(_neo4j2.default.get('api_path'), api);
+
+var swaggerDefinition = {
+    info: {
+        title: 'Neo4j Movie Demo API (Node/Express)',
+        version: '1.0.0',
+        description: ''
+    },
+    host: 'localhost:3000',
+    basePath: '/'
+};
+
+// options for the swagger docs
+var options = {
+    // import swaggerDefinitions
+    swaggerDefinition: swaggerDefinition,
+    // path to the API docs
+    apis: ['./routes/*.js']
+};
+
+var swaggerSpec = (0, _swaggerJsdoc2.default)(options);
+
+api.get('/swagger.json', function (req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
+app.use('/docs', _express2.default.static(path.join(__dirname, 'swaggerui')));
+app.set('port', _neo4j2.default.get('PORT'));
 
 app.use('/bin', _express2.default.static('./bin'));
 app.use('/', _index2.default);
 app.use('/view/*', _index2.default);
 
+api.use(_bodyParser2.default.json());
+api.use((0, _methodOverride2.default)());
+
+//enable CORS
+api.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+});
+
+//api error handler
+api.use(function (err, req, res, next) {
+    if (err && err.status) {
+        (0, _response2.default)(res, err);
+    } else next(err);
+});
+
+//api.use(setAuthUser);
+//api.use(neo4jSessionCleanup);
+
 app.listen(3000, function () {
     console.log('Ioc Express Server started');
 });
+/* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 5 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -191,18 +444,23 @@ app.listen(3000, function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.selectItem = selectItem;
-var ITEM_CLICKED = exports.ITEM_CLICKED = 'ITEM_CLICKED';
+exports.clickMenuItem = undefined;
 
-function selectItem(listItem) {
+var _nav = __webpack_require__(4);
+
+var NavActionTypes = _interopRequireWildcard(_nav);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var clickMenuItem = exports.clickMenuItem = function clickMenuItem(name) {
     return {
-        type: ITEM_CLICKED,
-        payload: listItem
+        type: NavActionTypes.NAV_ITEM_CLICKED,
+        name: name
     };
-}
+};
 
 /***/ }),
-/* 6 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -214,19 +472,107 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(12);
+var _redux = __webpack_require__(2);
 
-var _nav = __webpack_require__(13);
+var _reactRedux = __webpack_require__(6);
+
+var _nav_actions = __webpack_require__(15);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _nav = __webpack_require__(5);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _signUp = __webpack_require__(16);
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Home = function (_Component) {
+    _inherits(Home, _Component);
+
+    function Home() {
+        _classCallCheck(this, Home);
+
+        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+    }
+
+    _createClass(Home, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                dispatch = _props.dispatch,
+                menu = _props.menu;
+
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            return _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
+                _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Home'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Home;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        menu: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _home = __webpack_require__(16);
+
+var _home2 = _interopRequireDefault(_home);
+
+var _signUp = __webpack_require__(18);
 
 var _signUp2 = _interopRequireDefault(_signUp);
+
+var _reactRouterDom = __webpack_require__(26);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -253,13 +599,9 @@ var Ioc = function (_Component) {
                 null,
                 _react2.default.createElement(
                     _semanticUiReact.Container,
-                    { text: true },
-                    _react2.default.createElement(_nav2.default, null)
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Container,
                     null,
-                    _react2.default.createElement(_signUp2.default, null)
+                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _home2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-up', component: _signUp2.default })
                 )
             );
         }
@@ -271,7 +613,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 7 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -281,169 +623,17 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(2);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _nav = __webpack_require__(8);
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _nav = __webpack_require__(5);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var rootReducer = (0, _redux.combineReducers)({
-    navItems: _nav2.default
-});
-
-exports.default = rootReducer;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case _nav_actions.ITEM_CLICKED:
-            return { state: state, item: action.payload };
-        default:
-            return state;
-    }
-};
-
-var _nav_actions = __webpack_require__(5);
-
-var navItems = [{ name: 'a page' }];
-
-var INITIAL_STATE = { all: navItems, currentItem: null };
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom/server");
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router");
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("semantic-ui-react");
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _semanticUiReact = __webpack_require__(12);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Nav = function (_Component) {
-    _inherits(Nav, _Component);
-
-    function Nav() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
-        _classCallCheck(this, Nav);
-
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Nav.__proto__ || Object.getPrototypeOf(Nav)).call.apply(_ref, [this].concat(args))), _this), _this.state = { activeItem: 'home' }, _this.handleItemClick = function (e, _ref2) {
-            var name = _ref2.name;
-            return _this.setState({ activeItem: name });
-        }, _temp), _possibleConstructorReturn(_this, _ret);
-    }
-
-    _createClass(Nav, [{
-        key: 'render',
-        value: function render() {
-            var activeItem = this.state.activeItem;
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    _semanticUiReact.Menu,
-                    { pointing: true, secondary: true },
-                    _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'home', active: activeItem === 'home', onClick: this.handleItemClick }),
-                    _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'messages', active: activeItem === 'messages', onClick: this.handleItemClick }),
-                    _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'friends', active: activeItem === 'friends', onClick: this.handleItemClick }),
-                    _react2.default.createElement(
-                        _semanticUiReact.Menu.Menu,
-                        { position: 'right' },
-                        _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'logout', active: activeItem === 'logout', onClick: this.handleItemClick })
-                    )
-                )
-            );
-        }
-    }]);
-
-    return Nav;
-}(_react.Component);
-
-exports.default = Nav;
-
-/***/ }),
-/* 14 */,
-/* 15 */,
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _semanticUiReact = __webpack_require__(12);
+var _semanticUiReact = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -482,46 +672,51 @@ var SignUp = function (_Component) {
 
             return _react2.default.createElement(
                 _semanticUiReact.Container,
-                { className: 'sign-up page-holder' },
+                null,
+                _react2.default.createElement(_nav2.default, { activeItem: 'sign-up' }),
                 _react2.default.createElement(
                     _semanticUiReact.Container,
-                    { className: 'large-visual' },
-                    _react2.default.createElement(_semanticUiReact.Image, { src: 'http://via.placeholder.com/1250x550', fluid: true })
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Container,
-                    { text: true, className: 'sign-up-form' },
+                    { className: 'sign-up page-holder' },
                     _react2.default.createElement(
-                        _semanticUiReact.Segment,
-                        null,
+                        _semanticUiReact.Container,
+                        { className: 'large-visual' },
+                        _react2.default.createElement(_semanticUiReact.Image, { src: 'http://via.placeholder.com/1250x550', fluid: true })
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Container,
+                        { text: true, className: 'sign-up-form' },
                         _react2.default.createElement(
-                            _semanticUiReact.Form,
+                            _semanticUiReact.Segment,
                             null,
                             _react2.default.createElement(
-                                _semanticUiReact.Form.Group,
-                                { widths: 'equal' },
-                                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'First name', placeholder: 'First name' }),
-                                _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Last name', placeholder: 'Last name' }),
-                                _react2.default.createElement(_semanticUiReact.Form.Select, { label: 'Gender', options: options, placeholder: 'Gender' })
-                            ),
-                            _react2.default.createElement(
-                                _semanticUiReact.Form.Group,
-                                { inline: true },
-                                _react2.default.createElement(
-                                    'label',
-                                    null,
-                                    'Size'
-                                ),
-                                _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Small', value: 'sm', checked: value === 'sm', onChange: this.handleChange }),
-                                _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Medium', value: 'md', checked: value === 'md', onChange: this.handleChange }),
-                                _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Large', value: 'lg', checked: value === 'lg', onChange: this.handleChange })
-                            ),
-                            _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'About', placeholder: 'Tell us more about you...' }),
-                            _react2.default.createElement(_semanticUiReact.Form.Checkbox, { label: 'I agree to the Terms and Conditions' }),
-                            _react2.default.createElement(
-                                _semanticUiReact.Form.Button,
+                                _semanticUiReact.Form,
                                 null,
-                                'Submit'
+                                _react2.default.createElement(
+                                    _semanticUiReact.Form.Group,
+                                    { widths: 'equal' },
+                                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'First name', placeholder: 'First name' }),
+                                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Last name', placeholder: 'Last name' }),
+                                    _react2.default.createElement(_semanticUiReact.Form.Select, { label: 'Gender', options: options, placeholder: 'Gender' })
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Form.Group,
+                                    { inline: true },
+                                    _react2.default.createElement(
+                                        'label',
+                                        null,
+                                        'Size'
+                                    ),
+                                    _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Small', value: 'sm', checked: value === 'sm', onChange: this.handleChange }),
+                                    _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Medium', value: 'md', checked: value === 'md', onChange: this.handleChange }),
+                                    _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Large', value: 'lg', checked: value === 'lg', onChange: this.handleChange })
+                                ),
+                                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'About', placeholder: 'Tell us more about you...' }),
+                                _react2.default.createElement(_semanticUiReact.Form.Checkbox, { label: 'I agree to the Terms and Conditions' }),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Form.Button,
+                                    null,
+                                    'Submit'
+                                )
                             )
                         )
                     )
@@ -535,6 +730,83 @@ var SignUp = function (_Component) {
 
 exports.default = SignUp;
 ;
+
+/***/ }),
+/* 19 */,
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = Nav;
+
+var _nav = __webpack_require__(4);
+
+var NavActionTypes = _interopRequireWildcard(_nav);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function Nav(state, action) {
+    switch (action.type) {
+        case NavActionTypes.NAV_ITEM_CLICKED:
+            //ToDo: fix ...
+            if (state.Nav) {
+                state.Nav.activeItem = action.name;
+            } else {
+                state.activeItem = action.name;
+                state.Nav = state;
+            }
+            return state.Nav;
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("nconf");
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = require("prop-types");
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom/server");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = require("swagger-node-express");
 
 /***/ })
 /******/ ]);

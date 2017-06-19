@@ -2,7 +2,7 @@ import express from 'express';
 import React from 'react';
 import {StaticRouter} from 'react-router'
 import ReactDOMServer from 'react-dom/server'
-import reducers from '../views/src/reducers/index';
+import NavReducer from '../views/src/reducers/nav'
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Ioc from '../views/src/containers/ioc';
@@ -11,7 +11,7 @@ let router = express.Router();
 
 router.get('*', (req, res) => {
     let context = {};
-    const store = createStore(reducers);
+    const store = createStore(NavReducer);
     const html = ReactDOMServer.renderToString(
         <StaticRouter location={req.url} context={context}>
             <Provider store={store}>

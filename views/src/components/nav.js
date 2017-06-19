@@ -1,24 +1,34 @@
-import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import React from 'react'
+import PropTypes from 'prop-types';
+import { Menu, Container } from 'semantic-ui-react'
 
-export default class Nav extends Component {
-    state = { activeItem: 'home' };
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
-    render() {
-        const { activeItem } = this.state;
+const Nav = props => {
         return (
-            <div>
+            <Container text>
                 <Menu pointing secondary>
-                    <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-                    <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick} />
-                    <Menu.Item name='friends' active={activeItem === 'friends'} onClick={this.handleItemClick} />
-                    <Menu.Menu position='right'>
-                        <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />
-                    </Menu.Menu>
+                    <Menu.Item name='home' active={props.activeItem === 'home'} onClick={ () => props.clickMenuItem('home')}/>
+                    { !props.isLoggedIn &&
+                        <Menu.Menu position='right'>
+                            <Menu.Item name='sign up' active={props.activeItem === 'sign up'} onClick={ () => props.clickMenuItem('sign up')}/>
+                            <Menu.Item name='sign in' active={props.activeItem === 'sign in'} onClick={ () => props.clickMenuItem('sign in')}/>
+                        </Menu.Menu>
+                    }
+                    { props.isLoggedIn &&
+                        <Menu.Menu position='right'>
+                            <Menu.Item name='profile' active={props.activeItem === 'profile'} onClick={ () => props.clickMenuItem('profile')}/>
+                        </Menu.Menu>
+                    }
                 </Menu>
-            </div>
+            </Container>
         )
-    }
-}
+};
+
+Nav.propTypes = {
+    clickMenuItem: PropTypes.func.isRequired,
+    activeItem: PropTypes.string,
+    isLoggedIn: PropTypes.bool,
+    redirect: PropTypes.bool
+};
+
+export default Nav;

@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react'
-import Nav from '../components/nav';
+import Home from './home';
 import SignUp from './sign-up';
+import { Route } from 'react-router-dom';
 
 export default class Ioc extends Component {
     render() {
         return (
             <Container>
-                <Container text>
-                    <Nav></Nav>
-                </Container>
                 <Container>
-
-                    {/*{this.props.content}*/}
-
-                    <SignUp></SignUp>
+                    <Route exact={true} path="/" component={Home}/>
+                    <Route path="/sign-up" component={SignUp}/>
                 </Container>
             </Container>
         );
