@@ -82,16 +82,10 @@ module.exports = require("semantic-ui-react");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux");
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
 module.exports = require("express");
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103,7 +97,7 @@ Object.defineProperty(exports, "__esModule", {
 var NAV_ITEM_CLICKED = exports.NAV_ITEM_CLICKED = 'NAV_ITEM_CLICKED';
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -117,11 +111,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(23);
+var _propTypes = __webpack_require__(22);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
+
+var _reactRouterDom = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -132,25 +128,41 @@ var Nav = function Nav(props) {
         _react2.default.createElement(
             _semanticUiReact.Menu,
             { pointing: true, secondary: true },
-            _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'home', active: props.activeItem === 'home', onClick: function onClick() {
-                    return props.clickMenuItem('home');
-                } }),
+            _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/', className: props.activeItem === 'home' ? 'active item' : 'item', onClick: function onClick() {
+                        return props.clickMenuItem('home');
+                    } },
+                'home'
+            ),
             !props.isLoggedIn && _react2.default.createElement(
                 _semanticUiReact.Menu.Menu,
                 { position: 'right' },
-                _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'sign up', active: props.activeItem === 'sign up', onClick: function onClick() {
-                        return props.clickMenuItem('sign up');
-                    } }),
-                _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'sign in', active: props.activeItem === 'sign in', onClick: function onClick() {
-                        return props.clickMenuItem('sign in');
-                    } })
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/sign-in', className: props.activeItem === 'sign-in' ? 'active item' : 'item', onClick: function onClick() {
+                            return props.clickMenuItem('sign-in');
+                        } },
+                    'sign in'
+                ),
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/sign-up', className: props.activeItem === 'sign-up' ? 'active item' : 'item', onClick: function onClick() {
+                            return props.clickMenuItem('sign-up');
+                        } },
+                    'sign up'
+                )
             ),
             props.isLoggedIn && _react2.default.createElement(
                 _semanticUiReact.Menu.Menu,
                 { position: 'right' },
-                _react2.default.createElement(_semanticUiReact.Menu.Item, { name: 'profile', active: props.activeItem === 'profile', onClick: function onClick() {
-                        return props.clickMenuItem('profile');
-                    } })
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/profile', className: props.activeItem === 'profile' ? 'active item' : 'item', onClick: function onClick() {
+                            return props.clickMenuItem('profile');
+                        } },
+                    'profile'
+                )
             )
         )
     );
@@ -158,7 +170,7 @@ var Nav = function Nav(props) {
 
 Nav.propTypes = {
     clickMenuItem: _propTypes2.default.func.isRequired,
-    activeItem: _propTypes2.default.string,
+    activeItem: _propTypes2.default.string.isRequired,
     isLoggedIn: _propTypes2.default.bool,
     redirect: _propTypes2.default.bool
 };
@@ -166,10 +178,16 @@ Nav.propTypes = {
 exports.default = Nav;
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-redux");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
 
 /***/ }),
 /* 7 */
@@ -178,8 +196,8 @@ module.exports = require("react-redux");
 "use strict";
 
 
-var sw = __webpack_require__(27);
-var _ = __webpack_require__(21);
+var sw = __webpack_require__(26);
+var _ = __webpack_require__(20);
 
 exports.writeResponse = function writeResponse(res, response, status) {
   sw.setHeaders(res);
@@ -198,7 +216,7 @@ exports.writeError = function writeError(res, error, status) {
 "use strict";
 
 
-var _nconf = __webpack_require__(22);
+var _nconf = __webpack_require__(21);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
@@ -246,7 +264,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(3);
+var _express = __webpack_require__(2);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -254,19 +272,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(25);
+var _reactRouter = __webpack_require__(24);
 
-var _server = __webpack_require__(24);
+var _server = __webpack_require__(23);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _nav = __webpack_require__(20);
+var _nav = __webpack_require__(19);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _redux = __webpack_require__(2);
+var _redux = __webpack_require__(6);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _ioc = __webpack_require__(17);
 
@@ -336,7 +354,7 @@ module.exports = require("swagger-jsdoc");
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var _express = __webpack_require__(3);
+var _express = __webpack_require__(2);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -446,7 +464,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clickMenuItem = undefined;
 
-var _nav = __webpack_require__(4);
+var _nav = __webpack_require__(3);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -476,15 +494,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(2);
+var _redux = __webpack_require__(6);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
+
+var _propTypes = __webpack_require__(22);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _nav_actions = __webpack_require__(15);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _nav = __webpack_require__(5);
+var _nav = __webpack_require__(4);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -537,6 +559,11 @@ var Home = function (_Component) {
     return Home;
 }(_react.Component);
 
+Home.propTypes = {
+    menu: _propTypes2.default.object.isRequired
+};
+
+
 var mapStateToProps = function mapStateToProps(state) {
     return {
         menu: state
@@ -572,7 +599,15 @@ var _signUp = __webpack_require__(18);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _reactRouterDom = __webpack_require__(26);
+var _signIn = __webpack_require__(28);
+
+var _signIn2 = _interopRequireDefault(_signIn);
+
+var _profile = __webpack_require__(27);
+
+var _profile2 = _interopRequireDefault(_profile);
+
+var _reactRouterDom = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -601,7 +636,9 @@ var Ioc = function (_Component) {
                     _semanticUiReact.Container,
                     null,
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _home2.default }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-up', component: _signUp2.default })
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-up', component: _signUp2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-in', component: _signIn2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { path: '/profile', component: _profile2.default })
                 )
             );
         }
@@ -629,11 +666,25 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _nav = __webpack_require__(5);
+var _redux = __webpack_require__(6);
+
+var _reactRedux = __webpack_require__(5);
+
+var _propTypes = __webpack_require__(22);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _nav_actions = __webpack_require__(15);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _nav = __webpack_require__(4);
 
 var _nav2 = _interopRequireDefault(_nav);
 
 var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -643,82 +694,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var options = [{ key: 'm', text: 'Male', value: 'male' }, { key: 'f', text: 'Female', value: 'female' }];
-
 var SignUp = function (_Component) {
     _inherits(SignUp, _Component);
 
     function SignUp() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
         _classCallCheck(this, SignUp);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _this.handleChange = function (e, _ref2) {
-            var value = _ref2.value;
-            return _this.setState({ value: value });
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        return _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).apply(this, arguments));
     }
 
     _createClass(SignUp, [{
         key: 'render',
         value: function render() {
-            var value = this.state.value;
+            var _props = this.props,
+                dispatch = _props.dispatch,
+                menu = _props.menu;
 
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
             return _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,
-                _react2.default.createElement(_nav2.default, { activeItem: 'sign-up' }),
+                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
                 _react2.default.createElement(
-                    _semanticUiReact.Container,
-                    { className: 'sign-up page-holder' },
+                    _semanticUiReact.Segment,
+                    null,
                     _react2.default.createElement(
-                        _semanticUiReact.Container,
-                        { className: 'large-visual' },
-                        _react2.default.createElement(_semanticUiReact.Image, { src: 'http://via.placeholder.com/1250x550', fluid: true })
-                    ),
-                    _react2.default.createElement(
-                        _semanticUiReact.Container,
-                        { text: true, className: 'sign-up-form' },
-                        _react2.default.createElement(
-                            _semanticUiReact.Segment,
-                            null,
-                            _react2.default.createElement(
-                                _semanticUiReact.Form,
-                                null,
-                                _react2.default.createElement(
-                                    _semanticUiReact.Form.Group,
-                                    { widths: 'equal' },
-                                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'First name', placeholder: 'First name' }),
-                                    _react2.default.createElement(_semanticUiReact.Form.Input, { label: 'Last name', placeholder: 'Last name' }),
-                                    _react2.default.createElement(_semanticUiReact.Form.Select, { label: 'Gender', options: options, placeholder: 'Gender' })
-                                ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Form.Group,
-                                    { inline: true },
-                                    _react2.default.createElement(
-                                        'label',
-                                        null,
-                                        'Size'
-                                    ),
-                                    _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Small', value: 'sm', checked: value === 'sm', onChange: this.handleChange }),
-                                    _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Medium', value: 'md', checked: value === 'md', onChange: this.handleChange }),
-                                    _react2.default.createElement(_semanticUiReact.Form.Radio, { label: 'Large', value: 'lg', checked: value === 'lg', onChange: this.handleChange })
-                                ),
-                                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'About', placeholder: 'Tell us more about you...' }),
-                                _react2.default.createElement(_semanticUiReact.Form.Checkbox, { label: 'I agree to the Terms and Conditions' }),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Form.Button,
-                                    null,
-                                    'Submit'
-                                )
-                            )
-                        )
+                        'h1',
+                        null,
+                        'Sign Up'
                     )
                 )
             );
@@ -728,12 +731,21 @@ var SignUp = function (_Component) {
     return SignUp;
 }(_react.Component);
 
-exports.default = SignUp;
-;
+SignUp.propTypes = {
+    menu: _propTypes2.default.object.isRequired
+};
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        menu: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUp);
 
 /***/ }),
-/* 19 */,
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -744,69 +756,262 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Nav;
 
-var _nav = __webpack_require__(4);
+var _nav = __webpack_require__(3);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function Nav(state, action) {
+var initialState = {
+    activeItem: 'home',
+    isLoggedIn: false,
+    isRedirect: false
+};
+
+function Nav() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
     switch (action.type) {
         case NavActionTypes.NAV_ITEM_CLICKED:
-            //ToDo: fix ...
-            if (state.Nav) {
-                state.Nav.activeItem = action.name;
-            } else {
-                state.activeItem = action.name;
-                state.Nav = state;
-            }
-            return state.Nav;
+            state.activeItem = action.name;
+            return state;
         default:
             return state;
     }
 }
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash");
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("nconf");
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(6);
+
+var _reactRedux = __webpack_require__(5);
+
+var _propTypes = __webpack_require__(22);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _nav_actions = __webpack_require__(15);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _nav = __webpack_require__(4);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Profile = function (_Component) {
+    _inherits(Profile, _Component);
+
+    function Profile() {
+        _classCallCheck(this, Profile);
+
+        return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
+    }
+
+    _createClass(Profile, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                dispatch = _props.dispatch,
+                menu = _props.menu;
+
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            return _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
+                _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Profile'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Profile;
+}(_react.Component);
+
+Profile.propTypes = {
+    menu: _propTypes2.default.object.isRequired
+};
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        menu: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(6);
+
+var _reactRedux = __webpack_require__(5);
+
+var _propTypes = __webpack_require__(22);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _nav_actions = __webpack_require__(15);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _nav = __webpack_require__(4);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SignIn = function (_Component) {
+    _inherits(SignIn, _Component);
+
+    function SignIn() {
+        _classCallCheck(this, SignIn);
+
+        return _possibleConstructorReturn(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).apply(this, arguments));
+    }
+
+    _createClass(SignIn, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                dispatch = _props.dispatch,
+                menu = _props.menu;
+
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            return _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
+                _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Sign In'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return SignIn;
+}(_react.Component);
+
+SignIn.propTypes = {
+    menu: _propTypes2.default.object.isRequired
+};
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        menu: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignIn);
 
 /***/ })
 /******/ ]);

@@ -12,7 +12,7 @@ import Ioc from './src/containers/ioc';
 const initialState = window.__INITIAL_STATE__;
 
 ReactDOM.render(
-    <Provider store={createStore(NavReducer, initialState)}>
+    <Provider store={createStore(NavReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
         <BrowserRouter>
             <Ioc />
         </BrowserRouter>

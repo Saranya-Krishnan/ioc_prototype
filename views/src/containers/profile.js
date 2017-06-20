@@ -6,7 +6,7 @@ import * as NavActionCreators from '../actions/nav_actions';
 import Nav from '../components/nav';
 import {Container, Segment } from 'semantic-ui-react';
 
-class SignIn extends Component {
+class Profile extends Component {
     static propTypes = {
         menu: PropTypes.object.isRequired
     };
@@ -17,7 +17,7 @@ class SignIn extends Component {
             <Container>
                 <Nav activeItem={menu.activeItem} clickMenuItem={clickMenuItem}></Nav>
                 <Segment>
-                    <h1>Sign In</h1>
+                    <h1>Profile</h1>
                 </Segment>
             </Container>
         );
@@ -30,4 +30,4 @@ const mapStateToProps = state => (
     }
 );
 
-export default connect(mapStateToProps)(SignIn);
+export default connect(mapStateToProps)(Profile);

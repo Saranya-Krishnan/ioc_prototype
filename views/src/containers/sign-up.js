@@ -1,48 +1,33 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as NavActionCreators from '../actions/nav_actions';
 import Nav from '../components/nav';
-import { Form, Container, Image, Segment } from 'semantic-ui-react'
+import {Container, Segment } from 'semantic-ui-react';
 
-const options = [
-    { key: 'm', text: 'Male', value: 'male' },
-    { key: 'f', text: 'Female', value: 'female' },
-];
-
-export default class SignUp extends Component {
-    state = {};
-
-    handleChange = (e, { value }) => this.setState({ value });
-
+class SignUp extends Component {
+    static propTypes = {
+        menu: PropTypes.object.isRequired
+    };
     render() {
-        const { value } = this.state;
+        const { dispatch, menu } = this.props;
+        const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         return (
             <Container>
-                <Nav activeItem={'sign-up'}></Nav>
-                <Container className="sign-up page-holder">
-                    <Container className="large-visual">
-                        <Image src='http://via.placeholder.com/1250x550' fluid />
-                    </Container>
-                    <Container text className="sign-up-form">
-                        <Segment>
-                            <Form>
-                                <Form.Group widths='equal'>
-                                    <Form.Input label='First name' placeholder='First name' />
-                                    <Form.Input label='Last name' placeholder='Last name' />
-                                    <Form.Select label='Gender' options={options} placeholder='Gender' />
-                                </Form.Group>
-                                <Form.Group inline>
-                                    <label>Size</label>
-                                    <Form.Radio label='Small' value='sm' checked={value === 'sm'} onChange={this.handleChange} />
-                                    <Form.Radio label='Medium' value='md' checked={value === 'md'} onChange={this.handleChange} />
-                                    <Form.Radio label='Large' value='lg' checked={value === 'lg'} onChange={this.handleChange} />
-                                </Form.Group>
-                                <Form.TextArea label='About' placeholder='Tell us more about you...' />
-                                <Form.Checkbox label='I agree to the Terms and Conditions' />
-                                <Form.Button>Submit</Form.Button>
-                            </Form>
-                        </Segment>
-                    </Container>
-                </Container>
+                <Nav activeItem={menu.activeItem} clickMenuItem={clickMenuItem}></Nav>
+                <Segment>
+                    <h1>Sign Up</h1>
+                </Segment>
             </Container>
-        )
+        );
     }
-};
+}
+
+const mapStateToProps = state => (
+    {
+        menu: state
+    }
+);
+
+export default connect(mapStateToProps)(SignUp);
