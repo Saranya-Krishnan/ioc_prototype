@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import Nav from '../components/nav';
-import {Container, Segment } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
 class Home extends Component {
     static propTypes = {
@@ -16,9 +16,6 @@ class Home extends Component {
         return (
             <Container>
                 <Nav activeItem={menu.activeItem} clickMenuItem={clickMenuItem}></Nav>
-                <Segment>
-                    <h1>Home</h1>
-                </Segment>
             </Container>
         );
     }

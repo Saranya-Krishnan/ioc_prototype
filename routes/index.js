@@ -6,7 +6,6 @@ import NavReducer from '../views/src/reducers/nav'
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Ioc from '../views/src/containers/ioc';
-
 let router = express.Router();
 
 router.get('*', (req, res) => {

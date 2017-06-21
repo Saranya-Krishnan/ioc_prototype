@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -82,22 +82,47 @@ module.exports = require("semantic-ui-react");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("prop-types");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-var NAV_ITEM_CLICKED = exports.NAV_ITEM_CLICKED = 'NAV_ITEM_CLICKED';
+exports.clickMenuItem = undefined;
+
+var _nav = __webpack_require__(8);
+
+var NavActionTypes = _interopRequireWildcard(_nav);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var clickMenuItem = exports.clickMenuItem = function clickMenuItem(name) {
+    return {
+        type: NavActionTypes.NAV_ITEM_CLICKED,
+        name: name
+    };
+};
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111,13 +136,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(22);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -178,26 +203,38 @@ Nav.propTypes = {
 exports.default = Nav;
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux");
-
-/***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sw = __webpack_require__(26);
-var _ = __webpack_require__(20);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var NAV_ITEM_CLICKED = exports.NAV_ITEM_CLICKED = 'NAV_ITEM_CLICKED';
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var sw = __webpack_require__(28);
+var _ = __webpack_require__(24);
 
 exports.writeResponse = function writeResponse(res, response, status) {
   sw.setHeaders(res);
@@ -210,13 +247,13 @@ exports.writeError = function writeError(res, error, status) {
 };
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _nconf = __webpack_require__(21);
+var _nconf = __webpack_require__(25);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
@@ -254,7 +291,7 @@ _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
 module.exports = _nconf2.default;
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -264,7 +301,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(2);
+var _express = __webpack_require__(7);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -272,21 +309,21 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(24);
+var _reactRouter = __webpack_require__(27);
 
-var _server = __webpack_require__(23);
+var _server = __webpack_require__(26);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _nav = __webpack_require__(19);
+var _nav = __webpack_require__(23);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _redux = __webpack_require__(6);
+var _redux = __webpack_require__(4);
 
-var _reactRedux = __webpack_require__(5);
+var _reactRedux = __webpack_require__(3);
 
-var _ioc = __webpack_require__(17);
+var _ioc = __webpack_require__(19);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -324,67 +361,67 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("method-override");
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-jsdoc");
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var _express = __webpack_require__(2);
+var _express = __webpack_require__(7);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(9);
+var _index = __webpack_require__(12);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _neo4j = __webpack_require__(8);
+var _neo4j = __webpack_require__(11);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
-var _methodOverride = __webpack_require__(11);
+var _methodOverride = __webpack_require__(14);
 
 var _methodOverride2 = _interopRequireDefault(_methodOverride);
 
-var _swaggerJsdoc = __webpack_require__(13);
+var _swaggerJsdoc = __webpack_require__(16);
 
 var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
 
-var _bodyParser = __webpack_require__(10);
+var _bodyParser = __webpack_require__(13);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _response = __webpack_require__(7);
+var _response = __webpack_require__(10);
 
 var _response2 = _interopRequireDefault(_response);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var path = __webpack_require__(12);
+var path = __webpack_require__(15);
 //import setAuthUser from './middlewares/setAuthUser';
 //import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
 
@@ -453,32 +490,7 @@ app.listen(3000, function () {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.clickMenuItem = undefined;
-
-var _nav = __webpack_require__(3);
-
-var NavActionTypes = _interopRequireWildcard(_nav);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var clickMenuItem = exports.clickMenuItem = function clickMenuItem(name) {
-    return {
-        type: NavActionTypes.NAV_ITEM_CLICKED,
-        name: name
-    };
-};
-
-/***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -494,19 +506,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(6);
+var _redux = __webpack_require__(4);
 
-var _reactRedux = __webpack_require__(5);
+var _reactRedux = __webpack_require__(3);
 
-var _propTypes = __webpack_require__(22);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(15);
+var _nav_actions = __webpack_require__(5);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _nav = __webpack_require__(4);
+var _nav = __webpack_require__(6);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -542,16 +554,7 @@ var Home = function (_Component) {
             return _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,
-                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
-                _react2.default.createElement(
-                    _semanticUiReact.Segment,
-                    null,
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'Home'
-                    )
-                )
+                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem })
             );
         }
     }]);
@@ -573,7 +576,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -591,23 +594,23 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _home = __webpack_require__(16);
+var _home = __webpack_require__(18);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _signUp = __webpack_require__(18);
+var _signUp = __webpack_require__(22);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _signIn = __webpack_require__(28);
+var _signIn = __webpack_require__(21);
 
 var _signIn2 = _interopRequireDefault(_signIn);
 
-var _profile = __webpack_require__(27);
+var _profile = __webpack_require__(20);
 
 var _profile2 = _interopRequireDefault(_profile);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -650,181 +653,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _redux = __webpack_require__(6);
-
-var _reactRedux = __webpack_require__(5);
-
-var _propTypes = __webpack_require__(22);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _nav_actions = __webpack_require__(15);
-
-var NavActionCreators = _interopRequireWildcard(_nav_actions);
-
-var _nav = __webpack_require__(4);
-
-var _nav2 = _interopRequireDefault(_nav);
-
-var _semanticUiReact = __webpack_require__(1);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SignUp = function (_Component) {
-    _inherits(SignUp, _Component);
-
-    function SignUp() {
-        _classCallCheck(this, SignUp);
-
-        return _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).apply(this, arguments));
-    }
-
-    _createClass(SignUp, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                dispatch = _props.dispatch,
-                menu = _props.menu;
-
-            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
-            return _react2.default.createElement(
-                _semanticUiReact.Container,
-                null,
-                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
-                _react2.default.createElement(
-                    _semanticUiReact.Segment,
-                    null,
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'Sign Up'
-                    )
-                )
-            );
-        }
-    }]);
-
-    return SignUp;
-}(_react.Component);
-
-SignUp.propTypes = {
-    menu: _propTypes2.default.object.isRequired
-};
-
-
-var mapStateToProps = function mapStateToProps(state) {
-    return {
-        menu: state
-    };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUp);
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = Nav;
-
-var _nav = __webpack_require__(3);
-
-var NavActionTypes = _interopRequireWildcard(_nav);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var initialState = {
-    activeItem: 'home',
-    isLoggedIn: false,
-    isRedirect: false
-};
-
-function Nav() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case NavActionTypes.NAV_ITEM_CLICKED:
-            state.activeItem = action.name;
-            return state;
-        default:
-            return state;
-    }
-}
-
-/***/ }),
 /* 20 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash");
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = require("nconf");
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = require("prop-types");
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom/server");
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router");
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router-dom");
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = require("swagger-node-express");
-
-/***/ }),
-/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -840,19 +669,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(6);
+var _redux = __webpack_require__(4);
 
-var _reactRedux = __webpack_require__(5);
+var _reactRedux = __webpack_require__(3);
 
-var _propTypes = __webpack_require__(22);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(15);
+var _nav_actions = __webpack_require__(5);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _nav = __webpack_require__(4);
+var _nav = __webpack_require__(6);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -919,7 +748,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ }),
-/* 28 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -935,19 +764,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(6);
+var _redux = __webpack_require__(4);
 
-var _reactRedux = __webpack_require__(5);
+var _reactRedux = __webpack_require__(3);
 
-var _propTypes = __webpack_require__(22);
+var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(15);
+var _nav_actions = __webpack_require__(5);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _nav = __webpack_require__(4);
+var _nav = __webpack_require__(6);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -1012,6 +841,168 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignIn);
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(4);
+
+var _reactRedux = __webpack_require__(3);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _nav_actions = __webpack_require__(5);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _nav = __webpack_require__(6);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SignUp = function (_Component) {
+    _inherits(SignUp, _Component);
+
+    function SignUp() {
+        _classCallCheck(this, SignUp);
+
+        return _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).apply(this, arguments));
+    }
+
+    _createClass(SignUp, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                dispatch = _props.dispatch,
+                menu = _props.menu;
+
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            return _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
+                _react2.default.createElement(
+                    _semanticUiReact.Segment,
+                    null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Sign Up'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return SignUp;
+}(_react.Component);
+
+SignUp.propTypes = {
+    menu: _propTypes2.default.object.isRequired
+};
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        menu: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUp);
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = Nav;
+
+var _nav = __webpack_require__(8);
+
+var NavActionTypes = _interopRequireWildcard(_nav);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var initialState = {
+    activeItem: 'home',
+    isLoggedIn: false,
+    isRedirect: false
+};
+
+function Nav() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case NavActionTypes.NAV_ITEM_CLICKED:
+            state.activeItem = action.name;
+            return state;
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = require("nconf");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom/server");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router");
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("swagger-node-express");
 
 /***/ })
 /******/ ]);
