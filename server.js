@@ -5,6 +5,9 @@ import nconf from './neo4j.config';
 import methodOverride from 'method-override';
 import swaggerJSDoc from 'swagger-jsdoc';
 import bodyParser from 'body-parser';
+
+
+
 //import setAuthUser from './middlewares/setAuthUser';
 //import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
 import writeError from './helpers/response';
@@ -13,6 +16,7 @@ let app = express();
 let api = express();
 
 app.use(nconf.get('api_path'), api);
+
 
 const swaggerDefinition = {
     info: {
@@ -68,6 +72,7 @@ api.use(function(err, req, res, next) {
 
 //api.use(setAuthUser);
 //api.use(neo4jSessionCleanup);
+
 
 app.listen(3000, function () {
     console.log('Ioc Express Server started');

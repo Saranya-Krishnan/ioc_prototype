@@ -233,8 +233,8 @@ module.exports = require("react-router-dom");
 "use strict";
 
 
-var sw = __webpack_require__(28);
-var _ = __webpack_require__(24);
+var sw = __webpack_require__(31);
+var _ = __webpack_require__(25);
 
 exports.writeResponse = function writeResponse(res, response, status) {
   sw.setHeaders(res);
@@ -253,7 +253,7 @@ exports.writeError = function writeError(res, error, status) {
 "use strict";
 
 
-var _nconf = __webpack_require__(25);
+var _nconf = __webpack_require__(26);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
@@ -309,13 +309,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(27);
+var _reactRouter = __webpack_require__(29);
 
-var _server = __webpack_require__(26);
+var _server = __webpack_require__(27);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _nav = __webpack_require__(23);
+var _nav = __webpack_require__(24);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -323,7 +323,7 @@ var _redux = __webpack_require__(4);
 
 var _reactRedux = __webpack_require__(3);
 
-var _ioc = __webpack_require__(19);
+var _ioc = __webpack_require__(20);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -422,6 +422,7 @@ var _response2 = _interopRequireDefault(_response);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var path = __webpack_require__(15);
+
 //import setAuthUser from './middlewares/setAuthUser';
 //import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
 
@@ -484,6 +485,7 @@ api.use(function (err, req, res, next) {
 //api.use(setAuthUser);
 //api.use(neo4jSessionCleanup);
 
+
 app.listen(3000, function () {
     console.log('Ioc Express Server started');
 });
@@ -491,6 +493,167 @@ app.listen(3000, function () {
 
 /***/ }),
 /* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDropzone = __webpack_require__(28);
+
+var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+
+var _superagent = __webpack_require__(30);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CLOUDINARY_UPLOAD_PRESET = 'iylswkmx';
+var CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hpvmvlpcu/image/upload';
+
+var ImageUploader = function (_React$Component) {
+    _inherits(ImageUploader, _React$Component);
+
+    function ImageUploader(props) {
+        _classCallCheck(this, ImageUploader);
+
+        var _this = _possibleConstructorReturn(this, (ImageUploader.__proto__ || Object.getPrototypeOf(ImageUploader)).call(this, props));
+
+        _this.state = {
+            uploadedFileCloudinaryUrl: ''
+        };
+        return _this;
+    }
+
+    _createClass(ImageUploader, [{
+        key: 'onImageDrop',
+        value: function onImageDrop(files) {
+            this.setState({
+                uploadedFile: files[0]
+            });
+            this.handleImageUpload(files[0]);
+        }
+    }, {
+        key: 'handleImageUpload',
+        value: function handleImageUpload(file) {
+            var _this2 = this;
+
+            var upload = _superagent2.default.post(CLOUDINARY_UPLOAD_URL).field('upload_preset', CLOUDINARY_UPLOAD_PRESET).field('file', file);
+            upload.end(function (err, response) {
+                if (err) {
+                    console.error(err);
+                }
+                if (response.body.secure_url !== '') {
+                    _this2.setState({
+                        uploadedFileCloudinaryUrl: response.body.secure_url
+                    });
+                }
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _semanticUiReact.Segment,
+                null,
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Upload your Moleskine artwork.'
+                ),
+                _react2.default.createElement(
+                    'form',
+                    null,
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'FileUpload' },
+                        _react2.default.createElement(
+                            _reactDropzone2.default,
+                            {
+                                onDrop: this.onImageDrop.bind(this),
+                                multiple: false,
+                                accept: 'image/*',
+                                className: 'uploader-zone',
+                                activeClassName: 'uploader-zone-active',
+                                rejectClassName: 'uploader-zone-rejected' },
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Drop an image or click to select a file to upload.'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
+                            'div',
+                            null,
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                this.state.uploadedFile.name
+                            ),
+                            _react2.default.createElement('img', { src: this.state.uploadedFileCloudinaryUrl })
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ImageUploader;
+}(_react2.default.Component);
+
+// {"public_id":"jz6h0ldxnvay65oqihra",
+// "version":1498127607,
+// "signature":"8c658775bd5e2d837ba7d76a0ef0b23be0b7b51f",
+// "width":686,
+// "height":800,
+// "format":"jpg",
+// "resource_type":"image",
+// "created_at":"2017-06-22T10:33:27Z",
+// "tags":[],"pages":1,"bytes":74855,
+// "type":"upload",
+// "etag":"3ad1a573b6f4326e0524c3fac3f0e071",
+// "url":"http://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
+// "secure_url":"https://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
+// "image_metadata":{
+// "JFIFVersion":"1.01",
+// "ResolutionUnit":"inches",
+// "XResolution":"72",
+// "YResolution":"72",
+// "Colorspace":"GRAY"},
+// "colors":[[
+// "#030303",69.4],
+// ["#F8F8F8",27.8]],
+// "predominant":{"google":[["black",69.4],["white",27.8]]},
+// "phash":"d393644e93af2b90",
+// "coordinates":{"faces":[]},"illustration_score":1.0,"semi_transparent":false,"grayscale":true,"original_filename":"3998295_orig"}
+
+
+exports.default = ImageUploader;
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -521,6 +684,10 @@ var NavActionCreators = _interopRequireWildcard(_nav_actions);
 var _nav = __webpack_require__(6);
 
 var _nav2 = _interopRequireDefault(_nav);
+
+var _imageUploader = __webpack_require__(18);
+
+var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
 var _semanticUiReact = __webpack_require__(1);
 
@@ -554,7 +721,8 @@ var Home = function (_Component) {
             return _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,
-                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem })
+                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
+                _react2.default.createElement(_imageUploader2.default, null)
             );
         }
     }]);
@@ -576,7 +744,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -594,19 +762,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _home = __webpack_require__(18);
+var _home = __webpack_require__(19);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _signUp = __webpack_require__(22);
+var _signUp = __webpack_require__(23);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _signIn = __webpack_require__(21);
+var _signIn = __webpack_require__(22);
 
 var _signIn2 = _interopRequireDefault(_signIn);
 
-var _profile = __webpack_require__(20);
+var _profile = __webpack_require__(21);
 
 var _profile2 = _interopRequireDefault(_profile);
 
@@ -653,7 +821,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,7 +916,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -843,7 +1011,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignIn);
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -938,7 +1106,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUp);
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -975,31 +1143,43 @@ function Nav() {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash");
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("nconf");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 27 */
+/* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dropzone");
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 28 */
+/* 30 */
+/***/ (function(module, exports) {
+
+module.exports = require("superagent");
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");

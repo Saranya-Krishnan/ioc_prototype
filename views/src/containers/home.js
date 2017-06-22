@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import Nav from '../components/nav';
+import ImageUploader from '../components/image-uploader';
 import { Container } from 'semantic-ui-react';
 
 class Home extends Component {
@@ -16,6 +17,7 @@ class Home extends Component {
         return (
             <Container>
                 <Nav activeItem={menu.activeItem} clickMenuItem={clickMenuItem}></Nav>
+                <ImageUploader/>
             </Container>
         );
     }
