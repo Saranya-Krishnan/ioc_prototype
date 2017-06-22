@@ -1,16 +1,16 @@
 import * as NavActionTypes from '../action_types/nav';
 
-const initialState ={
+const initialState = {
     activeItem: 'home',
-    isLoggedIn: false,
-    isRedirect:false
+    isLoggedIn: false
 };
 
 export default function Nav(state=initialState, action) {
     switch(action.type) {
         case NavActionTypes.NAV_ITEM_CLICKED:
-            state.activeItem = action.name;
-           return state;
+            return Object.assign({}, state, {
+                activeItem: action.name
+            });
         default:
             return state;
     }

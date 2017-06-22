@@ -1,8 +1,7 @@
 import uuid from 'uuid';
 import randomstring from "randomstring";
 import _ from 'lodash';
-import dbUtils from '../neo4j/dbUtils';
-import User from '../models/neo4j/user';
+import User from './neo4j_models/user';
 import crypto from 'crypto';
 
 const register = function (session, username, password) {
@@ -47,7 +46,7 @@ const login = function (session, username, password) {
           throw {username: 'username does not exist', status: 400}
         }
         else {
-          var dbUser = _.get(results.records[0].get('user'), 'properties');
+          const dbUser = _.get(results.records[0].get('user'), 'properties');
           if (dbUser.password != hashPassword(username, password)) {
             throw {password: 'wrong password', status: 400}
           }

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it displays the correct footer items 1`] = `
+<div
+  className="ui inverted vertical segment ioc-footer"
+>
+  <div
+    className="ui container center aligned"
+  >
+    <img
+      alt={undefined}
+      className="ui centered image"
+      height={undefined}
+      src={undefined}
+      width={undefined}
+    />
+    <div
+      className="ui small divided inverted link list"
+      role="list"
+    >
+      <a
+        href="/profile"
+        onClick={[Function]}
+      >
+        profile
+      </a>
+    </div>
+  </div>
+</div>
+`;

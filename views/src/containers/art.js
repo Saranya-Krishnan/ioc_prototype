@@ -8,7 +8,7 @@ import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container, Segment } from 'semantic-ui-react';
 
-class Profile extends Component {
+class Art extends Component {
     static propTypes = {
         menu: PropTypes.object.isRequired
     };
@@ -19,9 +19,9 @@ class Profile extends Component {
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav activeItem={'profile'} clickMenuItem={clickMenuItem}></Nav>
+                    <Nav activeItem={'none'} clickMenuItem={clickMenuItem}></Nav>
                     <Segment>
-                        <h1>Profile</h1>
+                        <h1>Art</h1>
                     </Segment>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
@@ -36,4 +36,4 @@ const mapStateToProps = state => (
     }
 );
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(Art);

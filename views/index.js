@@ -3,16 +3,25 @@ import ReactDOM from 'react-dom'
 import '../sass/index.scss';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import NavReducer  from './src/reducers/nav'
+import mainReducer  from './src/reducers/index';
+
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from 'react-router-dom';
 
 import Ioc from './src/containers/ioc';
 
-const initialState = window.__INITIAL_STATE__;
+const initialState = window.__INITIAL_STATE__ = {
+    Footer: {},
+    Nav: {
+        activeItem: 'home',
+        isLoggedIn: false
+    },
+    SignIn: {},
+    SignUp: {}
+};
 
 ReactDOM.render(
-    <Provider store={createStore(NavReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
+    <Provider store={createStore(mainReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>
         <BrowserRouter>
             <Ioc />
         </BrowserRouter>

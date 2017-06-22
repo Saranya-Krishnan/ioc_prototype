@@ -27,8 +27,7 @@ const Nav = props => {
 Nav.propTypes = {
     clickMenuItem: PropTypes.func.isRequired,
     activeItem: PropTypes.string.isRequired,
-    isLoggedIn: PropTypes.bool,
-    redirect: PropTypes.bool
+    isLoggedIn: PropTypes.bool
 };
 
 export default Nav;

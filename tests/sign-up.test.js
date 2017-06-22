@@ -1,15 +1,16 @@
+
 import React from 'react';
-import Nav from '../views/src/components/nav';
+import SignUp from '../views/src/components/sign-up-form';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router'
 
-test('it displays the correct navigation items', () =>{
+test('it displays the sign up form', () =>{
     const clickTest = () => {
-      return true;
+        return true;
     };
     const component = renderer.create(
         <MemoryRouter>
-            <Nav activeItem={'test'} clickMenuItem={clickTest}></Nav>
+            <SignUp clickFooterItem={'test'} Item={clickTest}></SignUp>
         </MemoryRouter>
     );
     let c = component.toJSON();

@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react'
+import Art from './art';
+import Browse from './browse';
 import Home from './home';
-import SignUp from './sign-up';
-import SignIn from './sign-in';
+import SignUpPage from './sign-up';
+import SignInPage from './sign-in';
 import Profile from './profile';
+
 import { Route } from 'react-router-dom';
 
 export default class Ioc extends Component {
     render() {
         return (
-            <Container>
-                <Container>
-                    <Route exact={true} path="/" component={Home}/>
-                    <Route path="/sign-up" component={SignUp}/>
-                    <Route path="/sign-in" component={SignIn}/>
-                    <Route path="/profile" component={Profile}/>
-                </Container>
-            </Container>
+            <div>
+                <Route exact={true} path="/" component={Home}/>
+                <Route path="/sign-up" component={SignUpPage}/>
+                <Route path="/sign-in" component={SignInPage}/>
+                <Route path="/profile" component={Profile}/>
+                <Route path="/art" component={Art}/>
+                <Route path="/browse" component={Browse}/>
+            </div>
         );
     }
 }

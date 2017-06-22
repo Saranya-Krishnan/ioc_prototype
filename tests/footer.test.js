@@ -1,15 +1,15 @@
 import React from 'react';
-import Nav from '../views/src/components/nav';
+import Footer from '../views/src/components/footer';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router'
 
-test('it displays the correct navigation items', () =>{
+test('it displays the correct footer items', () =>{
     const clickTest = () => {
-      return true;
+        return true;
     };
     const component = renderer.create(
         <MemoryRouter>
-            <Nav activeItem={'test'} clickMenuItem={clickTest}></Nav>
+            <Footer clickFooterItem={'test'} Item={clickTest}></Footer>
         </MemoryRouter>
     );
     let c = component.toJSON();

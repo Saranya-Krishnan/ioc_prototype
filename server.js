@@ -1,21 +1,18 @@
 import express from 'express';
-let path = require('path');
+const path = require('path');
 import router from './routes/index';
 import nconf from './neo4j.config';
 import methodOverride from 'method-override';
 import swaggerJSDoc from 'swagger-jsdoc';
 import bodyParser from 'body-parser';
-
-
-
-//import setAuthUser from './middlewares/setAuthUser';
-//import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
+import setAuthUser from './middlewares/setAuthUser';
+import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
 import writeError from './helpers/response';
+const routes = require('./routes/api');
+const apiPath = nconf.get('api_path');
 
 let app = express();
 let api = express();
-
-app.use(nconf.get('api_path'), api);
 
 
 const swaggerDefinition = {
@@ -38,12 +35,12 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-api.get('/swagger.json', function(req, res) {
+app.get('/swagger.json', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
 });
 app.use('/docs', express.static(path.join(__dirname, 'swaggerui')));
-app.set('port', nconf.get('PORT'));
+api.set('port', nconf.get('PORT'));
 
 
 app.use('/bin', express.static('./bin'));
@@ -70,10 +67,17 @@ api.use(function(err, req, res, next) {
     else next(err);
 });
 
-//api.use(setAuthUser);
-//api.use(neo4jSessionCleanup);
+api.use(setAuthUser);
+api.use(neo4jSessionCleanup);
 
+api.post(apiPath+'/register', routes.users.register);
+api.post(apiPath+'/login', routes.users.login);
+api.get( apiPath+'/users/me', routes.users.me);
 
 app.listen(3000, function () {
     console.log('Ioc Express Server started');
+});
+
+api.listen(3030, function () {
+    console.log('Neo4j server started');
 });

@@ -3,23 +3,30 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
+import * as FooterActionCreators from '../actions/footer_actions';
+import * as SignUpActionCreators from '../actions/sign-up_actions';
 import Nav from '../components/nav';
-import {Container, Segment } from 'semantic-ui-react';
+import Footer from '../components/footer';
+import SignUp from '../components/sign-up-form';
+import { Container } from 'semantic-ui-react';
 
-class SignUp extends Component {
+class SignUpPage extends Component {
     static propTypes = {
         menu: PropTypes.object.isRequired
     };
     render() {
         const { dispatch, menu } = this.props;
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
+        const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
+        const onClickSubmit = bindActionCreators(SignUpActionCreators.onClickSubmit, dispatch);
         return (
-            <Container>
-                <Nav activeItem={menu.activeItem} clickMenuItem={clickMenuItem}></Nav>
-                <Segment>
-                    <h1>Sign Up</h1>
-                </Segment>
-            </Container>
+            <div>
+                <Container className={'main-content'}>
+                    <Nav activeItem={'sign-up'} clickMenuItem={clickMenuItem}></Nav>
+                    <SignUp onClickSubmit={onClickSubmit}/>
+                </Container>
+                <Footer clickFooterItem={clickFooterItem}></Footer>
+            </div>
         );
     }
 }
@@ -30,4 +37,4 @@ const mapStateToProps = state => (
     }
 );
 
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps)(SignUpPage);

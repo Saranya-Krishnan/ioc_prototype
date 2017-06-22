@@ -8,20 +8,20 @@ import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container, Segment } from 'semantic-ui-react';
 
-class Profile extends Component {
+class Browse extends Component {
     static propTypes = {
         menu: PropTypes.object.isRequired
     };
     render() {
-        const { dispatch, menu } = this.props;
+        const { dispatch } = this.props;
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav activeItem={'profile'} clickMenuItem={clickMenuItem}></Nav>
+                    <Nav activeItem={'browse'} clickMenuItem={clickMenuItem}></Nav>
                     <Segment>
-                        <h1>Profile</h1>
+                        <h1>Browse</h1>
                     </Segment>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
@@ -36,4 +36,4 @@ const mapStateToProps = state => (
     }
 );
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(Browse);

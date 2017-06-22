@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -106,9 +106,33 @@ module.exports = require("redux");
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.clickFooterItem = undefined;
+
+var _footer = __webpack_require__(27);
+
+var FooterActionTypes = _interopRequireWildcard(_footer);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var clickFooterItem = exports.clickFooterItem = function clickFooterItem() {
+    return {
+        type: FooterActionTypes.FOOTER_ITEM_CLICKED
+    };
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.clickMenuItem = undefined;
 
-var _nav = __webpack_require__(8);
+var _nav = __webpack_require__(14);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -122,7 +146,7 @@ var clickMenuItem = exports.clickMenuItem = function clickMenuItem(name) {
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -142,7 +166,61 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(9);
+var _reactRouterDom = __webpack_require__(10);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Footer = function Footer(props) {
+    return _react2.default.createElement(
+        _semanticUiReact.Segment,
+        { vertical: true, className: "ioc-footer", inverted: true },
+        _react2.default.createElement(
+            _semanticUiReact.Container,
+            { className: "center aligned" },
+            _react2.default.createElement(_semanticUiReact.Image, { centered: true }),
+            _react2.default.createElement(
+                _semanticUiReact.List,
+                { size: "small", link: true, divided: true, inverted: true },
+                _react2.default.createElement(
+                    _reactRouterDom.Link,
+                    { to: '/profile', onClick: function onClick() {
+                            return props.clickFooterItem('profile');
+                        } },
+                    'profile'
+                )
+            )
+        )
+    );
+};
+
+Footer.propTypes = {
+    clickFooterItem: _propTypes2.default.func.isRequired
+};
+
+exports.default = Footer;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _reactRouterDom = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -196,45 +274,32 @@ var Nav = function Nav(props) {
 Nav.propTypes = {
     clickMenuItem: _propTypes2.default.func.isRequired,
     activeItem: _propTypes2.default.string.isRequired,
-    isLoggedIn: _propTypes2.default.bool,
-    redirect: _propTypes2.default.bool
+    isLoggedIn: _propTypes2.default.bool
 };
 
 exports.default = Nav;
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("lodash");
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var NAV_ITEM_CLICKED = exports.NAV_ITEM_CLICKED = 'NAV_ITEM_CLICKED';
-
-/***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sw = __webpack_require__(31);
-var _ = __webpack_require__(25);
+var sw = __webpack_require__(50);
+var _ = __webpack_require__(9);
 
 exports.writeResponse = function writeResponse(res, response, status) {
   sw.setHeaders(res);
@@ -247,13 +312,13 @@ exports.writeError = function writeError(res, error, status) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _nconf = __webpack_require__(26);
+var _nconf = __webpack_require__(44);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
@@ -274,16 +339,16 @@ _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
     },
     'n': {
         alias: "neo4j",
-        describe: "Use local or remote neo4j instance",
+        describe: "Use local or remote neo4j_models instance",
         demand: false,
         default: "local"
     }
 }).defaults({
-    'USERNAME': process.env.MOVIE_DATABASE_USERNAME,
-    'PASSWORD': process.env.MOVIE_DATABASE_PASSWORD,
+    'USERNAME': 'ioc_neoj4',
+    'PASSWORD': 'moleskine',
     'neo4j': 'local',
-    'neo4j-local': 'bolt://localhost:7687',
-    'neo4j-remote': 'bolt:http://162.243.100.222:7687',
+    'neo4j-local': 'bolt://localhost:7474',
+    'neo4j-remote': 'bolt:http://162.243.100.222:7474',
     'base_url': 'http://localhost:3030',
     'api_path': '/api/v0'
 });
@@ -291,7 +356,88 @@ _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
 module.exports = _nconf2.default;
 
 /***/ }),
-/* 12 */
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var NAV_ITEM_CLICKED = exports.NAV_ITEM_CLICKED = 'NAV_ITEM_CLICKED';
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("randomstring");
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function neo4jSessionCleanup(req, res, next) {
+  res.on('finish', function () {
+    if (req.neo4jSession) {
+      req.neo4jSession.close();
+      delete req.neo4jSession;
+    }
+  });
+  next();
+};
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _response = __webpack_require__(11);
+
+var _response2 = _interopRequireDefault(_response);
+
+var _users = __webpack_require__(24);
+
+var _users2 = _interopRequireDefault(_users);
+
+var _dbUtils = __webpack_require__(25);
+
+var _dbUtils2 = _interopRequireDefault(_dbUtils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = function setAuthUser(req, res, next) {
+  var authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    req.user = { id: null };
+    next();
+  } else {
+    var match = authHeader.match(/^Token (\S+)/);
+    if (!match || !match[1]) {
+      return (0, _response2.default)(res, { detail: 'invalid authorization format. Follow `Token <token>`' }, 401);
+    }
+    var token = match[1];
+
+    _users2.default.me(dbUtils.getSession(req), token).then(function (user) {
+      req.user = user;
+      next();
+    }).catch(next);
+  }
+};
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -301,7 +447,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(7);
+var _express = __webpack_require__(13);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -309,13 +455,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(29);
+var _reactRouter = __webpack_require__(48);
 
-var _server = __webpack_require__(27);
+var _server = __webpack_require__(46);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _nav = __webpack_require__(24);
+var _nav = __webpack_require__(42);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -323,7 +469,7 @@ var _redux = __webpack_require__(4);
 
 var _reactRedux = __webpack_require__(3);
 
-var _ioc = __webpack_require__(20);
+var _ioc = __webpack_require__(38);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -361,76 +507,233 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 13 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 14 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("method-override");
 
 /***/ }),
-/* 15 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 16 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-jsdoc");
 
 /***/ }),
-/* 17 */
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _lodash = __webpack_require__(9);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var User = module.exports = function (_node) {
+  var username = _node.properties['username'];
+  _lodash2.default.extend(this, {
+    'id': _node.properties['id'],
+    'username': username
+  });
+};
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _uuid = __webpack_require__(51);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+var _randomstring = __webpack_require__(15);
+
+var _randomstring2 = _interopRequireDefault(_randomstring);
+
+var _lodash = __webpack_require__(9);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _user = __webpack_require__(23);
+
+var _user2 = _interopRequireDefault(_user);
+
+var _crypto = __webpack_require__(43);
+
+var _crypto2 = _interopRequireDefault(_crypto);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var register = function register(session, username, password) {
+  return session.run('MATCH (user:User {username: {username}}) RETURN user', { username: username }).then(function (results) {
+    if (!_lodash2.default.isEmpty(results.records)) {
+      throw { username: 'username already in use', status: 400 };
+    } else {
+      return session.run('CREATE (user:User {id: {id}, username: {username}, password: {password}, api_key: {api_key}}) RETURN user', {
+        id: _uuid2.default.v4(),
+        username: username,
+        password: hashPassword(username, password),
+        api_key: _randomstring2.default.generate({
+          length: 20,
+          charset: 'hex'
+        })
+      }).then(function (results) {
+        return new _user2.default(results.records[0].get('user'));
+      });
+    }
+  });
+};
+
+var me = function me(session, apiKey) {
+  return session.run('MATCH (user:User {api_key: {api_key}}) RETURN user', { api_key: apiKey }).then(function (results) {
+    if (_lodash2.default.isEmpty(results.records)) {
+      throw { message: 'invalid authorization key', status: 401 };
+    }
+    return new _user2.default(results.records[0].get('user'));
+  });
+};
+
+var login = function login(session, username, password) {
+  return session.run('MATCH (user:User {username: {username}}) RETURN user', { username: username }).then(function (results) {
+    if (_lodash2.default.isEmpty(results.records)) {
+      throw { username: 'username does not exist', status: 400 };
+    } else {
+      var dbUser = _lodash2.default.get(results.records[0].get('user'), 'properties');
+      if (dbUser.password != hashPassword(username, password)) {
+        throw { password: 'wrong password', status: 400 };
+      }
+      return { token: _lodash2.default.get(dbUser, 'api_key') };
+    }
+  });
+};
+
+function hashPassword(username, password) {
+  var s = username + ':' + password;
+  return _crypto2.default.createHash('sha256').update(s).digest('hex');
+}
+
+module.exports = {
+  register: register,
+  me: me,
+  login: login
+};
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _randomstring = __webpack_require__(15);
+
+var _randomstring2 = _interopRequireDefault(_randomstring);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// neo4j_models cypher helper module
+var nconf = __webpack_require__(12);
+
+var neo4j = __webpack_require__(45).v1;
+var driver = neo4j.driver(nconf.get('neo4j-local'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
+
+if (nconf.get('neo4j') === 'remote') {
+  driver = neo4j.driver(nconf.get('neo4j-remote'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
+}
+
+exports.getSession = function (context) {
+  if (context.neo4jSession) {
+    return context.neo4jSession;
+  } else {
+    context.neo4jSession = driver.session();
+    return context.neo4jSession;
+  }
+};
+
+exports.dbWhere = function (name, keys) {
+  if (_.isArray(name)) {
+    _.map(name, function (obj) {
+      return _whereTemplate(obj.name, obj.key, obj.paramKey);
+    });
+  } else if (keys && keys.length) {
+    return 'WHERE ' + _.map(keys, function (key) {
+      return _whereTemplate(name, key);
+    }).join(' AND ');
+  }
+};
+
+function whereTemplate(name, key, paramKey) {
+  return name + '.' + key + '={' + (paramKey || key) + '}';
+}
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var _express = __webpack_require__(7);
+var _express = __webpack_require__(13);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(12);
+var _index = __webpack_require__(18);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _neo4j = __webpack_require__(11);
+var _neo4j = __webpack_require__(12);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
-var _methodOverride = __webpack_require__(14);
+var _methodOverride = __webpack_require__(20);
 
 var _methodOverride2 = _interopRequireDefault(_methodOverride);
 
-var _swaggerJsdoc = __webpack_require__(16);
+var _swaggerJsdoc = __webpack_require__(22);
 
 var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
 
-var _bodyParser = __webpack_require__(13);
+var _bodyParser = __webpack_require__(19);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _response = __webpack_require__(10);
+var _setAuthUser = __webpack_require__(17);
+
+var _setAuthUser2 = _interopRequireDefault(_setAuthUser);
+
+var _neo4jSessionCleanup = __webpack_require__(16);
+
+var _neo4jSessionCleanup2 = _interopRequireDefault(_neo4jSessionCleanup);
+
+var _response = __webpack_require__(11);
 
 var _response2 = _interopRequireDefault(_response);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var path = __webpack_require__(15);
+var path = __webpack_require__(21);
 
-//import setAuthUser from './middlewares/setAuthUser';
-//import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
-
+var routes = __webpack_require__(54);
+var apiPath = _neo4j2.default.get('api_path');
 
 var app = (0, _express2.default)();
 var api = (0, _express2.default)();
-
-app.use(_neo4j2.default.get('api_path'), api);
 
 var swaggerDefinition = {
     info: {
@@ -452,12 +755,12 @@ var options = {
 
 var swaggerSpec = (0, _swaggerJsdoc2.default)(options);
 
-api.get('/swagger.json', function (req, res) {
+app.get('/swagger.json', function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
 });
 app.use('/docs', _express2.default.static(path.join(__dirname, 'swaggerui')));
-app.set('port', _neo4j2.default.get('PORT'));
+api.set('port', _neo4j2.default.get('PORT'));
 
 app.use('/bin', _express2.default.static('./bin'));
 app.use('/', _index2.default);
@@ -482,17 +785,108 @@ api.use(function (err, req, res, next) {
     } else next(err);
 });
 
-//api.use(setAuthUser);
-//api.use(neo4jSessionCleanup);
+api.use(_setAuthUser2.default);
+api.use(_neo4jSessionCleanup2.default);
 
+api.post(apiPath + '/register', routes.users.register);
+api.post(apiPath + '/login', routes.users.login);
+api.get(apiPath + '/users/me', routes.users.me);
 
 app.listen(3000, function () {
     console.log('Ioc Express Server started');
 });
+
+api.listen(3030, function () {
+    console.log('Neo4j server started');
+});
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 18 */
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FOOTER_ITEM_CLICKED = exports.FOOTER_ITEM_CLICKED = 'FOOTER_ITEM_CLICKED';
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.onClickSubmit = undefined;
+
+var _signIn = __webpack_require__(28);
+
+var SignInActionTypes = _interopRequireWildcard(_signIn);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
+    return {
+        type: SignInActionTypes.SIGN_IN_FORM_SUBMITTED
+    };
+};
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.onClickSubmit = undefined;
+
+var _signUp = __webpack_require__(29);
+
+var SignUpActionTypes = _interopRequireWildcard(_signUp);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
+    return {
+        type: SignUpActionTypes.SIGN_UP_FORM_SUBMITTED
+    };
+};
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -508,11 +902,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDropzone = __webpack_require__(28);
+var _reactDropzone = __webpack_require__(47);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
-var _superagent = __webpack_require__(30);
+var _superagent = __webpack_require__(49);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -653,7 +1047,179 @@ var ImageUploader = function (_React$Component) {
 exports.default = ImageUploader;
 
 /***/ }),
-/* 19 */
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SignIn = function SignIn(props) {
+    return _react2.default.createElement(
+        _semanticUiReact.Form,
+        null,
+        _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement(
+                'label',
+                null,
+                'Email'
+            ),
+            _react2.default.createElement('input', { placeholder: 'Email' })
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement(
+                'label',
+                null,
+                'Password'
+            ),
+            _react2.default.createElement('input', { placeholder: 'Password' })
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Button,
+            { type: 'submit', onClick: function onClick() {
+                    return props.onClickSubmit();
+                } },
+            'Sign In'
+        )
+    );
+};
+
+SignIn.propTypes = {
+    onClickSubmit: _propTypes2.default.func.isRequired
+};
+
+exports.default = SignIn;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _superagent = __webpack_require__(49);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SignUp = function SignUp(props) {
+    handleSubmit = function handleSubmit() {
+        _superagent2.default.get('http://localhost:3030/api/v0/register').end(function (error, response) {
+            if (!error && response) {
+                undefined.setState({ commits: response.body });
+            } else {
+                console.log('Error submitting your credentials', error);
+            }
+        });
+    };
+    return _react2.default.createElement(
+        _semanticUiReact.Form,
+        null,
+        _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement(
+                'label',
+                null,
+                'First Name'
+            ),
+            _react2.default.createElement('input', { placeholder: 'First Name' })
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement(
+                'label',
+                null,
+                'Last Name'
+            ),
+            _react2.default.createElement('input', { placeholder: 'Last Name' })
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement(
+                'label',
+                null,
+                'Email'
+            ),
+            _react2.default.createElement('input', { placeholder: 'Email' })
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement(
+                'label',
+                null,
+                'Password'
+            ),
+            _react2.default.createElement('input', { placeholder: 'Password' })
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement(
+                'label',
+                null,
+                'Confirm Password'
+            ),
+            _react2.default.createElement('input', { placeholder: 'Confirm Password' })
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Form.Field,
+            null,
+            _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'I agree to the Terms and Conditions' })
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Button,
+            { type: 'submit', onClick: function onClick() {
+                    return handleSubmit();
+                } },
+            'Submit'
+        )
+    );
+};
+
+SignUp.propTypes = {};
+
+exports.default = SignUp;
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -677,15 +1243,239 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(5);
+var _nav_actions = __webpack_require__(6);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _nav = __webpack_require__(6);
+var _footer_actions = __webpack_require__(5);
+
+var FooterActionCreators = _interopRequireWildcard(_footer_actions);
+
+var _nav = __webpack_require__(8);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _imageUploader = __webpack_require__(18);
+var _footer = __webpack_require__(7);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Art = function (_Component) {
+    _inherits(Art, _Component);
+
+    function Art() {
+        _classCallCheck(this, Art);
+
+        return _possibleConstructorReturn(this, (Art.__proto__ || Object.getPrototypeOf(Art)).apply(this, arguments));
+    }
+
+    _createClass(Art, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                dispatch = _props.dispatch,
+                menu = _props.menu;
+
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_nav2.default, { activeItem: 'none', clickMenuItem: clickMenuItem }),
+                    _react2.default.createElement(
+                        _semanticUiReact.Segment,
+                        null,
+                        _react2.default.createElement(
+                            'h1',
+                            null,
+                            'Art'
+                        )
+                    )
+                ),
+                _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
+            );
+        }
+    }]);
+
+    return Art;
+}(_react.Component);
+
+Art.propTypes = {
+    menu: _propTypes2.default.object.isRequired
+};
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        menu: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Art);
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(4);
+
+var _reactRedux = __webpack_require__(3);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _nav_actions = __webpack_require__(6);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _footer_actions = __webpack_require__(5);
+
+var FooterActionCreators = _interopRequireWildcard(_footer_actions);
+
+var _nav = __webpack_require__(8);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _footer = __webpack_require__(7);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Browse = function (_Component) {
+    _inherits(Browse, _Component);
+
+    function Browse() {
+        _classCallCheck(this, Browse);
+
+        return _possibleConstructorReturn(this, (Browse.__proto__ || Object.getPrototypeOf(Browse)).apply(this, arguments));
+    }
+
+    _createClass(Browse, [{
+        key: 'render',
+        value: function render() {
+            var dispatch = this.props.dispatch;
+
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_nav2.default, { activeItem: 'browse', clickMenuItem: clickMenuItem }),
+                    _react2.default.createElement(
+                        _semanticUiReact.Segment,
+                        null,
+                        _react2.default.createElement(
+                            'h1',
+                            null,
+                            'Browse'
+                        )
+                    )
+                ),
+                _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
+            );
+        }
+    }]);
+
+    return Browse;
+}(_react.Component);
+
+Browse.propTypes = {
+    menu: _propTypes2.default.object.isRequired
+};
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        menu: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Browse);
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(4);
+
+var _reactRedux = __webpack_require__(3);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _nav_actions = __webpack_require__(6);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _footer_actions = __webpack_require__(5);
+
+var FooterActionCreators = _interopRequireWildcard(_footer_actions);
+
+var _nav = __webpack_require__(8);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _footer = __webpack_require__(7);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _imageUploader = __webpack_require__(32);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
@@ -718,11 +1508,17 @@ var Home = function (_Component) {
                 menu = _props.menu;
 
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             return _react2.default.createElement(
-                _semanticUiReact.Container,
+                'div',
                 null,
-                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
-                _react2.default.createElement(_imageUploader2.default, null)
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_nav2.default, { activeItem: 'home', clickMenuItem: clickMenuItem }),
+                    _react2.default.createElement(_imageUploader2.default, null)
+                ),
+                _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
         }
     }]);
@@ -744,7 +1540,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ }),
-/* 20 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -760,25 +1556,31 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(1);
+var _art = __webpack_require__(35);
 
-var _home = __webpack_require__(19);
+var _art2 = _interopRequireDefault(_art);
+
+var _browse = __webpack_require__(36);
+
+var _browse2 = _interopRequireDefault(_browse);
+
+var _home = __webpack_require__(37);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _signUp = __webpack_require__(23);
+var _signUp = __webpack_require__(41);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _signIn = __webpack_require__(22);
+var _signIn = __webpack_require__(40);
 
 var _signIn2 = _interopRequireDefault(_signIn);
 
-var _profile = __webpack_require__(21);
+var _profile = __webpack_require__(39);
 
 var _profile2 = _interopRequireDefault(_profile);
 
-var _reactRouterDom = __webpack_require__(9);
+var _reactRouterDom = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -801,16 +1603,14 @@ var Ioc = function (_Component) {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                _semanticUiReact.Container,
+                'div',
                 null,
-                _react2.default.createElement(
-                    _semanticUiReact.Container,
-                    null,
-                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _home2.default }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-up', component: _signUp2.default }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-in', component: _signIn2.default }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '/profile', component: _profile2.default })
-                )
+                _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _home2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-up', component: _signUp2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-in', component: _signIn2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/profile', component: _profile2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/art', component: _art2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/browse', component: _browse2.default })
             );
         }
     }]);
@@ -821,7 +1621,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 21 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -845,13 +1645,21 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(5);
+var _nav_actions = __webpack_require__(6);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _nav = __webpack_require__(6);
+var _footer_actions = __webpack_require__(5);
+
+var FooterActionCreators = _interopRequireWildcard(_footer_actions);
+
+var _nav = __webpack_require__(8);
 
 var _nav2 = _interopRequireDefault(_nav);
+
+var _footer = __webpack_require__(7);
+
+var _footer2 = _interopRequireDefault(_footer);
 
 var _semanticUiReact = __webpack_require__(1);
 
@@ -882,19 +1690,25 @@ var Profile = function (_Component) {
                 menu = _props.menu;
 
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             return _react2.default.createElement(
-                _semanticUiReact.Container,
+                'div',
                 null,
-                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
                 _react2.default.createElement(
-                    _semanticUiReact.Segment,
-                    null,
+                    _semanticUiReact.Container,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_nav2.default, { activeItem: 'profile', clickMenuItem: clickMenuItem }),
                     _react2.default.createElement(
-                        'h1',
+                        _semanticUiReact.Segment,
                         null,
-                        'Profile'
+                        _react2.default.createElement(
+                            'h1',
+                            null,
+                            'Profile'
+                        )
                     )
-                )
+                ),
+                _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
         }
     }]);
@@ -916,7 +1730,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ }),
-/* 22 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -940,13 +1754,29 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(5);
+var _nav_actions = __webpack_require__(6);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _nav = __webpack_require__(6);
+var _footer_actions = __webpack_require__(5);
+
+var FooterActionCreators = _interopRequireWildcard(_footer_actions);
+
+var _signIn_actions = __webpack_require__(30);
+
+var SignInActionCreators = _interopRequireWildcard(_signIn_actions);
+
+var _nav = __webpack_require__(8);
 
 var _nav2 = _interopRequireDefault(_nav);
+
+var _footer = __webpack_require__(7);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _signInForm = __webpack_require__(33);
+
+var _signInForm2 = _interopRequireDefault(_signInForm);
 
 var _semanticUiReact = __webpack_require__(1);
 
@@ -960,16 +1790,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SignIn = function (_Component) {
-    _inherits(SignIn, _Component);
+var SignInPage = function (_Component) {
+    _inherits(SignInPage, _Component);
 
-    function SignIn() {
-        _classCallCheck(this, SignIn);
+    function SignInPage() {
+        _classCallCheck(this, SignInPage);
 
-        return _possibleConstructorReturn(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (SignInPage.__proto__ || Object.getPrototypeOf(SignInPage)).apply(this, arguments));
     }
 
-    _createClass(SignIn, [{
+    _createClass(SignInPage, [{
         key: 'render',
         value: function render() {
             var _props = this.props,
@@ -977,27 +1807,26 @@ var SignIn = function (_Component) {
                 menu = _props.menu;
 
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
+            var onClickSubmit = (0, _redux.bindActionCreators)(SignInActionCreators.onClickSubmit, dispatch);
             return _react2.default.createElement(
-                _semanticUiReact.Container,
+                'div',
                 null,
-                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
                 _react2.default.createElement(
-                    _semanticUiReact.Segment,
-                    null,
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'Sign In'
-                    )
-                )
+                    _semanticUiReact.Container,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_nav2.default, { activeItem: 'sign-in', clickMenuItem: clickMenuItem }),
+                    _react2.default.createElement(_signInForm2.default, { onClickSubmit: onClickSubmit })
+                ),
+                _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
         }
     }]);
 
-    return SignIn;
+    return SignInPage;
 }(_react.Component);
 
-SignIn.propTypes = {
+SignInPage.propTypes = {
     menu: _propTypes2.default.object.isRequired
 };
 
@@ -1008,10 +1837,10 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignIn);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignInPage);
 
 /***/ }),
-/* 23 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1035,13 +1864,29 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(5);
+var _nav_actions = __webpack_require__(6);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _nav = __webpack_require__(6);
+var _footer_actions = __webpack_require__(5);
+
+var FooterActionCreators = _interopRequireWildcard(_footer_actions);
+
+var _signUp_actions = __webpack_require__(31);
+
+var SignUpActionCreators = _interopRequireWildcard(_signUp_actions);
+
+var _nav = __webpack_require__(8);
 
 var _nav2 = _interopRequireDefault(_nav);
+
+var _footer = __webpack_require__(7);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _signUpForm = __webpack_require__(34);
+
+var _signUpForm2 = _interopRequireDefault(_signUpForm);
 
 var _semanticUiReact = __webpack_require__(1);
 
@@ -1055,16 +1900,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SignUp = function (_Component) {
-    _inherits(SignUp, _Component);
+var SignUpPage = function (_Component) {
+    _inherits(SignUpPage, _Component);
 
-    function SignUp() {
-        _classCallCheck(this, SignUp);
+    function SignUpPage() {
+        _classCallCheck(this, SignUpPage);
 
-        return _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (SignUpPage.__proto__ || Object.getPrototypeOf(SignUpPage)).apply(this, arguments));
     }
 
-    _createClass(SignUp, [{
+    _createClass(SignUpPage, [{
         key: 'render',
         value: function render() {
             var _props = this.props,
@@ -1072,27 +1917,26 @@ var SignUp = function (_Component) {
                 menu = _props.menu;
 
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
+            var onClickSubmit = (0, _redux.bindActionCreators)(SignUpActionCreators.onClickSubmit, dispatch);
             return _react2.default.createElement(
-                _semanticUiReact.Container,
+                'div',
                 null,
-                _react2.default.createElement(_nav2.default, { activeItem: menu.activeItem, clickMenuItem: clickMenuItem }),
                 _react2.default.createElement(
-                    _semanticUiReact.Segment,
-                    null,
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'Sign Up'
-                    )
-                )
+                    _semanticUiReact.Container,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_nav2.default, { activeItem: 'sign-up', clickMenuItem: clickMenuItem }),
+                    _react2.default.createElement(_signUpForm2.default, { onClickSubmit: onClickSubmit })
+                ),
+                _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
         }
     }]);
 
-    return SignUp;
+    return SignUpPage;
 }(_react.Component);
 
-SignUp.propTypes = {
+SignUpPage.propTypes = {
     menu: _propTypes2.default.object.isRequired
 };
 
@@ -1103,10 +1947,10 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUp);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUpPage);
 
 /***/ }),
-/* 24 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1117,7 +1961,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Nav;
 
-var _nav = __webpack_require__(8);
+var _nav = __webpack_require__(14);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -1125,8 +1969,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var initialState = {
     activeItem: 'home',
-    isLoggedIn: false,
-    isRedirect: false
+    isLoggedIn: false
 };
 
 function Nav() {
@@ -1135,54 +1978,250 @@ function Nav() {
 
     switch (action.type) {
         case NavActionTypes.NAV_ITEM_CLICKED:
-            state.activeItem = action.name;
-            return state;
+            return Object.assign({}, state, {
+                activeItem: action.name
+            });
         default:
             return state;
     }
 }
 
 /***/ }),
-/* 25 */
+/* 43 */
 /***/ (function(module, exports) {
 
-module.exports = require("lodash");
+module.exports = require("crypto");
 
 /***/ }),
-/* 26 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("nconf");
 
 /***/ }),
-/* 27 */
+/* 45 */
+/***/ (function(module, exports) {
+
+module.exports = require("neo4j-driver");
+
+/***/ }),
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 28 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 29 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 30 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = require("superagent");
 
 /***/ }),
-/* 31 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+module.exports = require("uuid");
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Users = __webpack_require__(24),
+    writeResponse = __webpack_require__(11).writeResponse,
+    writeError = __webpack_require__(11).writeError,
+    loginRequired = __webpack_require__(53),
+    dbUtils = __webpack_require__(25),
+    _ = __webpack_require__(9);
+/**
+ * @swagger
+ * definition:
+ *   User:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: string
+ *       username:
+ *         type: string
+ *       avatar:
+ *         type: object
+ */
+
+/**
+ * @swagger
+ * /api/v0/register:
+ *   post:
+ *     tags:
+ *     - users
+ *     description: Register a new user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *             username:
+ *               type: string
+ *             password:
+ *               type: string
+ *     responses:
+ *       201:
+ *         description: Your new user
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *       400:
+ *         description: Error message(s)
+ */
+exports.register = function (req, res, next) {
+    var username = _.get(req.body, 'username');
+    var password = _.get(req.body, 'password');
+
+    if (!username) {
+        throw { username: 'This field is required.', status: 400 };
+    }
+    if (!password) {
+        throw { password: 'This field is required.', status: 400 };
+    }
+
+    Users.register(dbUtils.getSession(req), username, password).then(function (response) {
+        return writeResponse(res, response, 201);
+    }).catch(next);
+};
+
+/**
+ * @swagger
+ * /api/v0/login:
+ *   post:
+ *     tags:
+ *     - users
+ *     description: Login
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *             username:
+ *               type: string
+ *             password:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: succesful login
+ *         schema:
+ *           properties:
+ *             token:
+ *               type: string
+ *       400:
+ *         description: invalid credentials
+ */
+exports.login = function (req, res, next) {
+    var username = _.get(req.body, 'username');
+    var password = _.get(req.body, 'password');
+
+    if (!username) {
+        throw { username: 'This field is required.', status: 400 };
+    }
+    if (!password) {
+        throw { password: 'This field is required.', status: 400 };
+    }
+
+    Users.login(dbUtils.getSession(req), username, password).then(function (response) {
+        return writeResponse(res, response);
+    }).catch(next);
+};
+
+/**
+ * @swagger
+ * /api/v0/users/me:
+ *   get:
+ *     tags:
+ *     - users
+ *     description: Get your user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Token (token goes here)
+ *     responses:
+ *       200:
+ *         description: the user
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *       401:
+ *         description: invalid / missing authentication
+ */
+exports.me = function (req, res, next) {
+    loginRequired(req, res, function () {
+        var authHeader = req.headers['authorization'];
+        var match = authHeader.match(/^Token (\S+)/);
+        if (!match || !match[1]) {
+            throw { message: 'invalid authorization format. Follow `Token <token>`', status: 401 };
+        }
+
+        var token = match[1];
+        Users.me(dbUtils.getSession(req), token).then(function (response) {
+            return writeResponse(res, response);
+        }).catch(next);
+    });
+};
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _response = __webpack_require__(11);
+
+var _response2 = _interopRequireDefault(_response);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = function loginRequired(req, res, next) {
+  var authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    return (0, _response2.default)(res, { detail: 'no authorization provided' }, 401);
+  }
+  next();
+};
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.users = __webpack_require__(52);
 
 /***/ })
 /******/ ]);
