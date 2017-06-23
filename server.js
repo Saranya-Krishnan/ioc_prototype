@@ -27,9 +27,7 @@ const swaggerDefinition = {
 
 // options for the swagger docs
 const options = {
-    // import swaggerDefinitions
     swaggerDefinition: swaggerDefinition,
-    // path to the API docs
     apis: ['./routes/*.js'],
 };
 
@@ -72,7 +70,7 @@ api.use(neo4jSessionCleanup);
 
 api.post(apiPath+'/register', routes.users.register);
 api.post(apiPath+'/login', routes.users.login);
-api.get( apiPath+'/users/me', routes.users.me);
+api.get(apiPath+'/users/me', routes.users.me);
 
 app.listen(3000, function () {
     console.log('Ioc Express Server started');

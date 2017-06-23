@@ -5,12 +5,9 @@ import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router'
 
 test('it displays the sign up form', () =>{
-    const clickTest = () => {
-        return true;
-    };
     const component = renderer.create(
         <MemoryRouter>
-            <SignUp clickFooterItem={'test'} Item={clickTest}></SignUp>
+            <SignUp></SignUp>
         </MemoryRouter>
     );
     let c = component.toJSON();

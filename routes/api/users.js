@@ -33,7 +33,11 @@ const Users = require('../../models/users')
  *         type: object
  *         schema:
  *           properties:
- *             username:
+ *             email:
+ *               type: string
+ *             firstName:
+ *               type: string
+ *             lastName:
  *               type: string
  *             password:
  *               type: string
@@ -46,17 +50,19 @@ const Users = require('../../models/users')
  *         description: Error message(s)
  */
 exports.register = function (req, res, next) {
-    const username = _.get(req.body, 'username');
+    const email = _.get(req.body, 'email');
     const password = _.get(req.body, 'password');
+    const firstName = _.get(req.body, 'firstName');
+    const lastName = _.get(req.body, 'lastName');
 
-    if (!username) {
+    if (!email) {
         throw {username: 'This field is required.', status: 400};
     }
     if (!password) {
         throw {password: 'This field is required.', status: 400};
     }
 
-    Users.register(dbUtils.getSession(req), username, password)
+    Users.register(dbUtils.getSession(req), email, password, firstName, lastName)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };

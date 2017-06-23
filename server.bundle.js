@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ 	return __webpack_require__(__webpack_require__.s = 30);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -108,7 +108,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clickFooterItem = undefined;
 
-var _footer = __webpack_require__(27);
+var _footer = __webpack_require__(31);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -132,7 +132,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clickMenuItem = undefined;
 
-var _nav = __webpack_require__(14);
+var _nav = __webpack_require__(16);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -166,7 +166,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(10);
+var _reactRouterDom = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -220,7 +220,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(10);
+var _reactRouterDom = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -281,25 +281,13 @@ exports.default = Nav;
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash");
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router-dom");
-
-/***/ }),
-/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sw = __webpack_require__(50);
-var _ = __webpack_require__(9);
+var sw = __webpack_require__(53);
+var _ = __webpack_require__(10);
 
 exports.writeResponse = function writeResponse(res, response, status) {
   sw.setHeaders(res);
@@ -312,13 +300,25 @@ exports.writeError = function writeError(res, error, status) {
 };
 
 /***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _nconf = __webpack_require__(44);
+var _nconf = __webpack_require__(48);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
@@ -347,7 +347,7 @@ _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
     'USERNAME': 'ioc_neoj4',
     'PASSWORD': 'moleskine',
     'neo4j': 'local',
-    'neo4j-local': 'bolt://localhost:7474',
+    'neo4j-local': 'bolt://localhost:7687',
     'neo4j-remote': 'bolt:http://162.243.100.222:7474',
     'base_url': 'http://localhost:3030',
     'api_path': '/api/v0'
@@ -368,19 +368,160 @@ module.exports = require("express");
 "use strict";
 
 
+var _uuid = __webpack_require__(54);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+var _randomstring = __webpack_require__(17);
+
+var _randomstring2 = _interopRequireDefault(_randomstring);
+
+var _lodash = __webpack_require__(10);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _user = __webpack_require__(28);
+
+var _user2 = _interopRequireDefault(_user);
+
+var _crypto = __webpack_require__(47);
+
+var _crypto2 = _interopRequireDefault(_crypto);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var register = function register(session, email, password, firstName, lastName) {
+    return session.run('MATCH (user:User {email: {email}}) RETURN user', { email: email }).then(function (results) {
+        if (!_lodash2.default.isEmpty(results.records)) {
+            throw { email: 'username already in use', status: 400 };
+        } else {
+            return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, api_key: {api_key}}) RETURN user', {
+                id: _uuid2.default.v4(),
+                email: email,
+                firstName: firstName,
+                lastName: lastName,
+                password: hashPassword(email, password),
+                api_key: _randomstring2.default.generate({
+                    length: 20,
+                    charset: 'hex'
+                })
+            }).then(function (results) {
+                return new _user2.default(results.records[0].get('user'));
+            });
+        }
+    });
+};
+//curl -H "Content-Type: application/json" -X POST -d '{"email":"testing@test.com","password":"xyz","firstName":"Gary","lastName":"Glitter"}' http://localhost:3030/api/v0/register
+
+
+var me = function me(session, apiKey) {
+    return session.run('MATCH (user:User {api_key: {api_key}}) RETURN user', { api_key: apiKey }).then(function (results) {
+        if (_lodash2.default.isEmpty(results.records)) {
+            throw { message: 'invalid authorization key', status: 401 };
+        }
+        return new _user2.default(results.records[0].get('user'));
+    });
+};
+
+var login = function login(session, username, password) {
+    return session.run('MATCH (user:User {username: {username}}) RETURN user', { username: username }).then(function (results) {
+        if (_lodash2.default.isEmpty(results.records)) {
+            throw { username: 'username does not exist', status: 400 };
+        } else {
+            var dbUser = _lodash2.default.get(results.records[0].get('user'), 'properties');
+            if (dbUser.password != hashPassword(username, password)) {
+                throw { password: 'wrong password', status: 400 };
+            }
+            return { token: _lodash2.default.get(dbUser, 'api_key') };
+        }
+    });
+};
+
+function hashPassword(username, password) {
+    var s = username + ':' + password;
+    return _crypto2.default.createHash('sha256').update(s).digest('hex');
+}
+
+module.exports = {
+    register: register,
+    me: me,
+    login: login
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _randomstring = __webpack_require__(17);
+
+var _randomstring2 = _interopRequireDefault(_randomstring);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// neo4j_models cypher helper module
+var nconf = __webpack_require__(12);
+
+var neo4j = __webpack_require__(49).v1;
+var driver = neo4j.driver(nconf.get('neo4j-local'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
+
+if (nconf.get('neo4j') === 'remote') {
+  driver = neo4j.driver(nconf.get('neo4j-remote'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
+}
+
+exports.getSession = function (context) {
+  if (context.neo4jSession) {
+    return context.neo4jSession;
+  } else {
+    context.neo4jSession = driver.session();
+    return context.neo4jSession;
+  }
+};
+
+exports.dbWhere = function (name, keys) {
+  if (_.isArray(name)) {
+    _.map(name, function (obj) {
+      return _whereTemplate(obj.name, obj.key, obj.paramKey);
+    });
+  } else if (keys && keys.length) {
+    return 'WHERE ' + _.map(keys, function (key) {
+      return _whereTemplate(name, key);
+    }).join(' AND ');
+  }
+};
+
+function whereTemplate(name, key, paramKey) {
+  return name + '.' + key + '={' + (paramKey || key) + '}';
+}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var NAV_ITEM_CLICKED = exports.NAV_ITEM_CLICKED = 'NAV_ITEM_CLICKED';
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("randomstring");
 
 /***/ }),
-/* 16 */
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("superagent");
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -397,21 +538,21 @@ module.exports = function neo4jSessionCleanup(req, res, next) {
 };
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _response = __webpack_require__(11);
+var _response = __webpack_require__(9);
 
 var _response2 = _interopRequireDefault(_response);
 
-var _users = __webpack_require__(24);
+var _users = __webpack_require__(14);
 
 var _users2 = _interopRequireDefault(_users);
 
-var _dbUtils = __webpack_require__(25);
+var _dbUtils = __webpack_require__(15);
 
 var _dbUtils2 = _interopRequireDefault(_dbUtils);
 
@@ -437,7 +578,16 @@ module.exports = function setAuthUser(req, res, next) {
 };
 
 /***/ }),
-/* 18 */
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.users = __webpack_require__(29);
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -455,13 +605,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(48);
+var _reactRouter = __webpack_require__(52);
 
-var _server = __webpack_require__(46);
+var _server = __webpack_require__(50);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _nav = __webpack_require__(42);
+var _nav = __webpack_require__(46);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -469,7 +619,7 @@ var _redux = __webpack_require__(4);
 
 var _reactRedux = __webpack_require__(3);
 
-var _ioc = __webpack_require__(38);
+var _ioc = __webpack_require__(42);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -507,183 +657,239 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("method-override");
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-jsdoc");
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _lodash = __webpack_require__(9);
+var _response = __webpack_require__(9);
+
+var _response2 = _interopRequireDefault(_response);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = function loginRequired(req, res, next) {
+  var authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    return (0, _response2.default)(res, { detail: 'no authorization provided' }, 401);
+  }
+  next();
+};
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = __webpack_require__(10);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var User = module.exports = function (_node) {
-  var username = _node.properties['username'];
-  _lodash2.default.extend(this, {
-    'id': _node.properties['id'],
-    'username': username
-  });
-};
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _uuid = __webpack_require__(51);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-var _randomstring = __webpack_require__(15);
-
-var _randomstring2 = _interopRequireDefault(_randomstring);
-
-var _lodash = __webpack_require__(9);
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _user = __webpack_require__(23);
-
-var _user2 = _interopRequireDefault(_user);
-
-var _crypto = __webpack_require__(43);
-
-var _crypto2 = _interopRequireDefault(_crypto);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var register = function register(session, username, password) {
-  return session.run('MATCH (user:User {username: {username}}) RETURN user', { username: username }).then(function (results) {
-    if (!_lodash2.default.isEmpty(results.records)) {
-      throw { username: 'username already in use', status: 400 };
-    } else {
-      return session.run('CREATE (user:User {id: {id}, username: {username}, password: {password}, api_key: {api_key}}) RETURN user', {
-        id: _uuid2.default.v4(),
-        username: username,
-        password: hashPassword(username, password),
-        api_key: _randomstring2.default.generate({
-          length: 20,
-          charset: 'hex'
-        })
-      }).then(function (results) {
-        return new _user2.default(results.records[0].get('user'));
-      });
-    }
-  });
-};
-
-var me = function me(session, apiKey) {
-  return session.run('MATCH (user:User {api_key: {api_key}}) RETURN user', { api_key: apiKey }).then(function (results) {
-    if (_lodash2.default.isEmpty(results.records)) {
-      throw { message: 'invalid authorization key', status: 401 };
-    }
-    return new _user2.default(results.records[0].get('user'));
-  });
-};
-
-var login = function login(session, username, password) {
-  return session.run('MATCH (user:User {username: {username}}) RETURN user', { username: username }).then(function (results) {
-    if (_lodash2.default.isEmpty(results.records)) {
-      throw { username: 'username does not exist', status: 400 };
-    } else {
-      var dbUser = _lodash2.default.get(results.records[0].get('user'), 'properties');
-      if (dbUser.password != hashPassword(username, password)) {
-        throw { password: 'wrong password', status: 400 };
-      }
-      return { token: _lodash2.default.get(dbUser, 'api_key') };
-    }
-  });
-};
-
-function hashPassword(username, password) {
-  var s = username + ':' + password;
-  return _crypto2.default.createHash('sha256').update(s).digest('hex');
-}
-
-module.exports = {
-  register: register,
-  me: me,
-  login: login
-};
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _randomstring = __webpack_require__(15);
-
-var _randomstring2 = _interopRequireDefault(_randomstring);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// neo4j_models cypher helper module
-var nconf = __webpack_require__(12);
-
-var neo4j = __webpack_require__(45).v1;
-var driver = neo4j.driver(nconf.get('neo4j-local'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
-
-if (nconf.get('neo4j') === 'remote') {
-  driver = neo4j.driver(nconf.get('neo4j-remote'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
-}
-
-exports.getSession = function (context) {
-  if (context.neo4jSession) {
-    return context.neo4jSession;
-  } else {
-    context.neo4jSession = driver.session();
-    return context.neo4jSession;
-  }
-};
-
-exports.dbWhere = function (name, keys) {
-  if (_.isArray(name)) {
-    _.map(name, function (obj) {
-      return _whereTemplate(obj.name, obj.key, obj.paramKey);
+    _lodash2.default.extend(this, {
+        'id': _node.properties['id'],
+        'username': _node.properties['email'],
+        'firstName': _node.properties['firstName'],
+        'lastName': _node.properties['lastName']
     });
-  } else if (keys && keys.length) {
-    return 'WHERE ' + _.map(keys, function (key) {
-      return _whereTemplate(name, key);
-    }).join(' AND ');
-  }
 };
 
-function whereTemplate(name, key, paramKey) {
-  return name + '.' + key + '={' + (paramKey || key) + '}';
-}
+exports.default = User;
 
 /***/ }),
-/* 26 */
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Users = __webpack_require__(14),
+    writeResponse = __webpack_require__(9).writeResponse,
+    writeError = __webpack_require__(9).writeError,
+    loginRequired = __webpack_require__(27),
+    dbUtils = __webpack_require__(15),
+    _ = __webpack_require__(10);
+/**
+ * @swagger
+ * definition:
+ *   User:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: string
+ *       username:
+ *         type: string
+ *       avatar:
+ *         type: object
+ */
+
+/**
+ * @swagger
+ * /api/v0/register:
+ *   post:
+ *     tags:
+ *     - users
+ *     description: Register a new user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *             email:
+ *               type: string
+ *             firstName:
+ *               type: string
+ *             lastName:
+ *               type: string
+ *             password:
+ *               type: string
+ *     responses:
+ *       201:
+ *         description: Your new user
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *       400:
+ *         description: Error message(s)
+ */
+exports.register = function (req, res, next) {
+    var email = _.get(req.body, 'email');
+    var password = _.get(req.body, 'password');
+    var firstName = _.get(req.body, 'firstName');
+    var lastName = _.get(req.body, 'lastName');
+
+    if (!email) {
+        throw { username: 'This field is required.', status: 400 };
+    }
+    if (!password) {
+        throw { password: 'This field is required.', status: 400 };
+    }
+
+    Users.register(dbUtils.getSession(req), email, password, firstName, lastName).then(function (response) {
+        return writeResponse(res, response, 201);
+    }).catch(next);
+};
+
+/**
+ * @swagger
+ * /api/v0/login:
+ *   post:
+ *     tags:
+ *     - users
+ *     description: Login
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *             username:
+ *               type: string
+ *             password:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: succesful login
+ *         schema:
+ *           properties:
+ *             token:
+ *               type: string
+ *       400:
+ *         description: invalid credentials
+ */
+exports.login = function (req, res, next) {
+    var username = _.get(req.body, 'username');
+    var password = _.get(req.body, 'password');
+
+    if (!username) {
+        throw { username: 'This field is required.', status: 400 };
+    }
+    if (!password) {
+        throw { password: 'This field is required.', status: 400 };
+    }
+
+    Users.login(dbUtils.getSession(req), username, password).then(function (response) {
+        return writeResponse(res, response);
+    }).catch(next);
+};
+
+/**
+ * @swagger
+ * /api/v0/users/me:
+ *   get:
+ *     tags:
+ *     - users
+ *     description: Get your user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         in: header
+ *         type: string
+ *         required: true
+ *         description: Token (token goes here)
+ *     responses:
+ *       200:
+ *         description: the user
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *       401:
+ *         description: invalid / missing authentication
+ */
+exports.me = function (req, res, next) {
+    loginRequired(req, res, function () {
+        var authHeader = req.headers['authorization'];
+        var match = authHeader.match(/^Token (\S+)/);
+        if (!match || !match[1]) {
+            throw { message: 'invalid authorization format. Follow `Token <token>`', status: 401 };
+        }
+
+        var token = match[1];
+        Users.me(dbUtils.getSession(req), token).then(function (response) {
+            return writeResponse(res, response);
+        }).catch(next);
+    });
+};
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -693,7 +899,7 @@ var _express = __webpack_require__(13);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(18);
+var _index = __webpack_require__(22);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -701,35 +907,35 @@ var _neo4j = __webpack_require__(12);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
-var _methodOverride = __webpack_require__(20);
+var _methodOverride = __webpack_require__(24);
 
 var _methodOverride2 = _interopRequireDefault(_methodOverride);
 
-var _swaggerJsdoc = __webpack_require__(22);
+var _swaggerJsdoc = __webpack_require__(26);
 
 var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
 
-var _bodyParser = __webpack_require__(19);
+var _bodyParser = __webpack_require__(23);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _setAuthUser = __webpack_require__(17);
+var _setAuthUser = __webpack_require__(20);
 
 var _setAuthUser2 = _interopRequireDefault(_setAuthUser);
 
-var _neo4jSessionCleanup = __webpack_require__(16);
+var _neo4jSessionCleanup = __webpack_require__(19);
 
 var _neo4jSessionCleanup2 = _interopRequireDefault(_neo4jSessionCleanup);
 
-var _response = __webpack_require__(11);
+var _response = __webpack_require__(9);
 
 var _response2 = _interopRequireDefault(_response);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var path = __webpack_require__(21);
+var path = __webpack_require__(25);
 
-var routes = __webpack_require__(54);
+var routes = __webpack_require__(21);
 var apiPath = _neo4j2.default.get('api_path');
 
 var app = (0, _express2.default)();
@@ -747,9 +953,7 @@ var swaggerDefinition = {
 
 // options for the swagger docs
 var options = {
-    // import swaggerDefinitions
     swaggerDefinition: swaggerDefinition,
-    // path to the API docs
     apis: ['./routes/*.js']
 };
 
@@ -802,7 +1006,7 @@ api.listen(3030, function () {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -814,7 +1018,7 @@ Object.defineProperty(exports, "__esModule", {
 var FOOTER_ITEM_CLICKED = exports.FOOTER_ITEM_CLICKED = 'FOOTER_ITEM_CLICKED';
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -826,7 +1030,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -838,7 +1042,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -849,7 +1053,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signIn = __webpack_require__(28);
+var _signIn = __webpack_require__(32);
 
 var SignInActionTypes = _interopRequireWildcard(_signIn);
 
@@ -862,7 +1066,7 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 };
 
 /***/ }),
-/* 31 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -873,7 +1077,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signUp = __webpack_require__(29);
+var _signUp = __webpack_require__(33);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -886,7 +1090,7 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 };
 
 /***/ }),
-/* 32 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -902,11 +1106,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDropzone = __webpack_require__(47);
+var _reactDropzone = __webpack_require__(51);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
-var _superagent = __webpack_require__(49);
+var _superagent = __webpack_require__(18);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -1047,7 +1251,7 @@ var ImageUploader = function (_React$Component) {
 exports.default = ImageUploader;
 
 /***/ }),
-/* 33 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1110,7 +1314,7 @@ SignIn.propTypes = {
 exports.default = SignIn;
 
 /***/ }),
-/* 34 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1120,106 +1324,205 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _semanticUiReact = __webpack_require__(1);
 
-var _superagent = __webpack_require__(49);
+var _superagent = __webpack_require__(18);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SignUp = function SignUp(props) {
-    handleSubmit = function handleSubmit() {
-        _superagent2.default.get('http://localhost:3030/api/v0/register').end(function (error, response) {
-            if (!error && response) {
-                undefined.setState({ commits: response.body });
-            } else {
-                console.log('Error submitting your credentials', error);
-            }
-        });
-    };
-    return _react2.default.createElement(
-        _semanticUiReact.Form,
-        null,
-        _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement(
-                'label',
-                null,
-                'First Name'
-            ),
-            _react2.default.createElement('input', { placeholder: 'First Name' })
-        ),
-        _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement(
-                'label',
-                null,
-                'Last Name'
-            ),
-            _react2.default.createElement('input', { placeholder: 'Last Name' })
-        ),
-        _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement(
-                'label',
-                null,
-                'Email'
-            ),
-            _react2.default.createElement('input', { placeholder: 'Email' })
-        ),
-        _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement(
-                'label',
-                null,
-                'Password'
-            ),
-            _react2.default.createElement('input', { placeholder: 'Password' })
-        ),
-        _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement(
-                'label',
-                null,
-                'Confirm Password'
-            ),
-            _react2.default.createElement('input', { placeholder: 'Confirm Password' })
-        ),
-        _react2.default.createElement(
-            _semanticUiReact.Form.Field,
-            null,
-            _react2.default.createElement(_semanticUiReact.Checkbox, { label: 'I agree to the Terms and Conditions' })
-        ),
-        _react2.default.createElement(
-            _semanticUiReact.Button,
-            { type: 'submit', onClick: function onClick() {
-                    return handleSubmit();
-                } },
-            'Submit'
-        )
-    );
-};
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-SignUp.propTypes = {};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SignUp = function (_Component) {
+    _inherits(SignUp, _Component);
+
+    function SignUp(props) {
+        _classCallCheck(this, SignUp);
+
+        var _this = _possibleConstructorReturn(this, (SignUp.__proto__ || Object.getPrototypeOf(SignUp)).call(this, props));
+
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleTyping = _this.handleTyping.bind(_this);
+        _this.handleValidation = _this.handleValidation.bind(_this);
+        _this.handleValidationNoPassword = _this.handleValidation.bind(_this, false);
+        _this.handleValidationWithPassword = _this.handleValidation.bind(_this, true);
+        _this.handleClick = _this.handleClick.bind(_this);
+        _this.state = {
+            nameValid: true,
+            emailValid: true,
+            passwordsValid: true,
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            password_confirm: '',
+            doAgree: false
+        };
+        return _this;
+    }
+
+    _createClass(SignUp, [{
+        key: 'handleClick',
+        value: function handleClick() {
+            this.state.doAgree = !this.state.doAgree;
+            this.handleValidation(false);
+        }
+    }, {
+        key: 'handleValidation',
+        value: function handleValidation(chkpasswords) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            this.setState({ nameValid: Boolean(this.state.firstName && this.state.firstName.length !== 0), emailValid: re.test(this.state.email) });
+            if (chkpasswords) {
+                this.setState({ passwordsValid: Boolean(this.state.password === this.state.password_confirm) });
+            }
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            var _this2 = this;
+
+            e.preventDefault();
+            this.handleValidation(true);
+            if (this.state.passwordsValid && this.state.emailValid && this.state.nameValid) {
+                _superagent2.default.post('http://localhost:3030/api/v0/register').set('Content-Type', 'application/json').send(JSON.stringify(this.state)).end(function (error, response) {
+                    if (!error && response) {
+                        _this2.setState({ commits: response.body });
+                    } else {
+                        console.log('Error submitting your credentials', error);
+                    }
+                });
+            }
+        }
+    }, {
+        key: 'handleTyping',
+        value: function handleTyping(e) {
+            e.preventDefault();
+            var target = e.target;
+            var value = target.type === 'checkbox' ? target.checked : target.value;
+            var name = target.name;
+            this.setState(_defineProperty({}, name, value));
+            this.handleValidation(false);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _semanticUiReact.Form,
+                { onSubmit: this.handleSubmit },
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Field,
+                    null,
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        '* First Name'
+                    ),
+                    _react2.default.createElement('input', { placeholder: 'First Name', name: 'firstName', value: this.state.firstName, onChange: this.handleTyping, onBlur: this.handleValidationNoPassword })
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Message,
+                    { negative: true, hidden: this.state.passwordsValid },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'First Name is Required'
+                    )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Field,
+                    null,
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Last Name'
+                    ),
+                    _react2.default.createElement('input', { placeholder: 'Last Name', name: 'lastName', value: this.state.lastName, onChange: this.handleTyping })
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Field,
+                    null,
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        '* Email'
+                    ),
+                    _react2.default.createElement('input', { placeholder: 'Email', name: 'email', value: this.state.email, onChange: this.handleTyping, onBlur: this.handleValidationNoPassword })
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Message,
+                    { negative: true, hidden: this.state.emailValid },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Invaild email format'
+                    )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Field,
+                    null,
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        '* Password'
+                    ),
+                    _react2.default.createElement('input', { placeholder: 'Password', name: 'password', value: this.state.password, type: 'password', onChange: this.handleTyping, onBlur: this.handleValidationWithPassword })
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Field,
+                    null,
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        '* Confirm Password'
+                    ),
+                    _react2.default.createElement('input', { placeholder: 'Confirm Password', name: 'password_confirm', value: this.state.password_confirm, type: 'password', onChange: this.handleTyping, onBlur: this.handleValidationWithPassword })
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Message,
+                    { negative: true, hidden: this.state.passwordsValid },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Passwords do not match.'
+                    )
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Form.Field,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Checkbox, { label: '* I agree to the Terms and Conditions', onClick: this.handleClick, onChange: this.handleTyping, checked: this.state.doAgree, ref: 'doAgree', name: 'doAgree' })
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { type: 'submit', disabled: !this.state.doAgree },
+                    'Submit'
+                )
+            );
+        }
+    }]);
+
+    return SignUp;
+}(_react.Component);
 
 exports.default = SignUp;
+//ToDo: Redux Dispatch
+//ToDo: Display Error
+//ToDo: Redirect on Success
 
 /***/ }),
-/* 35 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1328,7 +1631,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Art);
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1435,7 +1738,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Browse);
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1475,7 +1778,7 @@ var _footer = __webpack_require__(7);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _imageUploader = __webpack_require__(32);
+var _imageUploader = __webpack_require__(36);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
@@ -1540,7 +1843,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1556,31 +1859,31 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _art = __webpack_require__(35);
+var _art = __webpack_require__(39);
 
 var _art2 = _interopRequireDefault(_art);
 
-var _browse = __webpack_require__(36);
+var _browse = __webpack_require__(40);
 
 var _browse2 = _interopRequireDefault(_browse);
 
-var _home = __webpack_require__(37);
+var _home = __webpack_require__(41);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _signUp = __webpack_require__(41);
+var _signUp = __webpack_require__(45);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _signIn = __webpack_require__(40);
+var _signIn = __webpack_require__(44);
 
 var _signIn2 = _interopRequireDefault(_signIn);
 
-var _profile = __webpack_require__(39);
+var _profile = __webpack_require__(43);
 
 var _profile2 = _interopRequireDefault(_profile);
 
-var _reactRouterDom = __webpack_require__(10);
+var _reactRouterDom = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1621,7 +1924,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1730,7 +2033,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1762,7 +2065,7 @@ var _footer_actions = __webpack_require__(5);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signIn_actions = __webpack_require__(30);
+var _signIn_actions = __webpack_require__(34);
 
 var SignInActionCreators = _interopRequireWildcard(_signIn_actions);
 
@@ -1774,7 +2077,7 @@ var _footer = __webpack_require__(7);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signInForm = __webpack_require__(33);
+var _signInForm = __webpack_require__(37);
 
 var _signInForm2 = _interopRequireDefault(_signInForm);
 
@@ -1840,7 +2143,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignInPage);
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1872,7 +2175,7 @@ var _footer_actions = __webpack_require__(5);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signUp_actions = __webpack_require__(31);
+var _signUp_actions = __webpack_require__(35);
 
 var SignUpActionCreators = _interopRequireWildcard(_signUp_actions);
 
@@ -1884,7 +2187,7 @@ var _footer = __webpack_require__(7);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signUpForm = __webpack_require__(34);
+var _signUpForm = __webpack_require__(38);
 
 var _signUpForm2 = _interopRequireDefault(_signUpForm);
 
@@ -1950,7 +2253,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUpPage);
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1961,7 +2264,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Nav;
 
-var _nav = __webpack_require__(14);
+var _nav = __webpack_require__(16);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -1987,241 +2290,52 @@ function Nav() {
 }
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("crypto");
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = require("nconf");
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = require("neo4j-driver");
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 49 */
-/***/ (function(module, exports) {
-
-module.exports = require("superagent");
-
-/***/ }),
-/* 50 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = require("uuid");
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Users = __webpack_require__(24),
-    writeResponse = __webpack_require__(11).writeResponse,
-    writeError = __webpack_require__(11).writeError,
-    loginRequired = __webpack_require__(53),
-    dbUtils = __webpack_require__(25),
-    _ = __webpack_require__(9);
-/**
- * @swagger
- * definition:
- *   User:
- *     type: object
- *     properties:
- *       id:
- *         type: string
- *       username:
- *         type: string
- *       avatar:
- *         type: object
- */
-
-/**
- * @swagger
- * /api/v0/register:
- *   post:
- *     tags:
- *     - users
- *     description: Register a new user
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *             username:
- *               type: string
- *             password:
- *               type: string
- *     responses:
- *       201:
- *         description: Your new user
- *         schema:
- *           $ref: '#/definitions/User'
- *       400:
- *         description: Error message(s)
- */
-exports.register = function (req, res, next) {
-    var username = _.get(req.body, 'username');
-    var password = _.get(req.body, 'password');
-
-    if (!username) {
-        throw { username: 'This field is required.', status: 400 };
-    }
-    if (!password) {
-        throw { password: 'This field is required.', status: 400 };
-    }
-
-    Users.register(dbUtils.getSession(req), username, password).then(function (response) {
-        return writeResponse(res, response, 201);
-    }).catch(next);
-};
-
-/**
- * @swagger
- * /api/v0/login:
- *   post:
- *     tags:
- *     - users
- *     description: Login
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *             username:
- *               type: string
- *             password:
- *               type: string
- *     responses:
- *       200:
- *         description: succesful login
- *         schema:
- *           properties:
- *             token:
- *               type: string
- *       400:
- *         description: invalid credentials
- */
-exports.login = function (req, res, next) {
-    var username = _.get(req.body, 'username');
-    var password = _.get(req.body, 'password');
-
-    if (!username) {
-        throw { username: 'This field is required.', status: 400 };
-    }
-    if (!password) {
-        throw { password: 'This field is required.', status: 400 };
-    }
-
-    Users.login(dbUtils.getSession(req), username, password).then(function (response) {
-        return writeResponse(res, response);
-    }).catch(next);
-};
-
-/**
- * @swagger
- * /api/v0/users/me:
- *   get:
- *     tags:
- *     - users
- *     description: Get your user
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: Authorization
- *         in: header
- *         type: string
- *         required: true
- *         description: Token (token goes here)
- *     responses:
- *       200:
- *         description: the user
- *         schema:
- *           $ref: '#/definitions/User'
- *       401:
- *         description: invalid / missing authentication
- */
-exports.me = function (req, res, next) {
-    loginRequired(req, res, function () {
-        var authHeader = req.headers['authorization'];
-        var match = authHeader.match(/^Token (\S+)/);
-        if (!match || !match[1]) {
-            throw { message: 'invalid authorization format. Follow `Token <token>`', status: 401 };
-        }
-
-        var token = match[1];
-        Users.me(dbUtils.getSession(req), token).then(function (response) {
-            return writeResponse(res, response);
-        }).catch(next);
-    });
-};
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _response = __webpack_require__(11);
-
-var _response2 = _interopRequireDefault(_response);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-module.exports = function loginRequired(req, res, next) {
-  var authHeader = req.headers['authorization'];
-  if (!authHeader) {
-    return (0, _response2.default)(res, { detail: 'no authorization provided' }, 401);
-  }
-  next();
-};
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.users = __webpack_require__(52);
 
 /***/ })
 /******/ ]);

@@ -3,16 +3,28 @@
 exports[`it displays the sign up form 1`] = `
 <form
   className="ui form"
+  onSubmit={[Function]}
 >
   <div
     className="field"
   >
     <label>
-      First Name
+      * First Name
     </label>
     <input
+      name="firstName"
+      onBlur={[Function]}
+      onChange={[Function]}
       placeholder="First Name"
+      value=""
     />
+  </div>
+  <div
+    className="ui hidden negative message"
+  >
+    <p>
+      First Name is Required
+    </p>
   </div>
   <div
     className="field"
@@ -21,38 +33,69 @@ exports[`it displays the sign up form 1`] = `
       Last Name
     </label>
     <input
+      name="lastName"
+      onChange={[Function]}
       placeholder="Last Name"
+      value=""
     />
   </div>
   <div
     className="field"
   >
     <label>
-      Email
+      * Email
     </label>
     <input
+      name="email"
+      onBlur={[Function]}
+      onChange={[Function]}
       placeholder="Email"
+      value=""
     />
+  </div>
+  <div
+    className="ui hidden negative message"
+  >
+    <p>
+      Invaild email format
+    </p>
   </div>
   <div
     className="field"
   >
     <label>
-      Password
+      * Password
     </label>
     <input
+      name="password"
+      onBlur={[Function]}
+      onChange={[Function]}
       placeholder="Password"
+      type="password"
+      value=""
     />
   </div>
   <div
     className="field"
   >
     <label>
-      Confirm Password
+      * Confirm Password
     </label>
     <input
+      name="password_confirm"
+      onBlur={[Function]}
+      onChange={[Function]}
       placeholder="Confirm Password"
+      type="password"
+      value=""
     />
+  </div>
+  <div
+    className="ui hidden negative message"
+  >
+    <p>
+      Passwords do not match.
+    </p>
   </div>
   <div
     className="field"
@@ -66,21 +109,21 @@ exports[`it displays the sign up form 1`] = `
       <input
         checked={false}
         className="hidden"
-        name={undefined}
+        name="doAgree"
         readOnly={true}
         tabIndex={0}
         type="checkbox"
         value={undefined}
       />
       <label>
-        I agree to the Terms and Conditions
+        * I agree to the Terms and Conditions
       </label>
     </div>
   </div>
   <button
-    className="ui button"
+    className="ui disabled button"
     onClick={[Function]}
-    tabIndex={undefined}
+    tabIndex={-1}
     type="submit"
   >
     Submit

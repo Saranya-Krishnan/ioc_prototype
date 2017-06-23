@@ -1,5 +1,4 @@
 import * as SignUpActionTypes from '../action_types/sign-up';
-import ajax from 'superagent';
 
 const initialState ={};
 

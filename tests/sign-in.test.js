@@ -10,7 +10,7 @@ test('it displays the sign in form', () =>{
     };
     const component = renderer.create(
         <MemoryRouter>
-            <SignIn clickFooterItem={'test'} Item={clickTest}></SignIn>
+            <SignIn onClickSubmit={function(){return 'test';}} Item={clickTest}></SignIn>
         </MemoryRouter>
     );
     let c = component.toJSON();

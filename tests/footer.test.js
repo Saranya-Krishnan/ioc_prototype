@@ -9,7 +9,7 @@ test('it displays the correct footer items', () =>{
     };
     const component = renderer.create(
         <MemoryRouter>
-            <Footer clickFooterItem={'test'} Item={clickTest}></Footer>
+            <Footer clickFooterItem={function(){return 'test';}} Item={clickTest}></Footer>
         </MemoryRouter>
     );
     let c = component.toJSON();

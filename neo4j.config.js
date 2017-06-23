@@ -25,7 +25,7 @@ nconf.env(['PORT', 'NODE_ENV'])
         'USERNAME': 'ioc_neoj4',
         'PASSWORD' : 'moleskine',
         'neo4j': 'local',
-        'neo4j-local': 'bolt://localhost:7474',
+        'neo4j-local': 'bolt://localhost:7687',
         'neo4j-remote': 'bolt:http://162.243.100.222:7474',
         'base_url': 'http://localhost:3030',
         'api_path': '/api/v0'
