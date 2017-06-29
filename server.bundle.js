@@ -2695,199 +2695,9 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 
 /***/ }),
 /* 64 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDropzone = __webpack_require__(79);
-
-var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
-
-var _superagent = __webpack_require__(15);
-
-var _superagent2 = _interopRequireDefault(_superagent);
-
-var _semanticUiReact = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-//ToDo: move to env var
-var CLOUDINARY_UPLOAD_PRESET = 'iylswkmx';
-var CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hpvmvlpcu/image/upload';
-
-var ImageUploader = function (_React$Component) {
-    _inherits(ImageUploader, _React$Component);
-
-    function ImageUploader(props) {
-        _classCallCheck(this, ImageUploader);
-
-        var _this = _possibleConstructorReturn(this, (ImageUploader.__proto__ || Object.getPrototypeOf(ImageUploader)).call(this, props));
-
-        _this.state = {
-            uploadedFileCloudinaryUrl: ''
-        };
-        return _this;
-    }
-
-    _createClass(ImageUploader, [{
-        key: 'onImageDrop',
-        value: function onImageDrop(files) {
-            this.setState({
-                uploadedFile: files[0]
-            });
-            this.handleImageUpload(files[0]);
-        }
-    }, {
-        key: 'handleImageUpload',
-        value: function handleImageUpload(file) {
-            var _this2 = this;
-
-            var upload = _superagent2.default.post(CLOUDINARY_UPLOAD_URL).field('upload_preset', CLOUDINARY_UPLOAD_PRESET).field('file', file);
-            upload.end(function (err, response) {
-                if (err) {
-                    console.error(err);
-                }
-                if (response) {
-                    _this2.saveImage(response);
-                    if (response.body.secure_url !== '') {
-                        _this2.setState({
-                            uploadedFileCloudinaryUrl: response.body.secure_url
-                        });
-                    }
-                }
-            });
-        }
-    }, {
-        key: 'saveImage',
-        value: function saveImage(data) {
-            var _this3 = this;
-
-            var test = { "public_id": "jz6h0ldxnvay65oqihra",
-                "version": 1498127607,
-                "signature": "8c658775bd5e2d837ba7d76a0ef0b23be0b7b51f",
-                "width": 686,
-                "height": 800,
-                "format": "jpg",
-                "resource_type": "image",
-                "created_at": "2017-06-22T10:33:27Z",
-                "tags": [],
-                "pages": 1,
-                "bytes": 74855,
-                "type": "upload",
-                "etag": "3ad1a573b6f4326e0524c3fac3f0e071",
-                "url": "http://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
-                "secure_url": "https://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
-                "image_metadata": {
-                    "JFIFVersion": "1.01",
-                    "ResolutionUnit": "inches",
-                    "XResolution": "72",
-                    "YResolution": "72",
-                    "Colorspace": "GRAY"
-                },
-                "colors": [["#030303", 69.4], ["#F8F8F8", 27.8]],
-                "predominant": {
-                    "google": [["black", 69.4], ["white", 27.8]]
-                },
-                "phash": "d393644e93af2b90",
-                "coordinates": {
-                    "faces": []
-                },
-                "illustration_score": 1.0,
-                "semi_transparent": false,
-                "grayscale": true,
-                "original_filename": "3998295_orig"
-            };
-            ajax.post('http://localhost:3030/api/images/create').set('Content-Type', 'application/json').send(JSON.stringify(data)).end(function (error, response) {
-                if (!error && response) {
-                    //Todo: Create ArtWork
-                    _this3.setState({ commits: response.body });
-                } else {
-                    console.log('Error submitting your credentials', error);
-                }
-            });
-        }
-    }, {
-        key: 'getClassifiers',
-        value: function getClassifiers(image) {}
-    }, {
-        key: 'createTags',
-        value: function createTags() {}
-    }, {
-        key: 'rejectTags',
-        value: function rejectTags() {}
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _semanticUiReact.Segment,
-                null,
-                _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Upload your Moleskine artwork.'
-                ),
-                _react2.default.createElement(
-                    'form',
-                    null,
-                    this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
-                        'div',
-                        { className: 'FileUpload' },
-                        _react2.default.createElement(
-                            _reactDropzone2.default,
-                            {
-                                onDrop: this.onImageDrop.bind(this),
-                                multiple: false,
-                                accept: 'image/*',
-                                className: 'uploader-zone',
-                                activeClassName: 'uploader-zone-active',
-                                rejectClassName: 'uploader-zone-rejected' },
-                            _react2.default.createElement(
-                                'div',
-                                null,
-                                'Drop an image or click to select a file to upload.'
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
-                            'div',
-                            null,
-                            _react2.default.createElement(
-                                'p',
-                                null,
-                                this.state.uploadedFile.name
-                            ),
-                            _react2.default.createElement('img', { src: this.state.uploadedFileCloudinaryUrl })
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-
-    return ImageUploader;
-}(_react2.default.Component);
-
-exports.default = ImageUploader;
+throw new Error("Module build failed: SyntaxError: Only one default export allowed per module. (180:0)\n\n\u001b[0m \u001b[90m 178 | \u001b[39m}\u001b[33m;\u001b[39m\n \u001b[90m 179 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 180 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m connect(mapStateToProps\u001b[33m,\u001b[39m mapDispatchToProps)(\u001b[33mImageUploader\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 65 */
@@ -3478,6 +3288,10 @@ var _footer_actions = __webpack_require__(10);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
+var _imageUploader_actions = __webpack_require__(86);
+
+var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
+
 var _nav = __webpack_require__(13);
 
 var _nav2 = _interopRequireDefault(_nav);
@@ -3517,9 +3331,17 @@ var Home = function (_Component) {
             var dispatch = this.props.dispatch;
 
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
-            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var uploadImage = (0, _redux.bindActionCreators)(ImageUploadCreators.uploadImage, dispatch);
+            var createImage = (0, _redux.bindActionCreators)(ImageUploadCreators.createImage, dispatch);
+            var createArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.createArtwork, dispatch);
+            var classifyImage = (0, _redux.bindActionCreators)(ImageUploadCreators.classifyImage, dispatch);
+            var createTags = (0, _redux.bindActionCreators)(ImageUploadCreators.createTags, dispatch);
+            var rejectTag = (0, _redux.bindActionCreators)(ImageUploadCreators.rejectTag, dispatch);
+            var exploreBasedOnThisArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
+
             return _react2.default.createElement(
                 'div',
                 null,
@@ -3527,7 +3349,7 @@ var Home = function (_Component) {
                     _semanticUiReact.Container,
                     { className: 'main-content' },
                     _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
-                    _react2.default.createElement(_imageUploader2.default, null)
+                    _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTags: createTags, rejectTag: rejectTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
@@ -4037,12 +3859,7 @@ module.exports = require("neo4j-driver");
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 79 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dropzone");
-
-/***/ }),
+/* 79 */,
 /* 80 */
 /***/ (function(module, exports) {
 
@@ -4077,6 +3894,95 @@ var getToken = function getToken() {
 module.exports = {
     setToken: setToken,
     getToken: getToken
+};
+
+/***/ }),
+/* 83 */,
+/* 84 */,
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var UPLOAD_IMAGE = exports.UPLOAD_IMAGE = 'UPLOAD_IMAGE';
+var CREATE_IMAGE = exports.CREATE_IMAGE = 'CREATE_IMAGE';
+var CREATE_ARTWORK = exports.CREATE_ARTWORK = 'CREATE_ARTWORK';
+var CLASSIFY_IMAGE = exports.CLASSIFY_IMAGE = 'CLASSIFY_IMAGE';
+var CREATE_TAGS = exports.CREATE_TAGS = 'CREATE_TAGS';
+var REJECT_TAG = exports.REJECT_TAG = 'REJECT_TAG';
+var EXPLORE_BASED_ON_THIS_ARTWORK = exports.EXPLORE_BASED_ON_THIS_ARTWORK = 'EXPLORE_BASED_ON_THIS_ARTWORK';
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTags = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
+
+var _imageUploder = __webpack_require__(85);
+
+var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var uploadImage = exports.uploadImage = function uploadImage(image) {
+    return {
+        type: ImageUploaderActionTypes.UPLOAD_IMAGE,
+        image: image
+    };
+};
+
+var createImage = exports.createImage = function createImage(image, user) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_IMAGE,
+        image: image,
+        user: user
+    };
+};
+
+var createArtwork = exports.createArtwork = function createArtwork(image, user) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_ARTWORK,
+        image: image,
+        user: user
+    };
+};
+
+var classifyImage = exports.classifyImage = function classifyImage(image) {
+    return {
+        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
+        image: image
+    };
+};
+
+var createTags = exports.createTags = function createTags(artwork) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_TAGS,
+        artwork: artwork
+    };
+};
+
+var rejectTag = exports.rejectTag = function rejectTag(tag) {
+    return {
+        type: ImageUploaderActionTypes.REJECT_TAG,
+        tag: tag
+    };
+};
+
+var exploreBasedOnThisArtwork = exports.exploreBasedOnThisArtwork = function exploreBasedOnThisArtwork(artwork) {
+    return {
+        type: ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK,
+        artwork: artwork
+    };
 };
 
 /***/ })

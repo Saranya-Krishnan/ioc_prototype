@@ -1,18 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+import ajax from 'superagent';
 import { Segment } from 'semantic-ui-react';
+import * as ImageUploaderActions from '../actions/image-uploader_actions'
 
 //ToDo: move to env var
 const CLOUDINARY_UPLOAD_PRESET = 'iylswkmx';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hpvmvlpcu/image/upload';
 
-export default class ImageUploader extends React.Component {
+export default class ImageUploader extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            uploadedFileCloudinaryUrl: ''
-        };
+        this.state = props;
+        this.onImageDrop = this.onImageDrop.bind(this);
+        this.handleImageUpload = this.handleImageUpload.bind(this);
     }
     onImageDrop(files) {
         this.setState({
@@ -86,20 +90,11 @@ export default class ImageUploader extends React.Component {
             .end((error, response) => {
                 if (!error && response) {
                     //Todo: Create ArtWork
-                    this.setState({commits: response.body});
+
                 } else {
                     console.log('Error submitting your credentials', error);
                 }
             });
-    }
-    getClassifiers(image){
-
-    }
-    createTags(){
-
-    }
-    rejectTags(){
-
     }
     render() {
         return (
@@ -132,3 +127,54 @@ export default class ImageUploader extends React.Component {
     }
 }
 
+ImageUploader.propTypes = {
+    uploadImage: PropTypes.func.isRequired,
+    uploadedFileCloudinaryUrl: PropTypes.string,
+    uploadedFile: PropTypes.any,
+    createImage: PropTypes.func.isRequired,
+    createArtwork: PropTypes.func.isRequired,
+    classifyImage: PropTypes.func.isRequired,
+    createTags: PropTypes.func.isRequired,
+    rejectTag: PropTypes.func.isRequired,
+    exploreBasedOnThisArtwork: PropTypes.func.isRequired,
+    userInfo: PropTypes.shape({
+        id: PropTypes.string,
+        username:PropTypes.string,
+        firstName:PropTypes.string,
+        lastName:PropTypes.string
+    })
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        uploadImage: (image) => {
+            dispatch(ImageUploaderActions.uploadImage(image))
+        },
+        createImage: (image,user) =>{
+            dispatch(ImageUploaderActions.createImage(image,user))
+        },
+        createArtwork: (image,user) =>{
+            dispatch(ImageUploaderActions.createArtwork(image,user))
+        },
+        classifyImage: (image) =>{
+            dispatch(ImageUploaderActions.classifyImage(image))
+        },
+        createTags: (artwork) =>{
+            dispatch(ImageUploaderActions.createTags(artwork))
+        },
+        rejectTag: (tag) =>{
+            dispatch(ImageUploaderActions.rejectTag(tag))
+        },
+        exploreBasedOnThisArtwork: (artwork) =>{
+            dispatch(ImageUploaderActions.exploreBasedOnThisArtwork(artwork))
+        }
+    }
+};
+
+const mapStateToProps = (state) => {
+    return {
+        state: state['ImageUploader']
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageUploader);

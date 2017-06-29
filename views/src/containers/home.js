@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
+import * as ImageUploadCreators from '../actions/image-uploader_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 import ImageUploader from '../components/image-uploader';
@@ -16,14 +17,22 @@ class Home extends Component {
     render() {
         const { dispatch } = this.props;
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
-        const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
+        const uploadImage = bindActionCreators(ImageUploadCreators.uploadImage, dispatch);
+        const createImage = bindActionCreators(ImageUploadCreators.createImage, dispatch);
+        const createArtwork = bindActionCreators(ImageUploadCreators.createArtwork, dispatch);
+        const classifyImage = bindActionCreators(ImageUploadCreators.classifyImage, dispatch);
+        const createTags = bindActionCreators(ImageUploadCreators.createTags, dispatch);
+        const rejectTag = bindActionCreators(ImageUploadCreators.rejectTag, dispatch);
+        const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
+        const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
+
         return (
             <div>
                 <Container className={'main-content'}>
                     <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
-                    <ImageUploader/>
+                    <ImageUploader uploadImage={uploadImage} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTags={createTags} rejectTag={rejectTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}/>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
             </div>
