@@ -1,6 +1,6 @@
 import writeError from '../helpers/response';
 import Users from '../models/users';
-import dbUtil from '../neo4j/dbUtils';
+import dbUtils from '../neo4j/dbUtils';
 
 module.exports = function setAuthUser(req, res, next) {
   const authHeader = req.headers['authorization'];

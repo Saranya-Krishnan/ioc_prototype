@@ -10,16 +10,18 @@ import {Container, Segment } from 'semantic-ui-react';
 
 class Browse extends Component {
     static propTypes = {
-        menu: PropTypes.object.isRequired
+        browse: PropTypes.object.isRequired
     };
     render() {
         const { dispatch } = this.props;
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
+        const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
+        const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav activeItem={'browse'} clickMenuItem={clickMenuItem}></Nav>
+                    <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
                     <Segment>
                         <h1>Browse</h1>
                     </Segment>
@@ -32,7 +34,7 @@ class Browse extends Component {
 
 const mapStateToProps = state => (
     {
-        menu: state
+        browse: state
     }
 );
 

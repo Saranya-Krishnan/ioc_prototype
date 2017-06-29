@@ -11,16 +11,18 @@ import { Container } from 'semantic-ui-react';
 
 class Home extends Component {
     static propTypes = {
-        menu: PropTypes.object.isRequired
+        home: PropTypes.object.isRequired
     };
     render() {
-        const { dispatch, menu } = this.props;
+        const { dispatch } = this.props;
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
+        const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
+        const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav activeItem={'home'} clickMenuItem={clickMenuItem}></Nav>
+                    <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
                     <ImageUploader/>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
@@ -29,10 +31,10 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = state => (
-    {
-        menu: state
+const mapStateToProps = (state) => {
+    return {
+        home: state
     }
-);
+};
 
 export default connect(mapStateToProps)(Home);

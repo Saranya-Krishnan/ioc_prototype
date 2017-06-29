@@ -30,10 +30,6 @@ const register = function (session, email, password, firstName, lastName) {
             }
         });
 };
-//curl -H "Content-Type: application/json" -X POST -d '{"email":"testing@test.com","password":"xyz","firstName":"Gary","lastName":"Glitter"}' http://localhost:3030/api/v0/register
-
-
-
 const me = function (session, apiKey) {
     return session.run('MATCH (user:User {api_key: {api_key}}) RETURN user', {api_key: apiKey})
         .then(results => {
@@ -44,15 +40,15 @@ const me = function (session, apiKey) {
         });
 };
 
-const login = function (session, username, password) {
-    return session.run('MATCH (user:User {username: {username}}) RETURN user', {username: username})
+const login = function (session, email, password) {
+    return session.run('MATCH (user:User {email: {email}}) RETURN user', {email: email})
         .then(results => {
                 if (_.isEmpty(results.records)) {
-                    throw {username: 'username does not exist', status: 400}
+                    throw {email: 'username does not exist', status: 400}
                 }
                 else {
                     const dbUser = _.get(results.records[0].get('user'), 'properties');
-                    if (dbUser.password != hashPassword(username, password)) {
+                    if (dbUser.password != hashPassword(email, password)) {
                         throw {password: 'wrong password', status: 400}
                     }
                     return {token: _.get(dbUser, 'api_key')};

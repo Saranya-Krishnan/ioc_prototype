@@ -1,1 +1,10 @@
+exports.images = require('./images');
+exports.journeys = require('./journeys');
+exports.locations = require('./locations');
+exports.notebooks = require('./notebooks');
+exports.pages = require('./pages');
+exports.quests = require('./quests');
+exports.suggests = require('./suggestions');
+exports.tags = require('./tags');
 exports.users = require('./users');
+exports.works = require('./works');

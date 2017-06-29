@@ -12,17 +12,19 @@ import {Container } from 'semantic-ui-react';
 
 class SignInPage extends Component {
     static propTypes = {
-        menu: PropTypes.object.isRequired
+        signIn: PropTypes.object.isRequired
     };
     render() {
-        const { dispatch, menu } = this.props;
+        const { dispatch } = this.props;
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         const onClickSubmit = bindActionCreators(SignInActionCreators.onClickSubmit, dispatch);
+        const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
+        const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav activeItem={'sign-in'} clickMenuItem={clickMenuItem}></Nav>
+                    <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
                     <SignIn onClickSubmit={onClickSubmit}/>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
@@ -33,7 +35,7 @@ class SignInPage extends Component {
 
 const mapStateToProps = state => (
     {
-        menu: state
+        signIn: state
     }
 );
 

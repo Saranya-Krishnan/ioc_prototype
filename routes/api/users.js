@@ -12,10 +12,14 @@ const Users = require('../../models/users')
  *     properties:
  *       id:
  *         type: string
- *       username:
+ *       email:
  *         type: string
- *       avatar:
- *         type: object
+ *       firstName:
+ *          type: string
+ *       lastName:
+ *          type: string
+ *       password:
+ *          type: string
  */
 
 /**
@@ -97,17 +101,16 @@ exports.register = function (req, res, next) {
  *         description: invalid credentials
  */
 exports.login = function (req, res, next) {
-    const username = _.get(req.body, 'username');
+    const email = _.get(req.body, 'email');
     const password = _.get(req.body, 'password');
 
-    if (!username) {
+    if (!email) {
         throw {username: 'This field is required.', status: 400};
     }
     if (!password) {
         throw {password: 'This field is required.', status: 400};
     }
-
-    Users.login(dbUtils.getSession(req), username, password)
+    Users.login(dbUtils.getSession(req), email, password)
         .then(response => writeResponse(res, response))
         .catch(next);
 };
@@ -142,7 +145,6 @@ exports.me = function (req, res, next) {
         if (!match || !match[1]) {
             throw {message: 'invalid authorization format. Follow `Token <token>`', status: 401};
         }
-
         const token = match[1];
         Users.me(dbUtils.getSession(req), token)
             .then(response => writeResponse(res, response))

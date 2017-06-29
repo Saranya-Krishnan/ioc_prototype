@@ -1,6 +1,11 @@
 import * as SignInActionTypes from '../action_types/sign-in';
 
-const initialState ={};
+const initialState = {
+    email: '',
+    password: '',
+    redirect: false
+};
+
 
 export default function SignIn(state=initialState, action) {
     switch(action.type) {

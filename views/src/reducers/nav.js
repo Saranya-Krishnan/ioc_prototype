@@ -1,8 +1,16 @@
 import * as NavActionTypes from '../action_types/nav';
 
+
 const initialState = {
     activeItem: 'home',
-    isLoggedIn: false
+    isLoggedIn: false,
+    sessionToken: '',
+    userInfo:{
+        id:'',
+        username:'',
+        firstName:'',
+        lastName:''
+    }
 };
 
 export default function Nav(state=initialState, action) {
@@ -10,6 +18,14 @@ export default function Nav(state=initialState, action) {
         case NavActionTypes.NAV_ITEM_CLICKED:
             return Object.assign({}, state, {
                 activeItem: action.name
+            });
+        case NavActionTypes.UPDATE_USER_INFO:
+            return Object.assign({}, state, {
+                userInfo: action.data
+            });
+        case NavActionTypes.CHECK_LOGGED_IN:
+            return Object.assign({}, state, {
+                isLoggedIn: action.status
             });
         default:
             return state;

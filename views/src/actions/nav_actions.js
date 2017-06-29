@@ -6,3 +6,15 @@ export const clickMenuItem = name => {
         name
     };
 };
+
+export const updateUserInfo = data => {
+    return {
+        type: NavActionTypes.UPDATE_USER_INFO, data
+    };
+};
+
+export const setLoggedIn = status => {
+    return {
+        type: NavActionTypes.CHECK_LOGGED_IN, status
+    };
+};

@@ -10,15 +10,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 import Ioc from './src/containers/ioc';
 
-const initialState = window.__INITIAL_STATE__ = {
-    Footer: {},
-    Nav: {
-        activeItem: 'home',
-        isLoggedIn: false
-    },
-    SignIn: {},
-    SignUp: {}
-};
+const initialState = window.__INITIAL_STATE__ = {};
 
 ReactDOM.render(
     <Provider store={createStore(mainReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())}>

@@ -1,0 +1,100 @@
+const Works = require('../../models/works')
+    , writeResponse = require('../../helpers/response').writeResponse
+    , writeError = require('../../helpers/response').writeError
+    , loginRequired = require('../../middlewares/loginRequired')
+    , dbUtils = require('../../neo4j/dbUtils')
+    , _ = require('lodash');
+
+
+/**
+ * @swagger
+ * definition:
+ *   Work:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: string
+ *       url:
+ *         type: string
+ *       classificationData:
+ *          type: string
+ */
+/**
+ * @swagger
+ * /api/v0/works/create:
+ *   post:
+ *     tags:
+ *     - works
+ *     description: Creates a new work
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.create = function (req, res, next) {
+
+};
+
+/**
+ * @swagger
+ * /api/v0/works/update:
+ *   post:
+ *     tags:
+ *     - works
+ *     description: Updates an work
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.update = function (req, res, next) {
+
+};
+
+/**
+ * @swagger
+ * /api/v0/works/delete:
+ *   post:
+ *     tags:
+ *     - works
+ *     description: Deletes an work
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.delete = function (req, res, next) {
+
+};
