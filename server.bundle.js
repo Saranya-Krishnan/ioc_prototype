@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 58);
+/******/ 	return __webpack_require__(__webpack_require__.s = 59);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var sw = __webpack_require__(81);
+var sw = __webpack_require__(83);
 var _ = __webpack_require__(1);
 
 exports.writeResponse = function writeResponse(res, response, status) {
@@ -105,7 +105,7 @@ module.exports = require("react");
 "use strict";
 
 
-var _randomstring = __webpack_require__(20);
+var _randomstring = __webpack_require__(21);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
@@ -114,7 +114,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // neo4j_models cypher helper module
 var nconf = __webpack_require__(16);
 
-var neo4j = __webpack_require__(77).v1;
+var neo4j = __webpack_require__(80).v1;
 var driver = neo4j.driver(nconf.get('neo4j-local'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
 
 if (nconf.get('neo4j') === 'remote') {
@@ -148,12 +148,6 @@ function whereTemplate(name, key, paramKey) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("semantic-ui-react");
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -172,6 +166,12 @@ module.exports = function loginRequired(req, res, next) {
   }
   next();
 };
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("semantic-ui-react");
 
 /***/ }),
 /* 6 */
@@ -193,36 +193,6 @@ module.exports = require("react-redux");
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux");
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.clickFooterItem = undefined;
-
-var _footer = __webpack_require__(59);
-
-var FooterActionTypes = _interopRequireWildcard(_footer);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var clickFooterItem = exports.clickFooterItem = function clickFooterItem() {
-    return {
-        type: FooterActionTypes.FOOTER_ITEM_CLICKED
-    };
-};
-
-/***/ }),
-/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -233,7 +203,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setLoggedIn = exports.updateUserInfo = exports.clickMenuItem = undefined;
 
-var _nav = __webpack_require__(19);
+var _nav = __webpack_require__(20);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -259,6 +229,36 @@ var setLoggedIn = exports.setLoggedIn = function setLoggedIn(status) {
 };
 
 /***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.clickFooterItem = undefined;
+
+var _footer = __webpack_require__(60);
+
+var FooterActionTypes = _interopRequireWildcard(_footer);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var clickFooterItem = exports.clickFooterItem = function clickFooterItem() {
+    return {
+        type: FooterActionTypes.FOOTER_ITEM_CLICKED
+    };
+};
+
+/***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -277,7 +277,7 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 var _reactRouterDom = __webpack_require__(14);
 
@@ -335,7 +335,7 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 var _reactRouterDom = __webpack_require__(14);
 
@@ -343,7 +343,7 @@ var _superagent = __webpack_require__(15);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _nav_actions = __webpack_require__(11);
+var _nav_actions = __webpack_require__(9);
 
 var NavActions = _interopRequireWildcard(_nav_actions);
 
@@ -357,7 +357,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var token = __webpack_require__(82);
+var token = __webpack_require__(18);
 
 var Nav = function (_Component) {
     _inherits(Nav, _Component);
@@ -507,7 +507,7 @@ module.exports = require("superagent");
 "use strict";
 
 
-var _nconf = __webpack_require__(76);
+var _nconf = __webpack_require__(79);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
@@ -557,11 +557,36 @@ module.exports = require("express");
 "use strict";
 
 
+var setToken = function setToken(token) {
+    if (token) {
+        window.localStorage.setItem('token', token);
+    }
+
+    //ToDo:remove
+    console.log('window from helper', window.localStorage.token);
+};
+
+var getToken = function getToken() {
+    return window.localStorage.getItem('token');
+};
+
+module.exports = {
+    setToken: setToken,
+    getToken: getToken
+};
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _randomstring = __webpack_require__(20);
+var _randomstring = __webpack_require__(21);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
@@ -569,11 +594,11 @@ var _lodash = __webpack_require__(1);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _user = __webpack_require__(40);
+var _user = __webpack_require__(41);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _crypto = __webpack_require__(75);
+var _crypto = __webpack_require__(78);
 
 var _crypto2 = _interopRequireDefault(_crypto);
 
@@ -635,7 +660,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -649,13 +674,13 @@ var UPDATE_USER_INFO = exports.UPDATE_USER_INFO = 'UPDATE_USER_INFO';
 var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("randomstring");
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -672,7 +697,7 @@ module.exports = function neo4jSessionCleanup(req, res, next) {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -682,7 +707,7 @@ var _response = __webpack_require__(0);
 
 var _response2 = _interopRequireDefault(_response);
 
-var _users = __webpack_require__(18);
+var _users = __webpack_require__(19);
 
 var _users2 = _interopRequireDefault(_users);
 
@@ -712,25 +737,25 @@ module.exports = function setAuthUser(req, res, next) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.images = __webpack_require__(48);
-exports.journeys = __webpack_require__(49);
-exports.locations = __webpack_require__(50);
-exports.notebooks = __webpack_require__(51);
-exports.pages = __webpack_require__(52);
-exports.quests = __webpack_require__(53);
-exports.suggests = __webpack_require__(54);
-exports.tags = __webpack_require__(55);
-exports.users = __webpack_require__(56);
-exports.works = __webpack_require__(57);
+exports.images = __webpack_require__(49);
+exports.journeys = __webpack_require__(50);
+exports.locations = __webpack_require__(51);
+exports.notebooks = __webpack_require__(52);
+exports.pages = __webpack_require__(53);
+exports.quests = __webpack_require__(54);
+exports.suggests = __webpack_require__(55);
+exports.tags = __webpack_require__(56);
+exports.users = __webpack_require__(57);
+exports.works = __webpack_require__(58);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,21 +773,21 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(80);
+var _reactRouter = __webpack_require__(82);
 
-var _server = __webpack_require__(78);
+var _server = __webpack_require__(81);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _nav = __webpack_require__(74);
+var _nav = __webpack_require__(77);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(8);
 
-var _ioc = __webpack_require__(70);
+var _ioc = __webpack_require__(73);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -800,31 +825,31 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("method-override");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-jsdoc");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -834,7 +859,7 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _image = __webpack_require__(32);
+var _image = __webpack_require__(33);
 
 var _image2 = _interopRequireDefault(_image);
 
@@ -859,7 +884,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -869,7 +894,7 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _journey = __webpack_require__(33);
+var _journey = __webpack_require__(34);
 
 var _journey2 = _interopRequireDefault(_journey);
 
@@ -888,7 +913,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -898,7 +923,7 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _location = __webpack_require__(34);
+var _location = __webpack_require__(35);
 
 var _location2 = _interopRequireDefault(_location);
 
@@ -917,7 +942,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -943,7 +968,7 @@ var Image = module.exports = function (_node) {
 exports.default = Image;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -968,7 +993,7 @@ var Journey = module.exports = function (_node) {
 exports.default = Journey;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -993,7 +1018,7 @@ var Location = module.exports = function (_node) {
 exports.default = Location;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1018,7 +1043,7 @@ var Notebook = module.exports = function (_node) {
 exports.default = Notebook;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1043,7 +1068,7 @@ var Page = module.exports = function (_node) {
 exports.default = Page;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1068,7 +1093,7 @@ var Quest = module.exports = function (_node) {
 exports.default = Quest;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1093,7 +1118,7 @@ var Suggestion = module.exports = function (_node) {
 exports.default = Suggestion;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1118,7 +1143,7 @@ var Tag = module.exports = function (_node) {
 exports.default = Tag;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1146,7 +1171,7 @@ var User = module.exports = function (_node) {
 exports.default = User;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1171,35 +1196,6 @@ var Work = module.exports = function (_node) {
 exports.default = Work;
 
 /***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _uuid = __webpack_require__(6);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-var _notebook = __webpack_require__(35);
-
-var _notebook2 = _interopRequireDefault(_notebook);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var create = function create(session) {};
-
-var update = function update(session) {};
-
-var deletion = function deletion(session) {};
-
-module.exports = {
-    create: create,
-    update: update,
-    deletion: deletion
-};
-
-/***/ }),
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1210,9 +1206,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _page = __webpack_require__(36);
+var _notebook = __webpack_require__(36);
 
-var _page2 = _interopRequireDefault(_page);
+var _notebook2 = _interopRequireDefault(_notebook);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1239,9 +1235,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _quest = __webpack_require__(37);
+var _page = __webpack_require__(37);
 
-var _quest2 = _interopRequireDefault(_quest);
+var _page2 = _interopRequireDefault(_page);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1268,9 +1264,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _suggestion = __webpack_require__(38);
+var _quest = __webpack_require__(38);
 
-var _suggestion2 = _interopRequireDefault(_suggestion);
+var _quest2 = _interopRequireDefault(_quest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1297,9 +1293,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _tag = __webpack_require__(39);
+var _suggestion = __webpack_require__(39);
 
-var _tag2 = _interopRequireDefault(_tag);
+var _suggestion2 = _interopRequireDefault(_suggestion);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1326,9 +1322,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _work = __webpack_require__(41);
+var _tag = __webpack_require__(40);
 
-var _work2 = _interopRequireDefault(_work);
+var _tag2 = _interopRequireDefault(_tag);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1351,10 +1347,39 @@ module.exports = {
 "use strict";
 
 
-var Images = __webpack_require__(29),
+var _uuid = __webpack_require__(6);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+var _work = __webpack_require__(42);
+
+var _work2 = _interopRequireDefault(_work);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var create = function create(session) {};
+
+var update = function update(session) {};
+
+var deletion = function deletion(session) {};
+
+module.exports = {
+    create: create,
+    update: update,
+    deletion: deletion
+};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Images = __webpack_require__(30),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1493,16 +1518,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Journeys = __webpack_require__(30),
+var Journeys = __webpack_require__(31),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1592,16 +1617,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Locations = __webpack_require__(31),
+var Locations = __webpack_require__(32),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1691,16 +1716,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Notebooks = __webpack_require__(42),
+var Notebooks = __webpack_require__(43),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1790,16 +1815,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Pages = __webpack_require__(43),
+var Pages = __webpack_require__(44),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1889,16 +1914,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Quests = __webpack_require__(44),
+var Quests = __webpack_require__(45),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1988,16 +2013,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Suggestions = __webpack_require__(45),
+var Suggestions = __webpack_require__(46),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -2087,16 +2112,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Tags = __webpack_require__(46),
+var Tags = __webpack_require__(47),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -2186,16 +2211,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Users = __webpack_require__(18),
+var Users = __webpack_require__(19),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 /**
@@ -2347,16 +2372,16 @@ exports.me = function (req, res, next) {
 };
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Works = __webpack_require__(47),
+var Works = __webpack_require__(48),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(5),
+    loginRequired = __webpack_require__(4),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -2446,7 +2471,7 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2456,7 +2481,7 @@ var _express = __webpack_require__(17);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(24);
+var _index = __webpack_require__(25);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2464,23 +2489,23 @@ var _neo4j = __webpack_require__(16);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
-var _methodOverride = __webpack_require__(26);
+var _methodOverride = __webpack_require__(27);
 
 var _methodOverride2 = _interopRequireDefault(_methodOverride);
 
-var _swaggerJsdoc = __webpack_require__(28);
+var _swaggerJsdoc = __webpack_require__(29);
 
 var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
 
-var _bodyParser = __webpack_require__(25);
+var _bodyParser = __webpack_require__(26);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _setAuthUser = __webpack_require__(22);
+var _setAuthUser = __webpack_require__(23);
 
 var _setAuthUser2 = _interopRequireDefault(_setAuthUser);
 
-var _neo4jSessionCleanup = __webpack_require__(21);
+var _neo4jSessionCleanup = __webpack_require__(22);
 
 var _neo4jSessionCleanup2 = _interopRequireDefault(_neo4jSessionCleanup);
 
@@ -2490,9 +2515,9 @@ var _response2 = _interopRequireDefault(_response);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var path = __webpack_require__(27);
+var path = __webpack_require__(28);
 
-var routes = __webpack_require__(23);
+var routes = __webpack_require__(24);
 var apiPath = _neo4j2.default.get('api_path');
 
 var app = (0, _express2.default)();
@@ -2500,7 +2525,7 @@ var api = (0, _express2.default)();
 
 var swaggerDefinition = {
     info: {
-        title: 'Neo4j Movie Demo API (Node/Express)',
+        title: 'Ioc Prototype',
         version: '1.0.0',
         description: ''
     },
@@ -2610,7 +2635,7 @@ api.listen(3030, function () {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2622,7 +2647,25 @@ Object.defineProperty(exports, "__esModule", {
 var FOOTER_ITEM_CLICKED = exports.FOOTER_ITEM_CLICKED = 'FOOTER_ITEM_CLICKED';
 
 /***/ }),
-/* 60 */
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var UPLOAD_IMAGE = exports.UPLOAD_IMAGE = 'UPLOAD_IMAGE';
+var CREATE_IMAGE = exports.CREATE_IMAGE = 'CREATE_IMAGE';
+var CREATE_ARTWORK = exports.CREATE_ARTWORK = 'CREATE_ARTWORK';
+var CLASSIFY_IMAGE = exports.CLASSIFY_IMAGE = 'CLASSIFY_IMAGE';
+var CREATE_TAGS = exports.CREATE_TAGS = 'CREATE_TAGS';
+var REJECT_TAG = exports.REJECT_TAG = 'REJECT_TAG';
+var EXPLORE_BASED_ON_THIS_ARTWORK = exports.EXPLORE_BASED_ON_THIS_ARTWORK = 'EXPLORE_BASED_ON_THIS_ARTWORK';
+
+/***/ }),
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2634,7 +2677,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2646,7 +2689,76 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
 
 /***/ }),
-/* 62 */
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTags = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
+
+var _imageUploder = __webpack_require__(61);
+
+var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var uploadImage = exports.uploadImage = function uploadImage(image) {
+    return {
+        type: ImageUploaderActionTypes.UPLOAD_IMAGE,
+        image: image
+    };
+};
+
+var createImage = exports.createImage = function createImage(image, user) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_IMAGE,
+        image: image,
+        user: user
+    };
+};
+
+var createArtwork = exports.createArtwork = function createArtwork(image, user) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_ARTWORK,
+        image: image,
+        user: user
+    };
+};
+
+var classifyImage = exports.classifyImage = function classifyImage(image) {
+    return {
+        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
+        image: image
+    };
+};
+
+var createTags = exports.createTags = function createTags(artwork) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_TAGS,
+        artwork: artwork
+    };
+};
+
+var rejectTag = exports.rejectTag = function rejectTag(tag) {
+    return {
+        type: ImageUploaderActionTypes.REJECT_TAG,
+        tag: tag
+    };
+};
+
+var exploreBasedOnThisArtwork = exports.exploreBasedOnThisArtwork = function exploreBasedOnThisArtwork(artwork) {
+    return {
+        type: ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK,
+        artwork: artwork
+    };
+};
+
+/***/ }),
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2657,7 +2769,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signIn = __webpack_require__(60);
+var _signIn = __webpack_require__(62);
 
 var SignInActionTypes = _interopRequireWildcard(_signIn);
 
@@ -2670,7 +2782,7 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 };
 
 /***/ }),
-/* 63 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2681,7 +2793,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signUp = __webpack_require__(61);
+var _signUp = __webpack_require__(63);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -2694,13 +2806,7 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 };
 
 /***/ }),
-/* 64 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: SyntaxError: Only one default export allowed per module. (180:0)\n\n\u001b[0m \u001b[90m 178 | \u001b[39m}\u001b[33m;\u001b[39m\n \u001b[90m 179 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 180 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m connect(mapStateToProps\u001b[33m,\u001b[39m mapDispatchToProps)(\u001b[33mImageUploader\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n");
-
-/***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2716,7 +2822,249 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(4);
+var _reactRedux = __webpack_require__(8);
+
+var _propTypes = __webpack_require__(7);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactDropzone = __webpack_require__(84);
+
+var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+
+var _superagent = __webpack_require__(15);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _semanticUiReact = __webpack_require__(5);
+
+var _imageUploader_actions = __webpack_require__(64);
+
+var ImageUploaderActions = _interopRequireWildcard(_imageUploader_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+//ToDo: move to env var
+var CLOUDINARY_UPLOAD_PRESET = 'iylswkmx';
+var CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hpvmvlpcu/image/upload';
+
+var ImageUploader = function (_Component) {
+    _inherits(ImageUploader, _Component);
+
+    function ImageUploader(props) {
+        _classCallCheck(this, ImageUploader);
+
+        var _this = _possibleConstructorReturn(this, (ImageUploader.__proto__ || Object.getPrototypeOf(ImageUploader)).call(this, props));
+
+        _this.state = props;
+        _this.onImageDrop = _this.onImageDrop.bind(_this);
+        _this.handleImageUpload = _this.handleImageUpload.bind(_this);
+        return _this;
+    }
+
+    _createClass(ImageUploader, [{
+        key: 'onImageDrop',
+        value: function onImageDrop(files) {
+            this.setState({
+                uploadedFile: files[0]
+            });
+            this.handleImageUpload(files[0]);
+        }
+    }, {
+        key: 'handleImageUpload',
+        value: function handleImageUpload(file) {
+            var _this2 = this;
+
+            var upload = _superagent2.default.post(CLOUDINARY_UPLOAD_URL).field('upload_preset', CLOUDINARY_UPLOAD_PRESET).field('file', file);
+            upload.end(function (err, response) {
+                if (err) {
+                    console.error(err);
+                }
+                if (response) {
+                    _this2.saveImage(response);
+                    if (response.body.secure_url !== '') {
+                        _this2.setState({
+                            uploadedFileCloudinaryUrl: response.body.secure_url
+                        });
+                    }
+                }
+            });
+        }
+    }, {
+        key: 'saveImage',
+        value: function saveImage(data) {
+            var test = { "public_id": "jz6h0ldxnvay65oqihra",
+                "version": 1498127607,
+                "signature": "8c658775bd5e2d837ba7d76a0ef0b23be0b7b51f",
+                "width": 686,
+                "height": 800,
+                "format": "jpg",
+                "resource_type": "image",
+                "created_at": "2017-06-22T10:33:27Z",
+                "tags": [],
+                "pages": 1,
+                "bytes": 74855,
+                "type": "upload",
+                "etag": "3ad1a573b6f4326e0524c3fac3f0e071",
+                "url": "http://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
+                "secure_url": "https://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
+                "image_metadata": {
+                    "JFIFVersion": "1.01",
+                    "ResolutionUnit": "inches",
+                    "XResolution": "72",
+                    "YResolution": "72",
+                    "Colorspace": "GRAY"
+                },
+                "colors": [["#030303", 69.4], ["#F8F8F8", 27.8]],
+                "predominant": {
+                    "google": [["black", 69.4], ["white", 27.8]]
+                },
+                "phash": "d393644e93af2b90",
+                "coordinates": {
+                    "faces": []
+                },
+                "illustration_score": 1.0,
+                "semi_transparent": false,
+                "grayscale": true,
+                "original_filename": "3998295_orig"
+            };
+            _superagent2.default.post('http://localhost:3030/api/images/create').set('Content-Type', 'application/json').send(JSON.stringify(data)).end(function (error, response) {
+                if (!error && response) {
+                    //Todo: Create ArtWork
+
+                } else {
+                    console.log('Error submitting your credentials', error);
+                }
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _semanticUiReact.Segment,
+                null,
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Upload your Moleskine artwork.'
+                ),
+                _react2.default.createElement(
+                    'form',
+                    null,
+                    this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
+                        'div',
+                        { className: 'FileUpload' },
+                        _react2.default.createElement(
+                            _reactDropzone2.default,
+                            {
+                                onDrop: this.onImageDrop.bind(this),
+                                multiple: false,
+                                accept: 'image/*',
+                                className: 'uploader-zone',
+                                activeClassName: 'uploader-zone-active',
+                                rejectClassName: 'uploader-zone-rejected' },
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Drop an image or click to select a file to upload.'
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
+                            'div',
+                            null,
+                            _react2.default.createElement('img', { src: this.state.uploadedFileCloudinaryUrl })
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ImageUploader;
+}(_react.Component);
+
+ImageUploader.propTypes = {
+    uploadImage: _propTypes2.default.func.isRequired,
+    uploadedFileCloudinaryUrl: _propTypes2.default.any,
+    uploadedFile: _propTypes2.default.any,
+    createImage: _propTypes2.default.func.isRequired,
+    createArtwork: _propTypes2.default.func.isRequired,
+    classifyImage: _propTypes2.default.func.isRequired,
+    createTags: _propTypes2.default.func.isRequired,
+    rejectTag: _propTypes2.default.func.isRequired,
+    exploreBasedOnThisArtwork: _propTypes2.default.func.isRequired,
+    userInfo: _propTypes2.default.shape({
+        id: _propTypes2.default.string,
+        username: _propTypes2.default.string,
+        firstName: _propTypes2.default.string,
+        lastName: _propTypes2.default.string
+    })
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        uploadImage: function uploadImage(image) {
+            dispatch(ImageUploaderActions.uploadImage(image));
+        },
+        createImage: function createImage(image, user) {
+            dispatch(ImageUploaderActions.createImage(image, user));
+        },
+        createArtwork: function createArtwork(image, user) {
+            dispatch(ImageUploaderActions.createArtwork(image, user));
+        },
+        classifyImage: function classifyImage(image) {
+            dispatch(ImageUploaderActions.classifyImage(image));
+        },
+        createTags: function createTags(artwork) {
+            dispatch(ImageUploaderActions.createTags(artwork));
+        },
+        rejectTag: function rejectTag(tag) {
+            dispatch(ImageUploaderActions.rejectTag(tag));
+        },
+        exploreBasedOnThisArtwork: function exploreBasedOnThisArtwork(artwork) {
+            dispatch(ImageUploaderActions.exploreBasedOnThisArtwork(artwork));
+        }
+    };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        state: state['ImageUploader']
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageUploader);
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(5);
 
 var _superagent = __webpack_require__(15);
 
@@ -2734,7 +3082,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var token = __webpack_require__(82);
+var token = __webpack_require__(18);
 
 var SignIn = function (_Component) {
     _inherits(SignIn, _Component);
@@ -2824,7 +3172,7 @@ var SignIn = function (_Component) {
 exports.default = SignIn;
 
 /***/ }),
-/* 66 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2840,7 +3188,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 var _superagent = __webpack_require__(15);
 
@@ -3038,7 +3386,7 @@ var SignUp = function (_Component) {
 exports.default = SignUp;
 
 /***/ }),
-/* 67 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3054,7 +3402,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(8);
 
@@ -3062,11 +3410,11 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(11);
+var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(10);
+var _footer_actions = __webpack_require__(11);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
@@ -3078,7 +3426,7 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3147,7 +3495,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Art);
 
 /***/ }),
-/* 68 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3163,7 +3511,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(8);
 
@@ -3171,11 +3519,11 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(11);
+var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(10);
+var _footer_actions = __webpack_require__(11);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
@@ -3187,7 +3535,7 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3256,7 +3604,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Browse);
 
 /***/ }),
-/* 69 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3272,7 +3620,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(8);
 
@@ -3280,15 +3628,15 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(11);
+var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(10);
+var _footer_actions = __webpack_require__(11);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _imageUploader_actions = __webpack_require__(86);
+var _imageUploader_actions = __webpack_require__(64);
 
 var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
 
@@ -3300,11 +3648,11 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _imageUploader = __webpack_require__(64);
+var _imageUploader = __webpack_require__(67);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3341,7 +3689,6 @@ var Home = function (_Component) {
             var rejectTag = (0, _redux.bindActionCreators)(ImageUploadCreators.rejectTag, dispatch);
             var exploreBasedOnThisArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
             var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
-
             return _react2.default.createElement(
                 'div',
                 null,
@@ -3373,7 +3720,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ }),
-/* 70 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3389,27 +3736,27 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _art = __webpack_require__(67);
+var _art = __webpack_require__(70);
 
 var _art2 = _interopRequireDefault(_art);
 
-var _browse = __webpack_require__(68);
+var _browse = __webpack_require__(71);
 
 var _browse2 = _interopRequireDefault(_browse);
 
-var _home = __webpack_require__(69);
+var _home = __webpack_require__(72);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _signUp = __webpack_require__(73);
+var _signUp = __webpack_require__(76);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _signIn = __webpack_require__(72);
+var _signIn = __webpack_require__(75);
 
 var _signIn2 = _interopRequireDefault(_signIn);
 
-var _profile = __webpack_require__(71);
+var _profile = __webpack_require__(74);
 
 var _profile2 = _interopRequireDefault(_profile);
 
@@ -3454,7 +3801,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 71 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3470,7 +3817,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(8);
 
@@ -3478,11 +3825,11 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(11);
+var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(10);
+var _footer_actions = __webpack_require__(11);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
@@ -3494,7 +3841,7 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3563,7 +3910,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ }),
-/* 72 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3579,7 +3926,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(8);
 
@@ -3587,15 +3934,15 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(11);
+var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(10);
+var _footer_actions = __webpack_require__(11);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signIn_actions = __webpack_require__(62);
+var _signIn_actions = __webpack_require__(65);
 
 var SignInActionCreators = _interopRequireWildcard(_signIn_actions);
 
@@ -3607,11 +3954,11 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signInForm = __webpack_require__(65);
+var _signInForm = __webpack_require__(68);
 
 var _signInForm2 = _interopRequireDefault(_signInForm);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3673,7 +4020,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignInPage);
 
 /***/ }),
-/* 73 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3689,7 +4036,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(9);
+var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(8);
 
@@ -3697,15 +4044,15 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(11);
+var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(10);
+var _footer_actions = __webpack_require__(11);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signUp_actions = __webpack_require__(63);
+var _signUp_actions = __webpack_require__(66);
 
 var SignUpActionCreators = _interopRequireWildcard(_signUp_actions);
 
@@ -3717,11 +4064,11 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signUpForm = __webpack_require__(66);
+var _signUpForm = __webpack_require__(69);
 
 var _signUpForm2 = _interopRequireDefault(_signUpForm);
 
-var _semanticUiReact = __webpack_require__(4);
+var _semanticUiReact = __webpack_require__(5);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3783,7 +4130,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUpPage);
 
 /***/ }),
-/* 74 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3794,7 +4141,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Nav;
 
-var _nav = __webpack_require__(19);
+var _nav = __webpack_require__(20);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -3835,155 +4182,46 @@ function Nav() {
 }
 
 /***/ }),
-/* 75 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = require("crypto");
 
 /***/ }),
-/* 76 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = require("nconf");
 
 /***/ }),
-/* 77 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = require("neo4j-driver");
 
 /***/ }),
-/* 78 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 79 */,
-/* 80 */
+/* 82 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");
 
 /***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 84 */
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-var setToken = function setToken(token) {
-    if (token) {
-        window.localStorage.setItem('token', token);
-    }
-
-    //ToDo:remove
-    console.log('window from helper', window.localStorage.token);
-};
-
-var getToken = function getToken() {
-    return window.localStorage.getItem('token');
-};
-
-module.exports = {
-    setToken: setToken,
-    getToken: getToken
-};
-
-/***/ }),
-/* 83 */,
-/* 84 */,
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var UPLOAD_IMAGE = exports.UPLOAD_IMAGE = 'UPLOAD_IMAGE';
-var CREATE_IMAGE = exports.CREATE_IMAGE = 'CREATE_IMAGE';
-var CREATE_ARTWORK = exports.CREATE_ARTWORK = 'CREATE_ARTWORK';
-var CLASSIFY_IMAGE = exports.CLASSIFY_IMAGE = 'CLASSIFY_IMAGE';
-var CREATE_TAGS = exports.CREATE_TAGS = 'CREATE_TAGS';
-var REJECT_TAG = exports.REJECT_TAG = 'REJECT_TAG';
-var EXPLORE_BASED_ON_THIS_ARTWORK = exports.EXPLORE_BASED_ON_THIS_ARTWORK = 'EXPLORE_BASED_ON_THIS_ARTWORK';
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTags = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
-
-var _imageUploder = __webpack_require__(85);
-
-var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var uploadImage = exports.uploadImage = function uploadImage(image) {
-    return {
-        type: ImageUploaderActionTypes.UPLOAD_IMAGE,
-        image: image
-    };
-};
-
-var createImage = exports.createImage = function createImage(image, user) {
-    return {
-        type: ImageUploaderActionTypes.CREATE_IMAGE,
-        image: image,
-        user: user
-    };
-};
-
-var createArtwork = exports.createArtwork = function createArtwork(image, user) {
-    return {
-        type: ImageUploaderActionTypes.CREATE_ARTWORK,
-        image: image,
-        user: user
-    };
-};
-
-var classifyImage = exports.classifyImage = function classifyImage(image) {
-    return {
-        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
-        image: image
-    };
-};
-
-var createTags = exports.createTags = function createTags(artwork) {
-    return {
-        type: ImageUploaderActionTypes.CREATE_TAGS,
-        artwork: artwork
-    };
-};
-
-var rejectTag = exports.rejectTag = function rejectTag(tag) {
-    return {
-        type: ImageUploaderActionTypes.REJECT_TAG,
-        tag: tag
-    };
-};
-
-var exploreBasedOnThisArtwork = exports.exploreBasedOnThisArtwork = function exploreBasedOnThisArtwork(artwork) {
-    return {
-        type: ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK,
-        artwork: artwork
-    };
-};
+module.exports = require("react-dropzone");
 
 /***/ })
 /******/ ]);

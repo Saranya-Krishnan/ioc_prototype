@@ -11,7 +11,8 @@ import * as ImageUploaderActions from '../actions/image-uploader_actions'
 const CLOUDINARY_UPLOAD_PRESET = 'iylswkmx';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hpvmvlpcu/image/upload';
 
-export default class ImageUploader extends Component {
+
+class ImageUploader extends Component {
     constructor(props) {
         super(props);
         this.state = props;
@@ -117,7 +118,6 @@ export default class ImageUploader extends Component {
                     <div>
                         {this.state.uploadedFileCloudinaryUrl === '' ? null :
                             <div>
-                                <p>{this.state.uploadedFile.name}</p>
                                 <img src={this.state.uploadedFileCloudinaryUrl} />
                             </div>}
                     </div>
@@ -129,7 +129,7 @@ export default class ImageUploader extends Component {
 
 ImageUploader.propTypes = {
     uploadImage: PropTypes.func.isRequired,
-    uploadedFileCloudinaryUrl: PropTypes.string,
+    uploadedFileCloudinaryUrl: PropTypes.any,
     uploadedFile: PropTypes.any,
     createImage: PropTypes.func.isRequired,
     createArtwork: PropTypes.func.isRequired,

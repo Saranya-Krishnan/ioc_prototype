@@ -27,7 +27,6 @@ class Home extends Component {
         const rejectTag = bindActionCreators(ImageUploadCreators.rejectTag, dispatch);
         const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
-
         return (
             <div>
                 <Container className={'main-content'}>

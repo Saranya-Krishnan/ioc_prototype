@@ -17,7 +17,7 @@ let api = express();
 
 const swaggerDefinition = {
     info: {
-        title: 'Neo4j Movie Demo API (Node/Express)',
+        title: 'Ioc Prototype',
         version: '1.0.0',
         description: '',
     },
