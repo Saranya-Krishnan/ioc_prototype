@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 59);
+/******/ 	return __webpack_require__(__webpack_require__.s = 60);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var sw = __webpack_require__(83);
+var sw = __webpack_require__(84);
 var _ = __webpack_require__(1);
 
 exports.writeResponse = function writeResponse(res, response, status) {
@@ -105,7 +105,7 @@ module.exports = require("react");
 "use strict";
 
 
-var _randomstring = __webpack_require__(21);
+var _randomstring = __webpack_require__(22);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
@@ -148,6 +148,12 @@ function whereTemplate(name, key, paramKey) {
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("semantic-ui-react");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -166,12 +172,6 @@ module.exports = function loginRequired(req, res, next) {
   }
   next();
 };
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("semantic-ui-react");
 
 /***/ }),
 /* 6 */
@@ -246,7 +246,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clickFooterItem = undefined;
 
-var _footer = __webpack_require__(60);
+var _footer = __webpack_require__(61);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -277,7 +277,7 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 var _reactRouterDom = __webpack_require__(14);
 
@@ -335,7 +335,7 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 var _reactRouterDom = __webpack_require__(14);
 
@@ -586,7 +586,7 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _randomstring = __webpack_require__(21);
+var _randomstring = __webpack_require__(22);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
@@ -594,7 +594,7 @@ var _lodash = __webpack_require__(1);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _user = __webpack_require__(41);
+var _user = __webpack_require__(42);
 
 var _user2 = _interopRequireDefault(_user);
 
@@ -675,12 +675,81 @@ var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
 
 /***/ }),
 /* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTags = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
+
+var _imageUploder = __webpack_require__(62);
+
+var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var uploadImage = exports.uploadImage = function uploadImage(image) {
+    return {
+        type: ImageUploaderActionTypes.UPLOAD_IMAGE,
+        image: image
+    };
+};
+
+var createImage = exports.createImage = function createImage(image, user) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_IMAGE,
+        image: image,
+        user: user
+    };
+};
+
+var createArtwork = exports.createArtwork = function createArtwork(image, user) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_ARTWORK,
+        image: image,
+        user: user
+    };
+};
+
+var classifyImage = exports.classifyImage = function classifyImage(image) {
+    return {
+        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
+        image: image
+    };
+};
+
+var createTags = exports.createTags = function createTags(artwork) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_TAGS,
+        artwork: artwork
+    };
+};
+
+var rejectTag = exports.rejectTag = function rejectTag(tag) {
+    return {
+        type: ImageUploaderActionTypes.REJECT_TAG,
+        tag: tag
+    };
+};
+
+var exploreBasedOnThisArtwork = exports.exploreBasedOnThisArtwork = function exploreBasedOnThisArtwork(artwork) {
+    return {
+        type: ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK,
+        artwork: artwork
+    };
+};
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("randomstring");
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -697,7 +766,7 @@ module.exports = function neo4jSessionCleanup(req, res, next) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -737,25 +806,25 @@ module.exports = function setAuthUser(req, res, next) {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.images = __webpack_require__(49);
-exports.journeys = __webpack_require__(50);
-exports.locations = __webpack_require__(51);
-exports.notebooks = __webpack_require__(52);
-exports.pages = __webpack_require__(53);
-exports.quests = __webpack_require__(54);
-exports.suggests = __webpack_require__(55);
-exports.tags = __webpack_require__(56);
-exports.users = __webpack_require__(57);
-exports.works = __webpack_require__(58);
+exports.images = __webpack_require__(50);
+exports.journeys = __webpack_require__(51);
+exports.locations = __webpack_require__(52);
+exports.notebooks = __webpack_require__(53);
+exports.pages = __webpack_require__(54);
+exports.quests = __webpack_require__(55);
+exports.suggests = __webpack_require__(56);
+exports.tags = __webpack_require__(57);
+exports.users = __webpack_require__(58);
+exports.works = __webpack_require__(59);
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -773,7 +842,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(82);
+var _reactRouter = __webpack_require__(83);
 
 var _server = __webpack_require__(81);
 
@@ -825,63 +894,28 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("method-override");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-jsdoc");
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _uuid = __webpack_require__(6);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-var _image = __webpack_require__(33);
-
-var _image2 = _interopRequireDefault(_image);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var locate = function locate(session) {};
-
-var classify = function classify(session) {};
-
-var create = function create(session) {};
-
-var update = function update(session) {};
-
-var deletion = function deletion(session) {};
-
-module.exports = {
-    locate: locate,
-    classify: classify,
-    create: create,
-    update: update,
-    deletion: deletion
-};
 
 /***/ }),
 /* 31 */
@@ -894,19 +928,50 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _journey = __webpack_require__(34);
+var _lodash = __webpack_require__(1);
 
-var _journey2 = _interopRequireDefault(_journey);
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _image = __webpack_require__(34);
+
+var _image2 = _interopRequireDefault(_image);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var create = function create(session) {};
+var locate = function locate(session) {};
+
+var classify = function classify(session) {};
+
+var create = function create(session, signature, width, height, format, url, secure_url, illustration_score, grayscale, original_filename) {
+    return session.run('MATCH (image:Image {url:{url}}) RETURN image', { url: url }).then(function (results) {
+        if (!_lodash2.default.isEmpty(results.records)) {
+            throw { url: 'Image already in use', status: 400 };
+        } else {
+            return session.run('CREATE (image:Image {id: {id}, ' + 'signature:{signature},' + ' width:{width},' + ' height:{height},' + ' format:{format},' + ' url:{url},' + ' secure_url:{secure_url},' + ' illustration_score:{illustration_score}, ' + ' grayscale:{grayscale}, ' + ' original_filename:{original_filename}}) ' + 'RETURN image', {
+                id: _uuid2.default.v4(),
+                signature: signature,
+                width: width,
+                height: height,
+                format: format,
+                url: url,
+                secure_url: secure_url,
+                illustration_score: illustration_score,
+                grayscale: grayscale,
+                original_filename: original_filename
+            });
+        }
+    }).then(function (results) {
+        return new _image2.default(results.records[0].get('image'));
+    });
+};
 
 var update = function update(session) {};
 
 var deletion = function deletion(session) {};
 
 module.exports = {
+    locate: locate,
+    classify: classify,
     create: create,
     update: update,
     deletion: deletion
@@ -923,9 +988,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _location = __webpack_require__(35);
+var _journey = __webpack_require__(35);
 
-var _location2 = _interopRequireDefault(_location);
+var _journey2 = _interopRequireDefault(_journey);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -948,6 +1013,35 @@ module.exports = {
 "use strict";
 
 
+var _uuid = __webpack_require__(6);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+var _location = __webpack_require__(36);
+
+var _location2 = _interopRequireDefault(_location);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var create = function create(session) {};
+
+var update = function update(session) {};
+
+var deletion = function deletion(session) {};
+
+module.exports = {
+    create: create,
+    update: update,
+    deletion: deletion
+};
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -961,14 +1055,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Image = module.exports = function (_node) {
     _lodash2.default.extend(this, {
         'id': _node.properties['id'],
-        'url': _node.properties['url']
+        'signature': _node.properties['signature'],
+        'width': _node.properties['width'],
+        'height': _node.properties['height'],
+        'format': _node.properties['format'],
+        'url': _node.properties['url'],
+        'secure_url': _node.properties['secure_url'],
+        'illustration_score': _node.properties['illustration_score'],
+        'grayscale': _node.properties['grayscale'],
+        'original_filename': _node.properties['original_filename']
     });
 };
 
 exports.default = Image;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -993,7 +1095,7 @@ var Journey = module.exports = function (_node) {
 exports.default = Journey;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1018,7 +1120,7 @@ var Location = module.exports = function (_node) {
 exports.default = Location;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1043,7 +1145,7 @@ var Notebook = module.exports = function (_node) {
 exports.default = Notebook;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1068,7 +1170,7 @@ var Page = module.exports = function (_node) {
 exports.default = Page;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1093,7 +1195,7 @@ var Quest = module.exports = function (_node) {
 exports.default = Quest;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1118,7 +1220,7 @@ var Suggestion = module.exports = function (_node) {
 exports.default = Suggestion;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1143,7 +1245,7 @@ var Tag = module.exports = function (_node) {
 exports.default = Tag;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1171,7 +1273,7 @@ var User = module.exports = function (_node) {
 exports.default = User;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1196,35 +1298,6 @@ var Work = module.exports = function (_node) {
 exports.default = Work;
 
 /***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _uuid = __webpack_require__(6);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-var _notebook = __webpack_require__(36);
-
-var _notebook2 = _interopRequireDefault(_notebook);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var create = function create(session) {};
-
-var update = function update(session) {};
-
-var deletion = function deletion(session) {};
-
-module.exports = {
-    create: create,
-    update: update,
-    deletion: deletion
-};
-
-/***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1235,9 +1308,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _page = __webpack_require__(37);
+var _notebook = __webpack_require__(37);
 
-var _page2 = _interopRequireDefault(_page);
+var _notebook2 = _interopRequireDefault(_notebook);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1264,9 +1337,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _quest = __webpack_require__(38);
+var _page = __webpack_require__(38);
 
-var _quest2 = _interopRequireDefault(_quest);
+var _page2 = _interopRequireDefault(_page);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1293,9 +1366,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _suggestion = __webpack_require__(39);
+var _quest = __webpack_require__(39);
 
-var _suggestion2 = _interopRequireDefault(_suggestion);
+var _quest2 = _interopRequireDefault(_quest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1322,9 +1395,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _tag = __webpack_require__(40);
+var _suggestion = __webpack_require__(40);
 
-var _tag2 = _interopRequireDefault(_tag);
+var _suggestion2 = _interopRequireDefault(_suggestion);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1351,9 +1424,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _work = __webpack_require__(42);
+var _tag = __webpack_require__(41);
 
-var _work2 = _interopRequireDefault(_work);
+var _tag2 = _interopRequireDefault(_tag);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1376,10 +1449,39 @@ module.exports = {
 "use strict";
 
 
-var Images = __webpack_require__(30),
+var _uuid = __webpack_require__(6);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+var _work = __webpack_require__(43);
+
+var _work2 = _interopRequireDefault(_work);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var create = function create(session) {};
+
+var update = function update(session) {};
+
+var deletion = function deletion(session) {};
+
+module.exports = {
+    create: create,
+    update: update,
+    deletion: deletion
+};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Images = __webpack_require__(31),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1460,6 +1562,24 @@ exports.locate = function (req, res, next) {};
  *         type: object
  *         schema:
  *           properties:
+ *             signature:
+ *               type: string
+ *             width:
+ *               type: int
+ *             height:
+ *               type: int
+ *             format:
+ *               type: string
+ *             url:
+ *               type: string
+ *             secure_url:
+ *               type: string
+ *             illustration_score:
+ *               type: float
+ *             grayscale:
+ *               type: object
+ *             original_filename:
+ *               type: string
  *     responses:
  *       201:
  *         description: Data
@@ -1467,7 +1587,20 @@ exports.locate = function (req, res, next) {};
  *         description: Error message(s)
  */
 
-exports.create = function (req, res, next) {};
+exports.create = function (req, res, next) {
+  var signature = _.get(req.body, 'signature');
+  var width = _.get(req.body, 'width');
+  var height = _.get(req.body, 'height');
+  var format = _.get(req.body, 'format');
+  var url = _.get(req.body, 'url');
+  var secure_url = _.get(req.body, 'secure_url');
+  var illustration_score = _.get(req.body, 'illustration_score');
+  var grayscale = _.get(req.body, 'grayscale');
+  var original_filename = _.get(req.body, 'original_filename');
+  Images.create(dbUtils.getSession(req), signature, width, height, format, url, secure_url, illustration_score, grayscale, original_filename).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
 
 /**
  * @swagger
@@ -1518,16 +1651,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Journeys = __webpack_require__(31),
+var Journeys = __webpack_require__(32),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1617,16 +1750,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Locations = __webpack_require__(32),
+var Locations = __webpack_require__(33),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1716,16 +1849,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Notebooks = __webpack_require__(43),
+var Notebooks = __webpack_require__(44),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1815,16 +1948,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Pages = __webpack_require__(44),
+var Pages = __webpack_require__(45),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -1914,16 +2047,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Quests = __webpack_require__(45),
+var Quests = __webpack_require__(46),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -2013,16 +2146,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Suggestions = __webpack_require__(46),
+var Suggestions = __webpack_require__(47),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -2112,16 +2245,16 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Tags = __webpack_require__(47),
+var Tags = __webpack_require__(48),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -2211,7 +2344,7 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2220,7 +2353,7 @@ exports.delete = function (req, res, next) {};
 var Users = __webpack_require__(19),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 /**
@@ -2372,16 +2505,16 @@ exports.me = function (req, res, next) {
 };
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Works = __webpack_require__(48),
+var Works = __webpack_require__(49),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
-    loginRequired = __webpack_require__(4),
+    loginRequired = __webpack_require__(5),
     dbUtils = __webpack_require__(3),
     _ = __webpack_require__(1);
 
@@ -2471,7 +2604,7 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2481,7 +2614,7 @@ var _express = __webpack_require__(17);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(25);
+var _index = __webpack_require__(26);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2489,23 +2622,23 @@ var _neo4j = __webpack_require__(16);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
-var _methodOverride = __webpack_require__(27);
+var _methodOverride = __webpack_require__(28);
 
 var _methodOverride2 = _interopRequireDefault(_methodOverride);
 
-var _swaggerJsdoc = __webpack_require__(29);
+var _swaggerJsdoc = __webpack_require__(30);
 
 var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
 
-var _bodyParser = __webpack_require__(26);
+var _bodyParser = __webpack_require__(27);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _setAuthUser = __webpack_require__(23);
+var _setAuthUser = __webpack_require__(24);
 
 var _setAuthUser2 = _interopRequireDefault(_setAuthUser);
 
-var _neo4jSessionCleanup = __webpack_require__(22);
+var _neo4jSessionCleanup = __webpack_require__(23);
 
 var _neo4jSessionCleanup2 = _interopRequireDefault(_neo4jSessionCleanup);
 
@@ -2515,9 +2648,9 @@ var _response2 = _interopRequireDefault(_response);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var path = __webpack_require__(28);
+var path = __webpack_require__(29);
 
-var routes = __webpack_require__(24);
+var routes = __webpack_require__(25);
 var apiPath = _neo4j2.default.get('api_path');
 
 var app = (0, _express2.default)();
@@ -2635,7 +2768,7 @@ api.listen(3030, function () {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2647,7 +2780,7 @@ Object.defineProperty(exports, "__esModule", {
 var FOOTER_ITEM_CLICKED = exports.FOOTER_ITEM_CLICKED = 'FOOTER_ITEM_CLICKED';
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2665,7 +2798,7 @@ var REJECT_TAG = exports.REJECT_TAG = 'REJECT_TAG';
 var EXPLORE_BASED_ON_THIS_ARTWORK = exports.EXPLORE_BASED_ON_THIS_ARTWORK = 'EXPLORE_BASED_ON_THIS_ARTWORK';
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2677,7 +2810,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2687,75 +2820,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTags = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
-
-var _imageUploder = __webpack_require__(61);
-
-var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var uploadImage = exports.uploadImage = function uploadImage(image) {
-    return {
-        type: ImageUploaderActionTypes.UPLOAD_IMAGE,
-        image: image
-    };
-};
-
-var createImage = exports.createImage = function createImage(image, user) {
-    return {
-        type: ImageUploaderActionTypes.CREATE_IMAGE,
-        image: image,
-        user: user
-    };
-};
-
-var createArtwork = exports.createArtwork = function createArtwork(image, user) {
-    return {
-        type: ImageUploaderActionTypes.CREATE_ARTWORK,
-        image: image,
-        user: user
-    };
-};
-
-var classifyImage = exports.classifyImage = function classifyImage(image) {
-    return {
-        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
-        image: image
-    };
-};
-
-var createTags = exports.createTags = function createTags(artwork) {
-    return {
-        type: ImageUploaderActionTypes.CREATE_TAGS,
-        artwork: artwork
-    };
-};
-
-var rejectTag = exports.rejectTag = function rejectTag(tag) {
-    return {
-        type: ImageUploaderActionTypes.REJECT_TAG,
-        tag: tag
-    };
-};
-
-var exploreBasedOnThisArtwork = exports.exploreBasedOnThisArtwork = function exploreBasedOnThisArtwork(artwork) {
-    return {
-        type: ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK,
-        artwork: artwork
-    };
-};
 
 /***/ }),
 /* 65 */
@@ -2769,7 +2833,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signIn = __webpack_require__(62);
+var _signIn = __webpack_require__(63);
 
 var SignInActionTypes = _interopRequireWildcard(_signIn);
 
@@ -2793,7 +2857,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signUp = __webpack_require__(63);
+var _signUp = __webpack_require__(64);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -2828,7 +2892,7 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactDropzone = __webpack_require__(84);
+var _reactDropzone = __webpack_require__(82);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -2836,9 +2900,9 @@ var _superagent = __webpack_require__(15);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
-var _imageUploader_actions = __webpack_require__(64);
+var _imageUploader_actions = __webpack_require__(21);
 
 var ImageUploaderActions = _interopRequireWildcard(_imageUploader_actions);
 
@@ -2889,7 +2953,26 @@ var ImageUploader = function (_Component) {
                     console.error(err);
                 }
                 if (response) {
-                    _this2.saveImage(response);
+                    var imageResponse = response.body;
+                    var newImage = {
+                        url: imageResponse.url,
+                        format: imageResponse.format,
+                        signature: imageResponse.signature,
+                        width: imageResponse.width,
+                        height: imageResponse.height,
+                        secure_url: imageResponse.secure_url,
+                        // JFIFVersion:imageResponse.JFIFVersion,
+                        // colors: imageResponse.colors,
+                        // predominant:imageResponse.predominant,
+                        // phash:imageResponse.phash,
+                        illustration_score: imageResponse.illustration_score,
+                        grayscale: imageResponse.grayscale,
+                        original_filename: imageResponse.original_filename
+                    };
+
+                    console.log('FROM Upload', JSON.stringify(newImage));
+
+                    _this2.saveImage(JSON.stringify(newImage));
                     if (response.body.secure_url !== '') {
                         _this2.setState({
                             uploadedFileCloudinaryUrl: response.body.secure_url
@@ -2901,47 +2984,11 @@ var ImageUploader = function (_Component) {
     }, {
         key: 'saveImage',
         value: function saveImage(data) {
-            var test = { "public_id": "jz6h0ldxnvay65oqihra",
-                "version": 1498127607,
-                "signature": "8c658775bd5e2d837ba7d76a0ef0b23be0b7b51f",
-                "width": 686,
-                "height": 800,
-                "format": "jpg",
-                "resource_type": "image",
-                "created_at": "2017-06-22T10:33:27Z",
-                "tags": [],
-                "pages": 1,
-                "bytes": 74855,
-                "type": "upload",
-                "etag": "3ad1a573b6f4326e0524c3fac3f0e071",
-                "url": "http://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
-                "secure_url": "https://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
-                "image_metadata": {
-                    "JFIFVersion": "1.01",
-                    "ResolutionUnit": "inches",
-                    "XResolution": "72",
-                    "YResolution": "72",
-                    "Colorspace": "GRAY"
-                },
-                "colors": [["#030303", 69.4], ["#F8F8F8", 27.8]],
-                "predominant": {
-                    "google": [["black", 69.4], ["white", 27.8]]
-                },
-                "phash": "d393644e93af2b90",
-                "coordinates": {
-                    "faces": []
-                },
-                "illustration_score": 1.0,
-                "semi_transparent": false,
-                "grayscale": true,
-                "original_filename": "3998295_orig"
-            };
-            _superagent2.default.post('http://localhost:3030/api/images/create').set('Content-Type', 'application/json').send(JSON.stringify(data)).end(function (error, response) {
+            _superagent2.default.post('http://localhost:3030/api/v0/images/create').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
-                    //Todo: Create ArtWork
-
+                    console.log('FROM save', response);
                 } else {
-                    console.log('Error submitting your credentials', error);
+                    console.log('Error saving your image', error);
                 }
             });
         }
@@ -3064,7 +3111,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 var _superagent = __webpack_require__(15);
 
@@ -3188,7 +3235,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 var _superagent = __webpack_require__(15);
 
@@ -3426,7 +3473,7 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3535,7 +3582,7 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3636,7 +3683,7 @@ var _footer_actions = __webpack_require__(11);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _imageUploader_actions = __webpack_require__(64);
+var _imageUploader_actions = __webpack_require__(21);
 
 var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
 
@@ -3652,7 +3699,7 @@ var _imageUploader = __webpack_require__(67);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3841,7 +3888,7 @@ var _footer = __webpack_require__(12);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3958,7 +4005,7 @@ var _signInForm = __webpack_require__(68);
 
 var _signInForm2 = _interopRequireDefault(_signInForm);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -4068,7 +4115,7 @@ var _signUpForm = __webpack_require__(69);
 
 var _signUpForm2 = _interopRequireDefault(_signUpForm);
 
-var _semanticUiReact = __webpack_require__(5);
+var _semanticUiReact = __webpack_require__(4);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -4209,19 +4256,19 @@ module.exports = require("react-dom/server");
 /* 82 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router");
+module.exports = require("react-dropzone");
 
 /***/ }),
 /* 83 */
 /***/ (function(module, exports) {
 
-module.exports = require("swagger-node-express");
+module.exports = require("react-router");
 
 /***/ }),
 /* 84 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-dropzone");
+module.exports = require("swagger-node-express");
 
 /***/ })
 /******/ ]);

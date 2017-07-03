@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import request from 'superagent';
 import ajax from 'superagent';
 import { Segment } from 'semantic-ui-react';
 import * as ImageUploaderActions from '../actions/image-uploader_actions'
@@ -26,7 +25,7 @@ class ImageUploader extends Component {
         this.handleImageUpload(files[0]);
     }
     handleImageUpload(file) {
-        let upload = request.post(CLOUDINARY_UPLOAD_URL)
+        let upload = ajax.post(CLOUDINARY_UPLOAD_URL)
             .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
             .field('file', file);
         upload.end((err, response) => {
@@ -34,7 +33,27 @@ class ImageUploader extends Component {
                 console.error(err);
             }
             if(response){
-                this.saveImage(response);
+                const imageResponse = response.body;
+                const newImage = {
+                    url: imageResponse.url,
+                    format: imageResponse.format,
+                    signature: imageResponse.signature,
+                    width: imageResponse.width,
+                    height: imageResponse.height,
+                    secure_url: imageResponse.secure_url,
+                    // JFIFVersion:imageResponse.JFIFVersion,
+                    // colors: imageResponse.colors,
+                    // predominant:imageResponse.predominant,
+                    // phash:imageResponse.phash,
+                    illustration_score:imageResponse.illustration_score,
+                    grayscale:imageResponse.grayscale,
+                    original_filename:imageResponse.original_filename
+                };
+
+                console.log('FROM Upload',JSON.stringify(newImage));
+
+
+                this.saveImage(JSON.stringify(newImage));
                 if (response.body.secure_url !== '') {
                     this.setState({
                         uploadedFileCloudinaryUrl: response.body.secure_url
@@ -44,56 +63,14 @@ class ImageUploader extends Component {
         });
     }
     saveImage(data){
-        const test = {"public_id":"jz6h0ldxnvay65oqihra",
-            "version":1498127607,
-            "signature":"8c658775bd5e2d837ba7d76a0ef0b23be0b7b51f",
-            "width":686,
-            "height":800,
-            "format":"jpg",
-            "resource_type":"image",
-            "created_at":"2017-06-22T10:33:27Z",
-            "tags":[],
-            "pages":1,
-            "bytes":74855,
-            "type":"upload",
-            "etag":"3ad1a573b6f4326e0524c3fac3f0e071",
-            "url":"http://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
-            "secure_url":"https://res.cloudinary.com/hpvmvlpcu/image/upload/v1498127607/jz6h0ldxnvay65oqihra.jpg",
-            "image_metadata":{
-                "JFIFVersion":"1.01",
-                "ResolutionUnit":"inches",
-                "XResolution":"72",
-                "YResolution":"72",
-                "Colorspace":"GRAY"
-            },
-            "colors":[
-                ["#030303",69.4],
-                ["#F8F8F8",27.8]
-            ],
-            "predominant":{
-            "google":[
-                ["black",69.4],
-                ["white",27.8]
-                ]
-            },
-            "phash":"d393644e93af2b90",
-            "coordinates":{
-            "faces":[]
-            },
-            "illustration_score":1.0,
-            "semi_transparent":false,
-            "grayscale":true,
-            "original_filename":"3998295_orig"
-        };
-        ajax.post('http://localhost:3030/api/images/create')
+        ajax.post('http://localhost:3030/api/v0/images/create')
             .set('Content-Type', 'application/json')
-            .send(JSON.stringify(data))
+            .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    //Todo: Create ArtWork
-
+                    console.log('FROM save',response);
                 } else {
-                    console.log('Error submitting your credentials', error);
+                    console.log('Error saving your image', error);
                 }
             });
     }

@@ -89,6 +89,24 @@ exports.locate = function (req, res, next) {
  *         type: object
  *         schema:
  *           properties:
+ *             signature:
+ *               type: string
+ *             width:
+ *               type: int
+ *             height:
+ *               type: int
+ *             format:
+ *               type: string
+ *             url:
+ *               type: string
+ *             secure_url:
+ *               type: string
+ *             illustration_score:
+ *               type: float
+ *             grayscale:
+ *               type: object
+ *             original_filename:
+ *               type: string
  *     responses:
  *       201:
  *         description: Data
@@ -97,7 +115,18 @@ exports.locate = function (req, res, next) {
  */
 
 exports.create = function (req, res, next) {
-
+    const signature = _.get(req.body, 'signature');
+    const width = _.get(req.body, 'width');
+    const height = _.get(req.body, 'height');
+    const format = _.get(req.body, 'format');
+    const url = _.get(req.body, 'url');
+    const secure_url = _.get(req.body, 'secure_url');
+    const illustration_score = _.get(req.body, 'illustration_score');
+    const grayscale = _.get(req.body, 'grayscale');
+    const original_filename = _.get(req.body, 'original_filename');
+    Images.create(dbUtils.getSession(req), signature, width, height, format, url, secure_url, illustration_score, grayscale, original_filename)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
 
 /**
