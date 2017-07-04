@@ -2,9 +2,6 @@ const setToken = function(token){
     if (token) {
         window.localStorage.setItem('token', token);
     }
-
-    //ToDo:remove
-    console.log('window from helper',window.localStorage.token);
 };
 
 const getToken = function(){

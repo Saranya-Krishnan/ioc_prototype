@@ -43,6 +43,10 @@ const create = function (session, signature, width, height, format, url, secure_
             }
         }
     ).then(results => {
+        // ToDo: Place user link.
+
+
+
             return new Image(results.records[0].get('image'));
         }
     )

@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express from 'express';
 const path = require('path');
 import router from './routes/index';
@@ -21,7 +22,7 @@ const swaggerDefinition = {
         version: '1.0.0',
         description: '',
     },
-    host: 'localhost:3000',
+    host: process.env.BASE_URL,
     basePath: '/',
 };
 

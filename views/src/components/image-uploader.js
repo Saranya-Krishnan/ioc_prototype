@@ -6,11 +6,6 @@ import ajax from 'superagent';
 import { Segment } from 'semantic-ui-react';
 import * as ImageUploaderActions from '../actions/image-uploader_actions'
 
-//ToDo: move to env var
-const CLOUDINARY_UPLOAD_PRESET = 'iylswkmx';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hpvmvlpcu/image/upload';
-
-
 class ImageUploader extends Component {
     constructor(props) {
         super(props);
@@ -25,8 +20,8 @@ class ImageUploader extends Component {
         this.handleImageUpload(files[0]);
     }
     handleImageUpload(file) {
-        let upload = ajax.post(CLOUDINARY_UPLOAD_URL)
-            .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+        let upload = ajax.post(process.env.CLOUDINARY_UPLOAD_URL)
+            .field('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
             .field('file', file);
         upload.end((err, response) => {
             if (err) {
@@ -63,7 +58,7 @@ class ImageUploader extends Component {
         });
     }
     saveImage(data){
-        ajax.post('http://localhost:3030/api/v0/images/create')
+        ajax.post(process.env.BASE_API_URL+'api/v0/images/create')
             .set('Content-Type', 'application/json')
             .send(data)
             .end((error, response) => {

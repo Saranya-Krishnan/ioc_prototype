@@ -1,3 +1,4 @@
+const dotenv = require('dotenv-webpack');
 const nodeExternals = require('webpack-node-externals');
 module.exports = [
     {
@@ -18,7 +19,16 @@ module.exports = [
             ]
         },
         target: 'node',
-        externals: [nodeExternals()]
+        externals: [nodeExternals()],
+        plugins: [
+            new dotenv({
+                path: '.env',
+                safe: false
+            })
+        ],
+        node:{
+            fs: "empty"
+        }
     },
     {
         entry: './views/index.js',
@@ -40,6 +50,15 @@ module.exports = [
                     loader: 'style-loader!css-loader!sass-loader'
                 }
             ]
+        },
+        plugins: [
+            new dotenv({
+                path: '.env',
+                safe: false
+            })
+        ],
+        node:{
+            fs: "empty"
         }
     }
 ];

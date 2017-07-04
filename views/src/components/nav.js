@@ -21,8 +21,7 @@ class Nav extends Component {
     }
     getUserInfo(){
         this.sessionToken = token.getToken();
-        //ToDo: Env path
-        ajax.get('http://localhost:3030/api/v0/users/me')
+        ajax.get( process.env.BASE_API_URL + '/api/v0/users/me')
             .set({Accept:'application/json', Authorization:'Token '+ this.sessionToken})
             .end((error, response) => {
                     if (!error && response) {
