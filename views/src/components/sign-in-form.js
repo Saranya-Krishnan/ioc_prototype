@@ -3,6 +3,7 @@ import { Button, Form } from 'semantic-ui-react'
 import ajax from 'superagent';
 import { Redirect } from 'react-router-dom'
 const token  = require( '../../../helpers/token');
+import PathHelper from '../helpers/path-helper';
 
 class SignIn extends Component {
     constructor(props){
@@ -17,7 +18,7 @@ class SignIn extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-            ajax.post(process.env.BASE_API_URL+'/api/v0/login')
+            ajax.post(PathHelper.apiPath + '/login')
                 .set('Content-Type', 'application/json')
                 .send(JSON.stringify(this.state))
                 .end((error, response) => {

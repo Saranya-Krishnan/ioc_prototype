@@ -11,7 +11,8 @@ const Image = module.exports = function (_node) {
         'secure_url': _node.properties['secure_url'],
         'illustration_score': _node.properties['illustration_score'],
         'grayscale': _node.properties['grayscale'],
-        'original_filename': _node.properties['original_filename']
+        'original_filename': _node.properties['original_filename'],
+        'classification': _node.properties['classification']
     });
 };
 

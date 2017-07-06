@@ -26,12 +26,14 @@ class Home extends Component {
         const createTags = bindActionCreators(ImageUploadCreators.createTags, dispatch);
         const rejectTag = bindActionCreators(ImageUploadCreators.rejectTag, dispatch);
         const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
+        const classificationToTags = bindActionCreators(ImageUploadCreators.classificationToTags, dispatch);
+        const visualRecognition = bindActionCreators(ImageUploadCreators.visualRecognition, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
                     <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
-                    <ImageUploader uploadImage={uploadImage} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTags={createTags} rejectTag={rejectTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}/>
+                    <ImageUploader uploadImage={uploadImage} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTags={createTags} rejectTag={rejectTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork} classificationToTags={classificationToTags} visualRecognition={visualRecognition}/>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
             </div>

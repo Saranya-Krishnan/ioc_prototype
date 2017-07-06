@@ -42,9 +42,12 @@ const Works = require('../../models/works')
  */
 
 exports.create = function (req, res, next) {
-
+    const imageId = _.get(req.body, 'imageId');
+    const userId = _.get(req.body,'userId');
+    Works.create(dbUtils.getSession(req), imageId, userId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
-
 /**
  * @swagger
  * /api/v0/works/update:

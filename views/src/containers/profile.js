@@ -39,3 +39,5 @@ const mapStateToProps = state => (
 );
 
 export default connect(mapStateToProps)(Profile);
+
+//MATCH (user)-[:UPLOADED]->(upload) WHERE user.id = 177 MATCH(u{id:upload.id}) RETURN user.id, u.url

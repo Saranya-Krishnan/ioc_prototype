@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Checkbox, Form, Message } from 'semantic-ui-react'
 import ajax from 'superagent';
 import { Redirect } from 'react-router-dom'
+import PathHelper from '../helpers/path-helper';
 
 class SignUp extends Component {
     constructor(props){
@@ -40,7 +41,7 @@ class SignUp extends Component {
         e.preventDefault();
         this.handleValidation(true);
         if(this.state.passwordsValid && this.state.emailValid && this.state.nameValid){
-            ajax.post(process.env.BASE_API_URL+'/api/v0/register')
+            ajax.post(PathHelper.apiPath + '/register')
                 .set('Content-Type', 'application/json')
                 .send(JSON.stringify(this.state))
                 .end((error, response) => {

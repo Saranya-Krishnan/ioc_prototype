@@ -26,7 +26,7 @@ const Images = require('../../models/images')
  *   post:
  *     tags:
  *     - images
- *     description: Sends an image for classification
+ *     description: Applies the Classification Data to an image.
  *     produces:
  *       - application/json
  *     parameters:
@@ -35,6 +35,8 @@ const Images = require('../../models/images')
  *         type: object
  *         schema:
  *           properties:
+ *              imageId: Image being classified
+ *              recognition: object returned by Watson
  *     responses:
  *       201:
  *         description: Classification Data
@@ -44,7 +46,11 @@ const Images = require('../../models/images')
 
 
 exports.classify = function (req, res, next) {
-
+    const imageId = _.get(req.body, 'imageId');
+    const recognition = _.get(req.body, 'recognition');
+    Images.classify(dbUtils.getSession(req), imageId, recognition)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
 
 /**
@@ -107,6 +113,8 @@ exports.locate = function (req, res, next) {
  *               type: object
  *             original_filename:
  *               type: string
+ *             userId:
+ *               type: string
  *     responses:
  *       201:
  *         description: Data
@@ -116,6 +124,7 @@ exports.locate = function (req, res, next) {
 
 exports.create = function (req, res, next) {
     const signature = _.get(req.body, 'signature');
+    const userId = _.get(req.body,'userId');
     const width = _.get(req.body, 'width');
     const height = _.get(req.body, 'height');
     const format = _.get(req.body, 'format');
@@ -124,7 +133,7 @@ exports.create = function (req, res, next) {
     const illustration_score = _.get(req.body, 'illustration_score');
     const grayscale = _.get(req.body, 'grayscale');
     const original_filename = _.get(req.body, 'original_filename');
-    Images.create(dbUtils.getSession(req), signature, width, height, format, url, secure_url, illustration_score, grayscale, original_filename)
+    Images.create(dbUtils.getSession(req), signature, userId, width, height, format, url, secure_url, illustration_score, grayscale, original_filename)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };

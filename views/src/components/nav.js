@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const token = require('../../../helpers/token');
 import ajax from 'superagent';
 import * as NavActions from '../actions/nav_actions';
+import PathHelper from '../helpers/path-helper';
 
 class Nav extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class Nav extends Component {
     }
     getUserInfo(){
         this.sessionToken = token.getToken();
-        ajax.get( process.env.BASE_API_URL + '/api/v0/users/me')
+        ajax.get(PathHelper.apiPath + '/users/me')
             .set({Accept:'application/json', Authorization:'Token '+ this.sessionToken})
             .end((error, response) => {
                     if (!error && response) {

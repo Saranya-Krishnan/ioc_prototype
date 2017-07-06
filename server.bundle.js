@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 61);
+/******/ 	return __webpack_require__(__webpack_require__.s = 62);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var sw = __webpack_require__(85);
+var sw = __webpack_require__(86);
 var _ = __webpack_require__(1);
 
 exports.writeResponse = function writeResponse(res, response, status) {
@@ -105,16 +105,16 @@ module.exports = require("react");
 "use strict";
 
 
-var _randomstring = __webpack_require__(22);
+var _randomstring = __webpack_require__(24);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // neo4j_models cypher helper module
-var nconf = __webpack_require__(16);
+var nconf = __webpack_require__(18);
 
-var neo4j = __webpack_require__(81).v1;
+var neo4j = __webpack_require__(82).v1;
 var driver = neo4j.driver(nconf.get('neo4j-local'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
 
 if (nconf.get('neo4j') === 'remote') {
@@ -203,7 +203,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setLoggedIn = exports.updateUserInfo = exports.clickMenuItem = undefined;
 
-var _nav = __webpack_require__(20);
+var _nav = __webpack_require__(22);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -241,12 +241,58 @@ module.exports = require("redux");
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+__webpack_require__(17).config();
+
+var PathHelper = function () {
+    function PathHelper() {
+        _classCallCheck(this, PathHelper);
+
+        this.baseUrl = "http://localhost";
+        this.clientPort = "3000";
+        this.apiPort = "3030";
+        this.apiVersion = "v0";
+    }
+
+    _createClass(PathHelper, [{
+        key: 'getAPIPath',
+        value: function getAPIPath() {
+            console.log(this.baseUrl + ':' + this.apiPort + '/api/' + this.apiVersion);
+            return this.baseUrl + ':' + this.apiPort + '/api/' + this.apiVersion;
+        }
+    }, {
+        key: 'getClientPath',
+        value: function getClientPath() {
+            return this.baseUrl + ':' + this.clientPort;
+        }
+    }]);
+
+    return PathHelper;
+}();
+
+var ph = new PathHelper();
+console.log('ph', ph.getAPIPath());
+module.exports = {
+    apiPath: ph.getAPIPath(),
+    clientPath: ph.getClientPath()
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.clickFooterItem = undefined;
 
-var _footer = __webpack_require__(62);
+var _footer = __webpack_require__(63);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -259,7 +305,7 @@ var clickFooterItem = exports.clickFooterItem = function clickFooterItem() {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -279,7 +325,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(4);
 
-var _reactRouterDom = __webpack_require__(14);
+var _reactRouterDom = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -313,7 +359,7 @@ Footer.propTypes = {
 exports.default = Footer;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -337,15 +383,19 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(4);
 
-var _reactRouterDom = __webpack_require__(14);
+var _reactRouterDom = __webpack_require__(15);
 
-var _superagent = __webpack_require__(15);
+var _superagent = __webpack_require__(16);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
 var _nav_actions = __webpack_require__(9);
 
 var NavActions = _interopRequireWildcard(_nav_actions);
+
+var _pathHelper = __webpack_require__(11);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -357,7 +407,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var token = __webpack_require__(18);
+var token = __webpack_require__(20);
 
 var Nav = function (_Component) {
     _inherits(Nav, _Component);
@@ -388,7 +438,7 @@ var Nav = function (_Component) {
             var _this2 = this;
 
             this.sessionToken = token.getToken();
-            _superagent2.default.get("http://localhost:3030" + '/api/v0/users/me').set({ Accept: 'application/json', Authorization: 'Token ' + this.sessionToken }).end(function (error, response) {
+            _superagent2.default.get(_pathHelper2.default.apiPath + '/users/me').set({ Accept: 'application/json', Authorization: 'Token ' + this.sessionToken }).end(function (error, response) {
                 if (!error && response) {
                     _this2.props.setLoggedIn(true);
                     _this2.props.updateUserInfo(JSON.parse(response.text));
@@ -488,29 +538,41 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Nav);
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("superagent");
 
 /***/ }),
-/* 16 */
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("dotenv");
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _nconf = __webpack_require__(80);
+var _nconf = __webpack_require__(81);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
+var _pathHelper = __webpack_require__(11);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+__webpack_require__(17).config();
 
 _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
     'e': {
@@ -523,7 +585,7 @@ _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
         alias: 'PORT',
         describe: 'Port to run on.',
         demand: false,
-        default: 3030
+        default: "3030"
     },
     'n': {
         alias: "neo4j",
@@ -532,25 +594,25 @@ _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
         default: "local"
     }
 }).defaults({
-    'USERNAME': 'ioc_neoj4',
-    'PASSWORD': 'moleskine',
-    'neo4j': 'local',
+    'USERNAME': "app70733835-lB9UI5",
+    'PASSWORD': "b.hJ6pRhoGj54M.Hk1e0BX319d0kqWk",
+    'neo4j': 'remote',
     'neo4j-local': 'bolt://localhost:7687',
-    'neo4j-remote': 'bolt:http://162.243.100.222:7474',
-    'base_url': 'http://localhost:3030',
-    'api_path': '/api/v0'
+    'neo4j-remote': "bolt://hobby-cbbfmanbjildgbkejbmdblpl.dbs.graphenedb.com:24786",
+    'base_url': _pathHelper2.default.apiPath,
+    'api_path': '/api/' + "v0"
 });
 
 module.exports = _nconf2.default;
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -572,7 +634,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -582,7 +644,7 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _randomstring = __webpack_require__(22);
+var _randomstring = __webpack_require__(24);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
@@ -590,11 +652,11 @@ var _lodash = __webpack_require__(1);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _user = __webpack_require__(43);
+var _user = __webpack_require__(44);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _crypto = __webpack_require__(79);
+var _crypto = __webpack_require__(80);
 
 var _crypto2 = _interopRequireDefault(_crypto);
 
@@ -656,7 +718,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -670,7 +732,7 @@ var UPDATE_USER_INFO = exports.UPDATE_USER_INFO = 'UPDATE_USER_INFO';
 var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -679,9 +741,9 @@ var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTags = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
+exports.visualRecognition = exports.classificationToTags = exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTags = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
 
-var _imageUploder = __webpack_require__(63);
+var _imageUploder = __webpack_require__(64);
 
 var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
 
@@ -694,32 +756,33 @@ var uploadImage = exports.uploadImage = function uploadImage(image) {
     };
 };
 
-var createImage = exports.createImage = function createImage(image, user) {
+var createImage = exports.createImage = function createImage(image) {
     return {
         type: ImageUploaderActionTypes.CREATE_IMAGE,
-        image: image,
-        user: user
-    };
-};
-
-var createArtwork = exports.createArtwork = function createArtwork(image, user) {
-    return {
-        type: ImageUploaderActionTypes.CREATE_ARTWORK,
-        image: image,
-        user: user
-    };
-};
-
-var classifyImage = exports.classifyImage = function classifyImage(image) {
-    return {
-        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
         image: image
     };
 };
 
-var createTags = exports.createTags = function createTags(artwork) {
+var createArtwork = exports.createArtwork = function createArtwork(imageId, userId) {
+    return {
+        type: ImageUploaderActionTypes.CREATE_ARTWORK,
+        imageId: imageId,
+        userId: userId
+    };
+};
+
+var classifyImage = exports.classifyImage = function classifyImage(recognition, imageId) {
+    return {
+        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
+        recognition: recognition,
+        imageId: imageId
+    };
+};
+
+var createTags = exports.createTags = function createTags(image, artwork) {
     return {
         type: ImageUploaderActionTypes.CREATE_TAGS,
+        image: image,
         artwork: artwork
     };
 };
@@ -738,14 +801,28 @@ var exploreBasedOnThisArtwork = exports.exploreBasedOnThisArtwork = function exp
     };
 };
 
+var classificationToTags = exports.classificationToTags = function classificationToTags(classification) {
+    return {
+        type: ImageUploaderActionTypes.CLASSIFICATION_TO_TAGS,
+        classification: classification
+    };
+};
+
+var visualRecognition = exports.visualRecognition = function visualRecognition(url) {
+    return {
+        type: ImageUploaderActionTypes.VISUAL_RECOGNITION,
+        url: url
+    };
+};
+
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("randomstring");
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -762,7 +839,7 @@ module.exports = function neo4jSessionCleanup(req, res, next) {
 };
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -772,7 +849,7 @@ var _response = __webpack_require__(0);
 
 var _response2 = _interopRequireDefault(_response);
 
-var _users = __webpack_require__(19);
+var _users = __webpack_require__(21);
 
 var _users2 = _interopRequireDefault(_users);
 
@@ -802,25 +879,25 @@ module.exports = function setAuthUser(req, res, next) {
 };
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.images = __webpack_require__(51);
-exports.journeys = __webpack_require__(52);
-exports.locations = __webpack_require__(53);
-exports.notebooks = __webpack_require__(54);
-exports.pages = __webpack_require__(55);
-exports.quests = __webpack_require__(56);
-exports.suggests = __webpack_require__(57);
-exports.tags = __webpack_require__(58);
-exports.users = __webpack_require__(59);
-exports.works = __webpack_require__(60);
+exports.images = __webpack_require__(52);
+exports.journeys = __webpack_require__(53);
+exports.locations = __webpack_require__(54);
+exports.notebooks = __webpack_require__(55);
+exports.pages = __webpack_require__(56);
+exports.quests = __webpack_require__(57);
+exports.suggests = __webpack_require__(58);
+exports.tags = __webpack_require__(59);
+exports.users = __webpack_require__(60);
+exports.works = __webpack_require__(61);
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -830,7 +907,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(17);
+var _express = __webpack_require__(19);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -838,13 +915,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(84);
+var _reactRouter = __webpack_require__(85);
 
-var _server = __webpack_require__(82);
+var _server = __webpack_require__(83);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _nav = __webpack_require__(78);
+var _nav = __webpack_require__(79);
 
 var _nav2 = _interopRequireDefault(_nav);
 
@@ -852,7 +929,7 @@ var _redux = __webpack_require__(10);
 
 var _reactRedux = __webpack_require__(8);
 
-var _ioc = __webpack_require__(74);
+var _ioc = __webpack_require__(75);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -890,37 +967,31 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-module.exports = require("dotenv");
-
-/***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = require("method-override");
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-jsdoc");
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -934,7 +1005,7 @@ var _lodash = __webpack_require__(1);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _image = __webpack_require__(35);
+var _image = __webpack_require__(36);
 
 var _image2 = _interopRequireDefault(_image);
 
@@ -942,15 +1013,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var locate = function locate(session) {};
 
-var classify = function classify(session) {};
+var classify = function classify(session, imageId, recognition) {
+    return session.run('MATCH (i { id: {imageId}}) SET i.classification = {recognition} RETURN i', { imageId: imageId, recognition: recognition }).then(function (results) {
+        return new _image2.default(results.records[0].get('i'));
+    });
+};
 
-var create = function create(session, signature, width, height, format, url, secure_url, illustration_score, grayscale, original_filename) {
+var create = function create(session, signature, userId, width, height, format, url, secure_url, illustration_score, grayscale, original_filename) {
+    var imageID = _uuid2.default.v4();
     return session.run('MATCH (image:Image {url:{url}}) RETURN image', { url: url }).then(function (results) {
         if (!_lodash2.default.isEmpty(results.records)) {
             throw { url: 'Image already in use', status: 400 };
         } else {
-            return session.run('CREATE (image:Image {id: {id}, ' + 'signature:{signature},' + ' width:{width},' + ' height:{height},' + ' format:{format},' + ' url:{url},' + ' secure_url:{secure_url},' + ' illustration_score:{illustration_score}, ' + ' grayscale:{grayscale}, ' + ' original_filename:{original_filename}}) ' + 'RETURN image', {
-                id: _uuid2.default.v4(),
+            return session.run('CREATE (image:Image {id: {id}, ' + ' signature:{signature},' + ' width:{width},' + ' height:{height},' + ' format:{format},' + ' url:{url},' + ' secure_url:{secure_url},' + ' illustration_score:{illustration_score}, ' + ' grayscale:{grayscale}, ' + ' original_filename:{original_filename}, ' + ' classification:{classification} } ) ' + ' RETURN image ', {
+                id: imageID,
                 signature: signature,
                 width: width,
                 height: height,
@@ -959,14 +1035,15 @@ var create = function create(session, signature, width, height, format, url, sec
                 secure_url: secure_url,
                 illustration_score: illustration_score,
                 grayscale: grayscale,
-                original_filename: original_filename
+                original_filename: original_filename,
+                classification: ''
             });
         }
     }).then(function (results) {
-        // ToDo: Place user link.
-
-
-        return new _image2.default(results.records[0].get('image'));
+        var imgResults = results;
+        return session.run('MATCH (image:Image {id:{imageID}}) CREATE(user {id:{userId}})-[:UPLOADED]->(image)', { imageID: imageID, userId: userId }).then(function (mResults) {
+            return new _image2.default(imgResults.records[0].get('image'));
+        });
     });
 };
 
@@ -983,7 +1060,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -993,7 +1070,7 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _journey = __webpack_require__(36);
+var _journey = __webpack_require__(37);
 
 var _journey2 = _interopRequireDefault(_journey);
 
@@ -1012,7 +1089,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1022,7 +1099,7 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _location = __webpack_require__(37);
+var _location = __webpack_require__(38);
 
 var _location2 = _interopRequireDefault(_location);
 
@@ -1041,7 +1118,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1068,14 +1145,15 @@ var Image = module.exports = function (_node) {
         'secure_url': _node.properties['secure_url'],
         'illustration_score': _node.properties['illustration_score'],
         'grayscale': _node.properties['grayscale'],
-        'original_filename': _node.properties['original_filename']
+        'original_filename': _node.properties['original_filename'],
+        'classification': _node.properties['classification']
     });
 };
 
 exports.default = Image;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1100,7 +1178,7 @@ var Journey = module.exports = function (_node) {
 exports.default = Journey;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1125,7 +1203,7 @@ var Location = module.exports = function (_node) {
 exports.default = Location;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1150,7 +1228,7 @@ var Notebook = module.exports = function (_node) {
 exports.default = Notebook;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1175,7 +1253,7 @@ var Page = module.exports = function (_node) {
 exports.default = Page;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1200,7 +1278,7 @@ var Quest = module.exports = function (_node) {
 exports.default = Quest;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1225,7 +1303,7 @@ var Suggestion = module.exports = function (_node) {
 exports.default = Suggestion;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1250,7 +1328,7 @@ var Tag = module.exports = function (_node) {
 exports.default = Tag;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1278,7 +1356,7 @@ var User = module.exports = function (_node) {
 exports.default = User;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1303,35 +1381,6 @@ var Work = module.exports = function (_node) {
 exports.default = Work;
 
 /***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _uuid = __webpack_require__(6);
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
-var _notebook = __webpack_require__(38);
-
-var _notebook2 = _interopRequireDefault(_notebook);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var create = function create(session) {};
-
-var update = function update(session) {};
-
-var deletion = function deletion(session) {};
-
-module.exports = {
-    create: create,
-    update: update,
-    deletion: deletion
-};
-
-/***/ }),
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1342,9 +1391,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _page = __webpack_require__(39);
+var _notebook = __webpack_require__(39);
 
-var _page2 = _interopRequireDefault(_page);
+var _notebook2 = _interopRequireDefault(_notebook);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1371,9 +1420,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _quest = __webpack_require__(40);
+var _page = __webpack_require__(40);
 
-var _quest2 = _interopRequireDefault(_quest);
+var _page2 = _interopRequireDefault(_page);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1400,9 +1449,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _suggestion = __webpack_require__(41);
+var _quest = __webpack_require__(41);
 
-var _suggestion2 = _interopRequireDefault(_suggestion);
+var _quest2 = _interopRequireDefault(_quest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1429,9 +1478,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _tag = __webpack_require__(42);
+var _suggestion = __webpack_require__(42);
 
-var _tag2 = _interopRequireDefault(_tag);
+var _suggestion2 = _interopRequireDefault(_suggestion);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1458,9 +1507,9 @@ var _uuid = __webpack_require__(6);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _work = __webpack_require__(44);
+var _tag = __webpack_require__(43);
 
-var _work2 = _interopRequireDefault(_work);
+var _tag2 = _interopRequireDefault(_tag);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1483,7 +1532,46 @@ module.exports = {
 "use strict";
 
 
-var Images = __webpack_require__(32),
+var _uuid = __webpack_require__(6);
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+var _work = __webpack_require__(45);
+
+var _work2 = _interopRequireDefault(_work);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var create = function create(session, imageId, userId) {
+    var artworkID = _uuid2.default.v4();
+    return session.run('CREATE (work:Work {id: {id}}) ' + ' RETURN work ', {
+        id: artworkID
+    }).then(function (results) {
+        var artResults = results;
+        return session.run('MATCH (work:Work {id:{artworkID}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})-[:DISPLAYS]->(work)', { artworkID: artworkID, userId: userId, imageId: imageId }).then(function (mResults) {
+            return new _work2.default(artResults.records[0].get('work'));
+        });
+    });
+};
+
+var update = function update(session) {};
+
+var deletion = function deletion(session) {};
+
+module.exports = {
+    create: create,
+    update: update,
+    deletion: deletion
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Images = __webpack_require__(33),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -1510,7 +1598,7 @@ var Images = __webpack_require__(32),
  *   post:
  *     tags:
  *     - images
- *     description: Sends an image for classification
+ *     description: Applies the Classification Data to an image.
  *     produces:
  *       - application/json
  *     parameters:
@@ -1519,6 +1607,8 @@ var Images = __webpack_require__(32),
  *         type: object
  *         schema:
  *           properties:
+ *              imageId: Image being classified
+ *              recognition: object returned by Watson
  *     responses:
  *       201:
  *         description: Classification Data
@@ -1526,7 +1616,13 @@ var Images = __webpack_require__(32),
  *         description: Error message(s)
  */
 
-exports.classify = function (req, res, next) {};
+exports.classify = function (req, res, next) {
+  var imageId = _.get(req.body, 'imageId');
+  var recognition = _.get(req.body, 'recognition');
+  Images.classify(dbUtils.getSession(req), imageId, recognition).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
 
 /**
  * @swagger
@@ -1585,6 +1681,8 @@ exports.locate = function (req, res, next) {};
  *               type: object
  *             original_filename:
  *               type: string
+ *             userId:
+ *               type: string
  *     responses:
  *       201:
  *         description: Data
@@ -1594,6 +1692,7 @@ exports.locate = function (req, res, next) {};
 
 exports.create = function (req, res, next) {
   var signature = _.get(req.body, 'signature');
+  var userId = _.get(req.body, 'userId');
   var width = _.get(req.body, 'width');
   var height = _.get(req.body, 'height');
   var format = _.get(req.body, 'format');
@@ -1602,7 +1701,7 @@ exports.create = function (req, res, next) {
   var illustration_score = _.get(req.body, 'illustration_score');
   var grayscale = _.get(req.body, 'grayscale');
   var original_filename = _.get(req.body, 'original_filename');
-  Images.create(dbUtils.getSession(req), signature, width, height, format, url, secure_url, illustration_score, grayscale, original_filename).then(function (response) {
+  Images.create(dbUtils.getSession(req), signature, userId, width, height, format, url, secure_url, illustration_score, grayscale, original_filename).then(function (response) {
     return writeResponse(res, response, 201);
   }).catch(next);
 };
@@ -1656,13 +1755,13 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Journeys = __webpack_require__(33),
+var Journeys = __webpack_require__(34),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -1755,13 +1854,13 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Locations = __webpack_require__(34),
+var Locations = __webpack_require__(35),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -1854,13 +1953,13 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Notebooks = __webpack_require__(45),
+var Notebooks = __webpack_require__(46),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -1953,13 +2052,13 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Pages = __webpack_require__(46),
+var Pages = __webpack_require__(47),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -2052,13 +2151,13 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Quests = __webpack_require__(47),
+var Quests = __webpack_require__(48),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -2151,13 +2250,13 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Suggestions = __webpack_require__(48),
+var Suggestions = __webpack_require__(49),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -2250,13 +2349,13 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Tags = __webpack_require__(49),
+var Tags = __webpack_require__(50),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -2349,13 +2448,13 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Users = __webpack_require__(19),
+var Users = __webpack_require__(21),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -2510,13 +2609,13 @@ exports.me = function (req, res, next) {
 };
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Works = __webpack_require__(50),
+var Works = __webpack_require__(51),
     writeResponse = __webpack_require__(0).writeResponse,
     writeError = __webpack_require__(0).writeError,
     loginRequired = __webpack_require__(5),
@@ -2558,8 +2657,13 @@ var Works = __webpack_require__(50),
  *         description: Error message(s)
  */
 
-exports.create = function (req, res, next) {};
-
+exports.create = function (req, res, next) {
+  var imageId = _.get(req.body, 'imageId');
+  var userId = _.get(req.body, 'userId');
+  Works.create(dbUtils.getSession(req), imageId, userId).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
 /**
  * @swagger
  * /api/v0/works/update:
@@ -2609,41 +2713,41 @@ exports.update = function (req, res, next) {};
 exports.delete = function (req, res, next) {};
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var _express = __webpack_require__(17);
+var _express = __webpack_require__(19);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(26);
+var _index = __webpack_require__(28);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _neo4j = __webpack_require__(16);
+var _neo4j = __webpack_require__(18);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
-var _methodOverride = __webpack_require__(29);
+var _methodOverride = __webpack_require__(30);
 
 var _methodOverride2 = _interopRequireDefault(_methodOverride);
 
-var _swaggerJsdoc = __webpack_require__(31);
+var _swaggerJsdoc = __webpack_require__(32);
 
 var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
 
-var _bodyParser = __webpack_require__(27);
+var _bodyParser = __webpack_require__(29);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _setAuthUser = __webpack_require__(24);
+var _setAuthUser = __webpack_require__(26);
 
 var _setAuthUser2 = _interopRequireDefault(_setAuthUser);
 
-var _neo4jSessionCleanup = __webpack_require__(23);
+var _neo4jSessionCleanup = __webpack_require__(25);
 
 var _neo4jSessionCleanup2 = _interopRequireDefault(_neo4jSessionCleanup);
 
@@ -2653,12 +2757,13 @@ var _response2 = _interopRequireDefault(_response);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(28).config();
+__webpack_require__(17).config();
+var PathHelper = __webpack_require__(11);
 
-var path = __webpack_require__(30);
+var request = __webpack_require__(87);
+var path = __webpack_require__(31);
 
-var routes = __webpack_require__(25);
-var apiPath = _neo4j2.default.get('api_path');
+var routes = __webpack_require__(27);
 
 var app = (0, _express2.default)();
 var api = (0, _express2.default)();
@@ -2669,7 +2774,7 @@ var swaggerDefinition = {
         version: '1.0.0',
         description: ''
     },
-    host: "http://localhost:3000",
+    host: PathHelper.clientPath,
     basePath: '/'
 };
 
@@ -2693,6 +2798,7 @@ app.use('/', _index2.default);
 app.use('/view/*', _index2.default);
 
 api.use(_bodyParser2.default.json());
+app.use(_bodyParser2.default.urlencoded({ extended: true }));
 api.use((0, _methodOverride2.default)());
 
 //enable CORS
@@ -2714,68 +2820,90 @@ api.use(function (err, req, res, next) {
 api.use(_setAuthUser2.default);
 api.use(_neo4jSessionCleanup2.default);
 
-api.post(apiPath + '/register', routes.users.register);
-api.post(apiPath + '/login', routes.users.login);
-api.get(apiPath + '/users/me', routes.users.me);
+api.post('/api/' + "v0" + '/register', routes.users.register);
+api.post('/api/' + "v0" + '/login', routes.users.login);
+api.get('/api/' + "v0" + '/users/me', routes.users.me);
 
-api.post(apiPath + '/images/create', routes.images.create);
-// api.post(apiPath+'/images/update', routes.images.update);
-// api.post(apiPath+'/images/delete', routes.images.deletion);
-// api.post(apiPath+'/images/classify', routes.images.classify);
-// api.post(apiPath+'/images/locate', routes.images.locate);
+api.post('/api/' + "v0" + '/images/create', routes.images.create);
+api.post('/api/' + "v0" + '/images/classify', routes.images.classify);
+
+api.post('/api/' + "v0" + '/proxy/watson/visual-recognition', function (req, res) {
+    console.log("https://gateway-a.watsonplatform.net/visual-recognition/api" + '?api_key=' + "58950e3671a9c5ccace2611b6981f32cb86b7f27" + '&url=' + req.body.url + '&owners=IBM&classifier_ids=default&version=2016-05-20');
+    //ToDo: change URL
+    request.get('https://watson-api-explorer.mybluemix.net/visual-recognition/api/v3/classify?api_key=' + "58950e3671a9c5ccace2611b6981f32cb86b7f27" + '&url=' + req.body.url + '&owners=IBM&classifier_ids=default&version=2016-05-20', function (err, r) {
+        console.log(r.body);
+        res.json(r.body);
+    }
+
+    // request.get({
+    //     uri: process.env.WATSON_API_URL,
+    //     qs: {
+    //         api_key: req.body.api_key,
+    //         url: req.body.url,
+    //         version: req.body.version,
+    //         classifier_ids: req.body.classifier_ids
+    //     }
+    // }).pipe(res);
+    );
+});
+
+// api.post('/api/'+process.env.API_VERSION+'/artworks/update', routes.artworks.update);
+// api.post('/api/'+process.env.API_VERSION+'/artworks/delete', routes.artworks.deletion);
+
+// api.post('/api/'+process.env.API_VERSION+'/images/update', routes.images.update);
+// api.post('/api/'+process.env.API_VERSION+'/images/delete', routes.images.deletion);
+// api.post('/api/'+process.env.API_VERSION+'/images/locate', routes.images.locate);
 //
-// api.post(apiPath+'/notebooks/create', routes.notebooks.create);
-// api.post(apiPath+'/notebooks/update', routes.notebooks.update);
-// api.post(apiPath+'/notebooks/delete', routes.notebooks.deletion);
+// api.post('/api/'+process.env.API_VERSION+'/notebooks/create', routes.notebooks.create);
+// api.post('/api/'+process.env.API_VERSION+'/notebooks/update', routes.notebooks.update);
+// api.post('/api/'+process.env.API_VERSION+'/notebooks/delete', routes.notebooks.deletion);
 //
-// api.post(apiPath+'/pages/create', routes.pages.create);
-// api.post(apiPath+'/pages/update', routes.pages.update);
-// api.post(apiPath+'/pages/delete', routes.pages.deletion);
+// api.post('/api/'+process.env.API_VERSION+'/pages/create', routes.pages.create);
+// api.post('/api/'+process.env.API_VERSION+'/pages/update', routes.pages.update);
+// api.post('/api/'+process.env.API_VERSION+'/pages/delete', routes.pages.deletion);
 //
-// api.post(apiPath+'/works/create', routes.works.create);
-// api.post(apiPath+'/works/update', routes.works.update);
-// api.post(apiPath+'/works/delete', routes.works.deletion);
+api.post('/api/' + "v0" + '/works/create', routes.works.create);
+// api.post('/api/'+process.env.API_VERSION+'/works/update', routes.works.update);
+// api.post('/api/'+process.env.API_VERSION+'/works/delete', routes.works.deletion);
 //
-// api.post(apiPath+'/locations/create', routes.locations.create);
-// api.post(apiPath+'/locations/update', routes.locations.update);
-// api.post(apiPath+'/locations/delete', routes.locations.deletion);
+// api.post('/api/'+process.env.API_VERSION+'/locations/create', routes.locations.create);
+// api.post('/api/'+process.env.API_VERSION+'/locations/update', routes.locations.update);
+// api.post('/api/'+process.env.API_VERSION+'/locations/delete', routes.locations.deletion);
 //
-// api.post(apiPath+'/tags/create', routes.tags.create);
-// api.post(apiPath+'/tags/update', routes.tags.update);
-// api.post(apiPath+'/tags/delete', routes.tags.deletion);
+// api.post('/api/'+process.env.API_VERSION+'/tags/create', routes.tags.create);
+// api.post('/api/'+process.env.API_VERSION+'/tags/update', routes.tags.update);
+// api.post('/api/'+process.env.API_VERSION+'/tags/delete', routes.tags.deletion);
 //
-// api.post(apiPath+'/journeys/create', routes.journeys.create);
-// api.post(apiPath+'/journeys/update', routes.journeys.update);
-// api.post(apiPath+'/journeys/delete', routes.journeys.deletion);
+// api.post('/api/'+process.env.API_VERSION+'/journeys/create', routes.journeys.create);
+// api.post('/api/'+process.env.API_VERSION+'/journeys/update', routes.journeys.update);
+// api.post('/api/'+process.env.API_VERSION+'/journeys/delete', routes.journeys.deletion);
 //
-// api.post(apiPath+'/suggestions/create', routes.suggestions.create);
-// api.post(apiPath+'/suggestions/update', routes.suggestions.update);
-// api.post(apiPath+'/suggestions/delete', routes.suggestions.deletion);
+// api.post('/api/'+process.env.API_VERSION+'/suggestions/create', routes.suggestions.create);
+// api.post('/api/'+process.env.API_VERSION+'/suggestions/update', routes.suggestions.update);
+// api.post('/api/'+process.env.API_VERSION+'/suggestions/delete', routes.suggestions.deletion);
 //
-// api.post(apiPath+'/quests/create', routes.quests.create);
-// api.post(apiPath+'/quests/update', routes.quests.update);
-// api.post(apiPath+'/quests/delete', routes.quests.deletion);
+// api.post('/api/'+process.env.API_VERSION+'/quests/create', routes.quests.create);
+// api.post('/api/'+process.env.API_VERSION+'/quests/update', routes.quests.update);
+// api.post('/api/'+process.env.API_VERSION+'/quests/delete', routes.quests.deletion);
 
 
-//api.get(apiPath+'classify', function(req, res){
+//api.get('/api/'+process.env.API_VERSION+'classify', function(req, res){
 //'https://gateway-a.watsonplatform.net/visual-recognition/api/v3'
 
 //    response = watson_connect.get 'classify', {:api_key => ENV['WATSON_KEY'], :url => ao.url, :version => '2016-05-20', :classifier_ids =>'default,moleskine_71136762'}
 
 //});
-
-
-app.listen(3000, function () {
-    console.log('Ioc Express Server started');
+app.listen("3000", function () {
+    console.log('Ioc Express Server started on ' + "3000");
 });
 
-api.listen(3030, function () {
-    console.log('Neo4j server started');
+api.listen("3030", function () {
+    console.log('Neo4j server started on ' + "3030");
 });
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2787,7 +2915,7 @@ Object.defineProperty(exports, "__esModule", {
 var FOOTER_ITEM_CLICKED = exports.FOOTER_ITEM_CLICKED = 'FOOTER_ITEM_CLICKED';
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2803,18 +2931,8 @@ var CLASSIFY_IMAGE = exports.CLASSIFY_IMAGE = 'CLASSIFY_IMAGE';
 var CREATE_TAGS = exports.CREATE_TAGS = 'CREATE_TAGS';
 var REJECT_TAG = exports.REJECT_TAG = 'REJECT_TAG';
 var EXPLORE_BASED_ON_THIS_ARTWORK = exports.EXPLORE_BASED_ON_THIS_ARTWORK = 'EXPLORE_BASED_ON_THIS_ARTWORK';
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
+var CLASSIFICATION_TO_TAGS = exports.CLASSIFICATION_TO_TAGS = 'CLASSIFICATION_TO_TAGS';
+var VISUAL_RECOGNITION = exports.VISUAL_RECOGNITION = 'VISUAL_RECOGNITION';
 
 /***/ }),
 /* 65 */
@@ -2826,7 +2944,7 @@ var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBM
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
+var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
 
 /***/ }),
 /* 66 */
@@ -2836,21 +2954,9 @@ var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBM
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
-exports.onClickSubmit = undefined;
-
-var _signIn = __webpack_require__(64);
-
-var SignInActionTypes = _interopRequireWildcard(_signIn);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
-    return {
-        type: SignInActionTypes.SIGN_IN_FORM_SUBMITTED
-    };
-};
+var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
 
 /***/ }),
 /* 67 */
@@ -2864,7 +2970,31 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signUp = __webpack_require__(65);
+var _signIn = __webpack_require__(65);
+
+var SignInActionTypes = _interopRequireWildcard(_signIn);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
+    return {
+        type: SignInActionTypes.SIGN_IN_FORM_SUBMITTED
+    };
+};
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.onClickSubmit = undefined;
+
+var _signUp = __webpack_require__(66);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -2877,7 +3007,7 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 };
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2899,19 +3029,23 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactDropzone = __webpack_require__(83);
+var _reactDropzone = __webpack_require__(84);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
-var _superagent = __webpack_require__(15);
+var _superagent = __webpack_require__(16);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(4);
 
-var _imageUploader_actions = __webpack_require__(21);
+var _imageUploader_actions = __webpack_require__(23);
 
 var ImageUploaderActions = _interopRequireWildcard(_imageUploader_actions);
+
+var _pathHelper = __webpack_require__(11);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -2934,12 +3068,19 @@ var ImageUploader = function (_Component) {
         _this.state = props;
         _this.onImageDrop = _this.onImageDrop.bind(_this);
         _this.handleImageUpload = _this.handleImageUpload.bind(_this);
+        _this.setUser = _this.setUser.bind(_this);
         return _this;
     }
 
     _createClass(ImageUploader, [{
+        key: 'setUser',
+        value: function setUser(data) {
+            this.userId = data.id;
+        }
+    }, {
         key: 'onImageDrop',
         value: function onImageDrop(files) {
+            this.setUser(this.props.user['userInfo']);
             this.setState({
                 uploadedFile: files[0]
             });
@@ -2964,6 +3105,7 @@ var ImageUploader = function (_Component) {
                         width: imageResponse.width,
                         height: imageResponse.height,
                         secure_url: imageResponse.secure_url,
+                        //ToDo: add these params back
                         // JFIFVersion:imageResponse.JFIFVersion,
                         // colors: imageResponse.colors,
                         // predominant:imageResponse.predominant,
@@ -2972,10 +3114,7 @@ var ImageUploader = function (_Component) {
                         grayscale: imageResponse.grayscale,
                         original_filename: imageResponse.original_filename
                     };
-
-                    console.log('FROM Upload', JSON.stringify(newImage));
-
-                    _this2.saveImage(JSON.stringify(newImage));
+                    _this2.createImage(JSON.stringify(newImage), _this2.userId);
                     if (response.body.secure_url !== '') {
                         _this2.setState({
                             uploadedFileCloudinaryUrl: response.body.secure_url
@@ -2985,11 +3124,99 @@ var ImageUploader = function (_Component) {
             });
         }
     }, {
-        key: 'saveImage',
-        value: function saveImage(data) {
-            _superagent2.default.post("http://localhost:3030" + 'api/v0/images/create').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+        key: 'createImage',
+        value: function createImage(image, userId) {
+            var _this3 = this;
+
+            var d = JSON.parse(image);
+            d.userId = userId;
+            var imageData = JSON.stringify(d);
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/images/create').set('Content-Type', 'application/json').send(imageData).end(function (error, response) {
                 if (!error && response) {
                     console.log('FROM save', response);
+                    _this3.currentImageID = response.body.id;
+                    _this3.visualRecognition(response.body.url);
+                } else {
+                    console.log('Error saving your image', error);
+                }
+            });
+        }
+    }, {
+        key: 'visualRecognition',
+        value: function visualRecognition(url) {
+            var _this4 = this;
+
+            var data = {
+                api_key: "58950e3671a9c5ccace2611b6981f32cb86b7f27",
+                url: url,
+                version: '2016-05-20',
+                classifier_ids: 'default,moleskine_71136762'
+            };
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/proxy/watson/visual-recognition').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    console.log('WATSON', response);
+                    _this4.classifyImage(response, _this4.currentImageID);
+                } else {
+                    console.log('Error saving your image', error);
+                }
+            });
+        }
+    }, {
+        key: 'classifyImage',
+        value: function classifyImage(recognition, imageId) {
+            var _this5 = this;
+
+            var data = {
+                recognition: JSON.stringify(recognition),
+                imageId: imageId
+            };
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/images/classify').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    console.log('FROM classify', response);
+                    _this5.createArtWork(_this5.currentImageID, _this5.userId);
+                } else {
+                    console.log('Error saving your image', error);
+                }
+            });
+        }
+    }, {
+        key: 'createArtWork',
+        value: function createArtWork(imageId, userId) {
+            var _this6 = this;
+
+            var createData = {
+                imageId: imageId,
+                userId: userId
+            };
+            var data = JSON.stringify(createData);
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/works/create').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    console.log('FROM save artwork', response);
+                    _this6.artWorkId = response.body.id;
+                    _this6.classificationToTags(response.body.classification);
+                } else {
+                    console.log('Error saving your image', error);
+                }
+            });
+        }
+    }, {
+        key: 'classificationToTags',
+        value: function classificationToTags(classifications) {
+            //Parse classification
+
+            // Loop create Tag
+
+        }
+    }, {
+        key: 'createTags',
+        value: function createTags(imageId, artworkId) {
+            var createTagData = {
+                imageId: imageId,
+                artworkId: artworkId
+            };
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/tags/create').set('Content-Type', 'application/json').send(createTagData).end(function (error, response) {
+                if (!error && response) {
+                    console.log('FROM create Tags', response);
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -3032,9 +3259,9 @@ var ImageUploader = function (_Component) {
                         'div',
                         null,
                         this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
-                            'div',
+                            _semanticUiReact.Segment,
                             null,
-                            _react2.default.createElement('img', { src: this.state.uploadedFileCloudinaryUrl })
+                            _react2.default.createElement(_semanticUiReact.Image, { src: this.state.uploadedFileCloudinaryUrl })
                         )
                     )
                 )
@@ -3055,6 +3282,8 @@ ImageUploader.propTypes = {
     createTags: _propTypes2.default.func.isRequired,
     rejectTag: _propTypes2.default.func.isRequired,
     exploreBasedOnThisArtwork: _propTypes2.default.func.isRequired,
+    classificationToTags: _propTypes2.default.func.isRequired,
+    visualRecognition: _propTypes2.default.func.isRequired,
     userInfo: _propTypes2.default.shape({
         id: _propTypes2.default.string,
         username: _propTypes2.default.string,
@@ -3068,37 +3297,44 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         uploadImage: function uploadImage(image) {
             dispatch(ImageUploaderActions.uploadImage(image));
         },
-        createImage: function createImage(image, user) {
-            dispatch(ImageUploaderActions.createImage(image, user));
+        createImage: function createImage(image) {
+            dispatch(ImageUploaderActions.createImage(image));
         },
-        createArtwork: function createArtwork(image, user) {
-            dispatch(ImageUploaderActions.createArtwork(image, user));
+        createArtwork: function createArtwork(imageId, userId) {
+            dispatch(ImageUploaderActions.createArtwork(imageId, userId));
         },
-        classifyImage: function classifyImage(image) {
-            dispatch(ImageUploaderActions.classifyImage(image));
+        classifyImage: function classifyImage(recognition, imageId) {
+            dispatch(ImageUploaderActions.classifyImage(recognition, imageId));
         },
-        createTags: function createTags(artwork) {
-            dispatch(ImageUploaderActions.createTags(artwork));
+        createTags: function createTags(image, artwork) {
+            dispatch(ImageUploaderActions.createTags(image, artwork));
         },
         rejectTag: function rejectTag(tag) {
             dispatch(ImageUploaderActions.rejectTag(tag));
         },
         exploreBasedOnThisArtwork: function exploreBasedOnThisArtwork(artwork) {
             dispatch(ImageUploaderActions.exploreBasedOnThisArtwork(artwork));
+        },
+        classificationToTags: function classificationToTags(classification) {
+            dispatch(ImageUploaderActions.classificationToTags(classification));
+        },
+        visualRecognition: function visualRecognition(url) {
+            dispatch(ImageUploaderActions.visualRecognition(url));
         }
     };
 };
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        state: state['ImageUploader']
+        state: state['ImageUploader'],
+        user: state['Nav']
     };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageUploader);
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3116,11 +3352,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(4);
 
-var _superagent = __webpack_require__(15);
+var _superagent = __webpack_require__(16);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(14);
+var _reactRouterDom = __webpack_require__(15);
+
+var _pathHelper = __webpack_require__(11);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3132,7 +3372,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var token = __webpack_require__(18);
+var token = __webpack_require__(20);
 
 var SignIn = function (_Component) {
     _inherits(SignIn, _Component);
@@ -3158,7 +3398,7 @@ var SignIn = function (_Component) {
             var _this2 = this;
 
             e.preventDefault();
-            _superagent2.default.post("http://localhost:3030" + '/api/v0/login').set('Content-Type', 'application/json').send(JSON.stringify(this.state)).end(function (error, response) {
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/login').set('Content-Type', 'application/json').send(JSON.stringify(this.state)).end(function (error, response) {
                 if (!error && response) {
                     _this2.setState({ redirect: true });
                 } else {
@@ -3221,7 +3461,7 @@ var SignIn = function (_Component) {
 exports.default = SignIn;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3239,11 +3479,15 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(4);
 
-var _superagent = __webpack_require__(15);
+var _superagent = __webpack_require__(16);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(14);
+var _reactRouterDom = __webpack_require__(15);
+
+var _pathHelper = __webpack_require__(11);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3307,7 +3551,7 @@ var SignUp = function (_Component) {
             e.preventDefault();
             this.handleValidation(true);
             if (this.state.passwordsValid && this.state.emailValid && this.state.nameValid) {
-                _superagent2.default.post("http://localhost:3030" + '/api/v0/register').set('Content-Type', 'application/json').send(JSON.stringify(this.state)).end(function (error, response) {
+                _superagent2.default.post(_pathHelper2.default.apiPath + '/register').set('Content-Type', 'application/json').send(JSON.stringify(this.state)).end(function (error, response) {
                     if (!error && response) {
                         _this2.setState({ redirect: true });
                     } else {
@@ -3434,7 +3678,7 @@ var SignUp = function (_Component) {
 exports.default = SignUp;
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3462,15 +3706,15 @@ var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(11);
+var _footer_actions = __webpack_require__(12);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _nav = __webpack_require__(13);
+var _nav = __webpack_require__(14);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(12);
+var _footer = __webpack_require__(13);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -3543,7 +3787,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Art);
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3571,15 +3815,15 @@ var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(11);
+var _footer_actions = __webpack_require__(12);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _nav = __webpack_require__(13);
+var _nav = __webpack_require__(14);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(12);
+var _footer = __webpack_require__(13);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -3652,7 +3896,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Browse);
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3680,23 +3924,23 @@ var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(11);
+var _footer_actions = __webpack_require__(12);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _imageUploader_actions = __webpack_require__(21);
+var _imageUploader_actions = __webpack_require__(23);
 
 var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
 
-var _nav = __webpack_require__(13);
+var _nav = __webpack_require__(14);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(12);
+var _footer = __webpack_require__(13);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _imageUploader = __webpack_require__(68);
+var _imageUploader = __webpack_require__(69);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
@@ -3736,6 +3980,8 @@ var Home = function (_Component) {
             var createTags = (0, _redux.bindActionCreators)(ImageUploadCreators.createTags, dispatch);
             var rejectTag = (0, _redux.bindActionCreators)(ImageUploadCreators.rejectTag, dispatch);
             var exploreBasedOnThisArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
+            var classificationToTags = (0, _redux.bindActionCreators)(ImageUploadCreators.classificationToTags, dispatch);
+            var visualRecognition = (0, _redux.bindActionCreators)(ImageUploadCreators.visualRecognition, dispatch);
             var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             return _react2.default.createElement(
                 'div',
@@ -3744,7 +3990,7 @@ var Home = function (_Component) {
                     _semanticUiReact.Container,
                     { className: 'main-content' },
                     _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
-                    _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTags: createTags, rejectTag: rejectTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork })
+                    _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTags: createTags, rejectTag: rejectTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork, classificationToTags: classificationToTags, visualRecognition: visualRecognition })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
@@ -3768,7 +4014,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3784,31 +4030,31 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _art = __webpack_require__(71);
+var _art = __webpack_require__(72);
 
 var _art2 = _interopRequireDefault(_art);
 
-var _browse = __webpack_require__(72);
+var _browse = __webpack_require__(73);
 
 var _browse2 = _interopRequireDefault(_browse);
 
-var _home = __webpack_require__(73);
+var _home = __webpack_require__(74);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _signUp = __webpack_require__(77);
+var _signUp = __webpack_require__(78);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _signIn = __webpack_require__(76);
+var _signIn = __webpack_require__(77);
 
 var _signIn2 = _interopRequireDefault(_signIn);
 
-var _profile = __webpack_require__(75);
+var _profile = __webpack_require__(76);
 
 var _profile2 = _interopRequireDefault(_profile);
 
-var _reactRouterDom = __webpack_require__(14);
+var _reactRouterDom = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3849,7 +4095,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3877,15 +4123,15 @@ var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(11);
+var _footer_actions = __webpack_require__(12);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _nav = __webpack_require__(13);
+var _nav = __webpack_require__(14);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(12);
+var _footer = __webpack_require__(13);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -3957,8 +4203,10 @@ var mapStateToProps = function mapStateToProps(state) {
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
+//MATCH (user)-[:UPLOADED]->(upload) WHERE user.id = 177 MATCH(u{id:upload.id}) RETURN user.id, u.url
+
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3986,23 +4234,23 @@ var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(11);
+var _footer_actions = __webpack_require__(12);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signIn_actions = __webpack_require__(66);
+var _signIn_actions = __webpack_require__(67);
 
 var SignInActionCreators = _interopRequireWildcard(_signIn_actions);
 
-var _nav = __webpack_require__(13);
+var _nav = __webpack_require__(14);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(12);
+var _footer = __webpack_require__(13);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signInForm = __webpack_require__(69);
+var _signInForm = __webpack_require__(70);
 
 var _signInForm2 = _interopRequireDefault(_signInForm);
 
@@ -4068,7 +4316,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignInPage);
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4096,23 +4344,23 @@ var _nav_actions = __webpack_require__(9);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(11);
+var _footer_actions = __webpack_require__(12);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signUp_actions = __webpack_require__(67);
+var _signUp_actions = __webpack_require__(68);
 
 var SignUpActionCreators = _interopRequireWildcard(_signUp_actions);
 
-var _nav = __webpack_require__(13);
+var _nav = __webpack_require__(14);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(12);
+var _footer = __webpack_require__(13);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signUpForm = __webpack_require__(70);
+var _signUpForm = __webpack_require__(71);
 
 var _signUpForm2 = _interopRequireDefault(_signUpForm);
 
@@ -4178,7 +4426,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUpPage);
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4189,7 +4437,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Nav;
 
-var _nav = __webpack_require__(20);
+var _nav = __webpack_require__(22);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -4230,46 +4478,52 @@ function Nav() {
 }
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = require("crypto");
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = require("nconf");
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports) {
 
 module.exports = require("neo4j-driver");
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports) {
+
+module.exports = require("request");
 
 /***/ })
 /******/ ]);

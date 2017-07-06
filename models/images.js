@@ -6,18 +6,22 @@ const locate = function (session) {
 
 };
 
-const classify = function (session) {
-
+const classify = function (session, imageId, recognition) {
+    return session.run ('MATCH (i { id: {imageId}}) SET i.classification = {recognition} RETURN i', {imageId:imageId,recognition:recognition})
+        .then(results => {
+            return new Image(results.records[0].get('i'));
+        })
 };
 
-const create = function (session, signature, width, height, format, url, secure_url, illustration_score, grayscale, original_filename) {
+const create = function (session, signature, userId, width, height, format, url, secure_url, illustration_score, grayscale, original_filename) {
+    const imageID = uuid.v4();
     return session.run('MATCH (image:Image {url:{url}}) RETURN image', {url:url})
         .then(results => {
             if(!_.isEmpty(results.records)){
                throw {url: 'Image already in use', status: 400}
             }else{
                 return session.run('CREATE (image:Image {id: {id}, ' +
-                    'signature:{signature},' +
+                    ' signature:{signature},' +
                     ' width:{width},' +
                     ' height:{height},' +
                     ' format:{format},' +
@@ -25,10 +29,11 @@ const create = function (session, signature, width, height, format, url, secure_
                     ' secure_url:{secure_url},' +
                     ' illustration_score:{illustration_score}, ' +
                     ' grayscale:{grayscale}, ' +
-                    ' original_filename:{original_filename}}) ' +
-                    'RETURN image',
+                    ' original_filename:{original_filename}, ' +
+                    ' classification:{classification} } ) ' +
+                    ' RETURN image ',
                     {
-                        id: uuid.v4(),
+                        id: imageID,
                         signature:signature,
                         width:width,
                         height:height,
@@ -37,17 +42,19 @@ const create = function (session, signature, width, height, format, url, secure_
                         secure_url:secure_url,
                         illustration_score:illustration_score,
                         grayscale:grayscale,
-                        original_filename:original_filename
+                        original_filename:original_filename,
+                        classification: ''
                     }
                 )
             }
         }
     ).then(results => {
-        // ToDo: Place user link.
-
-
-
-            return new Image(results.records[0].get('image'));
+            const imgResults = results;
+            return session.run('MATCH (image:Image {id:{imageID}}) CREATE(user {id:{userId}})-[:UPLOADED]->(image)', {imageID:imageID, userId:userId}
+            ).then(mResults => {
+                return new Image(imgResults.records[0].get('image'));
+                }
+            )
         }
     )
 };

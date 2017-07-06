@@ -7,32 +7,33 @@ export const uploadImage = image => {
     };
 };
 
-export const createImage = (image,user) => {
+export const createImage = (image) => {
     return {
         type: ImageUploaderActionTypes.CREATE_IMAGE,
-        image,
-        user
-    };
-};
-
-export const createArtwork = (image,user) => {
-    return {
-        type: ImageUploaderActionTypes.CREATE_ARTWORK,
-        image,
-        user
-    };
-};
-
-export const classifyImage = image => {
-    return {
-        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
         image
     };
 };
 
-export const createTags = artwork => {
+export const createArtwork = (imageId,userId) => {
+    return {
+        type: ImageUploaderActionTypes.CREATE_ARTWORK,
+        imageId,
+        userId
+    };
+};
+
+export const classifyImage = (recognition,imageId) => {
+    return {
+        type: ImageUploaderActionTypes.CLASSIFY_IMAGE,
+        recognition,
+        imageId
+    };
+};
+
+export const createTags = (image,artwork) => {
     return {
         type: ImageUploaderActionTypes.CREATE_TAGS,
+        image,
         artwork
     };
 };
@@ -48,5 +49,19 @@ export const exploreBasedOnThisArtwork = artwork => {
     return {
         type: ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK,
         artwork
+    };
+};
+
+export const classificationToTags = classification => {
+    return {
+        type: ImageUploaderActionTypes.CLASSIFICATION_TO_TAGS,
+        classification
+    };
+};
+
+export const visualRecognition = url => {
+    return {
+        type: ImageUploaderActionTypes.VISUAL_RECOGNITION,
+        url
     };
 };

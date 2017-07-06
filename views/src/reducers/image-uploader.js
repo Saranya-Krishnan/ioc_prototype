@@ -10,7 +10,6 @@ export default function ImageUploader(state=initialState, action) {
     switch(action.type) {
         case ImageUploaderActionTypes.UPLOAD_IMAGE:
             return Object.assign({}, state, {
-                //ToDo: take whole obj
                 uploadedFileCloudinaryUrl: action.image
             });
         case ImageUploaderActionTypes.CREATE_IMAGE:
@@ -26,6 +25,14 @@ export default function ImageUploader(state=initialState, action) {
                 ...state
             });
         case ImageUploaderActionTypes.CREATE_TAGS:
+            return Object.assign({}, state, {
+                ...state
+            });
+        case ImageUploaderActionTypes.CLASSIFICATION_TO_TAGS:
+            return Object.assign({}, state, {
+                ...state
+            });
+        case ImageUploaderActionTypes.VISUAL_RECOGNITION:
             return Object.assign({}, state, {
                 ...state
             });
