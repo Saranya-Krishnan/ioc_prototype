@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import ajax from 'superagent';
+import { Link } from 'react-router-dom';
 import { Segment, Image, Loader, Dimmer } from 'semantic-ui-react';
 import * as ImageUploaderActions from '../actions/image-uploader_actions'
 import PathHelper from '../helpers/path-helper';
@@ -12,10 +13,10 @@ class ImageUploader extends Component {
         super(props);
         this.state = props;
         this.onImageDrop = this.onImageDrop.bind(this);
+        this.checkTagsCompleted = this.checkTagsCompleted.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
         this.setUser = this.setUser.bind(this);
-        this.isLoading =false;
-        this.isProcessing = false;
+        this.tagCreationCount = 0;
     }
     setUser(data){
         this.userId = data.id;
@@ -23,18 +24,18 @@ class ImageUploader extends Component {
     onImageDrop(files) {
         this.setUser(this.props.user['userInfo']);
         this.setState({
-            uploadedFile: files[0]
+            uploadedFile: files[0], hasUploaded:true
         });
         this.handleImageUpload(files[0]);
     }
     handleImageUpload(file) {
-        this.isLoading =true;
+        this.setState({isLoading:true});
         let upload = ajax.post(process.env.CLOUDINARY_UPLOAD_URL)
             .field('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
             .field('file', file);
         upload.end((err, response) => {
             if (err) {
-                this.isLoading =false;
+                this.setState({isLoading:false, hasUploaded:false});
                 console.error(err);
             }
             if(response){
@@ -56,9 +57,8 @@ class ImageUploader extends Component {
                 };
                 this.createImage(JSON.stringify(newImage),this.userId);
                 if (response.body.secure_url !== '') {
-                    this.isLoading = false;
                     this.setState({
-                        uploadedFileCloudinaryUrl: response.body.secure_url
+                        uploadedFileCloudinaryUrl: response.body.secure_url, isLoading:false
                     });
                 }
             }
@@ -73,7 +73,6 @@ class ImageUploader extends Component {
             .send(imageData)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log('FROM save',response);
                     this.currentImageID = response.body.id;
                     this.visualRecognition(response.body.url);
                 } else {
@@ -82,7 +81,7 @@ class ImageUploader extends Component {
             });
     }
     visualRecognition(url){
-        this.isProcessing = true;
+        this.setState({isProcessing:true});
         const data = {
             url: url
         };
@@ -91,7 +90,6 @@ class ImageUploader extends Component {
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log('WATSON', response.text);
                     this.classifyImage(response.text, this.currentImageID);
                 } else {
                     console.log('Error saving your image', error);
@@ -108,7 +106,6 @@ class ImageUploader extends Component {
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log('FROM classify',response);
                     this.classificationToTags(response.body.classification);
                     this.createArtWork(this.currentImageID, this.userId);
                 } else {
@@ -127,8 +124,7 @@ class ImageUploader extends Component {
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log('FROM save artwork',response);
-                    this.artWorkId = response.body.id;
+                    this.setState({newArtWorkId:response.body.id});
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -140,33 +136,70 @@ class ImageUploader extends Component {
         this.classifiers = classificationData.images[0].classifiers[0].classes;
         for(let i=0; i<this.classifiers.length; i++){
             let w = this.classifiers[i].class;
-            console.log(w);
             this.createTag(w);
         }
-        //ToDo: Fix to show only after completed tags created.
-        this.isProcessing = false;
+    }
+    checkTagsCompleted(){
+        console.log(this.tagCreationCount+' vs '+this.classifiers.length*2);
+        if(this.tagCreationCount>=(this.classifiers.length*2)){
+            this.setState({isProcessing:false});
+            this.setState({isProcessed:true});
+        }
     }
     createTag(word){
         const createTagData ={
             word:word
         };
-        ajax.post( PathHelper.apiPath + '/tags/create/ontology')
+        ajax.post( PathHelper.apiPath + '/tags/create/')
             .set('Content-Type', 'application/json')
             .send(createTagData)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log('FROM create Tags',response);
+                    this.tagCreationCount++;
+                    this.getNewTagOntology(response);
+                    this.checkTagsCompleted();
+                } else {
+                    this.tagCreationCount++;
+                    console.log('Error saving your Tag', error);
+                    this.checkTagsCompleted();
+                }
+            });
+    }
+    getNewTagOntology(data){
+        ajax.post( PathHelper.apiPath + '/tags/ontology/')
+            .set('Content-Type', 'application/json')
+            .send(data)
+            .end((error, response) => {
+                if (!error && response) {
+                    this.enrichNewTag(response);
                 } else {
                     console.log('Error saving your Tag', error);
                 }
             });
     }
+    enrichNewTag(data){
+        ajax.post( PathHelper.apiPath + '/tags/enrich/')
+            .set('Content-Type', 'application/json')
+            .send(data)
+            .end((error, response) => {
+                if (!error && response) {
+                    this.tagCreationCount++;
+                    this.checkTagsCompleted();
+                } else {
+                    console.log('Error saving your Tag', error);
+                    this.tagCreationCount++;
+                    this.checkTagsCompleted();
+                }
+            });
+    }
     render() {
         return (
-            <Segment>
-                <h1>Upload your Moleskine artwork.</h1>
+            <Segment className="image-uploader-hold">
+                { this.state.hasUploaded === true ? null :
+                    <h1>Upload your Moleskine artwork.</h1>
+                }
                 <form>
-                    {this.state.uploadedFileCloudinaryUrl === '' ? null :
+                    { this.state.hasUploaded === true ? null :
                         <div className="FileUpload">
                             <Dropzone
                                 onDrop={this.onImageDrop.bind(this)}
@@ -178,20 +211,26 @@ class ImageUploader extends Component {
                                 <div>Drop an image or click to select a file to upload.</div>
                             </Dropzone>
                         </div>}
-                        {this.isLoading === false ? null :
+                        {this.state.isLoading === true ?
                         <Dimmer active>
                             <Loader indeterminate>Uploading Image</Loader>
-                        </Dimmer>
+                        </Dimmer> : null
                         }
-                        {this.isProcessing === false ? null :
+                        {this.state.isProcessing === true && this.state.hasUploaded === true ?
                         <Dimmer active>
                             <Loader indeterminate>Processing Image</Loader>
-                        </Dimmer>
+                        </Dimmer> : null
                         }
                         {this.state.uploadedFileCloudinaryUrl === '' ? null :
-                            <div>
-                                <Image src={this.state.uploadedFileCloudinaryUrl} />
+                            <div className="uploaded-image-holder">
+                                <Image src={this.state.uploadedFileCloudinaryUrl} className="uploaded-image"/>
                             </div>
+                        }
+                        {this.state.isProcessed === true ?
+                            <Link className="view-artwork-button" to={"/user/artwork/"+this.state.newArtWorkId}>
+                                View My New Artwork
+                            </Link>
+                          : null
                         }
                 </form>
             </Segment>
@@ -207,10 +246,16 @@ ImageUploader.propTypes = {
     createArtwork: PropTypes.func.isRequired,
     classifyImage: PropTypes.func.isRequired,
     createTag: PropTypes.func.isRequired,
-    rejectTag: PropTypes.func.isRequired,
+    getNewTagOntology: PropTypes.func.isRequired,
+    enrichNewTag: PropTypes.func.isRequired,
     exploreBasedOnThisArtwork: PropTypes.func.isRequired,
     classificationToTags: PropTypes.func.isRequired,
     visualRecognition: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+    hasUploaded: PropTypes.bool,
+    isProcessing: PropTypes.bool,
+    isProcessed: PropTypes.bool,
+    newArtWorkId: PropTypes.string,
     userInfo: PropTypes.shape({
         id: PropTypes.string,
         username:PropTypes.string,
@@ -234,10 +279,13 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(ImageUploaderActions.classifyImage(recognition,imageId))
         },
         createTag: (word) =>{
-            dispatch(ImageUploaderActions.createTags(word))
+            dispatch(ImageUploaderActions.createTag(word))
         },
-        rejectTag: (tag) =>{
-            dispatch(ImageUploaderActions.rejectTag(tag))
+        enrichNewTag: (tag) =>{
+            dispatch(ImageUploaderActions.enrichNewTag(tag))
+        },
+        getNewTagOntology: (tag) =>{
+            dispatch(ImageUploaderActions.getNewTagOntology(tag))
         },
         exploreBasedOnThisArtwork: (artwork) =>{
             dispatch(ImageUploaderActions.exploreBasedOnThisArtwork(artwork))

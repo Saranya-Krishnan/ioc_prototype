@@ -39,6 +39,7 @@ function renderFullPage(html, initialState) {
             <title>IoC Prototype</title>
             <script src="https://use.typekit.net/ipx6imu.js"></script>
             <script>try{Typekit.load({ async: true });}catch(e){}</script>
+            <base href="/" />
         </head>
         <body>
         <div id="ioc-app"><div>${html}</div></div>

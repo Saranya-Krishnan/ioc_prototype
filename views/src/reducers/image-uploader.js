@@ -3,7 +3,11 @@ import * as ImageUploaderActionTypes from '../action_types/image-uploder';
 
 const initialState = {
     uploadedFileCloudinaryUrl: null,
-    uploadedFile: null
+    uploadedFile: null,
+    isProcessing: false,
+    isProcessed: false,
+    hasUploaded:false,
+    isLoading:false
 };
 
 export default function ImageUploader(state=initialState, action) {
@@ -32,6 +36,10 @@ export default function ImageUploader(state=initialState, action) {
             return Object.assign({}, state, {
                 ...state
             });
+        case ImageUploaderActionTypes.ENRICH_NEW_TAG:
+            return Object.assign({}, state, {
+                ...state
+            });
         case ImageUploaderActionTypes.VISUAL_RECOGNITION:
             return Object.assign({}, state, {
                 ...state
@@ -41,6 +49,10 @@ export default function ImageUploader(state=initialState, action) {
                 ...state
             });
         case ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK :
+            return Object.assign({}, state, {
+                ...state
+            });
+        case ImageUploaderActionTypes.GET_NEW_TAG_ONTOLOGY :
             return Object.assign({}, state, {
                 ...state
             });

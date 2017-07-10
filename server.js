@@ -49,6 +49,8 @@ app.use('/view/*', router);
 
 api.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
 api.use(methodOverride());
 
 //enable CORS
@@ -127,9 +129,11 @@ api.post('/api/'+process.env.API_VERSION+'/tags/update', routes.tags.update);
 api.post('/api/'+process.env.API_VERSION+'/tags/delete', routes.tags.deletion);
 api.post('/api/'+process.env.API_VERSION+'/tags/enrich', routes.tags.enrich);
 api.post('/api/'+process.env.API_VERSION+'/tags/tag-content', routes.tags.tagItem);
-api.post('/api/'+process.env.API_VERSION+'/tags/create/ontology', function(req,res){
+api.post('/api/'+process.env.API_VERSION+'/tags/ontology', function(req,res){
+    const word = req.body.body.word;
+    const id = req.body.body.id;
     let options = {
-        url: 'http://lookup.dbpedia.org/api/search/KeywordSearch?QueryString='+req.body.word,
+        url: 'http://lookup.dbpedia.org/api/search/KeywordSearch?QueryString='+ word,
         headers: {
             'Accept': 'application/json'
         }
@@ -137,12 +141,13 @@ api.post('/api/'+process.env.API_VERSION+'/tags/create/ontology', function(req,r
     function cb(error, response, body){
         if (!error && response.statusCode === 200) {
             let data = {
-                word: req.body.word,
+                word: word,
+                id: id,
                 info: body
             };
             res.send(data);
         }else{
-            console.log('error enriching '+req.body.word)
+            console.log('error getting ontology for '+word)
         }
     }
     request(options, cb);

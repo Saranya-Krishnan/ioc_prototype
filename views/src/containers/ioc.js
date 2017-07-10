@@ -17,7 +17,7 @@ export default class Ioc extends Component {
                 <Route path="/sign-in" component={SignInPage}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path="/art" component={Art}/>
-                <Route path="/browse" component={Browse}/>
+                <Route path="/user/artwork/:id" component={Art}/>
             </div>
         );
     }

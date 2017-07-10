@@ -24,7 +24,8 @@ class Home extends Component {
         const createArtwork = bindActionCreators(ImageUploadCreators.createArtwork, dispatch);
         const classifyImage = bindActionCreators(ImageUploadCreators.classifyImage, dispatch);
         const createTag = bindActionCreators(ImageUploadCreators.createTag, dispatch);
-        const rejectTag = bindActionCreators(ImageUploadCreators.rejectTag, dispatch);
+        const getNewTagOntology = bindActionCreators(ImageUploadCreators.getNewTagOntology, dispatch);
+        const enrichNewTag = bindActionCreators(ImageUploadCreators.enrichNewTag, dispatch);
         const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
         const classificationToTags = bindActionCreators(ImageUploadCreators.classificationToTags, dispatch);
         const visualRecognition = bindActionCreators(ImageUploadCreators.visualRecognition, dispatch);
@@ -33,7 +34,7 @@ class Home extends Component {
             <div>
                 <Container className={'main-content'}>
                     <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
-                    <ImageUploader uploadImage={uploadImage} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTag={createTag} rejectTag={rejectTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork} classificationToTags={classificationToTags} visualRecognition={visualRecognition}/>
+                    <ImageUploader uploadImage={uploadImage} getNewTagOntology={getNewTagOntology} enrichNewTag={enrichNewTag} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTag={createTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork} classificationToTags={classificationToTags} visualRecognition={visualRecognition}/>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
             </div>

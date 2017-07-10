@@ -1,16 +1,28 @@
-.uploader-zone{
-  width: 100%;
-  height: 200px;
-  border-width: 2px;
-  border-color: setcolor('black');
-  border-style: dashed;
-  border-radius: 5px;
-  padding: 1rem;
-}
-.uploader-zone-accepted{
-  border-color: setcolor('green');
+.image-uploader-hold {
+  min-height: 500px;
+  .uploader-zone {
+    width: 100%;
+    height: 200px;
+    border-width: 2px;
+    border-color: setcolor('black');
+    border-style: dashed;
+    border-radius: 5px;
+    padding: 1rem;
+  }
+  .uploader-zone-accepted {
+    border-color: setcolor('green');
+  }
+
+  .uploader-zone-danger {
+    border-color: setcolor('crimson');
+  }
+  .uploaded-image-holder {
+    .uploaded-image {
+
+    }
+  }
+  .view-artwork-button{
+    margin-top: 2rem;
+  }
 }
 
-.uploader-zone-danger{
-  border-color: setcolor('crimson');
-}

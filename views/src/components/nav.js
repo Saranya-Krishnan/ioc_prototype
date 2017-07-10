@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu, Container, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 const token = require('../../../helpers/token');
 import ajax from 'superagent';
 import * as NavActions from '../actions/nav_actions';
 import PathHelper from '../helpers/path-helper';
+
+//ToDo: Add Icon to signed in nav
 
 class Nav extends Component {
     constructor(props) {
@@ -38,11 +40,11 @@ class Nav extends Component {
         return (
             <Container text>
                 <Menu pointing secondary>
-                    <Link to="/" className={this.state.activeItem === 'home' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('home')}>home</Link>
+                    <Link to="/" className={this.state.activeItem === 'home' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('home')}>Home</Link>
                     { !this.state.isLoggedIn &&
                     <Menu.Menu position='right'>
-                        <Link to="#" className={this.state.activeItem === 'sign-in' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-in')}>sign in</Link>
-                        <Link to="#" className={this.state.activeItem === 'sign-up' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-up')}>sign up</Link>
+                        <Link to="#" className={this.state.activeItem === 'sign-in' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-in')}>Sign In</Link>
+                        <Link to="#" className={this.state.activeItem === 'sign-up' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-up')}>Sign Up</Link>
                     </Menu.Menu>
                     }
                     { this.state.isLoggedIn &&

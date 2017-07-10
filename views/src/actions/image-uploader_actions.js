@@ -37,13 +37,6 @@ export const createTag = word => {
     };
 };
 
-export const rejectTag = tag => {
-    return {
-        type: ImageUploaderActionTypes.REJECT_TAG,
-        tag
-    };
-};
-
 export const exploreBasedOnThisArtwork = artwork => {
     return {
         type: ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK,
@@ -64,3 +57,18 @@ export const visualRecognition = url => {
         url
     };
 };
+
+export const enrichNewTag = tag => {
+    return {
+        type: ImageUploaderActionTypes.ENRICH_NEW_TAG,
+        tag
+    };
+};
+
+export const getNewTagOntology = tag => {
+    return {
+        type: ImageUploaderActionTypes.ENRICH_NEW_TAG,
+        tag
+    };
+};
+

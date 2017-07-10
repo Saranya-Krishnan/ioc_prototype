@@ -48,14 +48,12 @@ const Quests = require('../../models/quests');
  *       400:
  *         description: Error message(s)
  */
-
 exports.create = function (req, res, next) {
     const word = _.get(req.body,'word');
     Tags.create(dbUtils.getSession(req),word)
         .then(response => writeResponse(res, response, 201))
-        (next);
+        .catch(next);
 };
-
 /**
  * @swagger
  * /api/v0/tags/update:
@@ -131,14 +129,15 @@ exports.deletion = function (req, res, next) {
  *       400:
  *         description: Error message(s)
  */
-
-
 exports.enrich = function (req, res, next) {
-    const info = _.get(req.body,'info');
-    const word = _.get(req.body,'word');
-    console.log(req.body,'from enrich');
+    const data = JSON.parse(req.body.text);
+    const info = data.info;
+    const word = data.word;
+    const id = data.id;
+    Tags.enrich(dbUtils.getSession(req),info, word, id)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
-
 /**
  * @swagger
  * /api/v0/tags/tagItem:
@@ -160,8 +159,6 @@ exports.enrich = function (req, res, next) {
  *       400:
  *         description: Error message(s)
  */
-
-
 exports.tagItem = function (req, res, next) {
 
 };

@@ -407,6 +407,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var token = __webpack_require__(20);
 
+//ToDo: Add Icon to signed in nav
+
 var Nav = function (_Component) {
     _inherits(Nav, _Component);
 
@@ -461,7 +463,7 @@ var Nav = function (_Component) {
                         { to: '/', className: this.state.activeItem === 'home' ? 'active item' : 'item', onClick: function onClick() {
                                 return _this3.props.clickMenuItem('home');
                             } },
-                        'home'
+                        'Home'
                     ),
                     !this.state.isLoggedIn && _react2.default.createElement(
                         _semanticUiReact.Menu.Menu,
@@ -471,14 +473,14 @@ var Nav = function (_Component) {
                             { to: '#', className: this.state.activeItem === 'sign-in' ? 'active item' : 'item', onClick: function onClick() {
                                     return _this3.props.clickMenuItem('sign-in');
                                 } },
-                            'sign in'
+                            'Sign In'
                         ),
                         _react2.default.createElement(
                             _reactRouterDom.Link,
                             { to: '#', className: this.state.activeItem === 'sign-up' ? 'active item' : 'item', onClick: function onClick() {
                                     return _this3.props.clickMenuItem('sign-up');
                                 } },
-                            'sign up'
+                            'Sign Up'
                         )
                     ),
                     this.state.isLoggedIn && _react2.default.createElement(
@@ -938,7 +940,7 @@ var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.visualRecognition = exports.classificationToTags = exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTag = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
+exports.getNewTagOntology = exports.enrichNewTag = exports.visualRecognition = exports.classificationToTags = exports.exploreBasedOnThisArtwork = exports.createTag = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
 
 var _imageUploder = __webpack_require__(65);
 
@@ -983,13 +985,6 @@ var createTag = exports.createTag = function createTag(word) {
     };
 };
 
-var rejectTag = exports.rejectTag = function rejectTag(tag) {
-    return {
-        type: ImageUploaderActionTypes.REJECT_TAG,
-        tag: tag
-    };
-};
-
 var exploreBasedOnThisArtwork = exports.exploreBasedOnThisArtwork = function exploreBasedOnThisArtwork(artwork) {
     return {
         type: ImageUploaderActionTypes.EXPLORE_BASED_ON_THIS_ARTWORK,
@@ -1008,6 +1003,20 @@ var visualRecognition = exports.visualRecognition = function visualRecognition(u
     return {
         type: ImageUploaderActionTypes.VISUAL_RECOGNITION,
         url: url
+    };
+};
+
+var enrichNewTag = exports.enrichNewTag = function enrichNewTag(tag) {
+    return {
+        type: ImageUploaderActionTypes.ENRICH_NEW_TAG,
+        tag: tag
+    };
+};
+
+var getNewTagOntology = exports.getNewTagOntology = function getNewTagOntology(tag) {
+    return {
+        type: ImageUploaderActionTypes.ENRICH_NEW_TAG,
+        tag: tag
     };
 };
 
@@ -1157,7 +1166,7 @@ router.get('*', function (req, res) {
 });
 
 function renderFullPage(html, initialState) {
-    return '\n        <!doctype html>\n        <html lang="en">\n        <head>\n            <meta charset="utf-8">\n            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n            <title>IoC Prototype</title>\n            <script src="https://use.typekit.net/ipx6imu.js"></script>\n            <script>try{Typekit.load({ async: true });}catch(e){}</script>\n        </head>\n        <body>\n        <div id="ioc-app"><div>' + html + '</div></div>\n        <script>\n            window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + '\n        </script>\n        <script type=text/javascript src="../bin/app.bundle.js"></script>\n        </body>\n        </html>';
+    return '\n        <!doctype html>\n        <html lang="en">\n        <head>\n            <meta charset="utf-8">\n            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n            <title>IoC Prototype</title>\n            <script src="https://use.typekit.net/ipx6imu.js"></script>\n            <script>try{Typekit.load({ async: true });}catch(e){}</script>\n            <base href="/" />\n        </head>\n        <body>\n        <div id="ioc-app"><div>' + html + '</div></div>\n        <script>\n            window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + '\n        </script>\n        <script type=text/javascript src="../bin/app.bundle.js"></script>\n        </body>\n        </html>';
 }
 //ToDo: Webpack or API to serve favicon.
 
@@ -1576,16 +1585,19 @@ var create = function create(session, word) {
         if (!_lodash2.default.isEmpty(results.records)) {
             return new _tag2.default(results.records[0].get('tag'));
         } else {
-            return session.run('CREATE (tag:Tag {id: {id}, word:{word}, ontology:{ontology}}) RETURN tag', { id: tagID, word: word, ontology: "{}" });
+            return session.run('CREATE (tag:Tag {id: {id}, word:{word}, ontology:{ontology}}) RETURN tag', { id: tagID, word: word, ontology: "{}" }).then(function (results) {
+                return new _tag2.default(results.records[0].get('tag'));
+            });
         }
     });
 };
 
 var tagItem = function tagItem(session) {};
 
-var enrich = function enrich(session, info) {
-    console.log('enrich', info);
-    console.log('session');
+var enrich = function enrich(session, info, word, id) {
+    return session.run('MATCH (tag:Tag {id:{id},word:{word}}) SET tag.ontology = {info} RETURN tag', { word: word, id: id, info: info }).then(function (results) {
+        return new _tag2.default(results.records[0].get('tag'));
+    });
 };
 
 var update = function update(session) {};
@@ -2452,14 +2464,12 @@ var Quests = __webpack_require__(23);
  *       400:
  *         description: Error message(s)
  */
-
 exports.create = function (req, res, next) {
   var word = _.get(req.body, 'word');
   Tags.create(dbUtils.getSession(req), word).then(function (response) {
     return writeResponse(res, response, 201);
-  })(next);
+  }).catch(next);
 };
-
 /**
  * @swagger
  * /api/v0/tags/update:
@@ -2529,13 +2539,15 @@ exports.deletion = function (req, res, next) {};
  *       400:
  *         description: Error message(s)
  */
-
 exports.enrich = function (req, res, next) {
-  var info = _.get(req.body, 'info');
-  var word = _.get(req.body, 'word');
-  console.log(req.body, 'from enrich');
+  var data = JSON.parse(req.body.text);
+  var info = data.info;
+  var word = data.word;
+  var id = data.id;
+  Tags.enrich(dbUtils.getSession(req), info, word, id).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
 };
-
 /**
  * @swagger
  * /api/v0/tags/tagItem:
@@ -2557,7 +2569,6 @@ exports.enrich = function (req, res, next) {
  *       400:
  *         description: Error message(s)
  */
-
 exports.tagItem = function (req, res, next) {};
 
 /***/ }),
@@ -2960,6 +2971,7 @@ app.use('/view/*', _index2.default);
 
 api.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
+
 api.use((0, _methodOverride2.default)());
 
 //enable CORS
@@ -3037,9 +3049,11 @@ api.post('/api/' + "v0" + '/tags/update', routes.tags.update);
 api.post('/api/' + "v0" + '/tags/delete', routes.tags.deletion);
 api.post('/api/' + "v0" + '/tags/enrich', routes.tags.enrich);
 api.post('/api/' + "v0" + '/tags/tag-content', routes.tags.tagItem);
-api.post('/api/' + "v0" + '/tags/create/ontology', function (req, res) {
+api.post('/api/' + "v0" + '/tags/ontology', function (req, res) {
+    var word = req.body.body.word;
+    var id = req.body.body.id;
     var options = {
-        url: 'http://lookup.dbpedia.org/api/search/KeywordSearch?QueryString=' + req.body.word,
+        url: 'http://lookup.dbpedia.org/api/search/KeywordSearch?QueryString=' + word,
         headers: {
             'Accept': 'application/json'
         }
@@ -3047,12 +3061,13 @@ api.post('/api/' + "v0" + '/tags/create/ontology', function (req, res) {
     function cb(error, response, body) {
         if (!error && response.statusCode === 200) {
             var data = {
-                word: req.body.word,
+                word: word,
+                id: id,
                 info: body
             };
             res.send(data);
         } else {
-            console.log('error enriching ' + req.body.word);
+            console.log('error getting ontology for ' + word);
         }
     }
     request(options, cb);
@@ -3116,6 +3131,8 @@ var REJECT_TAG = exports.REJECT_TAG = 'REJECT_TAG';
 var EXPLORE_BASED_ON_THIS_ARTWORK = exports.EXPLORE_BASED_ON_THIS_ARTWORK = 'EXPLORE_BASED_ON_THIS_ARTWORK';
 var CLASSIFICATION_TO_TAGS = exports.CLASSIFICATION_TO_TAGS = 'CLASSIFICATION_TO_TAGS';
 var VISUAL_RECOGNITION = exports.VISUAL_RECOGNITION = 'VISUAL_RECOGNITION';
+var ENRICH_NEW_TAG = exports.ENRICH_NEW_TAG = 'ENRICH_NEW_TAG';
+var GET_NEW_TAG_ONTOLOGY = exports.GET_NEW_TAG_ONTOLOGY = 'GET_NEW_TAG_ONTOLOGY';
 
 /***/ }),
 /* 66 */
@@ -3220,6 +3237,8 @@ var _superagent = __webpack_require__(16);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
+var _reactRouterDom = __webpack_require__(15);
+
 var _semanticUiReact = __webpack_require__(4);
 
 var _imageUploader_actions = __webpack_require__(28);
@@ -3250,10 +3269,10 @@ var ImageUploader = function (_Component) {
 
         _this.state = props;
         _this.onImageDrop = _this.onImageDrop.bind(_this);
+        _this.checkTagsCompleted = _this.checkTagsCompleted.bind(_this);
         _this.handleImageUpload = _this.handleImageUpload.bind(_this);
         _this.setUser = _this.setUser.bind(_this);
-        _this.isLoading = false;
-        _this.isProcessing = false;
+        _this.tagCreationCount = 0;
         return _this;
     }
 
@@ -3267,7 +3286,7 @@ var ImageUploader = function (_Component) {
         value: function onImageDrop(files) {
             this.setUser(this.props.user['userInfo']);
             this.setState({
-                uploadedFile: files[0]
+                uploadedFile: files[0], hasUploaded: true
             });
             this.handleImageUpload(files[0]);
         }
@@ -3276,11 +3295,11 @@ var ImageUploader = function (_Component) {
         value: function handleImageUpload(file) {
             var _this2 = this;
 
-            this.isLoading = true;
+            this.setState({ isLoading: true });
             var upload = _superagent2.default.post("https://api.cloudinary.com/v1_1/hpvmvlpcu/image/upload").field('upload_preset', "iylswkmx").field('file', file);
             upload.end(function (err, response) {
                 if (err) {
-                    _this2.isLoading = false;
+                    _this2.setState({ isLoading: false, hasUploaded: false });
                     console.error(err);
                 }
                 if (response) {
@@ -3302,9 +3321,8 @@ var ImageUploader = function (_Component) {
                     };
                     _this2.createImage(JSON.stringify(newImage), _this2.userId);
                     if (response.body.secure_url !== '') {
-                        _this2.isLoading = false;
                         _this2.setState({
-                            uploadedFileCloudinaryUrl: response.body.secure_url
+                            uploadedFileCloudinaryUrl: response.body.secure_url, isLoading: false
                         });
                     }
                 }
@@ -3320,7 +3338,6 @@ var ImageUploader = function (_Component) {
             var imageData = JSON.stringify(d);
             _superagent2.default.post(_pathHelper2.default.apiPath + '/images/create').set('Content-Type', 'application/json').send(imageData).end(function (error, response) {
                 if (!error && response) {
-                    console.log('FROM save', response);
                     _this3.currentImageID = response.body.id;
                     _this3.visualRecognition(response.body.url);
                 } else {
@@ -3333,13 +3350,12 @@ var ImageUploader = function (_Component) {
         value: function visualRecognition(url) {
             var _this4 = this;
 
-            this.isProcessing = true;
+            this.setState({ isProcessing: true });
             var data = {
                 url: url
             };
             _superagent2.default.post(_pathHelper2.default.apiPath + '/watson/visual-recognition').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
-                    console.log('WATSON', response.text);
                     _this4.classifyImage(response.text, _this4.currentImageID);
                 } else {
                     console.log('Error saving your image', error);
@@ -3357,7 +3373,6 @@ var ImageUploader = function (_Component) {
             };
             _superagent2.default.post(_pathHelper2.default.apiPath + '/images/classify').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
-                    console.log('FROM classify', response);
                     _this5.classificationToTags(response.body.classification);
                     _this5.createArtWork(_this5.currentImageID, _this5.userId);
                 } else {
@@ -3377,8 +3392,7 @@ var ImageUploader = function (_Component) {
             var data = JSON.stringify(createData);
             _superagent2.default.post(_pathHelper2.default.apiPath + '/works/create').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
-                    console.log('FROM save artwork', response);
-                    _this6.artWorkId = response.body.id;
+                    _this6.setState({ newArtWorkId: response.body.id });
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -3392,23 +3406,64 @@ var ImageUploader = function (_Component) {
             this.classifiers = classificationData.images[0].classifiers[0].classes;
             for (var i = 0; i < this.classifiers.length; i++) {
                 var w = this.classifiers[i].class;
-                console.log(w);
                 this.createTag(w);
             }
-            //ToDo: Fix to show only after completed tags created.
-            this.isProcessing = false;
+        }
+    }, {
+        key: 'checkTagsCompleted',
+        value: function checkTagsCompleted() {
+            console.log(this.tagCreationCount + ' vs ' + this.classifiers.length * 2);
+            if (this.tagCreationCount >= this.classifiers.length * 2) {
+                this.setState({ isProcessing: false });
+                this.setState({ isProcessed: true });
+            }
         }
     }, {
         key: 'createTag',
         value: function createTag(word) {
+            var _this7 = this;
+
             var createTagData = {
                 word: word
             };
-            _superagent2.default.post(_pathHelper2.default.apiPath + '/tags/create/ontology').set('Content-Type', 'application/json').send(createTagData).end(function (error, response) {
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/tags/create/').set('Content-Type', 'application/json').send(createTagData).end(function (error, response) {
                 if (!error && response) {
-                    console.log('FROM create Tags', response);
+                    _this7.tagCreationCount++;
+                    _this7.getNewTagOntology(response);
+                    _this7.checkTagsCompleted();
+                } else {
+                    _this7.tagCreationCount++;
+                    console.log('Error saving your Tag', error);
+                    _this7.checkTagsCompleted();
+                }
+            });
+        }
+    }, {
+        key: 'getNewTagOntology',
+        value: function getNewTagOntology(data) {
+            var _this8 = this;
+
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/tags/ontology/').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    _this8.enrichNewTag(response);
                 } else {
                     console.log('Error saving your Tag', error);
+                }
+            });
+        }
+    }, {
+        key: 'enrichNewTag',
+        value: function enrichNewTag(data) {
+            var _this9 = this;
+
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/tags/enrich/').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    _this9.tagCreationCount++;
+                    _this9.checkTagsCompleted();
+                } else {
+                    console.log('Error saving your Tag', error);
+                    _this9.tagCreationCount++;
+                    _this9.checkTagsCompleted();
                 }
             });
         }
@@ -3417,8 +3472,8 @@ var ImageUploader = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 _semanticUiReact.Segment,
-                null,
-                _react2.default.createElement(
+                { className: 'image-uploader-hold' },
+                this.state.hasUploaded === true ? null : _react2.default.createElement(
                     'h1',
                     null,
                     'Upload your Moleskine artwork.'
@@ -3426,7 +3481,7 @@ var ImageUploader = function (_Component) {
                 _react2.default.createElement(
                     'form',
                     null,
-                    this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
+                    this.state.hasUploaded === true ? null : _react2.default.createElement(
                         'div',
                         { className: 'FileUpload' },
                         _react2.default.createElement(
@@ -3445,7 +3500,7 @@ var ImageUploader = function (_Component) {
                             )
                         )
                     ),
-                    this.isLoading === false ? null : _react2.default.createElement(
+                    this.state.isLoading === true ? _react2.default.createElement(
                         _semanticUiReact.Dimmer,
                         { active: true },
                         _react2.default.createElement(
@@ -3453,8 +3508,8 @@ var ImageUploader = function (_Component) {
                             { indeterminate: true },
                             'Uploading Image'
                         )
-                    ),
-                    this.isProcessing === false ? null : _react2.default.createElement(
+                    ) : null,
+                    this.state.isProcessing === true && this.state.hasUploaded === true ? _react2.default.createElement(
                         _semanticUiReact.Dimmer,
                         { active: true },
                         _react2.default.createElement(
@@ -3462,12 +3517,17 @@ var ImageUploader = function (_Component) {
                             { indeterminate: true },
                             'Processing Image'
                         )
-                    ),
+                    ) : null,
                     this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
                         'div',
-                        null,
-                        _react2.default.createElement(_semanticUiReact.Image, { src: this.state.uploadedFileCloudinaryUrl })
-                    )
+                        { className: 'uploaded-image-holder' },
+                        _react2.default.createElement(_semanticUiReact.Image, { src: this.state.uploadedFileCloudinaryUrl, className: 'uploaded-image' })
+                    ),
+                    this.state.isProcessed === true ? _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { className: 'view-artwork-button', to: "/user/artwork/" + this.state.newArtWorkId },
+                        'View My New Artwork'
+                    ) : null
                 )
             );
         }
@@ -3484,10 +3544,16 @@ ImageUploader.propTypes = {
     createArtwork: _propTypes2.default.func.isRequired,
     classifyImage: _propTypes2.default.func.isRequired,
     createTag: _propTypes2.default.func.isRequired,
-    rejectTag: _propTypes2.default.func.isRequired,
+    getNewTagOntology: _propTypes2.default.func.isRequired,
+    enrichNewTag: _propTypes2.default.func.isRequired,
     exploreBasedOnThisArtwork: _propTypes2.default.func.isRequired,
     classificationToTags: _propTypes2.default.func.isRequired,
     visualRecognition: _propTypes2.default.func.isRequired,
+    isLoading: _propTypes2.default.bool,
+    hasUploaded: _propTypes2.default.bool,
+    isProcessing: _propTypes2.default.bool,
+    isProcessed: _propTypes2.default.bool,
+    newArtWorkId: _propTypes2.default.string,
     userInfo: _propTypes2.default.shape({
         id: _propTypes2.default.string,
         username: _propTypes2.default.string,
@@ -3511,10 +3577,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
             dispatch(ImageUploaderActions.classifyImage(recognition, imageId));
         },
         createTag: function createTag(word) {
-            dispatch(ImageUploaderActions.createTags(word));
+            dispatch(ImageUploaderActions.createTag(word));
         },
-        rejectTag: function rejectTag(tag) {
-            dispatch(ImageUploaderActions.rejectTag(tag));
+        enrichNewTag: function enrichNewTag(tag) {
+            dispatch(ImageUploaderActions.enrichNewTag(tag));
+        },
+        getNewTagOntology: function getNewTagOntology(tag) {
+            dispatch(ImageUploaderActions.getNewTagOntology(tag));
         },
         exploreBasedOnThisArtwork: function exploreBasedOnThisArtwork(artwork) {
             dispatch(ImageUploaderActions.exploreBasedOnThisArtwork(artwork));
@@ -3924,6 +3993,10 @@ var _footer2 = _interopRequireDefault(_footer);
 
 var _semanticUiReact = __webpack_require__(4);
 
+var _editWork = __webpack_require__(92);
+
+var _editWork2 = _interopRequireDefault(_editWork);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -3966,8 +4039,14 @@ var Art = function (_Component) {
                             'h1',
                             null,
                             'Art'
+                        ),
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            this.props.match.params.id
                         )
-                    )
+                    ),
+                    _react2.default.createElement(_editWork2.default, null)
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
@@ -4182,7 +4261,8 @@ var Home = function (_Component) {
             var createArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.createArtwork, dispatch);
             var classifyImage = (0, _redux.bindActionCreators)(ImageUploadCreators.classifyImage, dispatch);
             var createTag = (0, _redux.bindActionCreators)(ImageUploadCreators.createTag, dispatch);
-            var rejectTag = (0, _redux.bindActionCreators)(ImageUploadCreators.rejectTag, dispatch);
+            var getNewTagOntology = (0, _redux.bindActionCreators)(ImageUploadCreators.getNewTagOntology, dispatch);
+            var enrichNewTag = (0, _redux.bindActionCreators)(ImageUploadCreators.enrichNewTag, dispatch);
             var exploreBasedOnThisArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
             var classificationToTags = (0, _redux.bindActionCreators)(ImageUploadCreators.classificationToTags, dispatch);
             var visualRecognition = (0, _redux.bindActionCreators)(ImageUploadCreators.visualRecognition, dispatch);
@@ -4194,7 +4274,7 @@ var Home = function (_Component) {
                     _semanticUiReact.Container,
                     { className: 'main-content' },
                     _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
-                    _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTag: createTag, rejectTag: rejectTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork, classificationToTags: classificationToTags, visualRecognition: visualRecognition })
+                    _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, getNewTagOntology: getNewTagOntology, enrichNewTag: enrichNewTag, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTag: createTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork, classificationToTags: classificationToTags, visualRecognition: visualRecognition })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
@@ -4288,7 +4368,7 @@ var Ioc = function (_Component) {
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-in', component: _signIn2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/profile', component: _profile2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/art', component: _art2.default }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: '/browse', component: _browse2.default })
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/user/artwork/:id', component: _art2.default })
             );
         }
     }]);
@@ -4722,6 +4802,190 @@ module.exports = require("react-router");
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ITEM_CLICKED = exports.ITEM_CLICKED = 'ITEM_CLICKED';
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.x = undefined;
+
+var _editArtwork = __webpack_require__(88);
+
+var EditArtworkActionTypes = _interopRequireWildcard(_editArtwork);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var x = exports.x = function x(y) {
+    return {
+        type: EditArtworkActionTypes.ITEM_CLICKED,
+        y: y
+    };
+};
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(7);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _semanticUiReact = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ArtWork = function ArtWork(props) {
+    return _react2.default.createElement(
+        'div',
+        null,
+        ' test-->       ',
+        _react2.default.createElement(_semanticUiReact.Image, null)
+    );
+};
+
+ArtWork.propTypes = {};
+
+exports.default = ArtWork;
+
+/***/ }),
+/* 91 */,
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(8);
+
+var _propTypes = __webpack_require__(7);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _superagent = __webpack_require__(16);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _reactRouterDom = __webpack_require__(15);
+
+var _semanticUiReact = __webpack_require__(4);
+
+var _editArtwork_actions = __webpack_require__(89);
+
+var EditArtworkActions = _interopRequireWildcard(_editArtwork_actions);
+
+var _pathHelper = __webpack_require__(11);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
+
+var _artWork = __webpack_require__(90);
+
+var _artWork2 = _interopRequireDefault(_artWork);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EditWork = function (_Component) {
+    _inherits(EditWork, _Component);
+
+    function EditWork(props) {
+        _classCallCheck(this, EditWork);
+
+        var _this = _possibleConstructorReturn(this, (EditWork.__proto__ || Object.getPrototypeOf(EditWork)).call(this, props));
+
+        _this.state = props;
+        _this.setUser = _this.setUser.bind(_this);
+        return _this;
+    }
+
+    _createClass(EditWork, [{
+        key: 'setUser',
+        value: function setUser(data) {
+            this.userId = data.id;
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            //Get artwork
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_artWork2.default, null),
+                'Edit ArtWork'
+            );
+        }
+    }]);
+
+    return EditWork;
+}(_react.Component);
+
+EditWork.propTypes = {};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        x: function x(y) {
+            dispatch(EditArtworkActions.x(y));
+        }
+    };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        state: state['EditWork'],
+        user: state['Nav']
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EditWork);
 
 /***/ })
 /******/ ]);
