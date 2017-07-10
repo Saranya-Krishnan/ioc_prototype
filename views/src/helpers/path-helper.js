@@ -7,8 +7,7 @@ class PathHelper {
         this.apiVersion = process.env.API_VERSION;
     }
     getAPIPath(){
-        console.log(this.baseUrl+':'+this.apiPort+'/api/'+this.apiVersion);
-        return this.baseUrl+':'+this.apiPort+'/api/'+this.apiVersion;
+            return this.baseUrl+':'+this.apiPort+'/api/'+this.apiVersion;
     }
     getClientPath(){
         return this.baseUrl+':'+this.clientPort;
@@ -16,7 +15,6 @@ class PathHelper {
 }
 
 const ph = new PathHelper();
-console.log('ph',ph.getAPIPath());
 module.exports = {
     apiPath:ph.getAPIPath(),
     clientPath:ph.getClientPath()

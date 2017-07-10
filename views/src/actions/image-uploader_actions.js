@@ -30,11 +30,10 @@ export const classifyImage = (recognition,imageId) => {
     };
 };
 
-export const createTags = (image,artwork) => {
+export const createTag = word => {
     return {
         type: ImageUploaderActionTypes.CREATE_TAGS,
-        image,
-        artwork
+        word
     };
 };
 

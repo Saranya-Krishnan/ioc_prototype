@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import Image from './neo4j_models/suggestion';
+import Suggestion from './neo4j_models/suggestion';
 
 
 const create = function (session) {

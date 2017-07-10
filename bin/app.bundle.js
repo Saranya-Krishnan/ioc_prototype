@@ -6676,7 +6676,6 @@ var PathHelper = function () {
     _createClass(PathHelper, [{
         key: 'getAPIPath',
         value: function getAPIPath() {
-            console.log(this.baseUrl + ':' + this.apiPort + '/api/' + this.apiVersion);
             return this.baseUrl + ':' + this.apiPort + '/api/' + this.apiVersion;
         }
     }, {
@@ -6690,7 +6689,6 @@ var PathHelper = function () {
 }();
 
 var ph = new PathHelper();
-console.log('ph', ph.getAPIPath());
 module.exports = {
     apiPath: ph.getAPIPath(),
     clientPath: ph.getClientPath()
@@ -16294,7 +16292,7 @@ var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBM
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.visualRecognition = exports.classificationToTags = exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTags = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
+exports.visualRecognition = exports.classificationToTags = exports.exploreBasedOnThisArtwork = exports.rejectTag = exports.createTag = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
 
 var _imageUploder = __webpack_require__(257);
 
@@ -16332,11 +16330,10 @@ var classifyImage = exports.classifyImage = function classifyImage(recognition, 
     };
 };
 
-var createTags = exports.createTags = function createTags(image, artwork) {
+var createTag = exports.createTag = function createTag(word) {
     return {
         type: ImageUploaderActionTypes.CREATE_TAGS,
-        image: image,
-        artwork: artwork
+        word: word
     };
 };
 
@@ -31588,6 +31585,8 @@ var ImageUploader = function (_Component) {
         _this.onImageDrop = _this.onImageDrop.bind(_this);
         _this.handleImageUpload = _this.handleImageUpload.bind(_this);
         _this.setUser = _this.setUser.bind(_this);
+        _this.isLoading = false;
+        _this.isProcessing = false;
         return _this;
     }
 
@@ -31610,9 +31609,11 @@ var ImageUploader = function (_Component) {
         value: function handleImageUpload(file) {
             var _this2 = this;
 
+            this.isLoading = true;
             var upload = _superagent2.default.post("https://api.cloudinary.com/v1_1/hpvmvlpcu/image/upload").field('upload_preset', "iylswkmx").field('file', file);
             upload.end(function (err, response) {
                 if (err) {
+                    _this2.isLoading = false;
                     console.error(err);
                 }
                 if (response) {
@@ -31624,17 +31625,17 @@ var ImageUploader = function (_Component) {
                         width: imageResponse.width,
                         height: imageResponse.height,
                         secure_url: imageResponse.secure_url,
-                        //ToDo: add these params back
-                        // JFIFVersion:imageResponse.JFIFVersion,
-                        // colors: imageResponse.colors,
-                        // predominant:imageResponse.predominant,
-                        // phash:imageResponse.phash,
+                        JFIFVersion: imageResponse.JFIFVersion ? JSON.stringify(imageResponse.JFIFVersion) : "{}",
+                        colors: JSON.stringify(imageResponse.colors),
+                        predominant: JSON.stringify(imageResponse.predominant),
+                        phash: imageResponse.phash ? JSON.stringify(imageResponse.phash) : "{}",
                         illustration_score: imageResponse.illustration_score,
                         grayscale: imageResponse.grayscale,
                         original_filename: imageResponse.original_filename
                     };
                     _this2.createImage(JSON.stringify(newImage), _this2.userId);
                     if (response.body.secure_url !== '') {
+                        _this2.isLoading = false;
                         _this2.setState({
                             uploadedFileCloudinaryUrl: response.body.secure_url
                         });
@@ -31665,16 +31666,14 @@ var ImageUploader = function (_Component) {
         value: function visualRecognition(url) {
             var _this4 = this;
 
+            this.isProcessing = true;
             var data = {
-                api_key: "58950e3671a9c5ccace2611b6981f32cb86b7f27",
-                url: url,
-                version: '2016-05-20',
-                classifier_ids: 'default,moleskine_71136762'
+                url: url
             };
-            _superagent2.default.post(_pathHelper2.default.apiPath + '/proxy/watson/visual-recognition').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/watson/visual-recognition').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
-                    console.log('WATSON', response);
-                    _this4.classifyImage(response, _this4.currentImageID);
+                    console.log('WATSON', response.text);
+                    _this4.classifyImage(response.text, _this4.currentImageID);
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -31692,6 +31691,7 @@ var ImageUploader = function (_Component) {
             _superagent2.default.post(_pathHelper2.default.apiPath + '/images/classify').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
                     console.log('FROM classify', response);
+                    _this5.classificationToTags(response.body.classification);
                     _this5.createArtWork(_this5.currentImageID, _this5.userId);
                 } else {
                     console.log('Error saving your image', error);
@@ -31712,7 +31712,6 @@ var ImageUploader = function (_Component) {
                 if (!error && response) {
                     console.log('FROM save artwork', response);
                     _this6.artWorkId = response.body.id;
-                    _this6.classificationToTags(response.body.classification);
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -31721,23 +31720,28 @@ var ImageUploader = function (_Component) {
     }, {
         key: 'classificationToTags',
         value: function classificationToTags(classifications) {
-            //Parse classification
-
-            // Loop create Tag
-
+            var classificationData = JSON.parse(classifications);
+            classificationData = JSON.parse(classificationData);
+            this.classifiers = classificationData.images[0].classifiers[0].classes;
+            for (var i = 0; i < this.classifiers.length; i++) {
+                var w = this.classifiers[i].class;
+                console.log(w);
+                this.createTag(w);
+            }
+            //ToDo: Fix to show only after completed tags created.
+            this.isProcessing = false;
         }
     }, {
-        key: 'createTags',
-        value: function createTags(imageId, artworkId) {
+        key: 'createTag',
+        value: function createTag(word) {
             var createTagData = {
-                imageId: imageId,
-                artworkId: artworkId
+                word: word
             };
-            _superagent2.default.post(_pathHelper2.default.apiPath + '/tags/create').set('Content-Type', 'application/json').send(createTagData).end(function (error, response) {
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/tags/create/ontology').set('Content-Type', 'application/json').send(createTagData).end(function (error, response) {
                 if (!error && response) {
                     console.log('FROM create Tags', response);
                 } else {
-                    console.log('Error saving your image', error);
+                    console.log('Error saving your Tag', error);
                 }
             });
         }
@@ -31774,14 +31778,28 @@ var ImageUploader = function (_Component) {
                             )
                         )
                     ),
-                    _react2.default.createElement(
+                    this.isLoading === false ? null : _react2.default.createElement(
+                        _semanticUiReact.Dimmer,
+                        { active: true },
+                        _react2.default.createElement(
+                            _semanticUiReact.Loader,
+                            { indeterminate: true },
+                            'Uploading Image'
+                        )
+                    ),
+                    this.isProcessing === false ? null : _react2.default.createElement(
+                        _semanticUiReact.Dimmer,
+                        { active: true },
+                        _react2.default.createElement(
+                            _semanticUiReact.Loader,
+                            { indeterminate: true },
+                            'Processing Image'
+                        )
+                    ),
+                    this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
                         'div',
                         null,
-                        this.state.uploadedFileCloudinaryUrl === '' ? null : _react2.default.createElement(
-                            _semanticUiReact.Segment,
-                            null,
-                            _react2.default.createElement(_semanticUiReact.Image, { src: this.state.uploadedFileCloudinaryUrl })
-                        )
+                        _react2.default.createElement(_semanticUiReact.Image, { src: this.state.uploadedFileCloudinaryUrl })
                     )
                 )
             );
@@ -31798,7 +31816,7 @@ ImageUploader.propTypes = {
     createImage: _propTypes2.default.func.isRequired,
     createArtwork: _propTypes2.default.func.isRequired,
     classifyImage: _propTypes2.default.func.isRequired,
-    createTags: _propTypes2.default.func.isRequired,
+    createTag: _propTypes2.default.func.isRequired,
     rejectTag: _propTypes2.default.func.isRequired,
     exploreBasedOnThisArtwork: _propTypes2.default.func.isRequired,
     classificationToTags: _propTypes2.default.func.isRequired,
@@ -31825,8 +31843,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         classifyImage: function classifyImage(recognition, imageId) {
             dispatch(ImageUploaderActions.classifyImage(recognition, imageId));
         },
-        createTags: function createTags(image, artwork) {
-            dispatch(ImageUploaderActions.createTags(image, artwork));
+        createTag: function createTag(word) {
+            dispatch(ImageUploaderActions.createTags(word));
         },
         rejectTag: function rejectTag(tag) {
             dispatch(ImageUploaderActions.rejectTag(tag));
@@ -32496,7 +32514,7 @@ var Home = function (_Component) {
             var createImage = (0, _redux.bindActionCreators)(ImageUploadCreators.createImage, dispatch);
             var createArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.createArtwork, dispatch);
             var classifyImage = (0, _redux.bindActionCreators)(ImageUploadCreators.classifyImage, dispatch);
-            var createTags = (0, _redux.bindActionCreators)(ImageUploadCreators.createTags, dispatch);
+            var createTag = (0, _redux.bindActionCreators)(ImageUploadCreators.createTag, dispatch);
             var rejectTag = (0, _redux.bindActionCreators)(ImageUploadCreators.rejectTag, dispatch);
             var exploreBasedOnThisArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
             var classificationToTags = (0, _redux.bindActionCreators)(ImageUploadCreators.classificationToTags, dispatch);
@@ -32509,7 +32527,7 @@ var Home = function (_Component) {
                     _semanticUiReact.Container,
                     { className: 'main-content' },
                     _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
-                    _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTags: createTags, rejectTag: rejectTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork, classificationToTags: classificationToTags, visualRecognition: visualRecognition })
+                    _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTag: createTag, rejectTag: rejectTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork, classificationToTags: classificationToTags, visualRecognition: visualRecognition })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );

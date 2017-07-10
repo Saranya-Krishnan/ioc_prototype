@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import ajax from 'superagent';
-import { Segment, Image } from 'semantic-ui-react';
+import { Segment, Image, Loader, Dimmer } from 'semantic-ui-react';
 import * as ImageUploaderActions from '../actions/image-uploader_actions'
 import PathHelper from '../helpers/path-helper';
 
@@ -14,6 +14,8 @@ class ImageUploader extends Component {
         this.onImageDrop = this.onImageDrop.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
         this.setUser = this.setUser.bind(this);
+        this.isLoading =false;
+        this.isProcessing = false;
     }
     setUser(data){
         this.userId = data.id;
@@ -26,11 +28,13 @@ class ImageUploader extends Component {
         this.handleImageUpload(files[0]);
     }
     handleImageUpload(file) {
+        this.isLoading =true;
         let upload = ajax.post(process.env.CLOUDINARY_UPLOAD_URL)
             .field('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
             .field('file', file);
         upload.end((err, response) => {
             if (err) {
+                this.isLoading =false;
                 console.error(err);
             }
             if(response){
@@ -42,17 +46,17 @@ class ImageUploader extends Component {
                     width: imageResponse.width,
                     height: imageResponse.height,
                     secure_url: imageResponse.secure_url,
-                    //ToDo: add these params back
-                    // JFIFVersion:imageResponse.JFIFVersion,
-                    // colors: imageResponse.colors,
-                    // predominant:imageResponse.predominant,
-                    // phash:imageResponse.phash,
+                    JFIFVersion:imageResponse.JFIFVersion ? JSON.stringify(imageResponse.JFIFVersion) : "{}",
+                    colors: JSON.stringify(imageResponse.colors),
+                    predominant: JSON.stringify(imageResponse.predominant),
+                    phash:imageResponse.phash ? JSON.stringify(imageResponse.phash) : "{}",
                     illustration_score:imageResponse.illustration_score,
                     grayscale:imageResponse.grayscale,
                     original_filename:imageResponse.original_filename
                 };
                 this.createImage(JSON.stringify(newImage),this.userId);
                 if (response.body.secure_url !== '') {
+                    this.isLoading = false;
                     this.setState({
                         uploadedFileCloudinaryUrl: response.body.secure_url
                     });
@@ -78,19 +82,17 @@ class ImageUploader extends Component {
             });
     }
     visualRecognition(url){
+        this.isProcessing = true;
         const data = {
-            api_key: process.env.WATSON_API_KEY,
-            url: url,
-            version: '2016-05-20',
-            classifier_ids: 'default,moleskine_71136762'
+            url: url
         };
-        ajax.post(PathHelper.apiPath + '/proxy/watson/visual-recognition')
+        ajax.post(PathHelper.apiPath + '/watson/visual-recognition')
             .set('Content-Type', 'application/json')
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log('WATSON', response);
-                    this.classifyImage(response, this.currentImageID);
+                    console.log('WATSON', response.text);
+                    this.classifyImage(response.text, this.currentImageID);
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -107,6 +109,7 @@ class ImageUploader extends Component {
             .end((error, response) => {
                 if (!error && response) {
                     console.log('FROM classify',response);
+                    this.classificationToTags(response.body.classification);
                     this.createArtWork(this.currentImageID, this.userId);
                 } else {
                     console.log('Error saving your image', error);
@@ -126,31 +129,35 @@ class ImageUploader extends Component {
                 if (!error && response) {
                     console.log('FROM save artwork',response);
                     this.artWorkId = response.body.id;
-                    this.classificationToTags(response.body.classification)
                 } else {
                     console.log('Error saving your image', error);
                 }
             });
     }
     classificationToTags(classifications){
-        //Parse classification
-
-        // Loop create Tag
-
+        let classificationData = JSON.parse(classifications);
+        classificationData = JSON.parse(classificationData);
+        this.classifiers = classificationData.images[0].classifiers[0].classes;
+        for(let i=0; i<this.classifiers.length; i++){
+            let w = this.classifiers[i].class;
+            console.log(w);
+            this.createTag(w);
+        }
+        //ToDo: Fix to show only after completed tags created.
+        this.isProcessing = false;
     }
-    createTags(imageId,artworkId){
+    createTag(word){
         const createTagData ={
-            imageId:imageId,
-            artworkId: artworkId
+            word:word
         };
-        ajax.post( PathHelper.apiPath + '/tags/create')
+        ajax.post( PathHelper.apiPath + '/tags/create/ontology')
             .set('Content-Type', 'application/json')
             .send(createTagData)
             .end((error, response) => {
                 if (!error && response) {
                     console.log('FROM create Tags',response);
                 } else {
-                    console.log('Error saving your image', error);
+                    console.log('Error saving your Tag', error);
                 }
             });
     }
@@ -160,23 +167,32 @@ class ImageUploader extends Component {
                 <h1>Upload your Moleskine artwork.</h1>
                 <form>
                     {this.state.uploadedFileCloudinaryUrl === '' ? null :
-                    <div className="FileUpload">
-                        <Dropzone
-                            onDrop={this.onImageDrop.bind(this)}
-                            multiple={false}
-                            accept="image/*"
-                            className="uploader-zone"
-                            activeClassName="uploader-zone-active"
-                            rejectClassName="uploader-zone-rejected">
-                            <div>Drop an image or click to select a file to upload.</div>
-                        </Dropzone>
-                    </div>}
-                    <div>
+                        <div className="FileUpload">
+                            <Dropzone
+                                onDrop={this.onImageDrop.bind(this)}
+                                multiple={false}
+                                accept="image/*"
+                                className="uploader-zone"
+                                activeClassName="uploader-zone-active"
+                                rejectClassName="uploader-zone-rejected">
+                                <div>Drop an image or click to select a file to upload.</div>
+                            </Dropzone>
+                        </div>}
+                        {this.isLoading === false ? null :
+                        <Dimmer active>
+                            <Loader indeterminate>Uploading Image</Loader>
+                        </Dimmer>
+                        }
+                        {this.isProcessing === false ? null :
+                        <Dimmer active>
+                            <Loader indeterminate>Processing Image</Loader>
+                        </Dimmer>
+                        }
                         {this.state.uploadedFileCloudinaryUrl === '' ? null :
-                            <Segment>
+                            <div>
                                 <Image src={this.state.uploadedFileCloudinaryUrl} />
-                            </Segment>}
-                    </div>
+                            </div>
+                        }
                 </form>
             </Segment>
         )
@@ -190,7 +206,7 @@ ImageUploader.propTypes = {
     createImage: PropTypes.func.isRequired,
     createArtwork: PropTypes.func.isRequired,
     classifyImage: PropTypes.func.isRequired,
-    createTags: PropTypes.func.isRequired,
+    createTag: PropTypes.func.isRequired,
     rejectTag: PropTypes.func.isRequired,
     exploreBasedOnThisArtwork: PropTypes.func.isRequired,
     classificationToTags: PropTypes.func.isRequired,
@@ -217,8 +233,8 @@ const mapDispatchToProps = (dispatch) => {
         classifyImage: (recognition, imageId) =>{
             dispatch(ImageUploaderActions.classifyImage(recognition,imageId))
         },
-        createTags: (image, artwork) =>{
-            dispatch(ImageUploaderActions.createTags(image,artwork))
+        createTag: (word) =>{
+            dispatch(ImageUploaderActions.createTags(word))
         },
         rejectTag: (tag) =>{
             dispatch(ImageUploaderActions.rejectTag(tag))

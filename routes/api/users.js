@@ -151,3 +151,57 @@ exports.me = function (req, res, next) {
             .catch(next);
     })
 };
+
+/**
+ * @swagger
+ * /api/v0/user/delete:
+ *   post:
+ *     tags:
+ *     - tags
+ *     description: Deletes a user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.deletion = function (req, res, next) {
+
+};
+
+/**
+ * @swagger
+ * /api/v0/user/update:
+ *   post:
+ *     tags:
+ *     - tags
+ *     description: Updates a user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.update = function (req, res, next) {
+
+};

@@ -1,5 +1,6 @@
 const dotenv = require('dotenv-webpack');
 const nodeExternals = require('webpack-node-externals');
+
 module.exports = [
     {
         entry: './server.js',
@@ -24,7 +25,7 @@ module.exports = [
             new dotenv({
                 path: '.env',
                 safe: false
-            })
+            }),
         ],
         node:{
             fs: "empty"

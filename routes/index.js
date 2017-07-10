@@ -37,7 +37,6 @@ function renderFullPage(html, initialState) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <title>IoC Prototype</title>
-            <link href="../img/favicon.ico" rel="Shortcut Icon" />
             <script src="https://use.typekit.net/ipx6imu.js"></script>
             <script>try{Typekit.load({ async: true });}catch(e){}</script>
         </head>
@@ -50,7 +49,7 @@ function renderFullPage(html, initialState) {
         </body>
         </html>`
 }
-
+//ToDo: Webpack or API to serve favicon.
 
 export default router;
 

@@ -107,6 +107,14 @@ exports.locate = function (req, res, next) {
  *               type: string
  *             secure_url:
  *               type: string
+ *             JFIFVersion:
+ *               type: string
+ *             colors:
+ *               type:string
+ *             predominat:
+ *               type: string
+ *             phash:
+ *               type: string
  *             illustration_score:
  *               type: float
  *             grayscale:
@@ -130,10 +138,14 @@ exports.create = function (req, res, next) {
     const format = _.get(req.body, 'format');
     const url = _.get(req.body, 'url');
     const secure_url = _.get(req.body, 'secure_url');
+    const JFIFVersion = _.get(req.body, 'JFIFVersion');
+    const colors = _.get(req.body, 'colors');
+    const predominant = _.get(req.body, 'predominant');
+    const phash = _.get(req.body, 'phash');
     const illustration_score = _.get(req.body, 'illustration_score');
     const grayscale = _.get(req.body, 'grayscale');
     const original_filename = _.get(req.body, 'original_filename');
-    Images.create(dbUtils.getSession(req), signature, userId, width, height, format, url, secure_url, illustration_score, grayscale, original_filename)
+    Images.create(dbUtils.getSession(req), signature, userId, width, height, format, url, secure_url, JFIFVersion, colors, predominant, phash, illustration_score, grayscale, original_filename)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
@@ -188,6 +200,6 @@ exports.update = function (req, res, next) {
  */
 
 
-exports.delete = function (req, res, next) {
+exports.deletion = function (req, res, next) {
 
 };

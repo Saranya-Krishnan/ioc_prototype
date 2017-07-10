@@ -13,7 +13,7 @@ const classify = function (session, imageId, recognition) {
         })
 };
 
-const create = function (session, signature, userId, width, height, format, url, secure_url, illustration_score, grayscale, original_filename) {
+const create = function (session, signature, userId, width, height, format, url, secure_url, JFIFVersion, colors, predominant, phash, illustration_score, grayscale, original_filename) {
     const imageID = uuid.v4();
     return session.run('MATCH (image:Image {url:{url}}) RETURN image', {url:url})
         .then(results => {
@@ -27,6 +27,10 @@ const create = function (session, signature, userId, width, height, format, url,
                     ' format:{format},' +
                     ' url:{url},' +
                     ' secure_url:{secure_url},' +
+                    ' JFIFVersion:{JFIFVersion},' +
+                    ' colors:{colors},' +
+                    ' predominant:{predominant},' +
+                    ' phash:{phash},' +
                     ' illustration_score:{illustration_score}, ' +
                     ' grayscale:{grayscale}, ' +
                     ' original_filename:{original_filename}, ' +
@@ -40,6 +44,10 @@ const create = function (session, signature, userId, width, height, format, url,
                         format:format,
                         url:url,
                         secure_url:secure_url,
+                        JFIFVersion:JFIFVersion,
+                        colors:colors,
+                        predominant:predominant,
+                        phash:phash,
                         illustration_score:illustration_score,
                         grayscale:grayscale,
                         original_filename:original_filename,

@@ -95,6 +95,6 @@ exports.update = function (req, res, next) {
  */
 
 
-exports.delete = function (req, res, next) {
+exports.deletion = function (req, res, next) {
 
 };

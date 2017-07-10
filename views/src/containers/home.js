@@ -23,7 +23,7 @@ class Home extends Component {
         const createImage = bindActionCreators(ImageUploadCreators.createImage, dispatch);
         const createArtwork = bindActionCreators(ImageUploadCreators.createArtwork, dispatch);
         const classifyImage = bindActionCreators(ImageUploadCreators.classifyImage, dispatch);
-        const createTags = bindActionCreators(ImageUploadCreators.createTags, dispatch);
+        const createTag = bindActionCreators(ImageUploadCreators.createTag, dispatch);
         const rejectTag = bindActionCreators(ImageUploadCreators.rejectTag, dispatch);
         const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
         const classificationToTags = bindActionCreators(ImageUploadCreators.classificationToTags, dispatch);
@@ -33,7 +33,7 @@ class Home extends Component {
             <div>
                 <Container className={'main-content'}>
                     <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
-                    <ImageUploader uploadImage={uploadImage} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTags={createTags} rejectTag={rejectTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork} classificationToTags={classificationToTags} visualRecognition={visualRecognition}/>
+                    <ImageUploader uploadImage={uploadImage} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTag={createTag} rejectTag={rejectTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork} classificationToTags={classificationToTags} visualRecognition={visualRecognition}/>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
             </div>
