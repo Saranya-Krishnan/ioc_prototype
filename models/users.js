@@ -8,7 +8,7 @@ const register = function (session, email, password, firstName, lastName) {
     return session.run('MATCH (user:User {email: {email}}) RETURN user', {email: email})
         .then(results => {
             if (!_.isEmpty(results.records)) {
-                throw {email: 'username already in use', status: 400}
+                throw {err: 'username already in use', status: 400}
             }
             else {
                 return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, api_key: {api_key}}) RETURN user',

@@ -115,6 +115,7 @@ api.post('/api/'+process.env.API_VERSION+'/pages/delete', routes.pages.deletion)
 api.post('/api/'+process.env.API_VERSION+'/works/create', routes.works.create);
 api.post('/api/'+process.env.API_VERSION+'/works/update', routes.works.update);
 api.post('/api/'+process.env.API_VERSION+'/works/delete', routes.works.deletion);
+api.post('/api/'+process.env.API_VERSION+'/works/display', routes.works.display);
 // ***************************
 // * Locations
 // ***************************
@@ -125,6 +126,7 @@ api.post('/api/'+process.env.API_VERSION+'/locations/delete', routes.locations.d
 // * Tags
 // ***************************
 api.post('/api/'+process.env.API_VERSION+'/tags/create', routes.tags.create);
+api.post('/api/'+process.env.API_VERSION+'/tags/create-from-image', routes.tags.createFromImage);
 api.post('/api/'+process.env.API_VERSION+'/tags/update', routes.tags.update);
 api.post('/api/'+process.env.API_VERSION+'/tags/delete', routes.tags.deletion);
 api.post('/api/'+process.env.API_VERSION+'/tags/enrich', routes.tags.enrich);

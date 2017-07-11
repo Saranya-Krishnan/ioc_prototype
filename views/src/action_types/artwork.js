@@ -1,0 +1,4 @@
+export const USER_NAME_CLICKED = 'USER_NAME_CLICKED';
+export const MORE_LIKE_THIS = ' MORE_LIKE_THIS';
+export const BROWSE_BASED_ON_THIS = 'BROWSE_BASED_ON_THIS';
+export const RELATED_TO_ME = 'RELATED_TO_ME';

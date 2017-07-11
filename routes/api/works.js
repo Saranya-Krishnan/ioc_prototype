@@ -5,7 +5,6 @@ const Works = require('../../models/works')
     , dbUtils = require('../../neo4j/dbUtils')
     , _ = require('lodash');
 
-
 /**
  * @swagger
  * definition:
@@ -73,6 +72,7 @@ exports.create = function (req, res, next) {
 
 exports.update = function (req, res, next) {
 
+
 };
 
 /**
@@ -100,4 +100,35 @@ exports.update = function (req, res, next) {
 
 exports.deletion = function (req, res, next) {
 
+};
+
+/**
+ * @swagger
+ * /api/v0/works/display:
+ *   post:
+ *     tags:
+ *     - works
+ *     description: Displays a work for the creator of that work with editing capabilities.
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.display = function (req, res, next) {
+    const workId = _.get(req.body, 'workId');
+    const userId = _.get(req.body,'userId');
+    Works.display(dbUtils.getSession(req), workId, userId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };

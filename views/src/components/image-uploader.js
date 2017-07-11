@@ -136,21 +136,21 @@ class ImageUploader extends Component {
         this.classifiers = classificationData.images[0].classifiers[0].classes;
         for(let i=0; i<this.classifiers.length; i++){
             let w = this.classifiers[i].class;
-            this.createTag(w);
+            this.createTag(w,this.currentImageID);
         }
     }
     checkTagsCompleted(){
-        console.log(this.tagCreationCount+' vs '+this.classifiers.length*2);
         if(this.tagCreationCount>=(this.classifiers.length*2)){
             this.setState({isProcessing:false});
             this.setState({isProcessed:true});
         }
     }
-    createTag(word){
+    createTag(word,imageId){
         const createTagData ={
-            word:word
+            word:word,
+            imageId:imageId
         };
-        ajax.post( PathHelper.apiPath + '/tags/create/')
+        ajax.post( PathHelper.apiPath + '/tags/create-from-image/')
             .set('Content-Type', 'application/json')
             .send(createTagData)
             .end((error, response) => {

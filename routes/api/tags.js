@@ -5,13 +5,6 @@ const Tags = require('../../models/tags')
     , dbUtils = require('../../neo4j/dbUtils')
     , _ = require('lodash');
 
-
-//For relating tags to other content
-const Images = require('../../models/images');
-const Journeys = require('../../models/journeys');
-const Suggestions = require('../../models/suggestions');
-const Works = require('../../models/works');
-const Quests = require('../../models/quests');
 /**
  * @swagger
  * definition:
@@ -51,6 +44,36 @@ const Quests = require('../../models/quests');
 exports.create = function (req, res, next) {
     const word = _.get(req.body,'word');
     Tags.create(dbUtils.getSession(req),word)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};
+/**
+ * @swagger
+ * /api/v0/tags/createFromImage:
+ *   post:
+ *     tags:
+ *     - tags
+ *     description: Creates a new tag in association with a newly uploaded image
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *              word:
+ *                  type:string
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+exports.createFromImage = function (req, res, next) {
+    const word = _.get(req.body,'word');
+    const imageId = _.get(req.body,'imageId');
+    Tags.createFromImage(dbUtils.getSession(req),word,imageId)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
