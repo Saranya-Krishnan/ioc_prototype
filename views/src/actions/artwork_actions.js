@@ -1,5 +1,12 @@
 import * as ArtworkActionTypes from '../action_types/artwork';
 
+export const loadArtwork = data => {
+    return {
+        type: ArtworkActionTypes.LOAD_ARTWORK,
+        data
+    };
+};
+
 export const browseBasedOnThis = () => {
     return {
         type: ArtworkActionTypes.BROWSE_BASED_ON_THIS

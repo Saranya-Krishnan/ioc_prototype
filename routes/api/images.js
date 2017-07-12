@@ -203,3 +203,34 @@ exports.update = function (req, res, next) {
 exports.deletion = function (req, res, next) {
 
 };
+
+
+/**
+ * @swagger
+ * /api/v0/images/getTags:
+ *   post:
+ *     tags:
+ *     - images
+ *     description: Returns the tags for a given image
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.getTags = function (req, res, next) {
+    const imageId = _.get(req.body, 'imageId');
+    Images.getTags(dbUtils.getSession(req), imageId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};

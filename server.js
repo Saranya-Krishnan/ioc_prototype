@@ -97,6 +97,7 @@ api.post('/api/'+process.env.API_VERSION+'/watson/visual-recognition', function(
 api.post('/api/'+process.env.API_VERSION+'/images/update', routes.images.update);
 api.post('/api/'+process.env.API_VERSION+'/images/delete', routes.images.deletion);
 api.post('/api/'+process.env.API_VERSION+'/images/locate', routes.images.locate);
+api.post('/api/'+process.env.API_VERSION+'/images/get-tags', routes.images.getTags);
 // ***************************
 // * Notebooks
 // ***************************

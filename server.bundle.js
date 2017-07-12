@@ -1189,6 +1189,10 @@ var _image = __webpack_require__(18);
 
 var _image2 = _interopRequireDefault(_image);
 
+var _tag = __webpack_require__(46);
+
+var _tag2 = _interopRequireDefault(_tag);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var locate = function locate(session) {};
@@ -1200,13 +1204,13 @@ var classify = function classify(session, imageId, recognition) {
 };
 
 var create = function create(session, signature, userId, width, height, format, url, secure_url, JFIFVersion, colors, predominant, phash, illustration_score, grayscale, original_filename) {
-    var imageID = _uuid2.default.v4();
+    var imageId = _uuid2.default.v4();
     return session.run('MATCH (image:Image {url:{url}}) RETURN image', { url: url }).then(function (results) {
         if (!_lodash2.default.isEmpty(results.records)) {
             throw { url: 'Image already in use', status: 400 };
         } else {
             return session.run('CREATE (image:Image {id: {id}, ' + ' signature:{signature},' + ' width:{width},' + ' height:{height},' + ' format:{format},' + ' url:{url},' + ' secure_url:{secure_url},' + ' JFIFVersion:{JFIFVersion},' + ' colors:{colors},' + ' predominant:{predominant},' + ' phash:{phash},' + ' illustration_score:{illustration_score}, ' + ' grayscale:{grayscale}, ' + ' original_filename:{original_filename}, ' + ' classification:{classification} } ) ' + ' RETURN image ', {
-                id: imageID,
+                id: imageId,
                 signature: signature,
                 width: width,
                 height: height,
@@ -1225,7 +1229,7 @@ var create = function create(session, signature, userId, width, height, format, 
         }
     }).then(function (results) {
         var imgResults = results;
-        return session.run('MATCH (image:Image {id:{imageID}}) CREATE(user {id:{userId}})-[:UPLOADED]->(image)', { imageID: imageID, userId: userId }).then(function (mResults) {
+        return session.run('MATCH (image:Image {id:{imageId}}) CREATE(user {id:{userId}})-[:UPLOADED]->(image)', { imageId: imageId, userId: userId }).then(function (mResults) {
             return new _image2.default(imgResults.records[0].get('image'));
         });
     });
@@ -1235,12 +1239,24 @@ var update = function update(session) {};
 
 var deletion = function deletion(session) {};
 
+var getTags = function getTags(session, imageId) {
+    return session.run('MATCH (image:Image {id:{imageId}})-[:ASSOCIATED_WITH]->(t) MATCH (tag:Tag {id:t.id}) RETURN tag', { imageId: imageId }).then(function (results) {
+        var imageTags = [];
+        for (var i = 0; i < results.records.length; i++) {
+            var aTag = new _tag2.default(results.records[i].get('tag'));
+            imageTags.push(aTag);
+        }
+        return imageTags;
+    });
+};
+
 module.exports = {
     locate: locate,
     classify: classify,
     create: create,
     update: update,
-    deletion: deletion
+    deletion: deletion,
+    getTags: getTags
 };
 
 /***/ }),
@@ -1615,34 +1631,32 @@ var _user = __webpack_require__(25);
 
 var _user2 = _interopRequireDefault(_user);
 
+var _tag = __webpack_require__(46);
+
+var _tag2 = _interopRequireDefault(_tag);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var create = function create(session, imageId, userId) {
     var artworkID = _uuid2.default.v4();
     return session.run('CREATE (work:Work {id: {id}}) RETURN work', { id: artworkID }).then(function (results) {
-        return new _work2.default(results.records[0].get('work'));
+        var artResults = results;
+        return session.run('MATCH (work:Work {id:{artworkID}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})-[:DISPLAYS]->(work)', { artworkID: artworkID, userId: userId, imageId: imageId }).then(function (newResults) {
+            return new _work2.default(artResults.records[0].get('work'));
+        });
     });
 };
 
 var update = function update(session) {};
 
 var deletion = function deletion(session) {};
-var display = function display(session, workId, userId) {
-    return session.run('MATCH (work:Work {id:{id}})<-[:DISPLAYS]-(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (image:Image {id:i.id}) MATCH (user:User {id:u.id}) RETURN work, image, user', { id: workId }).then(function (results) {
-
-        var u = results.records[0].get('user');
-        if (u.properties.id !== userId) {
-            return {
-                work: new _work2.default(results.records[0].get('work')),
-                image: new _image2.default(results.records[0].get('image'))
-            };
-        } else {
-            return {
-                work: new _work2.default(results.records[0].get('work')),
-                image: new _image2.default(results.records[0].get('image')),
-                user: new _user2.default(results.records[0].get('user'))
-            };
-        }
+var display = function display(session, workId) {
+    return session.run('MATCH (work:Work {id:{id}})<-[:DISPLAYS]-(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (user:User {id:u.id})  MATCH (image:Image {id:i.id}) RETURN work, image, user', { id: workId }).then(function (results) {
+        return {
+            work: new _work2.default(results.records[0].get('work')),
+            image: new _image2.default(results.records[0].get('image')),
+            user: new _user2.default(results.records[0].get('user'))
+        };
     });
 };
 
@@ -1854,6 +1868,35 @@ exports.update = function (req, res, next) {};
  */
 
 exports.deletion = function (req, res, next) {};
+
+/**
+ * @swagger
+ * /api/v0/images/getTags:
+ *   post:
+ *     tags:
+ *     - images
+ *     description: Returns the tags for a given image
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.getTags = function (req, res, next) {
+  var imageId = _.get(req.body, 'imageId');
+  Images.getTags(dbUtils.getSession(req), imageId).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
 
 /***/ }),
 /* 54 */
@@ -2973,8 +3016,7 @@ exports.deletion = function (req, res, next) {};
 
 exports.display = function (req, res, next) {
   var workId = _.get(req.body, 'workId');
-  var userId = _.get(req.body, 'userId');
-  Works.display(dbUtils.getSession(req), workId, userId).then(function (response) {
+  Works.display(dbUtils.getSession(req), workId).then(function (response) {
     return writeResponse(res, response, 201);
   }).catch(next);
 };
@@ -3112,6 +3154,7 @@ api.post('/api/' + "v0" + '/watson/visual-recognition', function (req, res) {
 api.post('/api/' + "v0" + '/images/update', routes.images.update);
 api.post('/api/' + "v0" + '/images/delete', routes.images.deletion);
 api.post('/api/' + "v0" + '/images/locate', routes.images.locate);
+api.post('/api/' + "v0" + '/images/get-tags', routes.images.getTags);
 // ***************************
 // * Notebooks
 // ***************************
@@ -3207,6 +3250,7 @@ api.listen("3030", function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var LOAD_ARTWORK = exports.LOAD_ARTWORK = 'LOAD_ARTWORK';
 var USER_NAME_CLICKED = exports.USER_NAME_CLICKED = 'USER_NAME_CLICKED';
 var MORE_LIKE_THIS = exports.MORE_LIKE_THIS = ' MORE_LIKE_THIS';
 var BROWSE_BASED_ON_THIS = exports.BROWSE_BASED_ON_THIS = 'BROWSE_BASED_ON_THIS';
@@ -3280,13 +3324,20 @@ var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBM
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.userNameClicked = exports.moreLikeThis = exports.relatedToMe = exports.browseBasedOnThis = undefined;
+exports.userNameClicked = exports.moreLikeThis = exports.relatedToMe = exports.browseBasedOnThis = exports.loadArtwork = undefined;
 
 var _artwork = __webpack_require__(64);
 
 var ArtworkActionTypes = _interopRequireWildcard(_artwork);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var loadArtwork = exports.loadArtwork = function loadArtwork(data) {
+    return {
+        type: ArtworkActionTypes.LOAD_ARTWORK,
+        data: data
+    };
+};
 
 var browseBasedOnThis = exports.browseBasedOnThis = function browseBasedOnThis() {
     return {
@@ -3397,6 +3448,10 @@ var _pathHelper = __webpack_require__(9);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
+var _tag = __webpack_require__(92);
+
+var _tag2 = _interopRequireDefault(_tag);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -3417,6 +3472,7 @@ var Artwork = function (_Component) {
 
         _this.state = props;
         _this.setUser = _this.setUser.bind(_this);
+        _this.getImageTags = _this.getImageTags.bind(_this);
         return _this;
     }
 
@@ -3426,14 +3482,18 @@ var Artwork = function (_Component) {
             this.userId = data.id;
         }
     }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.setState(nextProps.state);
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var _this2 = this;
 
             this.setUser(this.props.user['userInfo']);
             var data = {
-                workId: this.state.workId,
-                userId: this.userId
+                workId: this.state.workId
             };
             _superagent2.default.post(_pathHelper2.default.apiPath + '/works/display').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
@@ -3449,22 +3509,67 @@ var Artwork = function (_Component) {
                             width: response.body.image.width
                         }
                     };
-                    _this2.setState({ work: _data });
+                    _this2.getImageTags(response.body.image.id);
+                    _this2.props.loadArtwork(_data);
                 } else {
                     console.log('Error', error);
                 }
             });
         }
     }, {
+        key: 'getImageTags',
+        value: function getImageTags(imageId) {
+            var _this3 = this;
+
+            var data = {
+                imageId: imageId
+            };
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/images/get-tags').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    _this3.setState({ imageTags: response.body });
+                    console.log('from images', response);
+                }
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var tagOptions = null;
+            if (this.state.imageTags) {
+                var t = this.state.imageTags;
+                tagOptions = t.map(function (tag) {
+                    return _react2.default.createElement(_tag2.default, {
+                        word: tag.word,
+                        key: tag.id,
+                        ontology: tag.ontology,
+                        id: tag.id,
+                        isEditable: true,
+                        clickActions: [{ label: 'test', icon: 'test', action: function action() {} }]
+                    });
+                });
+            }
             return _react2.default.createElement(
                 _semanticUiReact.Segment,
                 null,
                 this.state.work ? _react2.default.createElement(
                     _semanticUiReact.Container,
                     null,
-                    _react2.default.createElement(_semanticUiReact.Image, { src: this.state.work.image.url, width: this.state.work.image.width, height: this.state.work.image.height })
+                    _react2.default.createElement(_semanticUiReact.Image, { src: this.state.work.image.url, width: this.state.work.image.width, height: this.state.work.image.height }),
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        'Detected in this image:'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Click the add or reject buttons to label your work.'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        tagOptions
+                    )
                 ) : null
             );
         }
@@ -3474,11 +3579,13 @@ var Artwork = function (_Component) {
 }(_react.Component);
 
 Artwork.propTypes = {
+    loadArtwork: _propTypes2.default.func.isRequired,
     browseBasedOnThis: _propTypes2.default.func.isRequired,
     relatedToMe: _propTypes2.default.func.isRequired,
     moreLikeThis: _propTypes2.default.func.isRequired,
     userNameClicked: _propTypes2.default.func.isRequired,
     workId: _propTypes2.default.string.isRequired,
+    imageTags: _propTypes2.default.array,
     userInfo: _propTypes2.default.shape({
         id: _propTypes2.default.string,
         username: _propTypes2.default.string,
@@ -4302,6 +4409,10 @@ var _footer_actions = __webpack_require__(12);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
+var _artwork_actions = __webpack_require__(69);
+
+var ArtworkActionCreators = _interopRequireWildcard(_artwork_actions);
+
 var _nav = __webpack_require__(14);
 
 var _nav2 = _interopRequireDefault(_nav);
@@ -4341,9 +4452,14 @@ var Art = function (_Component) {
             var dispatch = this.props.dispatch;
 
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
-            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var loadArtwork = (0, _redux.bindActionCreators)(ArtworkActionCreators.loadArtwork, dispatch);
+            var browseBasedOnThis = (0, _redux.bindActionCreators)(ArtworkActionCreators.browseBasedOnThis, dispatch);
+            var relatedToMe = (0, _redux.bindActionCreators)(ArtworkActionCreators.relatedToMe, dispatch);
+            var moreLikeThis = (0, _redux.bindActionCreators)(ArtworkActionCreators.moreLikeThis, dispatch);
+            var userNameClicked = (0, _redux.bindActionCreators)(ArtworkActionCreators.userNameClicked, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             return _react2.default.createElement(
                 'div',
                 null,
@@ -4360,7 +4476,7 @@ var Art = function (_Component) {
                             'Art'
                         )
                     ),
-                    _react2.default.createElement(_artwork2.default, { workId: this.props.match.params.id })
+                    _react2.default.createElement(_artwork2.default, { loadArtwork: loadArtwork, workId: this.props.match.params.id, browseBasedOnThis: browseBasedOnThis, relatedToMe: relatedToMe, moreLikeThis: moreLikeThis, userNameClicked: userNameClicked })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );
@@ -5116,6 +5232,71 @@ module.exports = require("react-router");
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");
+
+/***/ }),
+/* 91 */,
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(6);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Tags = function Tags(props) {
+    var buttons = null;
+    if (props.clickActions) {
+        var btns = props.clickActions;
+        buttons = btns.map(function (b, index) {
+            return _react2.default.createElement(
+                'button',
+                { key: index, onClick: b.action },
+                _react2.default.createElement('i', { role: 'presentation', className: "tag-icon " + b.icon }),
+                b.label
+            );
+        });
+    }
+    return _react2.default.createElement(
+        'span',
+        { className: 'tag' },
+        props.isEditable ? _react2.default.createElement(
+            'span',
+            { className: 'tag-label' },
+            props.word,
+            buttons
+        ) : _react2.default.createElement(
+            'span',
+            { className: 'tag-label' },
+            props.word
+        )
+    );
+};
+
+Tags.propTypes = {
+    word: _propTypes2.default.string.isRequired,
+    ontology: _propTypes2.default.string,
+    id: _propTypes2.default.string.isRequired,
+    isEditable: _propTypes2.default.bool.isRequired,
+    clickActions: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+        label: _propTypes2.default.string,
+        icon: _propTypes2.default.string,
+        action: _propTypes2.default.func
+    }))
+};
+
+exports.default = Tags;
 
 /***/ })
 /******/ ]);

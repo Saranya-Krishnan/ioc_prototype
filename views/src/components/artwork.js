@@ -5,22 +5,25 @@ import ajax from 'superagent';
 import { Segment, Container, Image } from 'semantic-ui-react';
 import * as ArtworkActions from '../actions/artwork_actions'
 import PathHelper from '../helpers/path-helper';
-
+import Tag from './tag';
 
 class Artwork extends Component {
     constructor(props) {
         super(props);
         this.state = props;
         this.setUser = this.setUser.bind(this);
+        this.getImageTags = this.getImageTags.bind(this);
     }
     setUser(data){
         this.userId = data.id;
     }
+    componentWillReceiveProps(nextProps){
+        this.setState(nextProps.state);
+    }
     componentDidMount(){
         this.setUser(this.props.user['userInfo']);
         const data = {
-            workId: this.state.workId,
-            userId: this.userId
+            workId: this.state.workId
         };
         ajax.post( PathHelper.apiPath + '/works/display')
             .set('Content-Type', 'application/json')
@@ -39,19 +42,50 @@ class Artwork extends Component {
                             width: response.body.image.width
                         }
                     };
-                    this.setState({work:data});
+                    this.getImageTags(response.body.image.id);
+                    this.props.loadArtwork(data);
                 } else {
                     console.log('Error', error);
                 }
             });
     }
+    getImageTags(imageId){
+        const data = {
+            imageId: imageId
+        };
+        ajax.post( PathHelper.apiPath + '/images/get-tags')
+            .set('Content-Type', 'application/json')
+            .send(data)
+            .end((error, response) => {
+                if (!error && response) {
+                    this.setState({imageTags:response.body});
+                    console.log('from images',response);
+                }
+            });
+    }
     render(){
+        let tagOptions = null;
+        if(this.state.imageTags){
+            const t = this.state.imageTags;
+            tagOptions = t.map((tag) => (
+                <Tag
+                    word={tag.word}
+                    key={tag.id}
+                    ontology={tag.ontology}
+                    id={tag.id}
+                    isEditable={true}
+                    clickActions={[{label:'test', icon:'test', action:function(){}}]}
+                />
+            ));
+        }
         return(
-
             <Segment>
                 {  this.state.work ?
                     <Container>
                     <Image src={this.state.work.image.url} width={this.state.work.image.width} height={this.state.work.image.height} />
+                        <h2>Detected in this image:</h2>
+                        <p>Click the add or reject buttons to label your work.</p>
+                        <div>{tagOptions}</div>
                     </Container> : null
                 }
             </Segment>
@@ -60,11 +94,13 @@ class Artwork extends Component {
 }
 
 Artwork.propTypes = {
+    loadArtwork: PropTypes.func.isRequired,
     browseBasedOnThis: PropTypes.func.isRequired,
     relatedToMe: PropTypes.func.isRequired,
     moreLikeThis: PropTypes.func.isRequired,
     userNameClicked: PropTypes.func.isRequired,
     workId: PropTypes.string.isRequired,
+    imageTags: PropTypes.array,
     userInfo: PropTypes.shape({
         id: PropTypes.string,
         username:PropTypes.string,

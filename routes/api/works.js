@@ -127,8 +127,7 @@ exports.deletion = function (req, res, next) {
 
 exports.display = function (req, res, next) {
     const workId = _.get(req.body, 'workId');
-    const userId = _.get(req.body,'userId');
-    Works.display(dbUtils.getSession(req), workId, userId)
+    Works.display(dbUtils.getSession(req), workId)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };

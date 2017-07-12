@@ -1,6 +1,7 @@
 import uuid from 'uuid';
 import _ from 'lodash';
 import Image from './neo4j_models/image';
+import Tag from './neo4j_models/tag';
 
 const locate = function (session) {
 
@@ -14,7 +15,7 @@ const classify = function (session, imageId, recognition) {
 };
 
 const create = function (session, signature, userId, width, height, format, url, secure_url, JFIFVersion, colors, predominant, phash, illustration_score, grayscale, original_filename) {
-    const imageID = uuid.v4();
+    const imageId = uuid.v4();
     return session.run('MATCH (image:Image {url:{url}}) RETURN image', {url:url})
         .then(results => {
             if(!_.isEmpty(results.records)){
@@ -37,7 +38,7 @@ const create = function (session, signature, userId, width, height, format, url,
                     ' classification:{classification} } ) ' +
                     ' RETURN image ',
                     {
-                        id: imageID,
+                        id: imageId,
                         signature:signature,
                         width:width,
                         height:height,
@@ -58,7 +59,7 @@ const create = function (session, signature, userId, width, height, format, url,
         }
     ).then(results => {
             const imgResults = results;
-            return session.run('MATCH (image:Image {id:{imageID}}) CREATE(user {id:{userId}})-[:UPLOADED]->(image)', {imageID:imageID, userId:userId}
+            return session.run('MATCH (image:Image {id:{imageId}}) CREATE(user {id:{userId}})-[:UPLOADED]->(image)', {imageId:imageId, userId:userId}
             ).then(mResults => {
                 return new Image(imgResults.records[0].get('image'));
                 }
@@ -75,11 +76,23 @@ const deletion = function (session) {
 
 };
 
+const getTags = function(session, imageId){
+    return session.run('MATCH (image:Image {id:{imageId}})-[:ASSOCIATED_WITH]->(t) MATCH (tag:Tag {id:t.id}) RETURN tag', {imageId:imageId}
+    ).then(results => {
+        const imageTags =[];
+        for(let i=0; i<results.records.length;i++){
+            let aTag = new Tag(results.records[i].get('tag'));
+            imageTags.push(aTag);
+        }
+        return imageTags;
+    })
+};
 
 module.exports = {
     locate: locate,
     classify: classify,
     create: create,
     update: update,
-    deletion: deletion
+    deletion: deletion,
+    getTags: getTags
 };
