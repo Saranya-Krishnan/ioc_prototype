@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Message } from 'semantic-ui-react'
 import ajax from 'superagent';
 import { Redirect } from 'react-router-dom'
 import PathHelper from '../helpers/path-helper';
+const token  = require( '../../../helpers/token');
 
 class SignUp extends Component {
     constructor(props){

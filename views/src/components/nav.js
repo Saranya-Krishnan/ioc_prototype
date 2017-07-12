@@ -43,8 +43,8 @@ class Nav extends Component {
                     <Link to="/" className={this.state.activeItem === 'home' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('home')}>Home</Link>
                     { !this.state.isLoggedIn &&
                     <Menu.Menu position='right'>
-                        <Link to="#" className={this.state.activeItem === 'sign-in' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-in')}>Sign In</Link>
-                        <Link to="#" className={this.state.activeItem === 'sign-up' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-up')}>Sign Up</Link>
+                        <Link to="/sign-in" className={this.state.activeItem === 'sign-in' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-in')}>Sign In</Link>
+                        <Link to="/sign-up" className={this.state.activeItem === 'sign-up' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-up')}>Sign Up</Link>
                     </Menu.Menu>
                     }
                     { this.state.isLoggedIn &&

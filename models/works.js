@@ -5,17 +5,25 @@ import User from './neo4j_models/user';
 import Tag from './neo4j_models/tag';
 
 const create = function (session, imageId, userId) {
-    const artworkID = uuid.v4();
-    return session.run('CREATE (work:Work {id: {id}}) RETURN work', {id: artworkID}
+    const artworkId = uuid.v4();
+    return session.run('CREATE (work:Work {id: {id}}) RETURN work', {id: artworkId}
     ).then(results => {
-            const artResults = results;
-            return session.run('MATCH (work:Work {id:{artworkID}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})-[:DISPLAYS]->(work)', {artworkID:artworkID, userId:userId, imageId:imageId}
-            ).then(newResults => {
-                    return new Work(artResults.records[0].get('work'));
-                }
-            )
+        const artResults = results;
+        return session.run('MATCH (work:Work {id:{artworkId}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})-[:DISPLAYS]->(work)', {
+                artworkId: artworkId,
+                userId: userId,
+                imageId: imageId
+            }
+        ).then(thirdResults => {
+             return session.run('MATCH (w:Work {id:{artworkId}}) MATCH (i:Image {id:{imageId}}) MATCH (i)-[:ASSOCIATED_WITH]->(t) WITH collect(t) as endNodes,w FOREACH(x in endNodes | CREATE (w)-[:ASSOCIATED_WITH]->(x))', {artworkId:artworkId,imageId:imageId }
+                ).then(fourthResults => {
+                        return new Work(artResults.records[0].get('work'));
+                    }
+                )
+            })
         }
     )
+
 };
 
 const update = function (session) {

@@ -23,6 +23,8 @@ class SignIn extends Component {
                 .send(JSON.stringify(this.state))
                 .end((error, response) => {
                         if (!error && response) {
+                            console.log('from sign in', response);
+                            token.setToken(response.body.token);
                             this.setState({ redirect: true});
                         } else {
                             console.log('Error submitting your credentials', error);

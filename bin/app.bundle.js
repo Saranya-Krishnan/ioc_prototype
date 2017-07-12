@@ -4984,14 +4984,14 @@ var Nav = function (_Component) {
                         { position: 'right' },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { to: '#', className: this.state.activeItem === 'sign-in' ? 'active item' : 'item', onClick: function onClick() {
+                            { to: '/sign-in', className: this.state.activeItem === 'sign-in' ? 'active item' : 'item', onClick: function onClick() {
                                     return _this3.props.clickMenuItem('sign-in');
                                 } },
                             'Sign In'
                         ),
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { to: '#', className: this.state.activeItem === 'sign-up' ? 'active item' : 'item', onClick: function onClick() {
+                            { to: '/sign-up', className: this.state.activeItem === 'sign-up' ? 'active item' : 'item', onClick: function onClick() {
                                     return _this3.props.clickMenuItem('sign-up');
                                 } },
                             'Sign Up'
@@ -16209,9 +16209,14 @@ var getToken = function getToken() {
     return window.localStorage.getItem('token');
 };
 
+var removeToken = function removeToken() {
+    return window.localStorage.removeItem('token');
+};
+
 module.exports = {
     setToken: setToken,
-    getToken: getToken
+    getToken: getToken,
+    removeToken: removeToken
 };
 
 /***/ }),
@@ -31992,7 +31997,6 @@ var ImageUploader = function (_Component) {
             _superagent2.default.post(_pathHelper2.default.apiPath + '/images/classify').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
                     _this5.classificationToTags(response.body.classification);
-                    _this5.createArtWork(_this5.currentImageID, _this5.userId);
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -32033,6 +32037,7 @@ var ImageUploader = function (_Component) {
             if (this.tagCreationCount >= this.classifiers.length * 2) {
                 this.setState({ isProcessing: false });
                 this.setState({ isProcessed: true });
+                this.createArtWork(this.currentImageID, this.userId);
             }
         }
     }, {
@@ -32291,6 +32296,8 @@ var SignIn = function (_Component) {
             e.preventDefault();
             _superagent2.default.post(_pathHelper2.default.apiPath + '/login').set('Content-Type', 'application/json').send(JSON.stringify(this.state)).end(function (error, response) {
                 if (!error && response) {
+                    console.log('from sign in', response);
+                    token.setToken(response.body.token);
                     _this2.setState({ redirect: true });
                 } else {
                     console.log('Error submitting your credentials', error);
@@ -32389,6 +32396,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var token = __webpack_require__(255);
 
 var SignUp = function (_Component) {
     _inherits(SignUp, _Component);

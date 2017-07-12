@@ -470,14 +470,14 @@ var Nav = function (_Component) {
                         { position: 'right' },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { to: '#', className: this.state.activeItem === 'sign-in' ? 'active item' : 'item', onClick: function onClick() {
+                            { to: '/sign-in', className: this.state.activeItem === 'sign-in' ? 'active item' : 'item', onClick: function onClick() {
                                     return _this3.props.clickMenuItem('sign-in');
                                 } },
                             'Sign In'
                         ),
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { to: '#', className: this.state.activeItem === 'sign-up' ? 'active item' : 'item', onClick: function onClick() {
+                            { to: '/sign-up', className: this.state.activeItem === 'sign-up' ? 'active item' : 'item', onClick: function onClick() {
                                     return _this3.props.clickMenuItem('sign-up');
                                 } },
                             'Sign Up'
@@ -667,9 +667,14 @@ var getToken = function getToken() {
     return window.localStorage.getItem('token');
 };
 
+var removeToken = function removeToken() {
+    return window.localStorage.removeItem('token');
+};
+
 module.exports = {
     setToken: setToken,
-    getToken: getToken
+    getToken: getToken,
+    removeToken: removeToken
 };
 
 /***/ }),
@@ -1237,7 +1242,10 @@ var create = function create(session, signature, userId, width, height, format, 
 
 var update = function update(session) {};
 
-var deletion = function deletion(session) {};
+var deletion = function deletion(session, imageId, userId) {
+    //ToDo: Ensure user id is the creator amd then delete
+    //MATCH (i:Image {id:'e420d9e7-0ba9-4b49-bc86-7e509307c753'}) OPTIONAL MATCH (i)-[r]-() DELETE i,r
+};
 
 var getTags = function getTags(session, imageId) {
     return session.run('MATCH (image:Image {id:{imageId}})-[:ASSOCIATED_WITH]->(t) MATCH (tag:Tag {id:t.id}) RETURN tag', { imageId: imageId }).then(function (results) {
@@ -1638,11 +1646,17 @@ var _tag2 = _interopRequireDefault(_tag);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var create = function create(session, imageId, userId) {
-    var artworkID = _uuid2.default.v4();
-    return session.run('CREATE (work:Work {id: {id}}) RETURN work', { id: artworkID }).then(function (results) {
+    var artworkId = _uuid2.default.v4();
+    return session.run('CREATE (work:Work {id: {id}}) RETURN work', { id: artworkId }).then(function (results) {
         var artResults = results;
-        return session.run('MATCH (work:Work {id:{artworkID}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})-[:DISPLAYS]->(work)', { artworkID: artworkID, userId: userId, imageId: imageId }).then(function (newResults) {
-            return new _work2.default(artResults.records[0].get('work'));
+        return session.run('MATCH (work:Work {id:{artworkId}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})-[:DISPLAYS]->(work)', {
+            artworkId: artworkId,
+            userId: userId,
+            imageId: imageId
+        }).then(function (thirdResults) {
+            return session.run('MATCH (w:Work {id:{artworkId}}) MATCH (i:Image {id:{imageId}}) MATCH (i)-[:ASSOCIATED_WITH]->(t) WITH collect(t) as endNodes,w FOREACH(x in endNodes | CREATE (w)-[:ASSOCIATED_WITH]->(x))', { artworkId: artworkId, imageId: imageId }).then(function (fourthResults) {
+                return new _work2.default(artResults.records[0].get('work'));
+            });
         });
     });
 };
@@ -3800,7 +3814,6 @@ var ImageUploader = function (_Component) {
             _superagent2.default.post(_pathHelper2.default.apiPath + '/images/classify').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
                     _this5.classificationToTags(response.body.classification);
-                    _this5.createArtWork(_this5.currentImageID, _this5.userId);
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -3841,6 +3854,7 @@ var ImageUploader = function (_Component) {
             if (this.tagCreationCount >= this.classifiers.length * 2) {
                 this.setState({ isProcessing: false });
                 this.setState({ isProcessed: true });
+                this.createArtWork(this.currentImageID, this.userId);
             }
         }
     }, {
@@ -4099,6 +4113,8 @@ var SignIn = function (_Component) {
             e.preventDefault();
             _superagent2.default.post(_pathHelper2.default.apiPath + '/login').set('Content-Type', 'application/json').send(JSON.stringify(this.state)).end(function (error, response) {
                 if (!error && response) {
+                    console.log('from sign in', response);
+                    token.setToken(response.body.token);
                     _this2.setState({ redirect: true });
                 } else {
                     console.log('Error submitting your credentials', error);
@@ -4197,6 +4213,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var token = __webpack_require__(21);
 
 var SignUp = function (_Component) {
     _inherits(SignUp, _Component);

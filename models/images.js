@@ -72,8 +72,9 @@ const update = function (session) {
 
 };
 
-const deletion = function (session) {
-
+const deletion = function (session, imageId, userId) {
+    //ToDo: Ensure user id is the creator amd then delete
+//MATCH (i:Image {id:'e420d9e7-0ba9-4b49-bc86-7e509307c753'}) OPTIONAL MATCH (i)-[r]-() DELETE i,r
 };
 
 const getTags = function(session, imageId){

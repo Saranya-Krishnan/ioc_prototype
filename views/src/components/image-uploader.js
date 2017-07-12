@@ -107,7 +107,6 @@ class ImageUploader extends Component {
             .end((error, response) => {
                 if (!error && response) {
                     this.classificationToTags(response.body.classification);
-                    this.createArtWork(this.currentImageID, this.userId);
                 } else {
                     console.log('Error saving your image', error);
                 }
@@ -143,6 +142,7 @@ class ImageUploader extends Component {
         if(this.tagCreationCount>=(this.classifiers.length*2)){
             this.setState({isProcessing:false});
             this.setState({isProcessed:true});
+            this.createArtWork(this.currentImageID, this.userId);
         }
     }
     createTag(word,imageId){

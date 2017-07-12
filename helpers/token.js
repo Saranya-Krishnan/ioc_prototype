@@ -8,7 +8,12 @@ const getToken = function(){
     return window.localStorage.getItem('token');
 };
 
+const removeToken = function(){
+    return window.localStorage.removeItem('token');
+};
+
 module.exports = {
     setToken:setToken,
-    getToken:getToken
+    getToken:getToken,
+    removeToken: removeToken
 };
