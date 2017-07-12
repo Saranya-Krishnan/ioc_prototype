@@ -15,7 +15,7 @@ const Tags = props => {
             }
         }
         definitions = descriptions.map((d, index) => (
-            <div key={index}>{d.description}</div>
+            <div key={index}><em><strong>Perhaps it is</strong></em>: {d.description}</div>
         ));
     }
 
