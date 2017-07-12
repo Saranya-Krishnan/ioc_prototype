@@ -1,7 +1,6 @@
 import * as ArtworkActionTypes from '../action_types/artwork';
 
 const initialState = {
-    imageTags:[],
     work: {
         id:'',
         image:{
@@ -12,7 +11,8 @@ const initialState = {
             id:'',
             url: '',
             width: 0
-        }
+        },
+        tags:[]
     }
 
 };

@@ -1665,11 +1665,17 @@ var update = function update(session) {};
 
 var deletion = function deletion(session) {};
 var display = function display(session, workId) {
-    return session.run('MATCH (work:Work {id:{id}})<-[:DISPLAYS]-(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (user:User {id:u.id})  MATCH (image:Image {id:i.id}) RETURN work, image, user', { id: workId }).then(function (results) {
+    return session.run('MATCH (work:Work {id:{id}})<-[:DISPLAYS]-(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (work:Work {id:{id}})-[:ASSOCIATED_WITH]->(t) MATCH(tag:Tag {id:t.id}) MATCH (user:User {id:u.id}) MATCH (image:Image {id:i.id}) RETURN work, image, user, tag', { id: workId }).then(function (results) {
+        var workTags = [];
+        for (var i = 0; i < results.records.length; i++) {
+            var aTag = new _tag2.default(results.records[i].get('tag'));
+            workTags.push(aTag);
+        }
         return {
             work: new _work2.default(results.records[0].get('work')),
             image: new _image2.default(results.records[0].get('image')),
-            user: new _user2.default(results.records[0].get('user'))
+            user: new _user2.default(results.records[0].get('user')),
+            tags: workTags
         };
     });
 };
@@ -3486,7 +3492,6 @@ var Artwork = function (_Component) {
 
         _this.state = props;
         _this.setUser = _this.setUser.bind(_this);
-        _this.getImageTags = _this.getImageTags.bind(_this);
         return _this;
     }
 
@@ -3521,9 +3526,9 @@ var Artwork = function (_Component) {
                             id: response.body.image.id,
                             url: response.body.image.url,
                             width: response.body.image.width
-                        }
+                        },
+                        tags: response.body.tags
                     };
-                    _this2.getImageTags(response.body.image.id);
                     _this2.props.loadArtwork(_data);
                 } else {
                     console.log('Error', error);
@@ -3531,26 +3536,11 @@ var Artwork = function (_Component) {
             });
         }
     }, {
-        key: 'getImageTags',
-        value: function getImageTags(imageId) {
-            var _this3 = this;
-
-            var data = {
-                imageId: imageId
-            };
-            _superagent2.default.post(_pathHelper2.default.apiPath + '/images/get-tags').set('Content-Type', 'application/json').send(data).end(function (error, response) {
-                if (!error && response) {
-                    _this3.setState({ imageTags: response.body });
-                    console.log('from images', response);
-                }
-            });
-        }
-    }, {
         key: 'render',
         value: function render() {
             var tagOptions = null;
-            if (this.state.imageTags) {
-                var t = this.state.imageTags;
+            if (this.state.work) {
+                var t = this.state.work.tags;
                 tagOptions = t.map(function (tag) {
                     return _react2.default.createElement(_tag2.default, {
                         word: tag.word,
@@ -3558,7 +3548,7 @@ var Artwork = function (_Component) {
                         ontology: tag.ontology,
                         id: tag.id,
                         isEditable: true,
-                        clickActions: [{ label: 'test', icon: 'test', action: function action() {} }]
+                        clickActions: [{ label: 'accept', icon: 'test', action: function action() {} }, { label: 'reject', icon: 'test', action: function action() {} }]
                     });
                 });
             }
@@ -3599,7 +3589,6 @@ Artwork.propTypes = {
     moreLikeThis: _propTypes2.default.func.isRequired,
     userNameClicked: _propTypes2.default.func.isRequired,
     workId: _propTypes2.default.string.isRequired,
-    imageTags: _propTypes2.default.array,
     userInfo: _propTypes2.default.shape({
         id: _propTypes2.default.string,
         username: _propTypes2.default.string,
@@ -3616,7 +3605,8 @@ Artwork.propTypes = {
             id: _propTypes2.default.string,
             url: _propTypes2.default.string,
             width: _propTypes2.default.number
-        })
+        }),
+        tags: _propTypes2.default.any
     })
 };
 
@@ -5271,10 +5261,31 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _semanticUiReact = __webpack_require__(3);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Tags = function Tags(props) {
     var buttons = null;
+    var definitions = null;
+
+    if (props.ontology) {
+        var descriptions = [];
+        var possibile = JSON.parse(props.ontology);
+        for (var i = 0; i < possibile.results.length; i++) {
+            if (possibile.results[i].description) {
+                descriptions.push({ description: possibile.results[i].description });
+            }
+        }
+        definitions = descriptions.map(function (d, index) {
+            return _react2.default.createElement(
+                'div',
+                { key: index },
+                d.description
+            );
+        });
+    }
+
     if (props.clickActions) {
         var btns = props.clickActions;
         buttons = btns.map(function (b, index) {
@@ -5287,7 +5298,7 @@ var Tags = function Tags(props) {
         });
     }
     return _react2.default.createElement(
-        'span',
+        _semanticUiReact.Container,
         { className: 'tag' },
         props.isEditable ? _react2.default.createElement(
             'span',
@@ -5298,6 +5309,11 @@ var Tags = function Tags(props) {
             'span',
             { className: 'tag-label' },
             props.word
+        ),
+        _react2.default.createElement(
+            _semanticUiReact.Container,
+            null,
+            definitions
         )
     );
 };

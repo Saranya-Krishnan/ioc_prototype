@@ -12,7 +12,6 @@ class Artwork extends Component {
         super(props);
         this.state = props;
         this.setUser = this.setUser.bind(this);
-        this.getImageTags = this.getImageTags.bind(this);
     }
     setUser(data){
         this.userId = data.id;
@@ -40,33 +39,19 @@ class Artwork extends Component {
                             id: response.body.image.id,
                             url: response.body.image.url,
                             width: response.body.image.width
-                        }
+                        },
+                        tags: response.body.tags
                     };
-                    this.getImageTags(response.body.image.id);
                     this.props.loadArtwork(data);
                 } else {
                     console.log('Error', error);
                 }
             });
     }
-    getImageTags(imageId){
-        const data = {
-            imageId: imageId
-        };
-        ajax.post( PathHelper.apiPath + '/images/get-tags')
-            .set('Content-Type', 'application/json')
-            .send(data)
-            .end((error, response) => {
-                if (!error && response) {
-                    this.setState({imageTags:response.body});
-                    console.log('from images',response);
-                }
-            });
-    }
     render(){
         let tagOptions = null;
-        if(this.state.imageTags){
-            const t = this.state.imageTags;
+        if(this.state.work){
+            const t = this.state.work.tags;
             tagOptions = t.map((tag) => (
                 <Tag
                     word={tag.word}
@@ -74,7 +59,7 @@ class Artwork extends Component {
                     ontology={tag.ontology}
                     id={tag.id}
                     isEditable={true}
-                    clickActions={[{label:'test', icon:'test', action:function(){}}]}
+                    clickActions={[{label:'accept', icon:'test', action:function(){}}, {label:'reject', icon:'test', action:function(){}}]}
                 />
             ));
         }
@@ -100,7 +85,6 @@ Artwork.propTypes = {
     moreLikeThis: PropTypes.func.isRequired,
     userNameClicked: PropTypes.func.isRequired,
     workId: PropTypes.string.isRequired,
-    imageTags: PropTypes.array,
     userInfo: PropTypes.shape({
         id: PropTypes.string,
         username:PropTypes.string,
@@ -117,7 +101,8 @@ Artwork.propTypes = {
             id: PropTypes.string,
             url: PropTypes.string,
             width: PropTypes.number
-        })
+        }),
+        tags: PropTypes.any
     })
 };
 

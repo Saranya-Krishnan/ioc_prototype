@@ -1,8 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import { Container } from 'semantic-ui-react';
 
 const Tags = props => {
     let buttons = null;
+    let definitions = null;
+
+    if(props.ontology){
+        let descriptions = [];
+        const possibile = JSON.parse(props.ontology);
+        for(let i=0; i< possibile.results.length; i++){
+            if(possibile.results[i].description){
+                descriptions.push({description:possibile.results[i].description});
+            }
+        }
+        definitions = descriptions.map((d, index) => (
+            <div key={index}>{d.description}</div>
+        ));
+    }
+
+
     if(props.clickActions){
         const btns = props.clickActions;
         buttons = btns.map((b, index) => (
@@ -10,7 +27,7 @@ const Tags = props => {
         ));
     }
     return (
-        <span className="tag">
+        <Container className="tag">
             {props.isEditable ?
             <span className="tag-label">
                 {props.word}
@@ -20,7 +37,10 @@ const Tags = props => {
                     {props.word}
                 </span>
             }
-        </span>
+            <Container>
+                {definitions}
+            </Container>
+        </Container>
     )
 };
 

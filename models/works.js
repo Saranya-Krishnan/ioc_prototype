@@ -34,12 +34,18 @@ const deletion = function (session) {
 
 };
 const display = function (session, workId) {
-    return session.run('MATCH (work:Work {id:{id}})<-[:DISPLAYS]-(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (user:User {id:u.id})  MATCH (image:Image {id:i.id}) RETURN work, image, user',{id:workId}
+    return session.run('MATCH (work:Work {id:{id}})<-[:DISPLAYS]-(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (work:Work {id:{id}})-[:ASSOCIATED_WITH]->(t) MATCH(tag:Tag {id:t.id}) MATCH (user:User {id:u.id}) MATCH (image:Image {id:i.id}) RETURN work, image, user, tag',{id:workId}
     ).then(results => {
+        const workTags =[];
+        for(let i=0; i<results.records.length;i++){
+            let aTag = new Tag(results.records[i].get('tag'));
+            workTags.push(aTag);
+        }
         return {
             work: new Work(results.records[0].get('work')),
             image: new Image(results.records[0].get('image')),
-            user: new User(results.records[0].get('user'))
+            user: new User(results.records[0].get('user')),
+            tags: workTags
         };
     })
 };
