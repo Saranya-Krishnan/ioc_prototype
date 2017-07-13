@@ -24,6 +24,12 @@ class Profile extends Component {
                     <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
                     <Segment>
                         <h1>Profile</h1>
+                        <div>Basic Info/Avatar</div>
+                        <div>My Notebooks</div>
+                        <div>My "Quests"</div>
+                        <div>My Suggestions</div>
+                        <div>My Uploads</div>
+                        <div>Feed</div>
                     </Segment>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>

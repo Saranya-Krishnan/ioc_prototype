@@ -4712,6 +4712,11 @@ var Home = function (_Component) {
                     _semanticUiReact.Container,
                     { className: 'main-content' },
                     _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'select notebook'
+                    ),
                     _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, getNewTagOntology: getNewTagOntology, enrichNewTag: enrichNewTag, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTag: createTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork, classificationToTags: classificationToTags, visualRecognition: visualRecognition })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
@@ -4901,6 +4906,36 @@ var Profile = function (_Component) {
                             'h1',
                             null,
                             'Profile'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            'Basic Info/Avatar'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            'My Notebooks'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            'My "Quests"'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            'My Suggestions'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            'My Uploads'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            null,
+                            'Feed'
                         )
                     )
                 ),

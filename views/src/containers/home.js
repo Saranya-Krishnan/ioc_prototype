@@ -34,6 +34,7 @@ class Home extends Component {
             <div>
                 <Container className={'main-content'}>
                     <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
+                    <div>select notebook</div>
                     <ImageUploader uploadImage={uploadImage} getNewTagOntology={getNewTagOntology} enrichNewTag={enrichNewTag} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTag={createTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork} classificationToTags={classificationToTags} visualRecognition={visualRecognition}/>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
