@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import Image from './neo4j_models/location';
+import Location from './neo4j_models/location';
 
 
 const create = function (session) {

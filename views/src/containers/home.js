@@ -27,6 +27,7 @@ class Home extends Component {
         const createTag = bindActionCreators(ImageUploadCreators.createTag, dispatch);
         const getNewTagOntology = bindActionCreators(ImageUploadCreators.getNewTagOntology, dispatch);
         const enrichNewTag = bindActionCreators(ImageUploadCreators.enrichNewTag, dispatch);
+        const makeMeaning = bindActionCreators(ImageUploadCreators.makeMeaning, dispatch);
         const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
         const classificationToTags = bindActionCreators(ImageUploadCreators.classificationToTags, dispatch);
         const visualRecognition = bindActionCreators(ImageUploadCreators.visualRecognition, dispatch);
@@ -42,6 +43,7 @@ class Home extends Component {
                     </Nav>
                     <div>select notebook</div>
                     <ImageUploader
+                        makeMeaning={makeMeaning}
                         uploadImage={uploadImage}
                         getNewTagOntology={getNewTagOntology}
                         enrichNewTag={enrichNewTag}

@@ -16,6 +16,7 @@ class ImageUploader extends Component {
         this.checkTagsCompleted = this.checkTagsCompleted.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
         this.setUser = this.setUser.bind(this);
+        this.isJSON = this.isJSON.bind(this);
         this.tagCreationCount = 0;
     }
     setUser(data){
@@ -129,17 +130,35 @@ class ImageUploader extends Component {
                 }
             });
     }
-    classificationToTags(classifications){
-        let classificationData = JSON.parse(classifications);
-        classificationData = JSON.parse(classificationData);
-        this.classifiers = classificationData.images[0].classifiers[0].classes;
-        for(let i=0; i<this.classifiers.length; i++){
-            let w = this.classifiers[i].class;
-            this.createTag(w,this.currentImageID);
+    isJSON(d){
+        try {
+            return JSON.parse(d);
+        } catch(e){
+            return d
         }
     }
-    checkTagsCompleted(){
-        if(this.tagCreationCount>=(this.classifiers.length*2)){
+    classificationToTags(classifications){
+        let classificationData = this.isJSON(classifications);
+        classificationData = this.isJSON(classificationData);
+        if(classificationData.images) {
+            this.classifiers = classificationData.images[0].classifiers[0].classes;
+            for (let i = 0; i < this.classifiers.length; i++) {
+                let w = this.classifiers[i].class;
+                this.createTag(w, this.currentImageID);
+            }
+        }else{
+            this.checkTagsCompleted(true);
+            console.log('there\'s a problem with the visual recognition service.');
+        }
+    }
+    checkTagsCompleted(checksOut){
+        this.checksOut = checksOut;
+        if(!this.checksOut ) {
+            if (this.tagCreationCount >= (this.classifiers.length * 2)) {
+                this.checksOut = true;
+            }
+        }
+        if(this.checksOut){
             this.setState({isProcessing:false});
             this.setState({isProcessed:true});
             this.createArtWork(this.currentImageID, this.userId);
@@ -157,11 +176,11 @@ class ImageUploader extends Component {
                 if (!error && response) {
                     this.tagCreationCount++;
                     this.getNewTagOntology(response);
-                    this.checkTagsCompleted();
+                    this.checkTagsCompleted(false);
                 } else {
                     this.tagCreationCount++;
                     console.log('Error saving your Tag', error);
-                    this.checkTagsCompleted();
+                    this.checkTagsCompleted(false);
                 }
             });
     }
@@ -183,12 +202,28 @@ class ImageUploader extends Component {
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    this.tagCreationCount++;
-                    this.checkTagsCompleted();
+                    this.makeMeaning(response);
                 } else {
                     console.log('Error saving your Tag', error);
+                }
+            });
+    }
+    makeMeaning(tag){
+        const data ={
+            ontology: this.isJSON(tag.body.ontology),
+            tagId: tag.body.id
+        };
+        ajax.post( PathHelper.apiPath + '/meanings/extract-from-tag/')
+            .set('Content-Type', 'application/json')
+            .send(data)
+            .end((error, response) => {
+                if (!error && response) {
                     this.tagCreationCount++;
-                    this.checkTagsCompleted();
+                    this.checkTagsCompleted(false);
+                } else {
+                    console.log('Error extracting meaning from your Tag', error);
+                    this.tagCreationCount++;
+                    this.checkTagsCompleted(false);
                 }
             });
     }
@@ -248,6 +283,7 @@ ImageUploader.propTypes = {
     createTag: PropTypes.func.isRequired,
     getNewTagOntology: PropTypes.func.isRequired,
     enrichNewTag: PropTypes.func.isRequired,
+    makeMeaning: PropTypes.func.isRequired,
     exploreBasedOnThisArtwork: PropTypes.func.isRequired,
     classificationToTags: PropTypes.func.isRequired,
     visualRecognition: PropTypes.func.isRequired,
@@ -283,6 +319,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         enrichNewTag: (tag) =>{
             dispatch(ImageUploaderActions.enrichNewTag(tag))
+        },
+        makeMeaning: (tag) =>{
+            dispatch(ImageUploaderActions.makeMeaning(tag))
         },
         getNewTagOntology: (tag) =>{
             dispatch(ImageUploaderActions.getNewTagOntology(tag))

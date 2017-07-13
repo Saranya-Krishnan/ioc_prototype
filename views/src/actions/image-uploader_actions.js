@@ -72,3 +72,9 @@ export const getNewTagOntology = tag => {
     };
 };
 
+export const makeMeaning = tag => {
+    return {
+        type: ImageUploaderActionTypes.MAKE_MEANING,
+        tag
+    };
+};

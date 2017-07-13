@@ -1,4 +1,4 @@
-const Suggestions = require('../../models/suggestions')
+const Meanings = require('../../models/meanings')
     , writeResponse = require('../../helpers/response').writeResponse
     , writeError = require('../../helpers/response').writeError
     , loginRequired = require('../../middlewares/loginRequired')
@@ -9,7 +9,7 @@ const Suggestions = require('../../models/suggestions')
 /**
  * @swagger
  * definition:
- *   Suggestion:
+ *   Meaning:
  *     type: object
  *     properties:
  *       id:
@@ -21,11 +21,11 @@ const Suggestions = require('../../models/suggestions')
  */
 /**
  * @swagger
- * /api/v0/suggestions/create-from-tag:
+ * /api/v0/meanings/extract-from-tag:
  *   post:
  *     tags:
- *     - suggestions
- *     description: Creates a new suggestion from a tag
+ *     - meanings
+ *     description: Creates a new meaning from a tag's ontology
  *     produces:
  *       - application/json
  *     parameters:
@@ -41,17 +41,21 @@ const Suggestions = require('../../models/suggestions')
  *         description: Error message(s)
  */
 
-exports.createFromTag = function (req, res, next) {
-
+exports.extractFromTag = function (req, res, next) {
+    const tagId = _.get(req.body,'tagId');
+    const ontology = _.get(req.body,'ontology');
+    Meanings.extractFromTag(dbUtils.getSession(req),tagId, ontology)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
 
 /**
  * @swagger
- * /api/v0/suggestions/update:
+ * /api/v0/meanings/update:
  *   post:
  *     tags:
- *     - suggestions
- *     description: Updates an suggestion
+ *     - meanings
+ *     description: Updates an meaning
  *     produces:
  *       - application/json
  *     parameters:
@@ -74,11 +78,11 @@ exports.update = function (req, res, next) {
 
 /**
  * @swagger
- * /api/v0/suggestions/delete:
+ * /api/v0/meanings/delete:
  *   post:
  *     tags:
- *     - suggestions
- *     description: Deletes an suggestion
+ *     - meanings
+ *     description: Deletes an meaning
  *     produces:
  *       - application/json
  *     parameters:

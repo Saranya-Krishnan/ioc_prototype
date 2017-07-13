@@ -12,9 +12,9 @@ const create = function (session, word) {
             } else {
                 return session.run('CREATE (tag:Tag {id: {id}, word:{word}, ontology:{ontology}}) RETURN tag',{ id:tagId, word:word, ontology:"{}"})
             .then(results => {
-                        return new Tag(results.records[0].get('tag'));
-                    }
-                )
+                    return new Tag(results.records[0].get('tag'));
+                }
+            )
             }
         })
 };

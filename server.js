@@ -16,7 +16,6 @@ const routes = require('./routes/api');
 let app = express();
 let api = express();
 
-
 const swaggerDefinition = {
     info: {
         title: 'Ioc Prototype',
@@ -156,6 +155,21 @@ api.post('/api/'+process.env.API_VERSION+'/tags/ontology', function(req,res){
     request(options, cb);
 });
 // ***************************
+// * Schemata
+// ***************************
+api.post('/api/'+process.env.API_VERSION+'/schemata/bind-tag', routes.schemata.bindTag);
+api.post('/api/'+process.env.API_VERSION+'/schemata/bind-meaning', routes.schemata.bindMeaning);
+api.post('/api/'+process.env.API_VERSION+'/schemata/create', routes.schemata.create);
+api.post('/api/'+process.env.API_VERSION+'/schemata/update', routes.schemata.update);
+api.post('/api/'+process.env.API_VERSION+'/schemata/delete', routes.schemata.deletion);
+api.post('/api/'+process.env.API_VERSION+'/schemata/seed', routes.schemata.seed);
+// ***************************
+// * Meanings
+// ***************************
+api.post('/api/'+process.env.API_VERSION+'/meanings/extract-from-tag', routes.meanings.extractFromTag);
+api.post('/api/'+process.env.API_VERSION+'/meanings/update', routes.meanings.update);
+api.post('/api/'+process.env.API_VERSION+'/meanings/delete', routes.meanings.deletion);
+// ***************************
 // * Journeys
 // ***************************
 api.post('/api/'+process.env.API_VERSION+'/journeys/create', routes.journeys.create);
@@ -164,7 +178,7 @@ api.post('/api/'+process.env.API_VERSION+'/journeys/delete', routes.journeys.del
 // ***************************
 // * Suggestions
 // ***************************
-api.post('/api/'+process.env.API_VERSION+'/suggestions/create', routes.suggestions.create);
+api.post('/api/'+process.env.API_VERSION+'/suggestions/create-from-tag', routes.suggestions.createFromTag);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/update', routes.suggestions.update);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/delete', routes.suggestions.deletion);
 // ***************************
@@ -182,3 +196,4 @@ app.listen(process.env.CLIENT_PORT, function () {
 api.listen(process.env.API_PORT, function () {
     console.log('Neo4j server started on '+process.env.API_PORT);
 });
+
