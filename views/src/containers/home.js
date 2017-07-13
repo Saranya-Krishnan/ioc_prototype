@@ -19,6 +19,7 @@ class Home extends Component {
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
+        const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
         const uploadImage = bindActionCreators(ImageUploadCreators.uploadImage, dispatch);
         const createImage = bindActionCreators(ImageUploadCreators.createImage, dispatch);
         const createArtwork = bindActionCreators(ImageUploadCreators.createArtwork, dispatch);
@@ -33,11 +34,28 @@ class Home extends Component {
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
+                    <Nav
+                        signOut={signOut}
+                        clickMenuItem={clickMenuItem}
+                        updateUserInfo={updateUserInfo}
+                        setLoggedIn={setLoggedIn}>
+                    </Nav>
                     <div>select notebook</div>
-                    <ImageUploader uploadImage={uploadImage} getNewTagOntology={getNewTagOntology} enrichNewTag={enrichNewTag} createImage={createImage} createArtwork={createArtwork} classifyImage={classifyImage} createTag={createTag} exploreBasedOnThisArtwork={exploreBasedOnThisArtwork} classificationToTags={classificationToTags} visualRecognition={visualRecognition}/>
+                    <ImageUploader
+                        uploadImage={uploadImage}
+                        getNewTagOntology={getNewTagOntology}
+                        enrichNewTag={enrichNewTag}
+                        createImage={createImage}
+                        createArtwork={createArtwork}
+                        classifyImage={classifyImage}
+                        createTag={createTag}
+                        exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
+                        classificationToTags={classificationToTags}
+                        visualRecognition={visualRecognition}/>
                 </Container>
-                <Footer clickFooterItem={clickFooterItem}></Footer>
+                <Footer
+                    clickFooterItem={clickFooterItem}>
+                </Footer>
             </div>
         );
     }

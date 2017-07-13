@@ -245,7 +245,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.setLoggedIn = exports.updateUserInfo = exports.clickMenuItem = undefined;
+exports.signOut = exports.setLoggedIn = exports.updateUserInfo = exports.clickMenuItem = undefined;
 
 var _nav = __webpack_require__(28);
 
@@ -269,6 +269,12 @@ var updateUserInfo = exports.updateUserInfo = function updateUserInfo(data) {
 var setLoggedIn = exports.setLoggedIn = function setLoggedIn(status) {
     return {
         type: NavActionTypes.CHECK_LOGGED_IN, status: status
+    };
+};
+
+var signOut = exports.signOut = function signOut() {
+    return {
+        type: NavActionTypes.SIGN_OUT
     };
 };
 
@@ -488,6 +494,13 @@ var Nav = function (_Component) {
                         { position: 'right' },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
+                            { to: '/', className: 'item', onClick: function onClick() {
+                                    return _this3.props.signOut();
+                                } },
+                            'Sign Out'
+                        ),
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
                             { to: '/profile', className: this.state.activeItem === 'profile' ? 'active item' : 'item', onClick: function onClick() {
                                     return _this3.props.clickMenuItem('profile');
                                 } },
@@ -509,6 +522,7 @@ Nav.propTypes = {
     isLoggedIn: _propTypes2.default.bool,
     setLoggedIn: _propTypes2.default.func.isRequired,
     updateUserInfo: _propTypes2.default.func.isRequired,
+    signOut: _propTypes2.default.func.isRequired,
     userInfo: _propTypes2.default.shape({
         id: _propTypes2.default.string,
         username: _propTypes2.default.string,
@@ -524,8 +538,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         },
         clickMenuItem: function clickMenuItem(name) {
             dispatch(NavActions.clickMenuItem(name));
+        },
+        signOut: function signOut() {
+            dispatch(NavActions.signOut());
         }
-
     };
 };
 
@@ -902,6 +918,7 @@ Object.defineProperty(exports, "__esModule", {
 var NAV_ITEM_CLICKED = exports.NAV_ITEM_CLICKED = 'NAV_ITEM_CLICKED';
 var UPDATE_USER_INFO = exports.UPDATE_USER_INFO = 'UPDATE_USER_INFO';
 var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
+var SIGN_OUT = exports.SIGN_OUT = 'SIGN_OUT';
 
 /***/ }),
 /* 29 */
@@ -4462,6 +4479,7 @@ var Art = function (_Component) {
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
             var loadArtwork = (0, _redux.bindActionCreators)(ArtworkActionCreators.loadArtwork, dispatch);
             var browseBasedOnThis = (0, _redux.bindActionCreators)(ArtworkActionCreators.browseBasedOnThis, dispatch);
             var relatedToMe = (0, _redux.bindActionCreators)(ArtworkActionCreators.relatedToMe, dispatch);
@@ -4474,7 +4492,11 @@ var Art = function (_Component) {
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     { className: 'main-content' },
-                    _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(_nav2.default, {
+                        signOut: signOut,
+                        clickMenuItem: clickMenuItem,
+                        updateUserInfo: updateUserInfo,
+                        setLoggedIn: setLoggedIn }),
                     _react2.default.createElement(
                         _semanticUiReact.Segment,
                         null,
@@ -4577,6 +4599,7 @@ var Browse = function (_Component) {
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
             var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
+            var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
             return _react2.default.createElement(
                 'div',
@@ -4584,7 +4607,11 @@ var Browse = function (_Component) {
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     { className: 'main-content' },
-                    _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(_nav2.default, {
+                        signOut: signOut,
+                        clickMenuItem: clickMenuItem,
+                        updateUserInfo: updateUserInfo,
+                        setLoggedIn: setLoggedIn }),
                     _react2.default.createElement(
                         _semanticUiReact.Segment,
                         null,
@@ -4694,6 +4721,7 @@ var Home = function (_Component) {
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
             var uploadImage = (0, _redux.bindActionCreators)(ImageUploadCreators.uploadImage, dispatch);
             var createImage = (0, _redux.bindActionCreators)(ImageUploadCreators.createImage, dispatch);
             var createArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.createArtwork, dispatch);
@@ -4711,15 +4739,30 @@ var Home = function (_Component) {
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     { className: 'main-content' },
-                    _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(_nav2.default, {
+                        signOut: signOut,
+                        clickMenuItem: clickMenuItem,
+                        updateUserInfo: updateUserInfo,
+                        setLoggedIn: setLoggedIn }),
                     _react2.default.createElement(
                         'div',
                         null,
                         'select notebook'
                     ),
-                    _react2.default.createElement(_imageUploader2.default, { uploadImage: uploadImage, getNewTagOntology: getNewTagOntology, enrichNewTag: enrichNewTag, createImage: createImage, createArtwork: createArtwork, classifyImage: classifyImage, createTag: createTag, exploreBasedOnThisArtwork: exploreBasedOnThisArtwork, classificationToTags: classificationToTags, visualRecognition: visualRecognition })
+                    _react2.default.createElement(_imageUploader2.default, {
+                        uploadImage: uploadImage,
+                        getNewTagOntology: getNewTagOntology,
+                        enrichNewTag: enrichNewTag,
+                        createImage: createImage,
+                        createArtwork: createArtwork,
+                        classifyImage: classifyImage,
+                        createTag: createTag,
+                        exploreBasedOnThisArtwork: exploreBasedOnThisArtwork,
+                        classificationToTags: classificationToTags,
+                        visualRecognition: visualRecognition })
                 ),
-                _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
+                _react2.default.createElement(_footer2.default, {
+                    clickFooterItem: clickFooterItem })
             );
         }
     }]);
@@ -4892,13 +4935,18 @@ var Profile = function (_Component) {
             var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     { className: 'main-content' },
-                    _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(_nav2.default, {
+                        signOut: signOut,
+                        clickMenuItem: clickMenuItem,
+                        updateUserInfo: updateUserInfo,
+                        setLoggedIn: setLoggedIn }),
                     _react2.default.createElement(
                         _semanticUiReact.Segment,
                         null,
@@ -5042,13 +5090,18 @@ var SignInPage = function (_Component) {
             var onClickSubmit = (0, _redux.bindActionCreators)(SignInActionCreators.onClickSubmit, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     { className: 'main-content' },
-                    _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(_nav2.default, {
+                        signOut: signOut,
+                        clickMenuItem: clickMenuItem,
+                        updateUserInfo: updateUserInfo,
+                        setLoggedIn: setLoggedIn }),
                     _react2.default.createElement(_signInForm2.default, { onClickSubmit: onClickSubmit })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
@@ -5152,13 +5205,18 @@ var SignUpPage = function (_Component) {
             var onClickSubmit = (0, _redux.bindActionCreators)(SignUpActionCreators.onClickSubmit, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
                     _semanticUiReact.Container,
                     { className: 'main-content' },
-                    _react2.default.createElement(_nav2.default, { clickMenuItem: clickMenuItem, updateUserInfo: updateUserInfo, setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(_nav2.default, {
+                        signOut: signOut,
+                        clickMenuItem: clickMenuItem,
+                        updateUserInfo: updateUserInfo,
+                        setLoggedIn: setLoggedIn }),
                     _react2.default.createElement(_signUpForm2.default, { onClickSubmit: onClickSubmit })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
@@ -5200,6 +5258,8 @@ var NavActionTypes = _interopRequireWildcard(_nav);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+var Token = __webpack_require__(21);
+
 var initialState = {
     activeItem: 'home',
     isLoggedIn: false,
@@ -5228,6 +5288,11 @@ function Nav() {
         case NavActionTypes.CHECK_LOGGED_IN:
             return Object.assign({}, state, {
                 isLoggedIn: action.status
+            });
+        case NavActionTypes.SIGN_OUT:
+            Token.removeToken();
+            return Object.assign({}, state, {
+                isLoggedIn: false
             });
         default:
             return state;

@@ -19,6 +19,7 @@ class Art extends Component {
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
+        const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
         const loadArtwork = bindActionCreators(ArtworkActionCreators.loadArtwork, dispatch);
         const browseBasedOnThis = bindActionCreators(ArtworkActionCreators.browseBasedOnThis, dispatch);
         const relatedToMe = bindActionCreators(ArtworkActionCreators.relatedToMe, dispatch);
@@ -28,7 +29,12 @@ class Art extends Component {
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
+                    <Nav
+                        signOut={signOut}
+                        clickMenuItem={clickMenuItem}
+                        updateUserInfo={updateUserInfo}
+                        setLoggedIn={setLoggedIn}>
+                    </Nav>
                     <Segment>
                         <h1>Art</h1>
                     </Segment>

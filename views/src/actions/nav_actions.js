@@ -18,3 +18,9 @@ export const setLoggedIn = status => {
         type: NavActionTypes.CHECK_LOGGED_IN, status
     };
 };
+
+export const signOut = () => {
+    return {
+        type: NavActionTypes.SIGN_OUT
+    };
+};

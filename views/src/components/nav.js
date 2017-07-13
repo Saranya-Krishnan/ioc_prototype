@@ -49,12 +49,12 @@ class Nav extends Component {
                     }
                     { this.state.isLoggedIn &&
                     <Menu.Menu position='right'>
+                        <Link to="/" className="item" onClick={ () => this.props.signOut()}>Sign Out</Link>
                         <Link to="/profile" className={this.state.activeItem === 'profile' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('profile')}>{this.state.userInfo.firstName}</Link>
                     </Menu.Menu>
                     }
                 </Menu>
             </Container>
-
         )
     }
 }
@@ -65,6 +65,7 @@ Nav.propTypes = {
     isLoggedIn: PropTypes.bool,
     setLoggedIn: PropTypes.func.isRequired,
     updateUserInfo: PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired,
     userInfo: PropTypes.shape({
         id: PropTypes.string,
         username:PropTypes.string,
@@ -80,8 +81,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         clickMenuItem: (name) =>{
             dispatch(NavActions.clickMenuItem(name))
+        },
+        signOut: () =>{
+            dispatch(NavActions.signOut())
         }
-
     }
 };
 

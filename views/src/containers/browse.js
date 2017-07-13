@@ -17,11 +17,17 @@ class Browse extends Component {
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
+        const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
+                    <Nav
+                        signOut={signOut}
+                        clickMenuItem={clickMenuItem}
+                        updateUserInfo={updateUserInfo}
+                        setLoggedIn={setLoggedIn}>
+                    </Nav>
                     <Segment>
                         <h1>Browse</h1>
                     </Segment>

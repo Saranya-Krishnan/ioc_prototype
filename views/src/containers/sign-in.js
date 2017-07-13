@@ -21,10 +21,16 @@ class SignInPage extends Component {
         const onClickSubmit = bindActionCreators(SignInActionCreators.onClickSubmit, dispatch);
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
+        const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
-                    <Nav clickMenuItem={clickMenuItem} updateUserInfo={updateUserInfo} setLoggedIn={setLoggedIn}></Nav>
+                    <Nav
+                        signOut={signOut}
+                        clickMenuItem={clickMenuItem}
+                        updateUserInfo={updateUserInfo}
+                        setLoggedIn={setLoggedIn}>
+                    </Nav>
                     <SignIn onClickSubmit={onClickSubmit}/>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
