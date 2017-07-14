@@ -13,10 +13,31 @@ class Artwork extends Component {
         this.state = props;
         this.setUser = this.setUser.bind(this);
         this.temp = this.temp.bind(this);
+        this.getSuggestions = this.getSuggestions.bind(this);
+        this.suggestionBox = [];
     }
     // ToDo: Can Remove Tags #11
     temp(){
         console.log('temp');
+    }
+
+    getSuggestions(tags) {
+        for (let t = 0; t < tags.length; t++) {
+            let tagData={
+              tagId: tags[t].id
+            };
+            ajax.post(PathHelper.apiPath + '/suggestions/get-suggestions')
+                .set('Content-Type', 'application/json')
+                .send(tagData)
+                .end((error, response) => {
+                    if (!error && response) {
+                        this.suggestionBox.push(response.body);
+                    } else {
+                        console.log('Error getting suggestions', error);
+                    }
+                });
+            }
+            console.log(this.suggestionBox);
     }
     setUser(data){
         this.userId = data.id;
@@ -47,11 +68,13 @@ class Artwork extends Component {
                         },
                         tags: response.body.tags
                     };
+                    this.getSuggestions(response.body.tags);
                     this.props.loadArtwork(data);
                 } else {
                     console.log('Error', error);
                 }
             });
+
     }
     render(){
         let tagOptions = null;
@@ -66,7 +89,7 @@ class Artwork extends Component {
                     isEditable={true}
                     clickActions={[{label:'reject', icon:'remove', action:this.temp}]}
                 />
-            ));
+            ))
         }
         return(
             <Segment>

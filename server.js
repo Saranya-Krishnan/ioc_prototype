@@ -181,6 +181,7 @@ api.post('/api/'+process.env.API_VERSION+'/journeys/delete', routes.journeys.del
 // ***************************
 api.post('/api/'+process.env.API_VERSION+'/suggestions/batch-create-from-meanings', routes.suggestions.batchCreateFromMeanings);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/create-from-tag', routes.suggestions.createFromTag);
+api.post('/api/'+process.env.API_VERSION+'/suggestions/get-suggestions', routes.suggestions.getSuggestions);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/update', routes.suggestions.update);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/delete', routes.suggestions.deletion);
 // ***************************

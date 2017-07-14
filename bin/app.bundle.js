@@ -31641,7 +31641,7 @@ var suggestionData = {
     work: {
         actions: [{
             actionKey: 'draw',
-            prompt: 'Draw a picture of %&a&%%^work^%',
+            prompt: 'Draw your interpretation of %&a&%%^work^%',
             schema: 'work',
             qualifiers: [{
                 schema: 'person',
@@ -31652,7 +31652,7 @@ var suggestionData = {
     topicalConcept: {
         actions: [{
             actionKey: 'draw',
-            prompt: 'Draw a picture of %&a&%%^topicalConcept^%',
+            prompt: 'What would %^topicalConcept^% look like if it were a person? Draw it!',
             schema: 'topicalConcept',
             qualifiers: [{
                 schema: 'person',
@@ -31663,7 +31663,7 @@ var suggestionData = {
     timePeriod: {
         actions: [{
             actionKey: 'draw',
-            prompt: 'Draw a picture of %&a&%%^timePeriod^%',
+            prompt: 'Imagine your self in the  %&a&%%^timePeriod^%. Write what your breakfast would be like if you lived then.',
             schema: 'timePeriod',
             qualifiers: [{
                 schema: 'person',
@@ -31674,7 +31674,7 @@ var suggestionData = {
     colour: {
         actions: [{
             actionKey: 'draw',
-            prompt: 'Draw a picture of %&a&%%^colour^%',
+            prompt: 'Draw a picture using a lot of %&a&%%^colour^%',
             schema: 'colour',
             qualifiers: [{
                 schema: 'person',
@@ -31884,6 +31884,8 @@ var Artwork = function (_Component) {
         _this.state = props;
         _this.setUser = _this.setUser.bind(_this);
         _this.temp = _this.temp.bind(_this);
+        _this.getSuggestions = _this.getSuggestions.bind(_this);
+        _this.suggestionBox = [];
         return _this;
     }
     // ToDo: Can Remove Tags #11
@@ -31893,6 +31895,25 @@ var Artwork = function (_Component) {
         key: 'temp',
         value: function temp() {
             console.log('temp');
+        }
+    }, {
+        key: 'getSuggestions',
+        value: function getSuggestions(tags) {
+            var _this2 = this;
+
+            for (var t = 0; t < tags.length; t++) {
+                var tagData = {
+                    tagId: tags[t].id
+                };
+                _superagent2.default.post(_pathHelper2.default.apiPath + '/suggestions/get-suggestions').set('Content-Type', 'application/json').send(tagData).end(function (error, response) {
+                    if (!error && response) {
+                        _this2.suggestionBox.push(response.body);
+                    } else {
+                        console.log('Error getting suggestions', error);
+                    }
+                });
+            }
+            console.log(this.suggestionBox);
         }
     }, {
         key: 'setUser',
@@ -31907,7 +31928,7 @@ var Artwork = function (_Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.setUser(this.props.user['userInfo']);
             var data = {
@@ -31928,7 +31949,8 @@ var Artwork = function (_Component) {
                         },
                         tags: response.body.tags
                     };
-                    _this2.props.loadArtwork(_data);
+                    _this3.getSuggestions(response.body.tags);
+                    _this3.props.loadArtwork(_data);
                 } else {
                     console.log('Error', error);
                 }
@@ -31937,7 +31959,7 @@ var Artwork = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             var tagOptions = null;
             if (this.state.work) {
@@ -31949,7 +31971,7 @@ var Artwork = function (_Component) {
                         ontology: tag.ontology,
                         id: tag.id,
                         isEditable: true,
-                        clickActions: [{ label: 'reject', icon: 'remove', action: _this3.temp }]
+                        clickActions: [{ label: 'reject', icon: 'remove', action: _this4.temp }]
                     });
                 });
             }
@@ -33007,7 +33029,7 @@ var Art = function (_Component) {
             var data = {};
             _superagent2.default.post(_pathHelper2.default.apiPath + '/suggestions/batch-create-from-meanings').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
-                    console.log(response.body);
+                    console.log('Suggestions temp', response.body);
                 } else {
                     console.log('Batch create error', error);
                 }

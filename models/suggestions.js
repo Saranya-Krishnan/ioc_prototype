@@ -41,7 +41,7 @@ const getASuggestion = function(meaning){
 };
 
 const batchCreateFromMeanings = function(session){
-    return session.run('MATCH (n:Meaning {lastUpdate:{lastUpdate}}) RETURN n LIMIT 100',{lastUpdate:'new'}
+    return session.run('MATCH (n:Meaning {lastUpdate:{lastUpdate}}) SET n.lastUpdate={newUpdate} RETURN n LIMIT 100',{lastUpdate:'new',newUpdate:'updated'}
         ).then(results => {
                 for(let i=0; i<results.records.length; i++){
                     let examined = results.records[i].get('n');
@@ -55,7 +55,20 @@ const batchCreateFromMeanings = function(session){
         )
 };
 
-//MATCH (t:Tag {id:'b635ec21-c9b2-41d6-9325-dcd51e05832b'}) MATCH (meaning:Meaning)-[:ASSOCIATED_WITH]->(t) MATCH(m:Meaning {id:m.id}) MATCH(s:Suggestion {meaningId:m.id}) RETURN s
+const getSuggestions = function (session, tagId) {
+    console.log('tagId', tagId);
+    return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:m.id}) MATCH(s:Suggestion {meaningId:m.id}) RETURN s', {tagId:tagId}
+    ).then(results => {
+        const suggestionGroup = [];
+        let aSuggestion = null;
+        for(let n=0; n<results.records.length; n++){
+            aSuggestion = new Suggestion(results.records[n].get('s'));
+            suggestionGroup.push(aSuggestion);
+        }
+        return JSON.stringify(suggestionGroup);
+    });
+};
+
 
 const deletion = function (session) {
 
@@ -65,5 +78,6 @@ module.exports = {
     create: create,
     update: update,
     deletion: deletion,
-    batchCreateFromMeanings:batchCreateFromMeanings
+    batchCreateFromMeanings:batchCreateFromMeanings,
+    getSuggestions:getSuggestions
 };

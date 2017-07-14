@@ -126,3 +126,32 @@ exports.batchCreateFromMeanings = function (req, res, next) {
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
+
+/**
+ * @swagger
+ * /api/v0/suggestions/get-suggestions:
+ *   post:
+ *     tags:
+ *     - suggestions
+ *     description: Creates suggestions from meanings
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.getSuggestions = function (req, res, next) {
+    const tagId = _.get(req.body, 'tagId');
+    Suggestions.getSuggestions(dbUtils.getSession(req), tagId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};

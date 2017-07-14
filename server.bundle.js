@@ -764,7 +764,7 @@ var suggestionData = {
     work: {
         actions: [{
             actionKey: 'draw',
-            prompt: 'Draw a picture of %&a&%%^work^%',
+            prompt: 'Draw your interpretation of %&a&%%^work^%',
             schema: 'work',
             qualifiers: [{
                 schema: 'person',
@@ -775,7 +775,7 @@ var suggestionData = {
     topicalConcept: {
         actions: [{
             actionKey: 'draw',
-            prompt: 'Draw a picture of %&a&%%^topicalConcept^%',
+            prompt: 'What would %^topicalConcept^% look like if it were a person? Draw it!',
             schema: 'topicalConcept',
             qualifiers: [{
                 schema: 'person',
@@ -786,7 +786,7 @@ var suggestionData = {
     timePeriod: {
         actions: [{
             actionKey: 'draw',
-            prompt: 'Draw a picture of %&a&%%^timePeriod^%',
+            prompt: 'Imagine your self in the  %&a&%%^timePeriod^%. Write what your breakfast would be like if you lived then.',
             schema: 'timePeriod',
             qualifiers: [{
                 schema: 'person',
@@ -797,7 +797,7 @@ var suggestionData = {
     colour: {
         actions: [{
             actionKey: 'draw',
-            prompt: 'Draw a picture of %&a&%%^colour^%',
+            prompt: 'Draw a picture using a lot of %&a&%%^colour^%',
             schema: 'colour',
             qualifiers: [{
                 schema: 'person',
@@ -1831,7 +1831,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Suggestion = module.exports = function (_node) {
     _lodash2.default.extend(this, {
-        'id': _node.properties['id']
+        'id': _node.properties['id'],
+        'meaningId': _node.properties['meaningId'],
+        'prompt': _node.properties['prompt']
     });
 };
 
@@ -2068,7 +2070,7 @@ var getASuggestion = function getASuggestion(meaning) {
 };
 
 var batchCreateFromMeanings = function batchCreateFromMeanings(session) {
-    return session.run('MATCH (n:Meaning {lastUpdate:{lastUpdate}}) RETURN n LIMIT 100', { lastUpdate: 'new' }).then(function (results) {
+    return session.run('MATCH (n:Meaning {lastUpdate:{lastUpdate}}) SET n.lastUpdate={newUpdate} RETURN n LIMIT 100', { lastUpdate: 'new', newUpdate: 'updated' }).then(function (results) {
         for (var i = 0; i < results.records.length; i++) {
             var examined = results.records[i].get('n');
             getASuggestion(examined);
@@ -2077,7 +2079,18 @@ var batchCreateFromMeanings = function batchCreateFromMeanings(session) {
     });
 };
 
-//MATCH (t:Tag {id:'b635ec21-c9b2-41d6-9325-dcd51e05832b'}) MATCH (meaning:Meaning)-[:ASSOCIATED_WITH]->(t) MATCH(m:Meaning {id:m.id}) MATCH(s:Suggestion {meaningId:m.id}) RETURN s
+var getSuggestions = function getSuggestions(session, tagId) {
+    console.log('tagId', tagId);
+    return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:m.id}) MATCH(s:Suggestion {meaningId:m.id}) RETURN s', { tagId: tagId }).then(function (results) {
+        var suggestionGroup = [];
+        var aSuggestion = null;
+        for (var n = 0; n < results.records.length; n++) {
+            aSuggestion = new _suggestion2.default(results.records[n].get('s'));
+            suggestionGroup.push(aSuggestion);
+        }
+        return JSON.stringify(suggestionGroup);
+    });
+};
 
 var deletion = function deletion(session) {};
 
@@ -2085,7 +2098,8 @@ module.exports = {
     create: create,
     update: update,
     deletion: deletion,
-    batchCreateFromMeanings: batchCreateFromMeanings
+    batchCreateFromMeanings: batchCreateFromMeanings,
+    getSuggestions: getSuggestions
 };
 
 /***/ }),
@@ -3366,6 +3380,35 @@ exports.batchCreateFromMeanings = function (req, res, next) {
   }).catch(next);
 };
 
+/**
+ * @swagger
+ * /api/v0/suggestions/get-suggestions:
+ *   post:
+ *     tags:
+ *     - suggestions
+ *     description: Creates suggestions from meanings
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.getSuggestions = function (req, res, next) {
+  var tagId = _.get(req.body, 'tagId');
+  Suggestions.getSuggestions(dbUtils.getSession(req), tagId).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
+
 /***/ }),
 /* 73 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -4113,6 +4156,7 @@ api.post('/api/' + "v0" + '/journeys/delete', routes.journeys.deletion);
 // ***************************
 api.post('/api/' + "v0" + '/suggestions/batch-create-from-meanings', routes.suggestions.batchCreateFromMeanings);
 api.post('/api/' + "v0" + '/suggestions/create-from-tag', routes.suggestions.createFromTag);
+api.post('/api/' + "v0" + '/suggestions/get-suggestions', routes.suggestions.getSuggestions);
 api.post('/api/' + "v0" + '/suggestions/update', routes.suggestions.update);
 api.post('/api/' + "v0" + '/suggestions/delete', routes.suggestions.deletion);
 // ***************************
@@ -4249,6 +4293,8 @@ var Artwork = function (_Component) {
         _this.state = props;
         _this.setUser = _this.setUser.bind(_this);
         _this.temp = _this.temp.bind(_this);
+        _this.getSuggestions = _this.getSuggestions.bind(_this);
+        _this.suggestionBox = [];
         return _this;
     }
     // ToDo: Can Remove Tags #11
@@ -4258,6 +4304,25 @@ var Artwork = function (_Component) {
         key: 'temp',
         value: function temp() {
             console.log('temp');
+        }
+    }, {
+        key: 'getSuggestions',
+        value: function getSuggestions(tags) {
+            var _this2 = this;
+
+            for (var t = 0; t < tags.length; t++) {
+                var tagData = {
+                    tagId: tags[t].id
+                };
+                _superagent2.default.post(_pathHelper2.default.apiPath + '/suggestions/get-suggestions').set('Content-Type', 'application/json').send(tagData).end(function (error, response) {
+                    if (!error && response) {
+                        _this2.suggestionBox.push(response.body);
+                    } else {
+                        console.log('Error getting suggestions', error);
+                    }
+                });
+            }
+            console.log(this.suggestionBox);
         }
     }, {
         key: 'setUser',
@@ -4272,7 +4337,7 @@ var Artwork = function (_Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.setUser(this.props.user['userInfo']);
             var data = {
@@ -4293,7 +4358,8 @@ var Artwork = function (_Component) {
                         },
                         tags: response.body.tags
                     };
-                    _this2.props.loadArtwork(_data);
+                    _this3.getSuggestions(response.body.tags);
+                    _this3.props.loadArtwork(_data);
                 } else {
                     console.log('Error', error);
                 }
@@ -4302,7 +4368,7 @@ var Artwork = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             var tagOptions = null;
             if (this.state.work) {
@@ -4314,7 +4380,7 @@ var Artwork = function (_Component) {
                         ontology: tag.ontology,
                         id: tag.id,
                         isEditable: true,
-                        clickActions: [{ label: 'reject', icon: 'remove', action: _this3.temp }]
+                        clickActions: [{ label: 'reject', icon: 'remove', action: _this4.temp }]
                     });
                 });
             }
@@ -5372,7 +5438,7 @@ var Art = function (_Component) {
             var data = {};
             _superagent2.default.post(_pathHelper2.default.apiPath + '/suggestions/batch-create-from-meanings').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
-                    console.log(response.body);
+                    console.log('Suggestions temp', response.body);
                 } else {
                     console.log('Batch create error', error);
                 }

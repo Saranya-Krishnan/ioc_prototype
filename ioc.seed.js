@@ -100,7 +100,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture of %&a&%%^work^%',
+                prompt: 'Draw your interpretation of %&a&%%^work^%',
                 schema: 'work',
                 qualifiers: [
                     {
@@ -115,7 +115,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture of %&a&%%^topicalConcept^%',
+                prompt: 'What would %^topicalConcept^% look like if it were a person? Draw it!',
                 schema: 'topicalConcept',
                 qualifiers: [
                     {
@@ -130,7 +130,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture of %&a&%%^timePeriod^%',
+                prompt: 'Imagine your self in the  %&a&%%^timePeriod^%. Write what your breakfast would be like if you lived then.',
                 schema: 'timePeriod',
                 qualifiers: [
                     {
@@ -145,7 +145,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture of %&a&%%^colour^%',
+                prompt: 'Draw a picture using a lot of %&a&%%^colour^%',
                 schema: 'colour',
                 qualifiers: [
                     {

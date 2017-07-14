@@ -22,7 +22,7 @@ class Art extends Component {
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log(response.body);
+                    console.log('Suggestions temp',response.body);
                 } else {
                     console.log('Batch create error', error);
                 }
