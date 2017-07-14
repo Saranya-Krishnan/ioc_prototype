@@ -9,8 +9,25 @@ import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container, Segment } from 'semantic-ui-react';
 import Artwork from '../components/artwork';
+import PathHelper from '../helpers/path-helper';
+import ajax from 'superagent';
+
 
 class Art extends Component {
+    componentDidMount(){
+        const data = {
+        };
+        ajax.post( PathHelper.apiPath + '/suggestions/batch-create-from-meanings')
+            .set('Content-Type', 'application/json')
+            .send(data)
+            .end((error, response) => {
+                if (!error && response) {
+                    console.log(response.body);
+                } else {
+                    console.log('Batch create error', error);
+                }
+            });
+    }
     static propTypes = {
         art: PropTypes.object.isRequired
     };
@@ -38,7 +55,13 @@ class Art extends Component {
                     <Segment>
                         <h1>Art</h1>
                     </Segment>
-                    <Artwork loadArtwork={loadArtwork} workId={this.props.match.params.id} browseBasedOnThis={browseBasedOnThis} relatedToMe={relatedToMe} moreLikeThis={moreLikeThis} userNameClicked={userNameClicked}></Artwork>
+                    <Artwork loadArtwork={loadArtwork}
+                             workId={this.props.match.params.id}
+                             browseBasedOnThis={browseBasedOnThis}
+                             relatedToMe={relatedToMe}
+                             moreLikeThis={moreLikeThis}
+                             userNameClicked={userNameClicked}>
+                    </Artwork>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>
             </div>

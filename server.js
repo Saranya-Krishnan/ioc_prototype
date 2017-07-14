@@ -12,6 +12,7 @@ import setAuthUser from './middlewares/setAuthUser';
 import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
 import writeError from './helpers/response';
 const routes = require('./routes/api');
+const scheduler = require('node-schedule');
 
 let app = express();
 let api = express();
@@ -178,6 +179,7 @@ api.post('/api/'+process.env.API_VERSION+'/journeys/delete', routes.journeys.del
 // ***************************
 // * Suggestions
 // ***************************
+api.post('/api/'+process.env.API_VERSION+'/suggestions/batch-create-from-meanings', routes.suggestions.batchCreateFromMeanings);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/create-from-tag', routes.suggestions.createFromTag);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/update', routes.suggestions.update);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/delete', routes.suggestions.deletion);
@@ -197,3 +199,10 @@ api.listen(process.env.API_PORT, function () {
     console.log('Neo4j server started on '+process.env.API_PORT);
 });
 
+const suggestionChron = scheduler.scheduleJob('30 * * * * *', function(){
+    console.log('suggestionChron');
+});
+
+const schemaChron = scheduler.scheduleJob('15 * * * *', function(){
+    console.log('Bind Schema to Meanings');
+});

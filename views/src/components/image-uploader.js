@@ -142,6 +142,7 @@ class ImageUploader extends Component {
         classificationData = this.isJSON(classificationData);
         if(classificationData.images) {
             this.classifiers = classificationData.images[0].classifiers[0].classes;
+            //ToDo: Refactor to one unwind
             for (let i = 0; i < this.classifiers.length; i++) {
                 let w = this.classifiers[i].class;
                 this.createTag(w, this.currentImageID);

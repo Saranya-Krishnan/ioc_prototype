@@ -23,6 +23,7 @@ const matchClassifications = function(classes){
 };
 
 
+
 const extractFromTag = function (session, tagId, ontology) {
     const meanings = [];
     for(let i=0; i<ontology.results.length; i++){
@@ -31,7 +32,8 @@ const extractFromTag = function (session, tagId, ontology) {
             label: ontology.results[i].label,
             description: ontology.results[i].description,
             sourceURI: ontology.results[i].sourceURI,
-            schemaName: matchClassifications(ontology.results[i].classes)
+            schemaName: matchClassifications(ontology.results[i].classes),
+            lastUpdate: 'new'
         };
         meanings.push(meaning);
     }
@@ -41,8 +43,6 @@ const extractFromTag = function (session, tagId, ontology) {
         }
     )
 };
-
-
 
 
 const update = function (session) {

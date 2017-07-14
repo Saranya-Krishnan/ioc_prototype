@@ -6,7 +6,8 @@ const Meaning = module.exports = function (_node) {
         'label': _node.properties['label'],
         'description': _node.properties['description'],
         'sourceURI': _node.properties['sourceURI'],
-        'schemaName': _node.properties['schemaName']
+        'schemaName': _node.properties['schemaName'],
+        'lastUpdate': _node.properties['lastUpdate'],
     });
 };
 

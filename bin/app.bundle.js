@@ -31570,6 +31570,7 @@ var suggestionData = {
         actions: [{
             actionKey: 'draw',
             prompt: 'Draw a portrait of %^person^%',
+            schema: 'person',
             qualifiers: [{
                 schema: 'person',
                 qualifier: ' in the style or from the perspective of %^person^%.'
@@ -31581,10 +31582,10 @@ var suggestionData = {
                 qualifier: ' in %^place^%.'
             }, {
                 schema: 'species',
-                qualifier: ' as a %^species^%.'
+                qualifier: ' as %&a&% %^species^%.'
             }, {
                 schema: 'species',
-                qualifier: ' with a %^species^%.'
+                qualifier: ' with %&a&% %^species^%.'
             }, {
                 schema: 'work',
                 qualifier: ' in the style of %^work^%.'
@@ -31611,22 +31612,109 @@ var suggestionData = {
                 qualifier: ' using %&a&% %^device^%.'
             }, {
                 schema: 'device',
-                qualifier: ' as a %&a&% %^device^%.'
+                qualifier: ' as %&a&% %^device^%.'
             }]
-        }, {
-            actionKey: 'write',
-            prompt: 'In the style of %person^'
         }]
     },
-    place: {},
-    species: {},
-    work: {},
-    topicalConcept: {},
-    timePeriod: {},
-    colour: {},
-    device: {},
-    event: {},
-    food: {}
+    place: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&% %^place^%',
+            schema: 'place',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    },
+    species: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&% %^species^%',
+            schema: 'species',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    },
+    work: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&%%^work^%',
+            schema: 'work',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    },
+    topicalConcept: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&%%^topicalConcept^%',
+            schema: 'topicalConcept',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    },
+    timePeriod: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&%%^timePeriod^%',
+            schema: 'timePeriod',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    },
+    colour: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&%%^colour^%',
+            schema: 'colour',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    },
+    device: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&%%^device^%',
+            schema: 'device',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    },
+    event: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&%%^event^%',
+            schema: 'event',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    },
+    food: {
+        actions: [{
+            actionKey: 'draw',
+            prompt: 'Draw a picture of %&a&%%^food^%',
+            schema: 'food',
+            qualifiers: [{
+                schema: 'person',
+                qualifier: ' in the style or from the perspective of %^person^%.'
+            }]
+        }]
+    }
 };
 
 module.exports = {
@@ -31795,10 +31883,18 @@ var Artwork = function (_Component) {
 
         _this.state = props;
         _this.setUser = _this.setUser.bind(_this);
+        _this.temp = _this.temp.bind(_this);
         return _this;
     }
+    // ToDo: Can Remove Tags #11
+
 
     _createClass(Artwork, [{
+        key: 'temp',
+        value: function temp() {
+            console.log('temp');
+        }
+    }, {
         key: 'setUser',
         value: function setUser(data) {
             this.userId = data.id;
@@ -31841,6 +31937,8 @@ var Artwork = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this3 = this;
+
             var tagOptions = null;
             if (this.state.work) {
                 var t = this.state.work.tags;
@@ -31851,7 +31949,7 @@ var Artwork = function (_Component) {
                         ontology: tag.ontology,
                         id: tag.id,
                         isEditable: true,
-                        clickActions: [{ label: 'accept', icon: 'test', action: function action() {} }, { label: 'reject', icon: 'test', action: function action() {} }]
+                        clickActions: [{ label: 'reject', icon: 'remove', action: _this3.temp }]
                     });
                 });
             }
@@ -31861,7 +31959,35 @@ var Artwork = function (_Component) {
                 this.state.work ? _react2.default.createElement(
                     _semanticUiReact.Container,
                     null,
-                    _react2.default.createElement(_semanticUiReact.Image, { src: this.state.work.image.url, width: this.state.work.image.width, height: this.state.work.image.height }),
+                    _react2.default.createElement(_semanticUiReact.Image, {
+                        src: this.state.work.image.url,
+                        width: this.state.work.image.width,
+                        height: this.state.work.image.height
+                    }),
+                    _react2.default.createElement(
+                        _semanticUiReact.Button.Group,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Button,
+                            { onClick: this.state.browseBasedOnThis() },
+                            'Start Journey Based on this Work'
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Button,
+                            { onClick: this.state.userNameClicked() },
+                            'User Name'
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Button,
+                            { onClick: this.state.moreLikeThis() },
+                            'More Like This'
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Button,
+                            { onClick: this.state.relatedToMe() },
+                            'Show My Work Related to This'
+                        )
+                    ),
                     _react2.default.createElement(
                         'h2',
                         null,
@@ -32147,6 +32273,7 @@ var ImageUploader = function (_Component) {
             classificationData = this.isJSON(classificationData);
             if (classificationData.images) {
                 this.classifiers = classificationData.images[0].classifiers[0].classes;
+                //ToDo: Refactor to one unwind
                 for (var i = 0; i < this.classifiers.length; i++) {
                     var w = this.classifiers[i].class;
                     this.createTag(w, this.currentImageID);
@@ -32754,42 +32881,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Tags = function Tags(props) {
     var buttons = null;
-    var definitions = null;
-
-    if (props.ontology) {
-        var descriptions = [];
-        var possibile = JSON.parse(props.ontology);
-        for (var i = 0; i < possibile.results.length; i++) {
-            if (possibile.results[i].description) {
-                descriptions.push({ description: possibile.results[i].description });
-            }
-        }
-        definitions = descriptions.map(function (d, index) {
-            return _react2.default.createElement(
-                'div',
-                { key: index },
-                _react2.default.createElement(
-                    'em',
-                    null,
-                    _react2.default.createElement(
-                        'strong',
-                        null,
-                        'Perhaps it is'
-                    )
-                ),
-                ': ',
-                d.description
-            );
-        });
-    }
 
     if (props.clickActions) {
         var btns = props.clickActions;
         buttons = btns.map(function (b, index) {
             return _react2.default.createElement(
-                'button',
-                { key: index, onClick: b.action },
-                _react2.default.createElement('i', { role: 'presentation', className: "tag-icon " + b.icon }),
+                _semanticUiReact.Button,
+                { icon: true, key: index, onClick: b.action },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: b.icon }),
                 b.label
             );
         });
@@ -32806,11 +32905,6 @@ var Tags = function Tags(props) {
             'span',
             { className: 'tag-label' },
             props.word
-        ),
-        _react2.default.createElement(
-            _semanticUiReact.Container,
-            null,
-            definitions
         )
     );
 };
@@ -32880,6 +32974,14 @@ var _artwork = __webpack_require__(482);
 
 var _artwork2 = _interopRequireDefault(_artwork);
 
+var _pathHelper = __webpack_require__(71);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
+
+var _superagent = __webpack_require__(86);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32900,6 +33002,18 @@ var Art = function (_Component) {
     }
 
     _createClass(Art, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var data = {};
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/suggestions/batch-create-from-meanings').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    console.log(response.body);
+                } else {
+                    console.log('Batch create error', error);
+                }
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var dispatch = this.props.dispatch;
@@ -32934,7 +33048,12 @@ var Art = function (_Component) {
                             'Art'
                         )
                     ),
-                    _react2.default.createElement(_artwork2.default, { loadArtwork: loadArtwork, workId: this.props.match.params.id, browseBasedOnThis: browseBasedOnThis, relatedToMe: relatedToMe, moreLikeThis: moreLikeThis, userNameClicked: userNameClicked })
+                    _react2.default.createElement(_artwork2.default, { loadArtwork: loadArtwork,
+                        workId: this.props.match.params.id,
+                        browseBasedOnThis: browseBasedOnThis,
+                        relatedToMe: relatedToMe,
+                        moreLikeThis: moreLikeThis,
+                        userNameClicked: userNameClicked })
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
             );

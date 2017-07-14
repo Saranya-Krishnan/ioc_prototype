@@ -98,3 +98,31 @@ exports.update = function (req, res, next) {
 exports.deletion = function (req, res, next) {
 
 };
+
+/**
+ * @swagger
+ * /api/v0/suggestions/batch-create-from-meanings:
+ *   post:
+ *     tags:
+ *     - suggestions
+ *     description: Creates suggestions from meanings
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.batchCreateFromMeanings = function (req, res, next) {
+    Suggestions.batchCreateFromMeanings(dbUtils.getSession(req))
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};

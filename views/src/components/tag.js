@@ -1,29 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
+import { Container, Button, Icon } from 'semantic-ui-react';
 
 const Tags = props => {
     let buttons = null;
-    let definitions = null;
-
-    if(props.ontology){
-        let descriptions = [];
-        const possibile = JSON.parse(props.ontology);
-        for(let i=0; i< possibile.results.length; i++){
-            if(possibile.results[i].description){
-                descriptions.push({description:possibile.results[i].description});
-            }
-        }
-        definitions = descriptions.map((d, index) => (
-            <div key={index}><em><strong>Perhaps it is</strong></em>: {d.description}</div>
-        ));
-    }
-
 
     if(props.clickActions){
         const btns = props.clickActions;
         buttons = btns.map((b, index) => (
-            <button key={index} onClick={b.action}><i role="presentation" className={"tag-icon "+b.icon}></i>{b.label}</button>
+            <Button icon key={index} onClick={b.action}><Icon name={b.icon}/>{b.label}</Button>
         ));
     }
     return (
@@ -37,9 +22,6 @@ const Tags = props => {
                     {props.word}
                 </span>
             }
-            <Container>
-                {definitions}
-            </Container>
         </Container>
     )
 };
