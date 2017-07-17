@@ -5,6 +5,8 @@ import SignInReducer from './sign-in';
 import SignUpReducer from './sign-up';
 import ImageUploadReducer from './image-uploader';
 import ArtworkReducer from './artwork';
+import UserCardReducer from './user-card';
+import UserInfoReducer from './user-info';
 
 export const mainReducer = combineReducers({
     Footer: FooterReducer,
@@ -12,6 +14,8 @@ export const mainReducer = combineReducers({
     SignIn: SignInReducer,
     SignUp: SignUpReducer,
     ImageUploader: ImageUploadReducer,
-    Artwork: ArtworkReducer
+    Artwork: ArtworkReducer,
+    UserCard: UserCardReducer,
+    UserInfo: UserInfoReducer
 });
 export default mainReducer;

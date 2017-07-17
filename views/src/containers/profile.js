@@ -7,6 +7,7 @@ import * as FooterActionCreators from '../actions/footer_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container, Segment } from 'semantic-ui-react';
+import UserInfo from '../components/user-info';
 
 class Profile extends Component {
     static propTypes = {
@@ -30,7 +31,7 @@ class Profile extends Component {
                     </Nav>
                     <Segment>
                         <h1>Profile</h1>
-                        <div>Basic Info/Avatar</div>
+                       <UserInfo/>
                         <div>My Notebooks</div>
                         <div>My "Quests"</div>
                         <div>My Suggestions</div>
@@ -43,6 +44,8 @@ class Profile extends Component {
         );
     }
 }
+
+
 
 const mapStateToProps = state => (
     {
