@@ -7,8 +7,7 @@ const token = require('../../../helpers/token');
 import ajax from 'superagent';
 import * as NavActions from '../actions/nav_actions';
 import PathHelper from '../helpers/path-helper';
-
-//ToDo: Add Icon to signed in nav
+import FontAwesome from 'react-fontawesome';
 
 class Nav extends Component {
     constructor(props) {
@@ -50,7 +49,7 @@ class Nav extends Component {
                     { this.state.isLoggedIn &&
                     <Menu.Menu position='right'>
                         <Link to="/" className="item" onClick={ () => this.props.signOut()}>Sign Out</Link>
-                        <Link to="/profile" className={this.state.activeItem === 'profile' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('profile')}>{this.state.userInfo.firstName}</Link>
+                        <Link to="/profile" className={this.state.activeItem === 'profile' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('profile')}><FontAwesome name="user" className="icon profile-icon"/>{this.state.userInfo.firstName}</Link>
                     </Menu.Menu>
                     }
                 </Menu>

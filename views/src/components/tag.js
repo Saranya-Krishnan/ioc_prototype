@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { Container, Button, Icon } from 'semantic-ui-react';
+import { Container, Button } from 'semantic-ui-react';
+import FontAwesome from 'react-fontawesome';
 
 const Tags = props => {
     let buttons = null;
@@ -8,7 +9,7 @@ const Tags = props => {
     if(props.clickActions){
         const btns = props.clickActions;
         buttons = btns.map((b, index) => (
-            <Button icon key={index} onClick={b.action}><Icon name={b.icon}/>{b.label}</Button>
+            <Button icon key={index} onClick={b.action}><FontAwesome name={b.icon}/>{b.label}</Button>
         ));
     }
     return (
