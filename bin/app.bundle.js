@@ -33159,46 +33159,22 @@ var _reactFontawesome = __webpack_require__(223);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var UserCard = function UserCard() {
+var UserCard = function UserCard(props) {
     return _react2.default.createElement(
         _semanticUiReact.Card,
-        null,
-        _react2.default.createElement(_semanticUiReact.Image, { src: undefined.props.avatar }),
+        { onClick: function onClick() {} },
+        _react2.default.createElement(_semanticUiReact.Image, { src: '' }),
         _react2.default.createElement(
             _semanticUiReact.Card.Content,
             null,
             _react2.default.createElement(
                 _semanticUiReact.Card.Header,
                 null,
-                undefined.props.firstName,
+                props.firstName,
                 ' ',
-                undefined.props.lastName
+                props.lastName
             ),
-            _react2.default.createElement(
-                _semanticUiReact.Card.Meta,
-                null,
-                _react2.default.createElement(
-                    'span',
-                    { className: 'date' },
-                    'Joined in ',
-                    undefined.props.joinDate
-                )
-            ),
-            _react2.default.createElement(
-                _semanticUiReact.Card.Description,
-                null,
-                undefined.props.bio
-            )
-        ),
-        _react2.default.createElement(
-            _semanticUiReact.Card.Content,
-            { extra: true },
-            _react2.default.createElement(
-                'a',
-                null,
-                _react2.default.createElement(_reactFontawesome.FontAwesome, { name: 'user' }),
-                '22 Friends'
-            )
+            _react2.default.createElement(_semanticUiReact.Card.Meta, null)
         )
     );
 };
@@ -33207,8 +33183,8 @@ UserCard.propTypes = {
     avatar: _propTypes2.default.string,
     firstName: _propTypes2.default.string,
     lastName: _propTypes2.default.string,
-    joinDate: _propTypes2.default.string,
-    bio: _propTypes2.default.bio
+    bio: _propTypes2.default.string,
+    goToProfile: _propTypes2.default.func
 };
 
 exports.default = UserCard;
@@ -33244,6 +33220,16 @@ var _userCard = __webpack_require__(490);
 
 var _userCard2 = _interopRequireDefault(_userCard);
 
+var _userInfo_actions = __webpack_require__(984);
+
+var UserInfoActions = _interopRequireWildcard(_userInfo_actions);
+
+var _semanticUiReact = __webpack_require__(29);
+
+var _reactFontawesome = __webpack_require__(223);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33265,24 +33251,60 @@ var UserInfo = function (_Component) {
     }
 
     _createClass(UserInfo, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.setState(nextProps.state);
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(_userCard2.default, {
-                avatar: '',
-                firstName: '',
-                lastName: '',
-                joinDate: '',
-                bio: '' });
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_userCard2.default, {
+                    firstName: this.props.user['userInfo'].firstName,
+                    lastName: this.props.user['userInfo'].lastName
+                }),
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { onClick: this.props.uploadAvatar },
+                    'Edit Avatar'
+                ),
+                _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    { onClick: this.props.editBio },
+                    'Edit Bio'
+                )
+            );
         }
     }]);
 
     return UserInfo;
 }(_react.Component);
 
-UserInfo.propTypes = {};
+UserInfo.propTypes = {
+    editBio: _propTypes2.default.func,
+    uploadAvatar: _propTypes2.default.func,
+    userInfo: _propTypes2.default.shape({
+        id: _propTypes2.default.string,
+        username: _propTypes2.default.string,
+        firstName: _propTypes2.default.string,
+        lastName: _propTypes2.default.string
+    })
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        uploadAvatar: function uploadAvatar() {
+            dispatch(UserInfoActions.uploadAvatar());
+        },
+        editBio: function editBio() {
+            dispatch(UserInfoActions.editBio());
+        }
+    };
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -71759,6 +71781,36 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 984 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.editBio = exports.uploadAvatar = undefined;
+
+var _userInfo = __webpack_require__(482);
+
+var UserInfoActionTypes = _interopRequireWildcard(_userInfo);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var uploadAvatar = exports.uploadAvatar = function uploadAvatar() {
+    return {
+        type: UserInfoActionTypes.UPLOAD_AVATAR
+    };
+};
+
+var editBio = exports.editBio = function editBio() {
+    return {
+        type: UserInfoActionTypes.EDIT_BIO
+    };
+};
 
 /***/ })
 /******/ ]);
