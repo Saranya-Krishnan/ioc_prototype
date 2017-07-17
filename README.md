@@ -1,8 +1,16 @@
 [![Build Status](https://travis-ci.org/doodlegabe/ioc_prototype.svg?branch=master)](https://travis-ci.org/doodlegabe/ioc_prototype)
 
-## Internet of Creativity Concept App
+# Internet of Creativity Concept App
 
 This application will outline some of the capabilities of a the actual application.
+
+## Installation
+
+1. Follow the directions Neo4j installation for your given platform: https://neo4j.com/docs/operations-manual/current/installation/
+2. Then run `npm install` within the cloned git directory
+3. Start Neo4j at `locahost:7474` or use the `neo4j.config.js` to point toward your desired port.
+4. Run `nodemon start`
+5. And in another terminal keep `webpack --watch` up while developing.
 
 
 ## Happy Path 1 from new book to task subscription.
@@ -26,25 +34,3 @@ This application will outline some of the capabilities of a the actual applicati
 17. Selecting a recommendation queries another set of recommendations.
 18. A pinned recommendation becomes a Journey Step associated with the ArtUpload
 19. An accepted recommendations are subscribed to by a user.
-
-
-## Stack Tasks
-
-1. ~Express routes for main page require login.~
-2. ~User data is saved~
-3. Binding name is generated
-4. Binding name is saved
-5. ~User can upload to CDN~
-6. ~Save CDN and extracted geotag~
-7. ~Create ArtUpload~
-8. ~Query Watson Visual Recognition~
-9. ~Classifiers are processed to tags~
-10. ~Tags are queried for ontology~
-11. Matching schema are assigned to Tag Types
-12. Tags are applied to ArtUpload
-13. Scheduled Job creates recommendations based on tags and tag types and corresponding modality.
-14. Recommendations are queried against ArtUpload tags
-15. Selecting an artupload chains to associated "journey", Journey step creates new recommendation
-16. Accepted recommendation subscribes user to all tasks in corresponding task group
-17. A user can complete a task.
-
