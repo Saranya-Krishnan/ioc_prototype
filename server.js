@@ -170,6 +170,7 @@ api.post('/api/'+process.env.API_VERSION+'/schemata/seed', routes.schemata.seed)
 api.post('/api/'+process.env.API_VERSION+'/meanings/extract-from-tag', routes.meanings.extractFromTag);
 api.post('/api/'+process.env.API_VERSION+'/meanings/update', routes.meanings.update);
 api.post('/api/'+process.env.API_VERSION+'/meanings/delete', routes.meanings.deletion);
+api.post('/api/'+process.env.API_VERSION+'/meanings/retrieve', routes.meanings.retrieve);
 // ***************************
 // * Journeys
 // ***************************
@@ -198,6 +199,7 @@ app.listen(process.env.CLIENT_PORT, function () {
 
 api.listen(process.env.API_PORT, function () {
     console.log('Neo4j server started on '+process.env.API_PORT);
+    console.log('Bolt server at '+process.env.GRAPHENEDB_BOLT_URL);
 });
 
 const suggestionChron = scheduler.scheduleJob('30 * * * * *', function(){

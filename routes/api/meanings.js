@@ -102,3 +102,33 @@ exports.update = function (req, res, next) {
 exports.deletion = function (req, res, next) {
 
 };
+
+/**
+ * @swagger
+ * /api/v0/meanings/retrieve:
+ *   post:
+ *     tags:
+ *     - meanings
+ *     description: Gets a meaning
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.retrieve = function (req, res, next) {
+    const meaningId = _.get(req.body,'meaningId');
+    Meanings.retrieve(dbUtils.getSession(req),meaningId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};

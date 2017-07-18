@@ -7,6 +7,13 @@ export const loadArtwork = data => {
     };
 };
 
+export const getSuggestions = data => {
+    return {
+        type: ArtworkActionTypes.GET_SUGGESTIONS,
+        data
+    };
+};
+
 export const browseBasedOnThis = () => {
     return {
         type: ArtworkActionTypes.BROWSE_BASED_ON_THIS

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { Container, Button } from 'semantic-ui-react';
+import {Label } from 'semantic-ui-react';
 import FontAwesome from 'react-fontawesome';
 
 const Tags = props => {
@@ -9,21 +9,21 @@ const Tags = props => {
     if(props.clickActions){
         const btns = props.clickActions;
         buttons = btns.map((b, index) => (
-            <Button icon key={index} onClick={b.action}><FontAwesome name={b.icon}/>{b.label}</Button>
+            <FontAwesome name={b.icon} icon key={index} onClick={() => b.action} aria-label={b.label} className="remove-tag-icon"/>
         ));
     }
     return (
-        <Container className="tag">
+        <div className="tag">
             {props.isEditable ?
-            <span className="tag-label">
+            <Label className="tag-label">
                 {props.word}
                 {buttons}
-            </span>
-                :<span className="tag-label">
+            </Label>
+                :<Label className="tag-label">
                     {props.word}
-                </span>
+                </Label>
             }
-        </Container>
+        </div>
     )
 };
 

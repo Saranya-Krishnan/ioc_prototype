@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import * as ArtworkActionCreators from '../actions/artwork_actions';
+import * as SuggestionsActionCreators from '../actions/suggestions_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
-import {Container, Segment } from 'semantic-ui-react';
+import {Container } from 'semantic-ui-react';
 import Artwork from '../components/artwork';
+import Suggestions from '../components/suggestions';
 import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
 
@@ -38,6 +40,7 @@ class Art extends Component {
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
         const loadArtwork = bindActionCreators(ArtworkActionCreators.loadArtwork, dispatch);
+        const getSuggestions = bindActionCreators(ArtworkActionCreators.getSuggestions, dispatch);
         const browseBasedOnThis = bindActionCreators(ArtworkActionCreators.browseBasedOnThis, dispatch);
         const relatedToMe = bindActionCreators(ArtworkActionCreators.relatedToMe, dispatch);
         const moreLikeThis = bindActionCreators(ArtworkActionCreators.moreLikeThis, dispatch);
@@ -52,10 +55,8 @@ class Art extends Component {
                         updateUserInfo={updateUserInfo}
                         setLoggedIn={setLoggedIn}>
                     </Nav>
-                    <Segment>
-                        <h1>Art</h1>
-                    </Segment>
                     <Artwork loadArtwork={loadArtwork}
+                             getSuggestions={getSuggestions}
                              workId={this.props.match.params.id}
                              browseBasedOnThis={browseBasedOnThis}
                              relatedToMe={relatedToMe}

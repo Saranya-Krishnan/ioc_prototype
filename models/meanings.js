@@ -53,9 +53,17 @@ const deletion = function (session) {
 
 };
 
+const retrieve = function (session, meaningId) {
+    return session.run('MATCH (meaning:Meaning {id:{meaningId}}) RETURN meaning', { meaningId:meaningId }
+    ).then(results => {
+        return new Meaning(results.records[0].get('meaning'));
+    })
+};
+
 
 module.exports = {
     extractFromTag:extractFromTag,
     update: update,
-    deletion: deletion
+    deletion: deletion,
+    retrieve:retrieve
 };

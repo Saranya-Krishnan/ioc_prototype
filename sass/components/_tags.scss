@@ -1,9 +1,14 @@
 .tag{
-  margin-right: 0.25rem;
+  margin: 0.25rem;
+  display: inline-block;
   .tag-label{
     text-transform: lowercase;
   }
-  button{
-
+  .remove-tag-icon{
+    margin-left: 0.5rem;
+    &:hover{
+      cursor: pointer;
+      color: setcolor('crimson');
+    }
   }
 }

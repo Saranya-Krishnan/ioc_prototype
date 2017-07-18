@@ -12,9 +12,9 @@ const initialState = {
             url: '',
             width: 0
         },
-        tags:[]
-    }
-
+        tags:[],
+    },
+    suggestions: []
 };
 
 export default function Footer(state=initialState, action) {
@@ -22,6 +22,11 @@ export default function Footer(state=initialState, action) {
         case ArtworkActionTypes.LOAD_ARTWORK:
             return Object.assign({}, state, {
                 work: action.data
+            });
+            return state;
+        case ArtworkActionTypes.GET_SUGGESTIONS:
+            return Object.assign({}, state, {
+                suggestions: action.data
             });
             return state;
         case ArtworkActionTypes.USER_NAME_CLICKED:

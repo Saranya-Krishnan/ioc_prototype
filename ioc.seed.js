@@ -100,7 +100,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw your interpretation of %&a&%%^work^%',
+                prompt: 'Draw your interpretation of %^work^%',
                 schema: 'work',
                 qualifiers: [
                     {
@@ -130,7 +130,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Imagine your self in the  %&a&%%^timePeriod^%. Write what your breakfast would be like if you lived then.',
+                prompt: 'Imagine your self in the  %&a&% %^timePeriod^%. Write what your breakfast would be like if you lived then.',
                 schema: 'timePeriod',
                 qualifiers: [
                     {
@@ -145,7 +145,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture using a lot of %&a&%%^colour^%',
+                prompt: 'Draw a picture using a lot of %%^colour^%',
                 schema: 'colour',
                 qualifiers: [
                     {
@@ -160,7 +160,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture of %&a&%%^device^%',
+                prompt: 'Draw a picture of %&a&% %^device^%',
                 schema: 'device',
                 qualifiers: [
                     {
@@ -175,7 +175,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture of %&a&%%^event^%',
+                prompt: 'Draw a picture of %&a& %%^event^%',
                 schema: 'event',
                 qualifiers: [
                     {
@@ -190,7 +190,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture of %&a&%%^food^%',
+                prompt: 'Draw a picture of %&a&% %^food^%',
                 schema: 'food',
                 qualifiers: [
                     {

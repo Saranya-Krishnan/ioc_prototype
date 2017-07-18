@@ -23,13 +23,13 @@ nconf.env(['PORT', 'NODE_ENV'])
         }
     })
     .defaults({
-        'USERNAME': process.env.GRAPHENEDB_BOLT_USER,
-        'PASSWORD' : process.env.GRAPHENEDB_BOLT_PASSWORD,
-        'neo4j': 'remote',
+        'USERNAME': 'neo4j',
+        'PASSWORD' : 'neo4j',
+        'neo4j': 'local',
         'neo4j-local': 'bolt://localhost:7687',
-        'neo4j-remote': process.env.GRAPHENEDB_BOLT_URL,
-        'base_url': PathHelper.apiPath,
-        'api_path': '/api/'+ process.env.API_VERSION
+        'neo4j-remote': 'bolt:http://162.243.100.222:7474',
+        'base_url': 'http://localhost:3030',
+        'api_path': '/api/v0'
     });
 
 module.exports = nconf;

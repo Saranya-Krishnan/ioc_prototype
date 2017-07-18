@@ -1,0 +1,12 @@
+.bottom-holder{
+  display:flex;
+  width: 100%;
+  justify-content: space-between;
+  .ui.form{
+    min-width: 250px;
+  }
+  button{
+    max-height:40px;
+    align-self: flex-end;
+  }
+}

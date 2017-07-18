@@ -42,7 +42,12 @@ const Quests = require('../../models/quests')
  */
 
 exports.create = function (req, res, next) {
-
+    const suggestionId = _.get(req.body,'suggestionId');
+    const userId = _.get(req.body,'userId');
+    console.log(suggestionId,userId);
+    Quests.create(dbUtils.getSession(req),suggestionId, userId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
 
 /**

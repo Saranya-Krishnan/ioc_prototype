@@ -31,6 +31,7 @@ const getASuggestion = function(meaning){
                     spString[y] = spString[y].replace(/%\^.*\^%/,meaning.properties.label);
                 }
                 let suggestion = {
+                    id: uuid.v4(),
                     meaningId: meaning.properties.id,
                     prompt:spString.join(' ')
                 };
@@ -56,7 +57,6 @@ const batchCreateFromMeanings = function(session){
 };
 
 const getSuggestions = function (session, tagId) {
-    console.log('tagId', tagId);
     return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:m.id}) MATCH(s:Suggestion {meaningId:m.id}) RETURN s', {tagId:tagId}
     ).then(results => {
         const suggestionGroup = [];
