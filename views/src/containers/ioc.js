@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Art from './art';
-import Home from './home';
-import SignUpPage from './sign-up';
-import SignInPage from './sign-in';
-import Profile from './profile';
+import ArtPage from './art-page';
+import HomePage from './home-page';
+import SignUpPage from './sign-up-page';
+import SignInPage from './sign-in-page';
+import ProfilePage from './profile-page';
+import QuestPage from './quest-page';
 import { Route } from 'react-router-dom';
 import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
@@ -34,12 +35,14 @@ export default class Ioc extends Component {
     render() {
         return (
             <div>
-                <Route exact={true} path="/" component={Home}/>
+                <Route exact={true} path="/" component={HomePage}/>
                 <Route path="/sign-up" component={SignUpPage}/>
                 <Route path="/sign-in" component={SignInPage}/>
-                <Route path="/profile" component={Profile}/>
-                <Route path="/art" component={Art}/>
-                <Route path="/user/artwork/:id" component={Art}/>
+                <Route path="/profile" component={ProfilePage}/>
+                <Route path="/art/:id" component={ArtPage}/>
+                <Route path="/user/artwork/:id" component={ArtPage}/>
+                <Route path="/quest/:id" component={QuestPage}/>
+                <Route path="/user/quest/:id" component={QuestPage}/>
             </div>
         );
     }

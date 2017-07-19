@@ -32,8 +32,14 @@ class Suggestion extends Component {
         this.setState({modalOpen:false});
         const data = {
             suggestionId: this.props.id,
-            userId: this.userId
+            userId: this.userId,
+            startDate: moment(),
+            goalDate: this.state.startDate,
+            completed: false,
+            hidden: false,
+            statement: ''
         };
+        console.log('data sent to create', data);
         ajax.post(PathHelper.apiPath + '/quests/create')
             .set('Content-Type', 'application/json')
             .send(data)

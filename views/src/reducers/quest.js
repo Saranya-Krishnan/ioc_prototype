@@ -1,8 +1,18 @@
 import * as QuestActionTypes from '../action_types/quest';
 
 const initialState = {
-    dateSet: false,
-    joined: false
+    id: '',
+    startDate: '',
+    goalDate: '',
+    completed: false,
+    hidden: false,
+    statement: '',
+    promoMode: true,
+    label: '',
+    prompt: '',
+    description: '',
+    hasError: false,
+    errorText: ''
 };
 
 export default function Quest(state=initialState, action) {

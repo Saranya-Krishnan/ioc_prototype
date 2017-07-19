@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 83);
+/******/ 	return __webpack_require__(__webpack_require__.s = 82);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,7 +79,7 @@ module.exports = require("lodash");
 "use strict";
 
 
-var sw = __webpack_require__(124);
+var sw = __webpack_require__(126);
 var _ = __webpack_require__(0);
 
 exports.writeResponse = function writeResponse(res, response, status) {
@@ -124,9 +124,9 @@ var _randomstring2 = _interopRequireDefault(_randomstring);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // neo4j_models cypher helper module
-var nconf = __webpack_require__(22);
+var nconf = __webpack_require__(23);
 
-var neo4j = __webpack_require__(119).v1;
+var neo4j = __webpack_require__(121).v1;
 var driver = neo4j.driver(nconf.get('neo4j-local'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
 
 if (nconf.get('neo4j') === 'remote') {
@@ -160,6 +160,12 @@ function whereTemplate(name, key, paramKey) {
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -178,12 +184,6 @@ module.exports = function loginRequired(req, res, next) {
   }
   next();
 };
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
 
 /***/ }),
 /* 8 */
@@ -259,7 +259,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.signOut = exports.setLoggedIn = exports.updateUserInfo = exports.clickMenuItem = undefined;
 
-var _nav = __webpack_require__(30);
+var _nav = __webpack_require__(31);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -292,12 +292,6 @@ var signOut = exports.signOut = function signOut() {
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router-dom");
-
-/***/ }),
-/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -308,7 +302,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clickFooterItem = undefined;
 
-var _footer = __webpack_require__(28);
+var _footer = __webpack_require__(29);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -321,7 +315,7 @@ var clickFooterItem = exports.clickFooterItem = function clickFooterItem() {
 };
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -341,7 +335,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _reactRouterDom = __webpack_require__(13);
+var _reactRouterDom = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -375,7 +369,7 @@ Footer.propTypes = {
 exports.default = Footer;
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -391,7 +385,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -399,7 +393,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _reactRouterDom = __webpack_require__(13);
+var _reactRouterDom = __webpack_require__(16);
 
 var _superagent = __webpack_require__(10);
 
@@ -567,6 +561,12 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Nav);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
 
 /***/ }),
 /* 17 */
@@ -804,7 +804,35 @@ exports.default = Tag;
 "use strict";
 
 
-var _nconf = __webpack_require__(118);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = __webpack_require__(0);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var User = module.exports = function (_node) {
+    _lodash2.default.extend(this, {
+        'id': _node.properties['id'],
+        'username': _node.properties['email'],
+        'firstName': _node.properties['firstName'],
+        'lastName': _node.properties['lastName']
+    });
+};
+
+exports.default = User;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _nconf = __webpack_require__(120);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
@@ -848,13 +876,13 @@ _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
 module.exports = _nconf2.default;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -893,7 +921,7 @@ var Image = module.exports = function (_node) {
 exports.default = Image;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -909,19 +937,18 @@ var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var User = module.exports = function (_node) {
+var Suggestion = module.exports = function (_node) {
     _lodash2.default.extend(this, {
         'id': _node.properties['id'],
-        'username': _node.properties['email'],
-        'firstName': _node.properties['firstName'],
-        'lastName': _node.properties['lastName']
+        'meaningId': _node.properties['meaningId'],
+        'prompt': _node.properties['prompt']
     });
 };
 
-exports.default = User;
+exports.default = Suggestion;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -939,11 +966,11 @@ var _lodash = __webpack_require__(0);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _user = __webpack_require__(25);
+var _user = __webpack_require__(22);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _crypto = __webpack_require__(116);
+var _crypto = __webpack_require__(118);
 
 var _crypto2 = _interopRequireDefault(_crypto);
 
@@ -1005,7 +1032,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1022,7 +1049,7 @@ var BROWSE_BASED_ON_THIS = exports.BROWSE_BASED_ON_THIS = 'BROWSE_BASED_ON_THIS'
 var RELATED_TO_ME = exports.RELATED_TO_ME = 'RELATED_TO_ME';
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1034,7 +1061,7 @@ Object.defineProperty(exports, "__esModule", {
 var FOOTER_ITEM_CLICKED = exports.FOOTER_ITEM_CLICKED = 'FOOTER_ITEM_CLICKED';
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1057,7 +1084,7 @@ var GET_NEW_TAG_ONTOLOGY = exports.GET_NEW_TAG_ONTOLOGY = 'GET_NEW_TAG_ONTOLOGY'
 var MAKE_MEANING = exports.MAKE_MEANING = 'MAKE_MEANING';
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1072,7 +1099,24 @@ var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
 var SIGN_OUT = exports.SIGN_OUT = 'SIGN_OUT';
 
 /***/ }),
-/* 31 */
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SET_GOAL_DATE = exports.SET_GOAL_DATE = 'SET_GOAL_DATE';
+var ADD_NOTE = exports.ADD_NOTE = 'ADD_NOTE';
+var JOIN_QUEST = exports.JOIN_QUEST = 'JOIN_QUEST';
+var ABANDON_QUEST = exports.ABANDON_QUEST = 'ABANDON_QUEST';
+var SEE_ALL_MY_QUESTS = exports.SEE_ALL_MY_QUESTS = 'SEE_ALL_MY_QUESTS';
+var GO_TO_QUEST_PAGE = exports.GO_TO_QUEST_PAGE = 'GO_TO_QUEST_PAGE';
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1084,7 +1128,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1096,7 +1140,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1113,23 +1157,7 @@ var HIDE_SUGGESTION = exports.HIDE_SUGGESTION = 'HIDE_SUGGESTION';
 var SHOW_QUEST = exports.SHOW_QUEST = 'SHOW_QUEST';
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var HIDE_MEANING_GROUP = exports.HIDE_MEANING_GROUP = 'HIDE_MEANING_GROUP';
-var SHOW_MEANING_GROUP = exports.SHOW_MEANING_GROUP = 'SHOW_MEANING_GROUP';
-var DISPLAY_MATCHING_QUEST = exports.DISPLAY_MATCHING_QUEST = 'DISPLAY_MATCHING_QUEST';
-var DISMISS_MATCHING_QUEST = exports.DISMISS_MATCHING_QUEST = 'DISMISS_MATCHING_QUEST';
-var CONFIRM_MATCHING_QUEST = exports.CONFIRM_MATCHING_QUEST = 'CONFIRM_MATCHING_QUEST';
-
-/***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1142,7 +1170,7 @@ var UPLOAD_AVATAR = exports.UPLOAD_AVATAR = 'UPLOAD_AVATAR';
 var EDIT_BIO = exports.EDIT_BIO = 'EDIT_BIO';
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1153,7 +1181,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.userNameClicked = exports.moreLikeThis = exports.relatedToMe = exports.browseBasedOnThis = exports.getSuggestions = exports.loadArtwork = undefined;
 
-var _artwork = __webpack_require__(27);
+var _artwork = __webpack_require__(28);
 
 var ArtworkActionTypes = _interopRequireWildcard(_artwork);
 
@@ -1198,7 +1226,7 @@ var userNameClicked = exports.userNameClicked = function userNameClicked() {
 };
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1209,7 +1237,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeMeaning = exports.getNewTagOntology = exports.enrichNewTag = exports.visualRecognition = exports.classificationToTags = exports.exploreBasedOnThisArtwork = exports.createTag = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
 
-var _imageUploder = __webpack_require__(29);
+var _imageUploder = __webpack_require__(30);
 
 var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
 
@@ -1295,54 +1323,6 @@ var makeMeaning = exports.makeMeaning = function makeMeaning(tag) {
 };
 
 /***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.confirmMatchingQuest = exports.dismissMatchingQuest = exports.displayMatchingQuest = exports.showMeaningGroup = exports.hideMeaningGroup = undefined;
-
-var _suggestions = __webpack_require__(34);
-
-var SuggestionsActionTypes = _interopRequireWildcard(_suggestions);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var hideMeaningGroup = exports.hideMeaningGroup = function hideMeaningGroup() {
-    return {
-        type: SuggestionsActionTypes.HIDE_MEANING_GROUP
-    };
-};
-
-var showMeaningGroup = exports.showMeaningGroup = function showMeaningGroup() {
-    return {
-        type: SuggestionsActionTypes.SHOW_MEANING_GROUP
-    };
-};
-
-var displayMatchingQuest = exports.displayMatchingQuest = function displayMatchingQuest() {
-    return {
-        type: SuggestionsActionTypes.DISMISS_MATCHING_QUEST
-    };
-};
-
-var dismissMatchingQuest = exports.dismissMatchingQuest = function dismissMatchingQuest() {
-    return {
-        type: SuggestionsActionTypes.DISMISS_MATCHING_QUEST
-    };
-};
-
-var confirmMatchingQuest = exports.confirmMatchingQuest = function confirmMatchingQuest() {
-    return {
-        type: SuggestionsActionTypes.CONFIRM_MATCHING_QUEST
-    };
-};
-
-/***/ }),
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1352,282 +1332,50 @@ var confirmMatchingQuest = exports.confirmMatchingQuest = function confirmMatchi
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.goToQuestPage = exports.seeAllMyQuests = exports.adabdonQuest = exports.joinQuest = exports.addNote = exports.setGoalDate = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _quest = __webpack_require__(32);
 
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(7);
-
-var _propTypes = __webpack_require__(4);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _semanticUiReact = __webpack_require__(3);
-
-var _reactFontawesome = __webpack_require__(17);
-
-var _suggestion_actions = __webpack_require__(88);
-
-var SuggestionActions = _interopRequireWildcard(_suggestion_actions);
-
-var _pathHelper = __webpack_require__(9);
-
-var _pathHelper2 = _interopRequireDefault(_pathHelper);
-
-var _superagent = __webpack_require__(10);
-
-var _superagent2 = _interopRequireDefault(_superagent);
-
-var _reactDatepicker = __webpack_require__(120);
-
-var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
-
-var _moment = __webpack_require__(117);
-
-var _moment2 = _interopRequireDefault(_moment);
+var QuestActionTypes = _interopRequireWildcard(_quest);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Suggestion = function (_Component) {
-    _inherits(Suggestion, _Component);
-
-    function Suggestion(props) {
-        _classCallCheck(this, Suggestion);
-
-        var _this = _possibleConstructorReturn(this, (Suggestion.__proto__ || Object.getPrototypeOf(Suggestion)).call(this, props));
-
-        _this.state = props;
-        _this.getMeaning = _this.getMeaning.bind(_this);
-        _this.handleDatePicker = _this.handleDatePicker.bind(_this);
-        _this.acceptSuggestion = _this.acceptSuggestion.bind(_this);
-        _this.handleOpen = _this.handleOpen.bind(_this);
-        return _this;
-    }
-
-    _createClass(Suggestion, [{
-        key: 'handleOpen',
-        value: function handleOpen() {
-            this.setState({ modalOpen: true });
-        }
-    }, {
-        key: 'setUser',
-        value: function setUser(data) {
-            this.userId = data.id;
-        }
-    }, {
-        key: 'handleDatePicker',
-        value: function handleDatePicker(date) {
-            this.setState({ startDate: date });
-        }
-    }, {
-        key: 'acceptSuggestion',
-        value: function acceptSuggestion() {
-            this.setUser(this.props.user['userInfo']);
-            this.setState({ modalOpen: false });
-            var data = {
-                suggestionId: this.props.id,
-                userId: this.userId
-            };
-            _superagent2.default.post(_pathHelper2.default.apiPath + '/quests/create').set('Content-Type', 'application/json').send(data).end(function (error, response) {
-                if (!error && response) {
-                    console.log('ok');
-                } else {
-                    console.log('Error accepting suggestion', error);
-                }
-            });
-        }
-    }, {
-        key: 'getMeaning',
-        value: function getMeaning() {
-            var _this2 = this;
-
-            //ToDo: Work with passed Meaning if available then call
-            var data = {
-                meaningId: this.props.meaningId
-            };
-            _superagent2.default.post(_pathHelper2.default.apiPath + '/meanings/retrieve').set('Content-Type', 'application/json').send(data).end(function (error, response) {
-                if (!error && response) {
-                    _this2.props.showQuest(response.body);
-                } else {
-                    console.log('Error getting meaning', error);
-                }
-            });
-        }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            this.setState(nextProps.state);
-        }
-    }, {
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.setState({ startDate: (0, _moment2.default)() });
-        }
-        //ToDo: Respond to missing/present image for quest
-
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
-
-            return _react2.default.createElement(
-                _semanticUiReact.Card,
-                null,
-                _react2.default.createElement(
-                    _semanticUiReact.Card.Content,
-                    null,
-                    _react2.default.createElement(
-                        _semanticUiReact.Card.Header,
-                        null,
-                        this.props.prompt
-                    ),
-                    _react2.default.createElement(
-                        _semanticUiReact.Card.Meta,
-                        null,
-                        'Drawing Challenge'
-                    )
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Card.Content,
-                    { extra: true },
-                    _react2.default.createElement(
-                        _semanticUiReact.Modal,
-                        { trigger: _react2.default.createElement(
-                                _semanticUiReact.Button,
-                                { basic: true, color: 'green', onClick: this.handleOpen },
-                                'Accept'
-                            ), onOpen: function onOpen() {
-                                return _this3.getMeaning;
-                            }, closeIcon: true, open: this.state.modalOpen },
-                        _react2.default.createElement(
-                            _semanticUiReact.Modal.Header,
-                            null,
-                            'Accept this suggestion'
-                        ),
-                        _react2.default.createElement(
-                            _semanticUiReact.Modal.Content,
-                            { image: true },
-                            _react2.default.createElement(_semanticUiReact.Image, { wrapped: true, size: 'medium', src: '' }),
-                            _react2.default.createElement(
-                                _semanticUiReact.Modal.Description,
-                                null,
-                                _react2.default.createElement(
-                                    _semanticUiReact.Header,
-                                    null,
-                                    this.props.prompt
-                                ),
-                                this.state.meaning ? _react2.default.createElement(
-                                    'h3',
-                                    null,
-                                    this.state.meaning.label
-                                ) : null,
-                                this.state.meaning ? _react2.default.createElement(
-                                    'p',
-                                    null,
-                                    this.state.meaning.description
-                                ) : null,
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'bottom-holder' },
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'ui form' },
-                                        _react2.default.createElement(
-                                            'div',
-                                            { className: 'field' },
-                                            _react2.default.createElement(
-                                                'label',
-                                                null,
-                                                'Set a completion goal date:'
-                                            ),
-                                            _react2.default.createElement(_reactDatepicker2.default, {
-                                                selected: this.state.startDate,
-                                                onChange: this.handleDatePicker
-                                            })
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Button,
-                                        { color: 'green', onClick: this.acceptSuggestion },
-                                        'Accept Suggestion'
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-
-    return Suggestion;
-}(_react.Component);
-
-;
-
-Suggestion.propTypes = {
-    prompt: _propTypes2.default.string,
-    isHidden: _propTypes2.default.bool,
-    isTaken: _propTypes2.default.bool,
-    takeSuggestion: _propTypes2.default.func,
-    undoTakeSuggestion: _propTypes2.default.func,
-    showSuggestion: _propTypes2.default.func,
-    moreSuggestionsLikeThis: _propTypes2.default.func,
-    hideSuggestion: _propTypes2.default.func,
-    showQuest: _propTypes2.default.func,
-    startDate: _propTypes2.default.instanceOf(Date),
-    meaning: _propTypes2.default.shape({
-        id: _propTypes2.default.string,
-        description: _propTypes2.default.string,
-        label: _propTypes2.default.string,
-        schemaName: _propTypes2.default.string,
-        lastUpdate: _propTypes2.default.any
-    })
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+var setGoalDate = exports.setGoalDate = function setGoalDate(data) {
     return {
-        showQuest: function showQuest(meaning) {
-            dispatch(SuggestionActions.showQuest(meaning));
-        },
-        takeSuggestion: function takeSuggestion() {
-            dispatch(SuggestionActions.takeSuggestion());
-        },
-        undoTakeSuggestion: function undoTakeSuggestion() {
-            dispatch(SuggestionActions.undoTakeSuggestion());
-        },
-        moreSuggestionsLikeThis: function moreSuggestionsLikeThis() {
-            dispatch(SuggestionActions.moreSuggestionsLikeThis());
-        },
-        showSuggestion: function showSuggestion() {
-            dispatch(SuggestionActions.showSuggestion());
-        },
-        hideSuggestion: function hideSuggestion() {
-            dispatch(SuggestionActions.hideSuggestion());
-        }
+        type: QuestActionTypes.SET_GOAL_DATE,
+        data: data
     };
 };
 
-var mapStateToProps = function mapStateToProps(state) {
+var addNote = exports.addNote = function addNote() {
     return {
-        artwork: state['Artwork'],
-        state: state['Suggestion'],
-        user: state['Nav']
+        type: QuestActionTypes.ADD_NOTE
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Suggestion);
+var joinQuest = exports.joinQuest = function joinQuest() {
+    return {
+        type: QuestActionTypes.JOIN_QUEST
+    };
+};
+
+var adabdonQuest = exports.adabdonQuest = function adabdonQuest() {
+    return {
+        type: QuestActionTypes.ABANDON_QUEST
+    };
+};
+
+var seeAllMyQuests = exports.seeAllMyQuests = function seeAllMyQuests() {
+    return {
+        type: QuestActionTypes.SEE_ALL_MY_QUESTS
+    };
+};
+
+var goToQuestPage = exports.goToQuestPage = function goToQuestPage() {
+    return {
+        type: QuestActionTypes.GO_TO_QUEST_PAGE
+    };
+};
 
 /***/ }),
 /* 40 */
@@ -1663,7 +1411,7 @@ var _response = __webpack_require__(1);
 
 var _response2 = _interopRequireDefault(_response);
 
-var _users = __webpack_require__(26);
+var _users = __webpack_require__(27);
 
 var _users2 = _interopRequireDefault(_users);
 
@@ -1699,18 +1447,18 @@ module.exports = function setAuthUser(req, res, next) {
 "use strict";
 
 
-exports.images = __webpack_require__(71);
-exports.journeys = __webpack_require__(72);
-exports.locations = __webpack_require__(73);
-exports.meanings = __webpack_require__(74);
-exports.notebooks = __webpack_require__(75);
-exports.pages = __webpack_require__(76);
-exports.quests = __webpack_require__(77);
-exports.schemata = __webpack_require__(78);
-exports.suggestions = __webpack_require__(79);
-exports.tags = __webpack_require__(80);
-exports.users = __webpack_require__(81);
-exports.works = __webpack_require__(82);
+exports.images = __webpack_require__(70);
+exports.journeys = __webpack_require__(71);
+exports.locations = __webpack_require__(72);
+exports.meanings = __webpack_require__(73);
+exports.notebooks = __webpack_require__(74);
+exports.pages = __webpack_require__(75);
+exports.quests = __webpack_require__(76);
+exports.schemata = __webpack_require__(77);
+exports.suggestions = __webpack_require__(78);
+exports.tags = __webpack_require__(79);
+exports.users = __webpack_require__(80);
+exports.works = __webpack_require__(81);
 
 /***/ }),
 /* 44 */
@@ -1723,7 +1471,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(23);
+var _express = __webpack_require__(24);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -1731,21 +1479,21 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(123);
+var _reactRouter = __webpack_require__(125);
 
-var _server = __webpack_require__(121);
+var _server = __webpack_require__(123);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _index = __webpack_require__(107);
+var _index = __webpack_require__(109);
 
 var _index2 = _interopRequireDefault(_index);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
-var _ioc = __webpack_require__(100);
+var _ioc = __webpack_require__(101);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -1834,7 +1582,7 @@ var _lodash = __webpack_require__(0);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _image = __webpack_require__(24);
+var _image = __webpack_require__(25);
 
 var _image2 = _interopRequireDefault(_image);
 
@@ -2191,7 +1939,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Quest = module.exports = function (_node) {
     _lodash2.default.extend(this, {
-        'id': _node.properties['id']
+        'id': _node.properties['id'],
+        'startDate': _node.properties['startDate'],
+        'goalDate': _node.properties['goalDate'],
+        'completed': _node.properties['completed'],
+        'hidden': _node.properties['hidden'],
+        'statement': _node.properties['statement']
     });
 };
 
@@ -2240,33 +1993,6 @@ var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Suggestion = module.exports = function (_node) {
-    _lodash2.default.extend(this, {
-        'id': _node.properties['id'],
-        'meaningId': _node.properties['meaningId'],
-        'prompt': _node.properties['prompt']
-    });
-};
-
-exports.default = Suggestion;
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _lodash = __webpack_require__(0);
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 var Work = module.exports = function (_node) {
     _lodash2.default.extend(this, {
         'id': _node.properties['id']
@@ -2276,7 +2002,7 @@ var Work = module.exports = function (_node) {
 exports.default = Work;
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2305,7 +2031,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2334,7 +2060,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2348,11 +2074,19 @@ var _quest = __webpack_require__(60);
 
 var _quest2 = _interopRequireDefault(_quest);
 
+var _suggestion = __webpack_require__(26);
+
+var _suggestion2 = _interopRequireDefault(_suggestion);
+
+var _user = __webpack_require__(22);
+
+var _user2 = _interopRequireDefault(_user);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var create = function create(session, suggestionId, userId) {
+var create = function create(session, suggestionId, userId, startDate, goalDate, completed, hidden, statement) {
     var questId = _uuid2.default.v4();
-    return session.run('CREATE (quest:Quest {id:{questId}}) RETURN quest', { questId: questId }).then(function (results) {
+    return session.run('CREATE (quest:Quest {id:{questId}, startDate:{startDate}, goalDate:{goalDate}, completed:{completed}, hidden:{hidden}, statement:{statement}}) RETURN quest', { questId: questId, startDate: startDate, goalDate: goalDate, completed: completed, hidden: hidden, statement: statement }).then(function (results) {
         var questResult = results;
         return session.run('MATCH (quest:Quest {id:{questId}}) MATCH (user:User {id:{userId}}) MATCH (suggestion:Suggestion {id:{suggestionId}}) CREATE (suggestion)<-[:SUGGESTED_BY]-(quest) CREATE (user)-[:IS_PARTICIPATING_IN]->(quest) CREATE (user)-[:IS_ON_A_QUEST_FROM]->(suggestion)', { questId: questId, suggestionId: suggestionId, userId: userId }).then(function (qResults) {
             return new _quest2.default(questResult.records[0].get('quest'));
@@ -2360,18 +2094,40 @@ var create = function create(session, suggestionId, userId) {
     });
 };
 
-var update = function update(session) {};
+var update = function update(session, questId, startDate, goalDate, completed, hidden, statement) {
+    return session.run('MATCH (update:Quest {id:{questId}}) SET update.startDate = {startDate}, update.goalDate = {goalDate}, update.completed = {completed}, update.hidden = {hidden}, update.statement = {statement} RETURN update', { questId: questId, startDate: startDate, goalDate: goalDate, completed: completed, hidden: hidden, statement: statement }).then(function (results) {
+        return new _quest2.default(results.records[0].get('update'));
+    });
+};
 
-var deletion = function deletion(session) {};
+var deletion = function deletion(session, questId) {
+    return session.run('MATCH (d:Quest {id:{questId}}) DETACH DELETE d', { questId: questId }).then(function (results) {
+        return { error: 'Can not delete quest' };
+    });
+};
+
+var display = function display(session, questId) {
+    return session.run('MATCH (q:Quest {id:{questId}}) MATCH (q)-[:SUGGESTED_BY]->(s:Suggestion) MATCH(u:User)-[:IS_PARTICIPATING_IN]->(q) RETURN q, s, u', { questId: questId }).then(function (results) {
+        var quest = new _quest2.default(results.records[0].get('q'));
+        var suggestion = new _suggestion2.default(results.records[0].get('s'));
+        var user = new _user2.default(results.records[0].get('u'));
+        return {
+            user: user,
+            quest: quest,
+            suggestion: suggestion
+        };
+    });
+};
 
 module.exports = {
     create: create,
     update: update,
-    deletion: deletion
+    deletion: deletion,
+    display: display
 };
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2437,7 +2193,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2447,7 +2203,7 @@ var _uuid = __webpack_require__(8);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _suggestion = __webpack_require__(62);
+var _suggestion = __webpack_require__(26);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
@@ -2522,7 +2278,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2595,7 +2351,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2605,15 +2361,15 @@ var _uuid = __webpack_require__(8);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _work = __webpack_require__(63);
+var _work = __webpack_require__(62);
 
 var _work2 = _interopRequireDefault(_work);
 
-var _image = __webpack_require__(24);
+var _image = __webpack_require__(25);
 
 var _image2 = _interopRequireDefault(_image);
 
-var _user = __webpack_require__(25);
+var _user = __webpack_require__(22);
 
 var _user2 = _interopRequireDefault(_user);
 
@@ -2666,7 +2422,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2675,7 +2431,7 @@ module.exports = {
 var Images = __webpack_require__(51),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -2897,7 +2653,7 @@ exports.getTags = function (req, res, next) {
 };
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2906,7 +2662,7 @@ exports.getTags = function (req, res, next) {
 var Journeys = __webpack_require__(52),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -2996,7 +2752,7 @@ exports.update = function (req, res, next) {};
 exports.deletion = function (req, res, next) {};
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3005,7 +2761,7 @@ exports.deletion = function (req, res, next) {};
 var Locations = __webpack_require__(53),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -3095,7 +2851,7 @@ exports.update = function (req, res, next) {};
 exports.deletion = function (req, res, next) {};
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3104,7 +2860,7 @@ exports.deletion = function (req, res, next) {};
 var Meanings = __webpack_require__(54),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -3229,16 +2985,16 @@ exports.retrieve = function (req, res, next) {
 };
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Notebooks = __webpack_require__(64),
+var Notebooks = __webpack_require__(63),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -3328,16 +3084,16 @@ exports.update = function (req, res, next) {};
 exports.deletion = function (req, res, next) {};
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Pages = __webpack_require__(65),
+var Pages = __webpack_require__(64),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -3427,18 +3183,20 @@ exports.update = function (req, res, next) {};
 exports.deletion = function (req, res, next) {};
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Quests = __webpack_require__(66),
+var Quests = __webpack_require__(65),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
+
+//ToDo: Update Swagger descriptions
 
 /**
  * @swagger
@@ -3453,6 +3211,7 @@ var Quests = __webpack_require__(66),
  *       classificationData:
  *          type: string
  */
+
 /**
  * @swagger
  * /api/v0/quests/create:
@@ -3478,8 +3237,12 @@ var Quests = __webpack_require__(66),
 exports.create = function (req, res, next) {
   var suggestionId = _.get(req.body, 'suggestionId');
   var userId = _.get(req.body, 'userId');
-  console.log(suggestionId, userId);
-  Quests.create(dbUtils.getSession(req), suggestionId, userId).then(function (response) {
+  var startDate = _.get(req.body, 'startDate');
+  var goalDate = _.get(req.body, 'goalDate');
+  var completed = _.get(req.body, 'completed');
+  var hidden = _.get(req.body, 'hidden');
+  var statement = _.get(req.body, 'statement');
+  Quests.create(dbUtils.getSession(req), suggestionId, userId, startDate, goalDate, completed, hidden, statement).then(function (response) {
     return writeResponse(res, response, 201);
   }).catch(next);
 };
@@ -3490,7 +3253,7 @@ exports.create = function (req, res, next) {
  *   post:
  *     tags:
  *     - quests
- *     description: Updates an quest
+ *     description: Updates a quest
  *     produces:
  *       - application/json
  *     parameters:
@@ -3499,6 +3262,9 @@ exports.create = function (req, res, next) {
  *         type: object
  *         schema:
  *           properties:
+ *              questId:
+ *                  type: String
+ *                  description: The uuid of the quest to update
  *     responses:
  *       201:
  *         description: Data
@@ -3506,7 +3272,17 @@ exports.create = function (req, res, next) {
  *         description: Error message(s)
  */
 
-exports.update = function (req, res, next) {};
+exports.update = function (req, res, next) {
+  var questId = _.get(req.body, 'questId');
+  var startDate = _.get(req.body, 'startDate');
+  var goalDate = _.get(req.body, 'goalDate');
+  var completed = _.get(req.body, 'completed');
+  var hidden = _.get(req.body, 'hidden');
+  var statement = _.get(req.body, 'statement');
+  Quests.update(dbUtils.getSession(req), questId, startDate, goalDate, completed, hidden, statement).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
 
 /**
  * @swagger
@@ -3514,7 +3290,7 @@ exports.update = function (req, res, next) {};
  *   post:
  *     tags:
  *     - quests
- *     description: Deletes an quest
+ *     description: Deletes a quest
  *     produces:
  *       - application/json
  *     parameters:
@@ -3523,6 +3299,7 @@ exports.update = function (req, res, next) {};
  *         type: object
  *         schema:
  *           properties:
+ *              questId: String - The uuid of the quest to delete
  *     responses:
  *       201:
  *         description: Data
@@ -3530,19 +3307,54 @@ exports.update = function (req, res, next) {};
  *         description: Error message(s)
  */
 
-exports.deletion = function (req, res, next) {};
+exports.deletion = function (req, res, next) {
+  var questId = _.get(req.body, 'questId');
+  Quests.deletion(dbUtils.getSession(req), questId).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
+
+/**
+ * @swagger
+ * /api/v0/quests/display:
+ *   post:
+ *     tags:
+ *     - quests
+ *     description: Displays a quest
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *              questId: String - The uuid of the quest to delete
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.display = function (req, res, next) {
+  var questId = _.get(req.body, 'questId');
+  Quests.display(dbUtils.getSession(req), questId).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Schemata = __webpack_require__(67),
+var Schemata = __webpack_require__(66),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -3709,16 +3521,16 @@ exports.seed = function (req, res, next) {
 };
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Suggestions = __webpack_require__(68),
+var Suggestions = __webpack_require__(67),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -3865,16 +3677,16 @@ exports.getSuggestions = function (req, res, next) {
 };
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Tags = __webpack_require__(69),
+var Tags = __webpack_require__(68),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -4052,16 +3864,16 @@ exports.enrich = function (req, res, next) {
 exports.tagItem = function (req, res, next) {};
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Users = __webpack_require__(26),
+var Users = __webpack_require__(27),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 /**
@@ -4261,16 +4073,16 @@ exports.deletion = function (req, res, next) {};
 exports.update = function (req, res, next) {};
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Works = __webpack_require__(70),
+var Works = __webpack_require__(69),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(6),
+    loginRequired = __webpack_require__(7),
     dbUtils = __webpack_require__(5),
     _ = __webpack_require__(0);
 
@@ -4394,13 +4206,13 @@ exports.display = function (req, res, next) {
 };
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var _express = __webpack_require__(23);
+var _express = __webpack_require__(24);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -4408,7 +4220,7 @@ var _index = __webpack_require__(44);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _neo4j = __webpack_require__(22);
+var _neo4j = __webpack_require__(23);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
@@ -4621,6 +4433,7 @@ api.post('/api/' + "v0" + '/suggestions/delete', routes.suggestions.deletion);
 api.post('/api/' + "v0" + '/quests/create', routes.quests.create);
 api.post('/api/' + "v0" + '/quests/update', routes.quests.update);
 api.post('/api/' + "v0" + '/quests/delete', routes.quests.deletion);
+api.post('/api/' + "v0" + '/quests/display', routes.quests.display);
 
 app.listen("3000", function () {
     console.log('Ioc Express Server started on ' + "3000");
@@ -4641,6 +4454,22 @@ var schemaChron = scheduler.scheduleJob('15 * * * *', function () {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var HIDE_MEANING_GROUP = exports.HIDE_MEANING_GROUP = 'HIDE_MEANING_GROUP';
+var SHOW_MEANING_GROUP = exports.SHOW_MEANING_GROUP = 'SHOW_MEANING_GROUP';
+var DISPLAY_MATCHING_QUEST = exports.DISPLAY_MATCHING_QUEST = 'DISPLAY_MATCHING_QUEST';
+var DISMISS_MATCHING_QUEST = exports.DISMISS_MATCHING_QUEST = 'DISMISS_MATCHING_QUEST';
+var CONFIRM_MATCHING_QUEST = exports.CONFIRM_MATCHING_QUEST = 'CONFIRM_MATCHING_QUEST';
+
+/***/ }),
 /* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4650,12 +4479,7 @@ var schemaChron = scheduler.scheduleJob('15 * * * *', function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var SET_GOAL_DATE = exports.SET_GOAL_DATE = 'SET_GOAL_DATE';
-var ADD_NOTE = exports.ADD_NOTE = 'ADD_NOTE';
-var JOIN_QUEST = exports.JOIN_QUEST = 'JOIN_QUEST';
-var ABANDON_QUEST = exports.ABANDON_QUEST = 'ABANDON_QUEST';
-var SEE_ALL_MY_QUESTS = exports.SEE_ALL_MY_QUESTS = 'SEE_ALL_MY_QUESTS';
-var GO_TO_QUEST_PAGE = exports.GO_TO_QUEST_PAGE = 'GO_TO_QUEST_PAGE';
+var GO_TO_PROFILE = exports.GO_TO_PROFILE = 'GO_TO_PROFILE';
 
 /***/ }),
 /* 85 */
@@ -4665,9 +4489,21 @@ var GO_TO_QUEST_PAGE = exports.GO_TO_QUEST_PAGE = 'GO_TO_QUEST_PAGE';
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-var GO_TO_PROFILE = exports.GO_TO_PROFILE = 'GO_TO_PROFILE';
+exports.onClickSubmit = undefined;
+
+var _signIn = __webpack_require__(33);
+
+var SignInActionTypes = _interopRequireWildcard(_signIn);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
+    return {
+        type: SignInActionTypes.SIGN_IN_FORM_SUBMITTED
+    };
+};
 
 /***/ }),
 /* 86 */
@@ -4681,15 +4517,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signIn = __webpack_require__(31);
+var _signUp = __webpack_require__(34);
 
-var SignInActionTypes = _interopRequireWildcard(_signIn);
+var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
     return {
-        type: SignInActionTypes.SIGN_IN_FORM_SUBMITTED
+        type: SignUpActionTypes.SIGN_UP_FORM_SUBMITTED
     };
 };
 
@@ -4703,33 +4539,9 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.onClickSubmit = undefined;
-
-var _signUp = __webpack_require__(32);
-
-var SignUpActionTypes = _interopRequireWildcard(_signUp);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
-    return {
-        type: SignUpActionTypes.SIGN_UP_FORM_SUBMITTED
-    };
-};
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 exports.showQuest = exports.hideSuggestion = exports.showSuggestion = exports.moreSuggestionsLikeThis = exports.undoTakeSuggestion = exports.takeSuggestion = undefined;
 
-var _suggestion = __webpack_require__(33);
+var _suggestion = __webpack_require__(35);
 
 var SuggestionActionTypes = _interopRequireWildcard(_suggestion);
 
@@ -4773,7 +4585,7 @@ var showQuest = exports.showQuest = function showQuest(meaning) {
 };
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4784,7 +4596,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.editBio = exports.uploadAvatar = undefined;
 
-var _userInfo = __webpack_require__(35);
+var _userInfo = __webpack_require__(36);
 
 var UserInfoActionTypes = _interopRequireWildcard(_userInfo);
 
@@ -4803,7 +4615,7 @@ var editBio = exports.editBio = function editBio() {
 };
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4819,7 +4631,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -4831,7 +4643,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _artwork_actions = __webpack_require__(36);
+var _artwork_actions = __webpack_require__(37);
 
 var ArtworkActions = _interopRequireWildcard(_artwork_actions);
 
@@ -4839,11 +4651,11 @@ var _pathHelper = __webpack_require__(9);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _tag = __webpack_require__(95);
+var _tag = __webpack_require__(96);
 
 var _tag2 = _interopRequireDefault(_tag);
 
-var _suggestion = __webpack_require__(39);
+var _suggestion = __webpack_require__(95);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
@@ -5124,7 +4936,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Artwork);
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5140,13 +4952,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactDropzone = __webpack_require__(122);
+var _reactDropzone = __webpack_require__(124);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -5154,11 +4966,11 @@ var _superagent = __webpack_require__(10);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(13);
+var _reactRouterDom = __webpack_require__(16);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _imageUploader_actions = __webpack_require__(37);
+var _imageUploader_actions = __webpack_require__(38);
 
 var ImageUploaderActions = _interopRequireWildcard(_imageUploader_actions);
 
@@ -5567,7 +5379,216 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageUploader);
 
 /***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(6);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _superagent = __webpack_require__(10);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _semanticUiReact = __webpack_require__(3);
+
+var _quest_actions = __webpack_require__(39);
+
+var QuestActions = _interopRequireWildcard(_quest_actions);
+
+var _pathHelper = __webpack_require__(9);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Quest = function (_Component) {
+    _inherits(Quest, _Component);
+
+    function Quest(props) {
+        _classCallCheck(this, Quest);
+
+        var _this = _possibleConstructorReturn(this, (Quest.__proto__ || Object.getPrototypeOf(Quest)).call(this, props));
+
+        _this.state = props;
+        _this.setUser = _this.setUser.bind(_this);
+        return _this;
+    }
+
+    _createClass(Quest, [{
+        key: 'setUser',
+        value: function setUser(data) {
+            this.userId = data.id;
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.setState(nextProps.state);
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.setUser(this.props.user['userInfo']);
+            var data = {
+                questId: this.props.id
+            };
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/quests/display').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    var responseData = {
+                        quest: {
+                            startDate: response.body.quest.startDate,
+                            goalDate: response.body.quest.goalDate,
+                            completed: response.body.quest.completed,
+                            hidden: response.body.quest.hidden,
+                            statement: response.body.quest.statement
+                        },
+                        suggestion: {
+                            label: response.body.suggestion.startDate,
+                            description: response.body.suggestion.description,
+                            prompt: response.body.suggestion.prompt
+                        },
+                        user: {
+                            id: response.body.user.id
+                        }
+                    };
+                    _this2.setState({
+                        startDate: responseData.quest.startDate,
+                        goalDate: responseData.quest.goalDate,
+                        completed: responseData.quest.completed,
+                        hidden: responseData.quest.hidden,
+                        statement: responseData.quest.statement,
+                        label: responseData.suggestion.label,
+                        description: responseData.suggestion.description,
+                        prompt: responseData.suggestion.prompt
+                    });
+                } else {
+                    _this2.setState({ errorText: error, hasError: true });
+                }
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                this.props.promoMode ? _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    null,
+                    'Promo',
+                    this.state.startDate,
+                    this.state.goalDate,
+                    this.state.completed,
+                    this.state.hidden,
+                    this.state.label,
+                    this.state.description,
+                    this.state.prompt
+                ) : _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    null,
+                    'Full',
+                    this.state.startDate,
+                    this.state.goalDate,
+                    this.state.completed,
+                    this.state.hidden,
+                    this.state.label,
+                    this.state.description,
+                    this.state.prompt
+                )
+            );
+        }
+    }]);
+
+    return Quest;
+}(_react.Component);
+
+Quest.propTypes = {
+    id: _propTypes2.default.string.isRequired,
+    startDate: _propTypes2.default.instanceOf(Date),
+    goalDate: _propTypes2.default.instanceOf(Date),
+    completed: _propTypes2.default.bool,
+    hidden: _propTypes2.default.bool,
+    statement: _propTypes2.default.string,
+    promoMode: _propTypes2.default.bool.isRequired,
+    label: _propTypes2.default.string,
+    description: _propTypes2.default.string,
+    prompt: _propTypes2.default.string,
+    hasError: _propTypes2.default.bool,
+    errorText: _propTypes2.default.string,
+    userInfo: _propTypes2.default.shape({
+        id: _propTypes2.default.string,
+        username: _propTypes2.default.string,
+        firstName: _propTypes2.default.string,
+        lastName: _propTypes2.default.string
+    })
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        setGoalDate: function setGoalDate() {
+            dispatch(QuestActions.setGoalDate());
+        },
+        addNote: function addNote() {
+            dispatch(QuestActions.addNote());
+        },
+        joinQuest: function joinQuest() {
+            dispatch(QuestActions.joinQuest());
+        },
+        adabdonQuest: function adabdonQuest() {
+            dispatch(QuestActions.adabdonQuest());
+        },
+        seeAllMyQuests: function seeAllMyQuests() {
+            dispatch(QuestActions.seeAllMyQuests());
+        },
+        goToQuestPage: function goToQuestPage() {
+            dispatch(QuestActions.goToQuestPage());
+        }
+    };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        state: state['Quest'],
+        user: state['Nav']
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Quest);
+
+/***/ }),
 /* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5589,7 +5610,7 @@ var _superagent = __webpack_require__(10);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(13);
+var _reactRouterDom = __webpack_require__(16);
 
 var _pathHelper = __webpack_require__(9);
 
@@ -5696,7 +5717,7 @@ var SignIn = function (_Component) {
 exports.default = SignIn;
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5718,7 +5739,7 @@ var _superagent = __webpack_require__(10);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(13);
+var _reactRouterDom = __webpack_require__(16);
 
 var _pathHelper = __webpack_require__(9);
 
@@ -5915,7 +5936,7 @@ var SignUp = function (_Component) {
 exports.default = SignUp;
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5931,7 +5952,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -5939,13 +5960,27 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _suggestions_actions = __webpack_require__(38);
+var _reactFontawesome = __webpack_require__(17);
 
-var SuggestionsActions = _interopRequireWildcard(_suggestions_actions);
+var _suggestion_actions = __webpack_require__(87);
 
-var _suggestion = __webpack_require__(39);
+var SuggestionActions = _interopRequireWildcard(_suggestion_actions);
 
-var _suggestion2 = _interopRequireDefault(_suggestion);
+var _pathHelper = __webpack_require__(9);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
+
+var _superagent = __webpack_require__(10);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _reactDatepicker = __webpack_require__(122);
+
+var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
+
+var _moment = __webpack_require__(119);
+
+var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -5957,86 +5992,244 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Suggestions = function (_Component) {
-    _inherits(Suggestions, _Component);
+var Suggestion = function (_Component) {
+    _inherits(Suggestion, _Component);
 
-    function Suggestions(props) {
-        _classCallCheck(this, Suggestions);
+    function Suggestion(props) {
+        _classCallCheck(this, Suggestion);
 
-        var _this = _possibleConstructorReturn(this, (Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Suggestion.__proto__ || Object.getPrototypeOf(Suggestion)).call(this, props));
 
         _this.state = props;
+        _this.getMeaning = _this.getMeaning.bind(_this);
+        _this.handleDatePicker = _this.handleDatePicker.bind(_this);
+        _this.acceptSuggestion = _this.acceptSuggestion.bind(_this);
+        _this.handleOpen = _this.handleOpen.bind(_this);
         return _this;
     }
 
-    _createClass(Suggestions, [{
+    _createClass(Suggestion, [{
+        key: 'handleOpen',
+        value: function handleOpen() {
+            this.setState({ modalOpen: true });
+        }
+    }, {
+        key: 'setUser',
+        value: function setUser(data) {
+            this.userId = data.id;
+        }
+    }, {
+        key: 'handleDatePicker',
+        value: function handleDatePicker(date) {
+            this.setState({ startDate: date });
+        }
+    }, {
+        key: 'acceptSuggestion',
+        value: function acceptSuggestion() {
+            this.setUser(this.props.user['userInfo']);
+            this.setState({ modalOpen: false });
+            var data = {
+                suggestionId: this.props.id,
+                userId: this.userId,
+                startDate: (0, _moment2.default)(),
+                goalDate: this.state.startDate,
+                completed: false,
+                hidden: false,
+                statement: ''
+            };
+            console.log('data sent to create', data);
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/quests/create').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    console.log('ok');
+                } else {
+                    console.log('Error accepting suggestion', error);
+                }
+            });
+        }
+    }, {
+        key: 'getMeaning',
+        value: function getMeaning() {
+            var _this2 = this;
+
+            //ToDo: Work with passed Meaning if available then call
+            var data = {
+                meaningId: this.props.meaningId
+            };
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/meanings/retrieve').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    _this2.props.showQuest(response.body);
+                } else {
+                    console.log('Error getting meaning', error);
+                }
+            });
+        }
+    }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             this.setState(nextProps.state);
         }
     }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.setState({ startDate: (0, _moment2.default)() });
+        }
+        //ToDo: Respond to missing/present image for quest
+
+    }, {
         key: 'render',
         value: function render() {
+            var _this3 = this;
+
             return _react2.default.createElement(
-                _semanticUiReact.Segment,
+                _semanticUiReact.Card,
                 null,
                 _react2.default.createElement(
-                    'h2',
+                    _semanticUiReact.Card.Content,
                     null,
-                    'Suggestions found for this work:'
+                    _react2.default.createElement(
+                        _semanticUiReact.Card.Header,
+                        null,
+                        this.props.prompt
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Card.Meta,
+                        null,
+                        'Drawing Challenge'
+                    )
                 ),
                 _react2.default.createElement(
-                    'p',
-                    null,
-                    'Accept a suggestion to try new things, improve your drawing and writing and accelerate your creativity.'
+                    _semanticUiReact.Card.Content,
+                    { extra: true },
+                    _react2.default.createElement(
+                        _semanticUiReact.Modal,
+                        { trigger: _react2.default.createElement(
+                                _semanticUiReact.Button,
+                                { basic: true, color: 'green', onClick: this.handleOpen },
+                                'Accept'
+                            ), onOpen: function onOpen() {
+                                return _this3.getMeaning;
+                            }, closeIcon: true, open: this.state.modalOpen },
+                        _react2.default.createElement(
+                            _semanticUiReact.Modal.Header,
+                            null,
+                            'Accept this suggestion'
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Modal.Content,
+                            { image: true },
+                            _react2.default.createElement(_semanticUiReact.Image, { wrapped: true, size: 'medium', src: '' }),
+                            _react2.default.createElement(
+                                _semanticUiReact.Modal.Description,
+                                null,
+                                _react2.default.createElement(
+                                    _semanticUiReact.Header,
+                                    null,
+                                    this.props.prompt
+                                ),
+                                this.state.meaning ? _react2.default.createElement(
+                                    'h3',
+                                    null,
+                                    this.state.meaning.label
+                                ) : null,
+                                this.state.meaning ? _react2.default.createElement(
+                                    'p',
+                                    null,
+                                    this.state.meaning.description
+                                ) : null,
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'bottom-holder' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'ui form' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'field' },
+                                            _react2.default.createElement(
+                                                'label',
+                                                null,
+                                                'Set a completion goal date:'
+                                            ),
+                                            _react2.default.createElement(_reactDatepicker2.default, {
+                                                selected: this.state.startDate,
+                                                onChange: this.handleDatePicker
+                                            })
+                                        )
+                                    ),
+                                    _react2.default.createElement(
+                                        _semanticUiReact.Button,
+                                        { color: 'green', onClick: this.acceptSuggestion },
+                                        'Accept Suggestion'
+                                    )
+                                )
+                            )
+                        )
+                    )
                 )
             );
         }
     }]);
 
-    return Suggestions;
+    return Suggestion;
 }(_react.Component);
 
-Suggestions.propTypes = {
-    hideMeaningGroup: _propTypes2.default.func,
-    showMeaningGroup: _propTypes2.default.func,
-    displayMatchingQuest: _propTypes2.default.func,
-    dismissMatchingQuest: _propTypes2.default.func,
-    confirmMatchingQuest: _propTypes2.default.func,
-    questOpen: _propTypes2.default.string,
-    meaningGroups: _propTypes2.default.arrayOf(_propTypes2.default.shape({}))
+;
+
+Suggestion.propTypes = {
+    prompt: _propTypes2.default.string,
+    isHidden: _propTypes2.default.bool,
+    isTaken: _propTypes2.default.bool,
+    takeSuggestion: _propTypes2.default.func,
+    undoTakeSuggestion: _propTypes2.default.func,
+    showSuggestion: _propTypes2.default.func,
+    moreSuggestionsLikeThis: _propTypes2.default.func,
+    hideSuggestion: _propTypes2.default.func,
+    showQuest: _propTypes2.default.func,
+    startDate: _propTypes2.default.instanceOf(Date),
+    meaning: _propTypes2.default.shape({
+        id: _propTypes2.default.string,
+        description: _propTypes2.default.string,
+        label: _propTypes2.default.string,
+        schemaName: _propTypes2.default.string,
+        lastUpdate: _propTypes2.default.any
+    })
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        hideMeaningGroup: function hideMeaningGroup() {
-            dispatch(SuggestionsActions.hideMeaningGroup());
+        showQuest: function showQuest(meaning) {
+            dispatch(SuggestionActions.showQuest(meaning));
         },
-        showMeaningGroup: function showMeaningGroup() {
-            dispatch(SuggestionsActions.showMeaningGroup());
+        takeSuggestion: function takeSuggestion() {
+            dispatch(SuggestionActions.takeSuggestion());
         },
-        displayMatchingQuest: function displayMatchingQuest() {
-            dispatch(SuggestionsActions.displayMatchingQuest());
+        undoTakeSuggestion: function undoTakeSuggestion() {
+            dispatch(SuggestionActions.undoTakeSuggestion());
         },
-        dismissMatchingQuest: function dismissMatchingQuest() {
-            dispatch(SuggestionsActions.dismissMatchingQuest());
+        moreSuggestionsLikeThis: function moreSuggestionsLikeThis() {
+            dispatch(SuggestionActions.moreSuggestionsLikeThis());
         },
-        confirmMatchingQuest: function confirmMatchingQuest() {
-            dispatch(SuggestionsActions.confirmMatchingQuest());
+        showSuggestion: function showSuggestion() {
+            dispatch(SuggestionActions.showSuggestion());
+        },
+        hideSuggestion: function hideSuggestion() {
+            dispatch(SuggestionActions.hideSuggestion());
         }
     };
 };
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        state: state['Suggestions']
+        artwork: state['Artwork'],
+        state: state['Suggestion'],
+        user: state['Nav']
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Suggestions);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Suggestion);
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6104,7 +6297,7 @@ Tags.propTypes = {
 exports.default = Tags;
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6159,7 +6352,7 @@ UserCard.propTypes = {
 exports.default = UserCard;
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6175,7 +6368,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6185,11 +6378,11 @@ var _superagent = __webpack_require__(10);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _userCard = __webpack_require__(96);
+var _userCard = __webpack_require__(97);
 
 var _userCard2 = _interopRequireDefault(_userCard);
 
-var _userInfo_actions = __webpack_require__(89);
+var _userInfo_actions = __webpack_require__(88);
 
 var UserInfoActions = _interopRequireWildcard(_userInfo_actions);
 
@@ -6286,7 +6479,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UserInfo);
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6304,7 +6497,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6314,35 +6507,27 @@ var _nav_actions = __webpack_require__(12);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(14);
+var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _artwork_actions = __webpack_require__(36);
+var _artwork_actions = __webpack_require__(37);
 
 var ArtworkActionCreators = _interopRequireWildcard(_artwork_actions);
 
-var _suggestions_actions = __webpack_require__(38);
-
-var SuggestionsActionCreators = _interopRequireWildcard(_suggestions_actions);
-
-var _nav = __webpack_require__(16);
+var _nav = __webpack_require__(15);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(15);
+var _footer = __webpack_require__(14);
 
 var _footer2 = _interopRequireDefault(_footer);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _artwork = __webpack_require__(90);
+var _artwork = __webpack_require__(89);
 
 var _artwork2 = _interopRequireDefault(_artwork);
-
-var _suggestions = __webpack_require__(94);
-
-var _suggestions2 = _interopRequireDefault(_suggestions);
 
 var _pathHelper = __webpack_require__(9);
 
@@ -6362,16 +6547,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Art = function (_Component) {
-    _inherits(Art, _Component);
+var ArtPage = function (_Component) {
+    _inherits(ArtPage, _Component);
 
-    function Art() {
-        _classCallCheck(this, Art);
+    function ArtPage() {
+        _classCallCheck(this, ArtPage);
 
-        return _possibleConstructorReturn(this, (Art.__proto__ || Object.getPrototypeOf(Art)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ArtPage.__proto__ || Object.getPrototypeOf(ArtPage)).apply(this, arguments));
     }
 
-    _createClass(Art, [{
+    _createClass(ArtPage, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             var data = {};
@@ -6423,10 +6608,10 @@ var Art = function (_Component) {
         }
     }]);
 
-    return Art;
+    return ArtPage;
 }(_react.Component);
 
-Art.propTypes = {
+ArtPage.propTypes = {
     art: _propTypes2.default.object.isRequired
 };
 
@@ -6437,10 +6622,10 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Art);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ArtPage);
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6458,7 +6643,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6468,23 +6653,23 @@ var _nav_actions = __webpack_require__(12);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(14);
+var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _imageUploader_actions = __webpack_require__(37);
+var _imageUploader_actions = __webpack_require__(38);
 
 var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
 
-var _nav = __webpack_require__(16);
+var _nav = __webpack_require__(15);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(15);
+var _footer = __webpack_require__(14);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _imageUploader = __webpack_require__(91);
+var _imageUploader = __webpack_require__(90);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
@@ -6500,16 +6685,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Home = function (_Component) {
-    _inherits(Home, _Component);
+var HomePage = function (_Component) {
+    _inherits(HomePage, _Component);
 
-    function Home() {
-        _classCallCheck(this, Home);
+    function HomePage() {
+        _classCallCheck(this, HomePage);
 
-        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).apply(this, arguments));
     }
 
-    _createClass(Home, [{
+    _createClass(HomePage, [{
         key: 'render',
         value: function render() {
             var dispatch = this.props.dispatch;
@@ -6565,10 +6750,10 @@ var Home = function (_Component) {
         }
     }]);
 
-    return Home;
+    return HomePage;
 }(_react.Component);
 
-Home.propTypes = {
+HomePage.propTypes = {
     home: _propTypes2.default.object.isRequired
 };
 
@@ -6579,10 +6764,10 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(HomePage);
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6598,27 +6783,31 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _art = __webpack_require__(98);
+var _artPage = __webpack_require__(99);
 
-var _art2 = _interopRequireDefault(_art);
+var _artPage2 = _interopRequireDefault(_artPage);
 
-var _home = __webpack_require__(99);
+var _homePage = __webpack_require__(100);
 
-var _home2 = _interopRequireDefault(_home);
+var _homePage2 = _interopRequireDefault(_homePage);
 
-var _signUp = __webpack_require__(103);
+var _signUpPage = __webpack_require__(105);
 
-var _signUp2 = _interopRequireDefault(_signUp);
+var _signUpPage2 = _interopRequireDefault(_signUpPage);
 
-var _signIn = __webpack_require__(102);
+var _signInPage = __webpack_require__(104);
 
-var _signIn2 = _interopRequireDefault(_signIn);
+var _signInPage2 = _interopRequireDefault(_signInPage);
 
-var _profile = __webpack_require__(101);
+var _profilePage = __webpack_require__(102);
 
-var _profile2 = _interopRequireDefault(_profile);
+var _profilePage2 = _interopRequireDefault(_profilePage);
 
-var _reactRouterDom = __webpack_require__(13);
+var _questPage = __webpack_require__(103);
+
+var _questPage2 = _interopRequireDefault(_questPage);
+
+var _reactRouterDom = __webpack_require__(16);
 
 var _pathHelper = __webpack_require__(9);
 
@@ -6673,12 +6862,14 @@ var Ioc = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _home2.default }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-up', component: _signUp2.default }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-in', component: _signIn2.default }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: '/profile', component: _profile2.default }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: '/art', component: _art2.default }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: '/user/artwork/:id', component: _art2.default })
+                _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _homePage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-up', component: _signUpPage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-in', component: _signInPage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/profile', component: _profilePage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/art/:id', component: _artPage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/user/artwork/:id', component: _artPage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/quest/:id', component: _questPage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/user/quest/:id', component: _questPage2.default })
             );
         }
     }]);
@@ -6689,7 +6880,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6707,7 +6898,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6717,23 +6908,27 @@ var _nav_actions = __webpack_require__(12);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(14);
+var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _nav = __webpack_require__(16);
+var _nav = __webpack_require__(15);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(15);
+var _footer = __webpack_require__(14);
 
 var _footer2 = _interopRequireDefault(_footer);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _userInfo = __webpack_require__(97);
+var _userInfo = __webpack_require__(98);
 
 var _userInfo2 = _interopRequireDefault(_userInfo);
+
+var _quests = __webpack_require__(92);
+
+var _quests2 = _interopRequireDefault(_quests);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -6745,16 +6940,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Profile = function (_Component) {
-    _inherits(Profile, _Component);
+var ProfilePage = function (_Component) {
+    _inherits(ProfilePage, _Component);
 
-    function Profile() {
-        _classCallCheck(this, Profile);
+    function ProfilePage() {
+        _classCallCheck(this, ProfilePage);
 
-        return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (ProfilePage.__proto__ || Object.getPrototypeOf(ProfilePage)).apply(this, arguments));
     }
 
-    _createClass(Profile, [{
+    _createClass(ProfilePage, [{
         key: 'render',
         value: function render() {
             var dispatch = this.props.dispatch;
@@ -6789,21 +6984,7 @@ var Profile = function (_Component) {
                             null,
                             'My Notebooks'
                         ),
-                        _react2.default.createElement(
-                            'div',
-                            null,
-                            'My "Quests"'
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            null,
-                            'My Suggestions'
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            null,
-                            'My Uploads'
-                        ),
+                        _react2.default.createElement(_quests2.default, null),
                         _react2.default.createElement(
                             'div',
                             null,
@@ -6816,10 +6997,10 @@ var Profile = function (_Component) {
         }
     }]);
 
-    return Profile;
+    return ProfilePage;
 }(_react.Component);
 
-Profile.propTypes = {
+ProfilePage.propTypes = {
     profile: _propTypes2.default.object.isRequired
 };
 
@@ -6830,12 +7011,10 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
-
-//MATCH (user)-[:UPLOADED]->(upload) WHERE user.id = 177 MATCH(u{id:upload.id}) RETURN user.id, u.url
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProfilePage);
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6853,7 +7032,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6863,23 +7042,151 @@ var _nav_actions = __webpack_require__(12);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(14);
+var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signIn_actions = __webpack_require__(86);
+var _quest_actions = __webpack_require__(39);
 
-var SignInActionCreators = _interopRequireWildcard(_signIn_actions);
+var QuestActionCreators = _interopRequireWildcard(_quest_actions);
 
-var _nav = __webpack_require__(16);
+var _nav = __webpack_require__(15);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(15);
+var _footer = __webpack_require__(14);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signInForm = __webpack_require__(92);
+var _semanticUiReact = __webpack_require__(3);
+
+var _quest = __webpack_require__(91);
+
+var _quest2 = _interopRequireDefault(_quest);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var QuestPage = function (_Component) {
+    _inherits(QuestPage, _Component);
+
+    function QuestPage() {
+        _classCallCheck(this, QuestPage);
+
+        return _possibleConstructorReturn(this, (QuestPage.__proto__ || Object.getPrototypeOf(QuestPage)).apply(this, arguments));
+    }
+
+    _createClass(QuestPage, [{
+        key: 'render',
+        value: function render() {
+            var dispatch = this.props.dispatch;
+
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
+            var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
+            var setGoalDate = (0, _redux.bindActionCreators)(QuestActionCreators.setGoalDate, dispatch);
+            var addNote = (0, _redux.bindActionCreators)(QuestActionCreators.addNote, dispatch);
+            var joinQuest = (0, _redux.bindActionCreators)(QuestActionCreators.joinQuest, dispatch);
+            var adabdonQuest = (0, _redux.bindActionCreators)(QuestActionCreators.adabdonQuest, dispatch);
+            var seeAllMyQuests = (0, _redux.bindActionCreators)(QuestActionCreators.seeAllMyQuests, dispatch);
+            var goToQuestPage = (0, _redux.bindActionCreators)(QuestActionCreators.goToQuestPage, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_nav2.default, {
+                        signOut: signOut,
+                        clickMenuItem: clickMenuItem,
+                        updateUserInfo: updateUserInfo,
+                        setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(_quest2.default, {
+                        id: this.props.match.params.id,
+                        promoMode: false,
+                        setGoalDate: setGoalDate,
+                        addNote: addNote,
+                        joinQuest: joinQuest,
+                        adabdonQuest: adabdonQuest,
+                        seeAllMyQuests: seeAllMyQuests,
+                        goToQuestPage: goToQuestPage })
+                ),
+                _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
+            );
+        }
+    }]);
+
+    return QuestPage;
+}(_react.Component);
+
+QuestPage.propTypes = {
+    questPage: _propTypes2.default.object.isRequired
+};
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        questPage: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(QuestPage);
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(11);
+
+var _reactRedux = __webpack_require__(6);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _nav_actions = __webpack_require__(12);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _footer_actions = __webpack_require__(13);
+
+var FooterActionCreators = _interopRequireWildcard(_footer_actions);
+
+var _signIn_actions = __webpack_require__(85);
+
+var SignInActionCreators = _interopRequireWildcard(_signIn_actions);
+
+var _nav = __webpack_require__(15);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _footer = __webpack_require__(14);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _signInForm = __webpack_require__(93);
 
 var _signInForm2 = _interopRequireDefault(_signInForm);
 
@@ -6950,7 +7257,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignInPage);
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6968,7 +7275,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(7);
+var _reactRedux = __webpack_require__(6);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6978,23 +7285,23 @@ var _nav_actions = __webpack_require__(12);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(14);
+var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signUp_actions = __webpack_require__(87);
+var _signUp_actions = __webpack_require__(86);
 
 var SignUpActionCreators = _interopRequireWildcard(_signUp_actions);
 
-var _nav = __webpack_require__(16);
+var _nav = __webpack_require__(15);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(15);
+var _footer = __webpack_require__(14);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signUpForm = __webpack_require__(93);
+var _signUpForm = __webpack_require__(94);
 
 var _signUpForm2 = _interopRequireDefault(_signUpForm);
 
@@ -7065,7 +7372,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUpPage);
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7076,7 +7383,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Footer;
 
-var _artwork = __webpack_require__(27);
+var _artwork = __webpack_require__(28);
 
 var ArtworkActionTypes = _interopRequireWildcard(_artwork);
 
@@ -7132,7 +7439,7 @@ function Footer() {
 }
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7143,7 +7450,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Footer;
 
-var _footer = __webpack_require__(28);
+var _footer = __webpack_require__(29);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -7165,7 +7472,7 @@ function Footer() {
 }
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7179,7 +7486,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = ImageUploader;
 
-var _imageUploder = __webpack_require__(29);
+var _imageUploder = __webpack_require__(30);
 
 var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
 
@@ -7231,7 +7538,7 @@ function ImageUploader() {
 }
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7244,47 +7551,47 @@ exports.mainReducer = undefined;
 
 var _redux = __webpack_require__(11);
 
-var _footer = __webpack_require__(105);
+var _footer = __webpack_require__(107);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _nav = __webpack_require__(108);
+var _nav = __webpack_require__(110);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _signIn = __webpack_require__(110);
+var _signIn = __webpack_require__(112);
 
 var _signIn2 = _interopRequireDefault(_signIn);
 
-var _signUp = __webpack_require__(111);
+var _signUp = __webpack_require__(113);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _imageUploader = __webpack_require__(106);
+var _imageUploader = __webpack_require__(108);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
-var _artwork = __webpack_require__(104);
+var _artwork = __webpack_require__(106);
 
 var _artwork2 = _interopRequireDefault(_artwork);
 
-var _userCard = __webpack_require__(114);
+var _userCard = __webpack_require__(116);
 
 var _userCard2 = _interopRequireDefault(_userCard);
 
-var _suggestion = __webpack_require__(112);
+var _suggestion = __webpack_require__(114);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
-var _suggestions = __webpack_require__(113);
+var _suggestions = __webpack_require__(115);
 
 var _suggestions2 = _interopRequireDefault(_suggestions);
 
-var _quest = __webpack_require__(109);
+var _quest = __webpack_require__(111);
 
 var _quest2 = _interopRequireDefault(_quest);
 
-var _userInfo = __webpack_require__(115);
+var _userInfo = __webpack_require__(117);
 
 var _userInfo2 = _interopRequireDefault(_userInfo);
 
@@ -7307,7 +7614,7 @@ var mainReducer = exports.mainReducer = (0, _redux.combineReducers)({
 exports.default = mainReducer;
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7318,7 +7625,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Nav;
 
-var _nav = __webpack_require__(30);
+var _nav = __webpack_require__(31);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -7366,7 +7673,7 @@ function Nav() {
 }
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7377,15 +7684,25 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Quest;
 
-var _quest = __webpack_require__(84);
+var _quest = __webpack_require__(32);
 
 var QuestActionTypes = _interopRequireWildcard(_quest);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var initialState = {
-    dateSet: false,
-    joined: false
+    id: '',
+    startDate: '',
+    goalDate: '',
+    completed: false,
+    hidden: false,
+    statement: '',
+    promoMode: true,
+    label: '',
+    prompt: '',
+    description: '',
+    hasError: false,
+    errorText: ''
 };
 
 function Quest() {
@@ -7411,7 +7728,7 @@ function Quest() {
 }
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7422,7 +7739,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SignIn;
 
-var _signIn = __webpack_require__(31);
+var _signIn = __webpack_require__(33);
 
 var SignInActionTypes = _interopRequireWildcard(_signIn);
 
@@ -7447,7 +7764,7 @@ function SignIn() {
 }
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7458,7 +7775,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SignUp;
 
-var _signUp = __webpack_require__(32);
+var _signUp = __webpack_require__(34);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -7490,7 +7807,7 @@ function SignUp() {
 }
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7501,7 +7818,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Suggestion;
 
-var _suggestion = __webpack_require__(33);
+var _suggestion = __webpack_require__(35);
 
 var SuggestionActionTypes = _interopRequireWildcard(_suggestion);
 
@@ -7547,7 +7864,7 @@ function Suggestion() {
 }
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7558,7 +7875,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Suggestions;
 
-var _suggestions = __webpack_require__(34);
+var _suggestions = __webpack_require__(83);
 
 var SuggestionsActionTypes = _interopRequireWildcard(_suggestions);
 
@@ -7590,7 +7907,7 @@ function Suggestions() {
 }
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7601,7 +7918,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = UserCard;
 
-var _userCard = __webpack_require__(85);
+var _userCard = __webpack_require__(84);
 
 var UserCardActionTypes = _interopRequireWildcard(_userCard);
 
@@ -7627,7 +7944,7 @@ function UserCard() {
 }
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7638,7 +7955,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = UserInfo;
 
-var _userInfo = __webpack_require__(35);
+var _userInfo = __webpack_require__(36);
 
 var UserInfoActionTypes = _interopRequireWildcard(_userInfo);
 
@@ -7661,55 +7978,55 @@ function UserInfo() {
 }
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports) {
 
 module.exports = require("crypto");
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, exports) {
 
 module.exports = require("moment");
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports) {
 
 module.exports = require("nconf");
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, exports) {
 
 module.exports = require("neo4j-driver");
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-datepicker");
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");

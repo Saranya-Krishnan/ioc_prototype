@@ -5,17 +5,15 @@ import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import * as ArtworkActionCreators from '../actions/artwork_actions';
-import * as SuggestionsActionCreators from '../actions/suggestions_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container } from 'semantic-ui-react';
 import Artwork from '../components/artwork';
-import Suggestions from '../components/suggestions';
 import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
 
 
-class Art extends Component {
+class ArtPage extends Component {
     componentDidMount(){
         const data = {
         };
@@ -76,4 +74,4 @@ const mapStateToProps = state => (
     }
 );
 
-export default connect(mapStateToProps)(Art);
+export default connect(mapStateToProps)(ArtPage);

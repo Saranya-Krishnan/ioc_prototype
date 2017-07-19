@@ -8,7 +8,7 @@ import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container, Segment } from 'semantic-ui-react';
 
-class Browse extends Component {
+class BrowsePage extends Component {
     static propTypes = {
         browse: PropTypes.object.isRequired
     };
@@ -44,4 +44,4 @@ const mapStateToProps = state => (
     }
 );
 
-export default connect(mapStateToProps)(Browse);
+export default connect(mapStateToProps)(BrowsePage);

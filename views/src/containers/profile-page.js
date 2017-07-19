@@ -8,8 +8,9 @@ import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container, Segment } from 'semantic-ui-react';
 import UserInfo from '../components/user-info';
+import Quests from '../components/quests';
 
-class Profile extends Component {
+class ProfilePage extends Component {
     static propTypes = {
         profile: PropTypes.object.isRequired
     };
@@ -31,11 +32,9 @@ class Profile extends Component {
                     </Nav>
                     <Segment>
                         <h1>Profile</h1>
-                       <UserInfo/>
+                        <UserInfo/>
                         <div>My Notebooks</div>
-                        <div>My "Quests"</div>
-                        <div>My Suggestions</div>
-                        <div>My Uploads</div>
+                        <Quests/>
                         <div>Feed</div>
                     </Segment>
                 </Container>
@@ -53,6 +52,4 @@ const mapStateToProps = state => (
     }
 );
 
-export default connect(mapStateToProps)(Profile);
-
-//MATCH (user)-[:UPLOADED]->(upload) WHERE user.id = 177 MATCH(u{id:upload.id}) RETURN user.id, u.url
+export default connect(mapStateToProps)(ProfilePage);

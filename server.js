@@ -191,7 +191,7 @@ api.post('/api/'+process.env.API_VERSION+'/suggestions/delete', routes.suggestio
 api.post('/api/'+process.env.API_VERSION+'/quests/create', routes.quests.create);
 api.post('/api/'+process.env.API_VERSION+'/quests/update', routes.quests.update);
 api.post('/api/'+process.env.API_VERSION+'/quests/delete', routes.quests.deletion);
-
+api.post('/api/'+process.env.API_VERSION+'/quests/display', routes.quests.display);
 
 app.listen(process.env.CLIENT_PORT, function () {
     console.log('Ioc Express Server started on '+process.env.CLIENT_PORT);

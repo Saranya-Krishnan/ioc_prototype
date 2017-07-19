@@ -5,6 +5,7 @@ const Quests = require('../../models/quests')
     , dbUtils = require('../../neo4j/dbUtils')
     , _ = require('lodash');
 
+//ToDo: Update Swagger descriptions
 
 /**
  * @swagger
@@ -19,6 +20,8 @@ const Quests = require('../../models/quests')
  *       classificationData:
  *          type: string
  */
+
+
 /**
  * @swagger
  * /api/v0/quests/create:
@@ -44,8 +47,12 @@ const Quests = require('../../models/quests')
 exports.create = function (req, res, next) {
     const suggestionId = _.get(req.body,'suggestionId');
     const userId = _.get(req.body,'userId');
-    console.log(suggestionId,userId);
-    Quests.create(dbUtils.getSession(req),suggestionId, userId)
+    const startDate = _.get(req.body,'startDate');
+    const goalDate = _.get(req.body,'goalDate');
+    const completed = _.get(req.body,'completed');
+    const hidden = _.get(req.body,'hidden');
+    const statement = _.get(req.body,'statement');
+    Quests.create(dbUtils.getSession(req),suggestionId, userId, startDate, goalDate, completed, hidden, statement)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
@@ -56,7 +63,7 @@ exports.create = function (req, res, next) {
  *   post:
  *     tags:
  *     - quests
- *     description: Updates an quest
+ *     description: Updates a quest
  *     produces:
  *       - application/json
  *     parameters:
@@ -65,6 +72,9 @@ exports.create = function (req, res, next) {
  *         type: object
  *         schema:
  *           properties:
+ *              questId:
+ *                  type: String
+ *                  description: The uuid of the quest to update
  *     responses:
  *       201:
  *         description: Data
@@ -74,7 +84,15 @@ exports.create = function (req, res, next) {
 
 
 exports.update = function (req, res, next) {
-
+    const questId = _.get(req.body,'questId');
+    const startDate = _.get(req.body,'startDate');
+    const goalDate = _.get(req.body,'goalDate');
+    const completed = _.get(req.body,'completed');
+    const hidden = _.get(req.body,'hidden');
+    const statement = _.get(req.body,'statement');
+    Quests.update(dbUtils.getSession(req),questId, startDate, goalDate, completed, hidden, statement)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
 
 /**
@@ -83,7 +101,7 @@ exports.update = function (req, res, next) {
  *   post:
  *     tags:
  *     - quests
- *     description: Deletes an quest
+ *     description: Deletes a quest
  *     produces:
  *       - application/json
  *     parameters:
@@ -92,6 +110,7 @@ exports.update = function (req, res, next) {
  *         type: object
  *         schema:
  *           properties:
+ *              questId: String - The uuid of the quest to delete
  *     responses:
  *       201:
  *         description: Data
@@ -101,5 +120,38 @@ exports.update = function (req, res, next) {
 
 
 exports.deletion = function (req, res, next) {
+    const questId = _.get(req.body,'questId');
+    Quests.deletion(dbUtils.getSession(req),questId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};
 
+/**
+ * @swagger
+ * /api/v0/quests/display:
+ *   post:
+ *     tags:
+ *     - quests
+ *     description: Displays a quest
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *              questId: String - The uuid of the quest to delete
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.display = function (req, res, next) {
+    const questId = _.get(req.body,'questId');
+    Quests.display(dbUtils.getSession(req), questId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };

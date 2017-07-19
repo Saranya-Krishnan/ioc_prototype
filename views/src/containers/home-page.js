@@ -10,7 +10,7 @@ import Footer from '../components/footer';
 import ImageUploader from '../components/image-uploader';
 import { Container } from 'semantic-ui-react';
 
-class Home extends Component {
+class HomePage extends Component {
     static propTypes = {
         home: PropTypes.object.isRequired
     };
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(HomePage);
