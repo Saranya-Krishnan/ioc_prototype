@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ajax from 'superagent';
-import { Container} from 'semantic-ui-react';
+import { Container, Segment, Header, Divider, Button, Card, Statistic} from 'semantic-ui-react';
 import * as QuestActions from '../actions/quest_actions'
 import PathHelper from '../helpers/path-helper';
+import moment from 'moment';
 
 class Quest extends Component {
     constructor(props) {
@@ -37,12 +38,15 @@ class Quest extends Component {
                             statement: response.body.quest.statement
                         },
                         suggestion: {
-                            label: response.body.suggestion.startDate,
-                            description: response.body.suggestion.description,
                             prompt: response.body.suggestion.prompt
                         },
                         user: {
                             id: response.body.user.id
+                        },
+                        meaning: {
+                            label: response.body.meaning.label,
+                            description: response.body.meaning.description,
+                            schemaName: response.body.meaning.schemaName
                         }
                     };
                     this.setState({
@@ -51,8 +55,8 @@ class Quest extends Component {
                         completed: responseData.quest.completed,
                         hidden: responseData.quest.hidden,
                         statement: responseData.quest.statement,
-                        label: responseData.suggestion.label,
-                        description: responseData.suggestion.description,
+                        label: responseData.meaning.label,
+                        description: responseData.meaning.description,
                         prompt: responseData.suggestion.prompt
                     });
                 } else {
@@ -66,24 +70,39 @@ class Quest extends Component {
             <Container>
                 {this.props.promoMode ?
                     <Container>
-                        Promo
-                        {this.state.startDate}
-                        {this.state.goalDate}
-                        {this.state.completed}
-                        {this.state.hidden}
-                        {this.state.label}
-                        {this.state.description}
-                        {this.state.prompt}
+                        <Card>
+                            <Card.Content header={this.state.prompt}/>
+                            <Card.Content description={this.state.description}/>
+                            <Card.Content extra>
+                                <Statistic>
+                                    <Statistic.Label>Goal Date</Statistic.Label>
+                                    <Statistic.Value>{moment(this.state.goalDate).toNow()}</Statistic.Value>
+                                </Statistic>
+                            </Card.Content>
+                        </Card>
                     </Container>
                     : <Container>
-                        Full
-                        {this.state.startDate}
-                        {this.state.goalDate}
-                        {this.state.completed}
-                        {this.state.hidden}
-                        {this.state.label}
-                        {this.state.description}
-                        {this.state.prompt}
+                        <Segment>
+                            <Header content={this.state.prompt} subheader={"You started this quest on " + moment(this.state.startDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}/>
+                            <Divider/>
+                            <h3>About {this.state.label}</h3>
+                            <p>{this.state.description}</p>
+                            { this.state.completed ?
+                                <Container>
+                                    <h3>Completion Date</h3>
+                                    <p>TK</p>
+                                </Container> :
+                                <Container>
+                                    <Statistic>
+                                        <Statistic.Label>Goal Date</Statistic.Label>
+                                        <Statistic.Value>{moment(this.state.goalDate).toNow()}</Statistic.Value>
+                                    </Statistic>
+                                </Container> }
+                            <Container>
+                                <Button>Abandon</Button>
+                                <Button>Upload & Complete</Button>
+                            </Container>
+                        </Segment>
                     </Container> }
             </Container>
         )

@@ -2,6 +2,7 @@ import uuid from 'uuid';
 import Quest from './neo4j_models/quest';
 import Suggestion from './neo4j_models/suggestion';
 import User from './neo4j_models/user';
+import Meaning from './neo4j_models/meaning';
 
 
 const create = function (session, suggestionId, userId, startDate, goalDate, completed, hidden, statement) {
@@ -32,15 +33,17 @@ const deletion = function (session, questId) {
 
 
 const display = function (session, questId) {
-    return session.run('MATCH (q:Quest {id:{questId}}) MATCH (q)-[:SUGGESTED_BY]->(s:Suggestion) MATCH(u:User)-[:IS_PARTICIPATING_IN]->(q) RETURN q, s, u',{questId:questId}
+    return session.run('MATCH (q:Quest {id:{questId}}) MATCH (q)-[:SUGGESTED_BY]->(s:Suggestion) MATCH (m:Meaning {id:s.meaningId}) MATCH(u:User)-[:IS_PARTICIPATING_IN]->(q) RETURN q, s, m, u',{questId:questId}
     ).then(results => {
        const quest = new Quest(results.records[0].get('q'));
        const suggestion = new Suggestion(results.records[0].get('s'));
+       const meaning = new Meaning(results.records[0].get('m'));
        const user = new User(results.records[0].get('u'));
        return{
            user: user,
            quest: quest,
-           suggestion: suggestion
+           suggestion: suggestion,
+           meaning: meaning
        }
     })
 };

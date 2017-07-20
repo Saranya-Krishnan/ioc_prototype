@@ -33,9 +33,6 @@ class ProfilePage extends Component {
                     <Segment>
                         <h1>Profile</h1>
                         <UserInfo/>
-                        <div>My Notebooks</div>
-                        <Quests/>
-                        <div>Feed</div>
                     </Segment>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>

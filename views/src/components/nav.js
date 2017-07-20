@@ -37,7 +37,7 @@ class Nav extends Component {
     }
     render(){
         return (
-            <Container text>
+            <Container text className="nav-container">
                 <Menu pointing secondary>
                     <Link to="/" className={this.state.activeItem === 'home' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('home')}>Home</Link>
                     { !this.state.isLoggedIn &&

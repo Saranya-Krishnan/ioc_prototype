@@ -468,7 +468,7 @@ var Nav = function (_Component) {
 
             return _react2.default.createElement(
                 _semanticUiReact.Container,
-                { text: true },
+                { text: true, className: 'nav-container' },
                 _react2.default.createElement(
                     _semanticUiReact.Menu,
                     { pointing: true, secondary: true },
@@ -2082,6 +2082,10 @@ var _user = __webpack_require__(22);
 
 var _user2 = _interopRequireDefault(_user);
 
+var _meaning = __webpack_require__(57);
+
+var _meaning2 = _interopRequireDefault(_meaning);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var create = function create(session, suggestionId, userId, startDate, goalDate, completed, hidden, statement) {
@@ -2107,14 +2111,16 @@ var deletion = function deletion(session, questId) {
 };
 
 var display = function display(session, questId) {
-    return session.run('MATCH (q:Quest {id:{questId}}) MATCH (q)-[:SUGGESTED_BY]->(s:Suggestion) MATCH(u:User)-[:IS_PARTICIPATING_IN]->(q) RETURN q, s, u', { questId: questId }).then(function (results) {
+    return session.run('MATCH (q:Quest {id:{questId}}) MATCH (q)-[:SUGGESTED_BY]->(s:Suggestion) MATCH (m:Meaning {id:s.meaningId}) MATCH(u:User)-[:IS_PARTICIPATING_IN]->(q) RETURN q, s, m, u', { questId: questId }).then(function (results) {
         var quest = new _quest2.default(results.records[0].get('q'));
         var suggestion = new _suggestion2.default(results.records[0].get('s'));
+        var meaning = new _meaning2.default(results.records[0].get('m'));
         var user = new _user2.default(results.records[0].get('u'));
         return {
             user: user,
             quest: quest,
-            suggestion: suggestion
+            suggestion: suggestion,
+            meaning: meaning
         };
     });
 };
@@ -5415,6 +5421,10 @@ var _pathHelper = __webpack_require__(9);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
+var _moment = __webpack_require__(119);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -5468,12 +5478,15 @@ var Quest = function (_Component) {
                             statement: response.body.quest.statement
                         },
                         suggestion: {
-                            label: response.body.suggestion.startDate,
-                            description: response.body.suggestion.description,
                             prompt: response.body.suggestion.prompt
                         },
                         user: {
                             id: response.body.user.id
+                        },
+                        meaning: {
+                            label: response.body.meaning.label,
+                            description: response.body.meaning.description,
+                            schemaName: response.body.meaning.schemaName
                         }
                     };
                     _this2.setState({
@@ -5482,8 +5495,8 @@ var Quest = function (_Component) {
                         completed: responseData.quest.completed,
                         hidden: responseData.quest.hidden,
                         statement: responseData.quest.statement,
-                        label: responseData.suggestion.label,
-                        description: responseData.suggestion.description,
+                        label: responseData.meaning.label,
+                        description: responseData.meaning.description,
                         prompt: responseData.suggestion.prompt
                     });
                 } else {
@@ -5500,25 +5513,95 @@ var Quest = function (_Component) {
                 this.props.promoMode ? _react2.default.createElement(
                     _semanticUiReact.Container,
                     null,
-                    'Promo',
-                    this.state.startDate,
-                    this.state.goalDate,
-                    this.state.completed,
-                    this.state.hidden,
-                    this.state.label,
-                    this.state.description,
-                    this.state.prompt
+                    _react2.default.createElement(
+                        _semanticUiReact.Card,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Card.Content, { header: this.state.prompt }),
+                        _react2.default.createElement(_semanticUiReact.Card.Content, { description: this.state.description }),
+                        _react2.default.createElement(
+                            _semanticUiReact.Card.Content,
+                            { extra: true },
+                            _react2.default.createElement(
+                                _semanticUiReact.Statistic,
+                                null,
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Label,
+                                    null,
+                                    'Goal Date'
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Value,
+                                    null,
+                                    (0, _moment2.default)(this.state.goalDate).toNow()
+                                )
+                            )
+                        )
+                    )
                 ) : _react2.default.createElement(
                     _semanticUiReact.Container,
                     null,
-                    'Full',
-                    this.state.startDate,
-                    this.state.goalDate,
-                    this.state.completed,
-                    this.state.hidden,
-                    this.state.label,
-                    this.state.description,
-                    this.state.prompt
+                    _react2.default.createElement(
+                        _semanticUiReact.Segment,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Header, { content: this.state.prompt, subheader: "You started this quest on " + (0, _moment2.default)(this.state.startDate).format("dddd, MMMM Do YYYY, h:mm:ss a") }),
+                        _react2.default.createElement(_semanticUiReact.Divider, null),
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'About ',
+                            this.state.label
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            this.state.description
+                        ),
+                        this.state.completed ? _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                'Completion Date'
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'TK'
+                            )
+                        ) : _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Statistic,
+                                null,
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Label,
+                                    null,
+                                    'Goal Date'
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Value,
+                                    null,
+                                    (0, _moment2.default)(this.state.goalDate).toNow()
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Button,
+                                null,
+                                'Abandon'
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Button,
+                                null,
+                                'Upload & Complete'
+                            )
+                        )
+                    )
                 )
             );
         }
@@ -6978,18 +7061,7 @@ var ProfilePage = function (_Component) {
                             null,
                             'Profile'
                         ),
-                        _react2.default.createElement(_userInfo2.default, null),
-                        _react2.default.createElement(
-                            'div',
-                            null,
-                            'My Notebooks'
-                        ),
-                        _react2.default.createElement(_quests2.default, null),
-                        _react2.default.createElement(
-                            'div',
-                            null,
-                            'Feed'
-                        )
+                        _react2.default.createElement(_userInfo2.default, null)
                     )
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
