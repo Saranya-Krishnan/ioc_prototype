@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import * as QuestsActionCreators from '../actions/quests_actions';
+import * as MyArtworkActionCreators from '../actions/my-artwork_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container } from 'semantic-ui-react';
 import UserInfo from '../components/user-info';
 import Quests from '../components/quests';
+import MyArtwork from '../components/my-artwork';
 
 class ProfilePage extends Component {
     static propTypes = {
@@ -22,6 +24,7 @@ class ProfilePage extends Component {
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
         const loadMyQuests = bindActionCreators(QuestsActionCreators.loadMyQuests, dispatch);
+        const loadMyArtwork = bindActionCreators(MyArtworkActionCreators.loadMyArtwork, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         return (
             <div>
@@ -36,6 +39,7 @@ class ProfilePage extends Component {
                         <h1>Profile</h1>
                         <UserInfo/>
                         <Quests loadMyQuests={loadMyQuests}/>
+                        <MyArtwork loadMyArtwork={loadMyArtwork}/>
                     </Container>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>

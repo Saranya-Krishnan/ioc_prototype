@@ -117,6 +117,8 @@ api.post('/api/'+process.env.API_VERSION+'/works/create', routes.works.create);
 api.post('/api/'+process.env.API_VERSION+'/works/update', routes.works.update);
 api.post('/api/'+process.env.API_VERSION+'/works/delete', routes.works.deletion);
 api.post('/api/'+process.env.API_VERSION+'/works/display', routes.works.display);
+api.post('/api/'+process.env.API_VERSION+'/works/my-work', routes.works.mine);
+
 // ***************************
 // * Locations
 // ***************************

@@ -145,7 +145,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture using a lot of %%^colour^%',
+                prompt: 'Draw a picture using a lot of %^colour^%',
                 schema: 'colour',
                 qualifiers: [
                     {
@@ -175,7 +175,7 @@ const suggestionData = {
         actions:[
             {
                 actionKey: 'draw',
-                prompt: 'Draw a picture of %&a& %%^event^%',
+                prompt: 'Draw a picture of %&a& %^event^%',
                 schema: 'event',
                 qualifiers: [
                     {

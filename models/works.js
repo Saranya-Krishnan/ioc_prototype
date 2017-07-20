@@ -9,7 +9,7 @@ const create = function (session, imageId, userId) {
     return session.run('CREATE (work:Work {id: {id}}) RETURN work', {id: artworkId}
     ).then(results => {
         const artResults = results;
-        return session.run('MATCH (work:Work {id:{artworkId}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})-[:DISPLAYS]->(work)', {
+        return session.run('MATCH (work:Work {id:{artworkId}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})<-[:DISPLAYS]-(work)', {
                 artworkId: artworkId,
                 userId: userId,
                 imageId: imageId
@@ -34,7 +34,7 @@ const deletion = function (session) {
 
 };
 const display = function (session, workId) {
-    return session.run('MATCH (work:Work {id:{id}})<-[:DISPLAYS]-(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (work:Work {id:{id}})-[:ASSOCIATED_WITH]->(t) MATCH(tag:Tag {id:t.id}) MATCH (user:User {id:u.id}) MATCH (image:Image {id:i.id}) RETURN work, image, user, tag',{id:workId}
+    return session.run('MATCH (work:Work {id:{id}})-[:DISPLAYS]->(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (work:Work {id:{id}})-[:ASSOCIATED_WITH]->(t) MATCH(tag:Tag {id:t.id}) MATCH (user:User {id:u.id}) MATCH (image:Image {id:i.id}) RETURN work, image, user, tag',{id:workId}
     ).then(results => {
         const workTags =[];
         for(let i=0; i<results.records.length;i++){
@@ -50,9 +50,30 @@ const display = function (session, workId) {
     })
 };
 
+const mine = function (session, userId){
+    return session.run('MATCH ({id:{userId}})-[:CREATED]->(w:Work) MATCH ({id:w.id})-[:DISPLAYS]->(im) MATCH(i:Image {id:im.id}) RETURN i,w',{userId:userId}
+    ).then(results => {
+        console.log('NUM REC', results.records.length);
+
+        const works =[];
+        const images =[];
+        for(let i=0; i<results.records.length;i++){
+            let aWork = new Work(results.records[i].get('w'));
+            works.push(aWork);
+            let anImage = new Image(results.records[i].get('i'));
+            images.push(anImage);
+        }
+        return {
+            work: works,
+            image: images
+        }
+    })
+};
+
 module.exports = {
     create: create,
     update: update,
     deletion: deletion,
-    display: display
+    display: display,
+    mine: mine
 };

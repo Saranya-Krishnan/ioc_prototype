@@ -73,15 +73,15 @@ class Quest extends Component {
         return(
             <Container>
                 {this.props.promoMode ?
-                    <Container onClick={ () => this.state.goToQuestPage(true)}>
-                        {this.state.doRedirect ? <Redirect push to={"/quest/"+this.props.id}/> : null}
-                        <Card>
+                    <Container >
+                        <Card onClick={ () => this.state.goToQuestPage(true)}>
+                            {this.state.doRedirect ? <Redirect push to={"/quest/"+this.props.id}/> : null}
                             <Card.Content header={this.state.prompt}/>
                             <Card.Content description={this.state.description}/>
                             <Card.Content extra>
                                 <Statistic>
                                     <Statistic.Label>Goal Date</Statistic.Label>
-                                    <Statistic.Value>{moment(this.state.goalDate).toNow()}</Statistic.Value>
+                                    <Statistic.Value>{moment(this.state.goalDate).fromNow()}</Statistic.Value>
                                 </Statistic>
                             </Card.Content>
                         </Card>
@@ -100,7 +100,7 @@ class Quest extends Component {
                                 <Container>
                                     <Statistic>
                                         <Statistic.Label>Goal Date</Statistic.Label>
-                                        <Statistic.Value>{moment(this.state.goalDate).toNow()}</Statistic.Value>
+                                        <Statistic.Value>{moment(this.state.goalDate).fromNow()}</Statistic.Value>
                                     </Statistic>
                                 </Container> }
                             <Container>

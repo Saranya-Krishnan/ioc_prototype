@@ -131,3 +131,34 @@ exports.display = function (req, res, next) {
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
+
+
+/**
+ * @swagger
+ * /api/v0/works/my-artwork:
+ *   post:
+ *     tags:
+ *     - works
+ *     description: Displays a given user's artwork
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.mine = function (req, res, next) {
+    const userId = _.get(req.body,'userId');
+    Works.mine(dbUtils.getSession(req), userId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};
