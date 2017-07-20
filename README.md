@@ -28,9 +28,9 @@ This application will outline some of the capabilities of a the actual applicati
 11. ~Classifications are converted to tags~
 12. ~Tags are applied to ArtUpload~
 13. ~New tags are queried using Sparql to understand ontology~
-14. Tag Type is applied based on Ontology
-15. Recommendations and tasks are created for new tags based on Modality
-16. Recommendations are presented to the user
+14. ~Tag Type is applied based on Ontology~
+15. ~Recommendations and tasks are created for new tags based on Modality~
+16. ~Recommendations are presented to the user~
 17. Selecting a recommendation queries another set of recommendations.
 18. A pinned recommendation becomes a Journey Step associated with the ArtUpload
-19. An accepted recommendations are subscribed to by a user.
+19. ~An accepted recommendations are subscribed to by a user~.
