@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 82);
+/******/ 	return __webpack_require__(__webpack_require__.s = 85);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,7 +79,7 @@ module.exports = require("lodash");
 "use strict";
 
 
-var sw = __webpack_require__(126);
+var sw = __webpack_require__(129);
 var _ = __webpack_require__(0);
 
 exports.writeResponse = function writeResponse(res, response, status) {
@@ -112,12 +112,18 @@ module.exports = require("prop-types");
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _randomstring = __webpack_require__(40);
+var _randomstring = __webpack_require__(44);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
@@ -126,7 +132,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // neo4j_models cypher helper module
 var nconf = __webpack_require__(23);
 
-var neo4j = __webpack_require__(121).v1;
+var neo4j = __webpack_require__(124).v1;
 var driver = neo4j.driver(nconf.get('neo4j-local'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
 
 if (nconf.get('neo4j') === 'remote') {
@@ -159,40 +165,7 @@ function whereTemplate(name, key, paramKey) {
 }
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _response = __webpack_require__(1);
-
-var _response2 = _interopRequireDefault(_response);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-module.exports = function loginRequired(req, res, next) {
-  var authHeader = req.headers['authorization'];
-  if (!authHeader) {
-    return (0, _response2.default)(res, { detail: 'no authorization provided' }, 401);
-  }
-  next();
-};
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports = require("uuid");
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -236,6 +209,33 @@ module.exports = {
 };
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _response = __webpack_require__(1);
+
+var _response2 = _interopRequireDefault(_response);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = function loginRequired(req, res, next) {
+  var authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    return (0, _response2.default)(res, { detail: 'no authorization provided' }, 401);
+  }
+  next();
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("uuid");
+
+/***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
@@ -259,7 +259,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.signOut = exports.setLoggedIn = exports.updateUserInfo = exports.clickMenuItem = undefined;
 
-var _nav = __webpack_require__(31);
+var _nav = __webpack_require__(32);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -302,7 +302,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clickFooterItem = undefined;
 
-var _footer = __webpack_require__(29);
+var _footer = __webpack_require__(30);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -385,7 +385,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -403,7 +403,7 @@ var _nav_actions = __webpack_require__(12);
 
 var NavActions = _interopRequireWildcard(_nav_actions);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
@@ -832,11 +832,11 @@ exports.default = User;
 "use strict";
 
 
-var _nconf = __webpack_require__(120);
+var _nconf = __webpack_require__(123);
 
 var _nconf2 = _interopRequireDefault(_nconf);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
@@ -937,6 +937,36 @@ var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var Meaning = module.exports = function (_node) {
+    _lodash2.default.extend(this, {
+        'id': _node.properties['id'],
+        'label': _node.properties['label'],
+        'description': _node.properties['description'],
+        'sourceURI': _node.properties['sourceURI'],
+        'schemaName': _node.properties['schemaName'],
+        'lastUpdate': _node.properties['lastUpdate']
+    });
+};
+
+exports.default = Meaning;
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _lodash = __webpack_require__(0);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var Suggestion = module.exports = function (_node) {
     _lodash2.default.extend(this, {
         'id': _node.properties['id'],
@@ -948,17 +978,17 @@ var Suggestion = module.exports = function (_node) {
 exports.default = Suggestion;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _randomstring = __webpack_require__(40);
+var _randomstring = __webpack_require__(44);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
@@ -970,7 +1000,7 @@ var _user = __webpack_require__(22);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _crypto = __webpack_require__(118);
+var _crypto = __webpack_require__(122);
 
 var _crypto2 = _interopRequireDefault(_crypto);
 
@@ -1032,7 +1062,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1049,7 +1079,7 @@ var BROWSE_BASED_ON_THIS = exports.BROWSE_BASED_ON_THIS = 'BROWSE_BASED_ON_THIS'
 var RELATED_TO_ME = exports.RELATED_TO_ME = 'RELATED_TO_ME';
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1061,7 +1091,7 @@ Object.defineProperty(exports, "__esModule", {
 var FOOTER_ITEM_CLICKED = exports.FOOTER_ITEM_CLICKED = 'FOOTER_ITEM_CLICKED';
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1084,7 +1114,7 @@ var GET_NEW_TAG_ONTOLOGY = exports.GET_NEW_TAG_ONTOLOGY = 'GET_NEW_TAG_ONTOLOGY'
 var MAKE_MEANING = exports.MAKE_MEANING = 'MAKE_MEANING';
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1129,7 @@ var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
 var SIGN_OUT = exports.SIGN_OUT = 'SIGN_OUT';
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1116,7 +1146,19 @@ var SEE_ALL_MY_QUESTS = exports.SEE_ALL_MY_QUESTS = 'SEE_ALL_MY_QUESTS';
 var GO_TO_QUEST_PAGE = exports.GO_TO_QUEST_PAGE = 'GO_TO_QUEST_PAGE';
 
 /***/ }),
-/* 33 */
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var LOAD_MY_QUESTS = exports.LOAD_MY_QUESTS = 'LOAD_MY_QUESTS';
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1128,7 +1170,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1140,7 +1182,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1157,7 +1199,7 @@ var HIDE_SUGGESTION = exports.HIDE_SUGGESTION = 'HIDE_SUGGESTION';
 var SHOW_QUEST = exports.SHOW_QUEST = 'SHOW_QUEST';
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1170,7 +1212,7 @@ var UPLOAD_AVATAR = exports.UPLOAD_AVATAR = 'UPLOAD_AVATAR';
 var EDIT_BIO = exports.EDIT_BIO = 'EDIT_BIO';
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1181,7 +1223,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.userNameClicked = exports.moreLikeThis = exports.relatedToMe = exports.browseBasedOnThis = exports.getSuggestions = exports.loadArtwork = undefined;
 
-var _artwork = __webpack_require__(28);
+var _artwork = __webpack_require__(29);
 
 var ArtworkActionTypes = _interopRequireWildcard(_artwork);
 
@@ -1226,7 +1268,7 @@ var userNameClicked = exports.userNameClicked = function userNameClicked() {
 };
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1237,7 +1279,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeMeaning = exports.getNewTagOntology = exports.enrichNewTag = exports.visualRecognition = exports.classificationToTags = exports.exploreBasedOnThisArtwork = exports.createTag = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
 
-var _imageUploder = __webpack_require__(30);
+var _imageUploder = __webpack_require__(31);
 
 var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
 
@@ -1323,7 +1365,7 @@ var makeMeaning = exports.makeMeaning = function makeMeaning(tag) {
 };
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1334,7 +1376,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.goToQuestPage = exports.seeAllMyQuests = exports.adabdonQuest = exports.joinQuest = exports.addNote = exports.setGoalDate = undefined;
 
-var _quest = __webpack_require__(32);
+var _quest = __webpack_require__(33);
 
 var QuestActionTypes = _interopRequireWildcard(_quest);
 
@@ -1371,20 +1413,316 @@ var seeAllMyQuests = exports.seeAllMyQuests = function seeAllMyQuests() {
     };
 };
 
-var goToQuestPage = exports.goToQuestPage = function goToQuestPage() {
+var goToQuestPage = exports.goToQuestPage = function goToQuestPage(redirect) {
     return {
-        type: QuestActionTypes.GO_TO_QUEST_PAGE
+        type: QuestActionTypes.GO_TO_QUEST_PAGE, redirect: redirect
     };
 };
 
 /***/ }),
-/* 40 */
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(5);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _superagent = __webpack_require__(10);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _semanticUiReact = __webpack_require__(3);
+
+var _quest_actions = __webpack_require__(41);
+
+var QuestActions = _interopRequireWildcard(_quest_actions);
+
+var _pathHelper = __webpack_require__(7);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
+
+var _moment = __webpack_require__(43);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _reactRouter = __webpack_require__(128);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Quest = function (_Component) {
+    _inherits(Quest, _Component);
+
+    function Quest(props) {
+        _classCallCheck(this, Quest);
+
+        var _this = _possibleConstructorReturn(this, (Quest.__proto__ || Object.getPrototypeOf(Quest)).call(this, props));
+
+        _this.state = props;
+        _this.setUser = _this.setUser.bind(_this);
+        return _this;
+    }
+
+    _createClass(Quest, [{
+        key: 'setUser',
+        value: function setUser(data) {
+            this.userId = data.id;
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.setState(nextProps.state);
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            if (!this.props.promoMode) {
+                this.state.goToQuestPage(false);
+            }
+            this.setUser(this.props.user['userInfo']);
+            var data = {
+                questId: this.props.id
+            };
+            _superagent2.default.post(_pathHelper2.default.apiPath + '/quests/display').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                if (!error && response) {
+                    var responseData = {
+                        quest: {
+                            startDate: response.body.quest.startDate,
+                            goalDate: response.body.quest.goalDate,
+                            completed: response.body.quest.completed,
+                            hidden: response.body.quest.hidden,
+                            statement: response.body.quest.statement
+                        },
+                        suggestion: {
+                            prompt: response.body.suggestion.prompt
+                        },
+                        user: {
+                            id: response.body.user.id
+                        },
+                        meaning: {
+                            label: response.body.meaning.label,
+                            description: response.body.meaning.description,
+                            schemaName: response.body.meaning.schemaName
+                        }
+                    };
+                    _this2.setState({
+                        startDate: responseData.quest.startDate,
+                        goalDate: responseData.quest.goalDate,
+                        completed: responseData.quest.completed,
+                        hidden: responseData.quest.hidden,
+                        statement: responseData.quest.statement,
+                        label: responseData.meaning.label,
+                        description: responseData.meaning.description,
+                        prompt: responseData.suggestion.prompt
+                    });
+                } else {
+                    _this2.setState({ errorText: error, hasError: true });
+                }
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            return _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                this.props.promoMode ? _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { onClick: function onClick() {
+                            return _this3.state.goToQuestPage(true);
+                        } },
+                    this.state.doRedirect ? _react2.default.createElement(_reactRouter.Redirect, { push: true, to: "/quest/" + this.props.id }) : null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Card,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Card.Content, { header: this.state.prompt }),
+                        _react2.default.createElement(_semanticUiReact.Card.Content, { description: this.state.description }),
+                        _react2.default.createElement(
+                            _semanticUiReact.Card.Content,
+                            { extra: true },
+                            _react2.default.createElement(
+                                _semanticUiReact.Statistic,
+                                null,
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Label,
+                                    null,
+                                    'Goal Date'
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Value,
+                                    null,
+                                    (0, _moment2.default)(this.state.goalDate).toNow()
+                                )
+                            )
+                        )
+                    )
+                ) : _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    null,
+                    _react2.default.createElement(
+                        _semanticUiReact.Segment,
+                        null,
+                        _react2.default.createElement(_semanticUiReact.Header, { content: this.state.prompt, subheader: "You started this quest on " + (0, _moment2.default)(this.state.startDate).format("dddd, MMMM Do YYYY, h:mm:ss a") }),
+                        _react2.default.createElement(_semanticUiReact.Divider, null),
+                        _react2.default.createElement(
+                            'h3',
+                            null,
+                            'About ',
+                            this.state.label
+                        ),
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            this.state.description
+                        ),
+                        this.state.completed ? _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                'Completion Date'
+                            ),
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                'TK'
+                            )
+                        ) : _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Statistic,
+                                null,
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Label,
+                                    null,
+                                    'Goal Date'
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Value,
+                                    null,
+                                    (0, _moment2.default)(this.state.goalDate).toNow()
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Button,
+                                null,
+                                'Abandon'
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Button,
+                                null,
+                                'Upload & Complete'
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Quest;
+}(_react.Component);
+
+Quest.propTypes = {
+    id: _propTypes2.default.string.isRequired,
+    startDate: _propTypes2.default.instanceOf(Date),
+    goalDate: _propTypes2.default.instanceOf(Date),
+    completed: _propTypes2.default.bool,
+    hidden: _propTypes2.default.bool,
+    statement: _propTypes2.default.string,
+    promoMode: _propTypes2.default.bool.isRequired,
+    label: _propTypes2.default.string,
+    description: _propTypes2.default.string,
+    prompt: _propTypes2.default.string,
+    hasError: _propTypes2.default.bool,
+    errorText: _propTypes2.default.string,
+    userInfo: _propTypes2.default.shape({
+        id: _propTypes2.default.string,
+        username: _propTypes2.default.string,
+        firstName: _propTypes2.default.string,
+        lastName: _propTypes2.default.string
+    }),
+    doRedirect: _propTypes2.default.bool
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        setGoalDate: function setGoalDate() {
+            dispatch(QuestActions.setGoalDate());
+        },
+        addNote: function addNote() {
+            dispatch(QuestActions.addNote());
+        },
+        joinQuest: function joinQuest() {
+            dispatch(QuestActions.joinQuest());
+        },
+        adabdonQuest: function adabdonQuest() {
+            dispatch(QuestActions.adabdonQuest());
+        },
+        seeAllMyQuests: function seeAllMyQuests() {
+            dispatch(QuestActions.seeAllMyQuests());
+        },
+        goToQuestPage: function goToQuestPage(redirect) {
+            dispatch(QuestActions.goToQuestPage(redirect));
+        }
+    };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        state: state['Quest'],
+        user: state['Nav']
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Quest);
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+module.exports = require("moment");
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("randomstring");
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1401,7 +1739,7 @@ module.exports = function neo4jSessionCleanup(req, res, next) {
 };
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1411,11 +1749,11 @@ var _response = __webpack_require__(1);
 
 var _response2 = _interopRequireDefault(_response);
 
-var _users = __webpack_require__(27);
+var _users = __webpack_require__(28);
 
 var _users2 = _interopRequireDefault(_users);
 
-var _dbUtils = __webpack_require__(5);
+var _dbUtils = __webpack_require__(6);
 
 var _dbUtils2 = _interopRequireDefault(_dbUtils);
 
@@ -1441,27 +1779,27 @@ module.exports = function setAuthUser(req, res, next) {
 };
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.images = __webpack_require__(70);
-exports.journeys = __webpack_require__(71);
-exports.locations = __webpack_require__(72);
-exports.meanings = __webpack_require__(73);
-exports.notebooks = __webpack_require__(74);
-exports.pages = __webpack_require__(75);
-exports.quests = __webpack_require__(76);
-exports.schemata = __webpack_require__(77);
-exports.suggestions = __webpack_require__(78);
-exports.tags = __webpack_require__(79);
-exports.users = __webpack_require__(80);
-exports.works = __webpack_require__(81);
+exports.images = __webpack_require__(73);
+exports.journeys = __webpack_require__(74);
+exports.locations = __webpack_require__(75);
+exports.meanings = __webpack_require__(76);
+exports.notebooks = __webpack_require__(77);
+exports.pages = __webpack_require__(78);
+exports.quests = __webpack_require__(79);
+exports.schemata = __webpack_require__(80);
+exports.suggestions = __webpack_require__(81);
+exports.tags = __webpack_require__(82);
+exports.users = __webpack_require__(83);
+exports.works = __webpack_require__(84);
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1479,21 +1817,21 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(125);
+var _reactRouter = __webpack_require__(128);
 
-var _server = __webpack_require__(123);
+var _server = __webpack_require__(126);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _index = __webpack_require__(109);
+var _index = __webpack_require__(112);
 
 var _index2 = _interopRequireDefault(_index);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
-var _ioc = __webpack_require__(101);
+var _ioc = __webpack_require__(104);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
@@ -1532,49 +1870,49 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = require("method-override");
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-schedule");
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = require("request");
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-jsdoc");
 
 /***/ }),
-/* 51 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -1660,17 +1998,17 @@ module.exports = {
 };
 
 /***/ }),
-/* 52 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _journey = __webpack_require__(55);
+var _journey = __webpack_require__(59);
 
 var _journey2 = _interopRequireDefault(_journey);
 
@@ -1689,17 +2027,17 @@ module.exports = {
 };
 
 /***/ }),
-/* 53 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _location = __webpack_require__(56);
+var _location = __webpack_require__(60);
 
 var _location2 = _interopRequireDefault(_location);
 
@@ -1718,17 +2056,17 @@ module.exports = {
 };
 
 /***/ }),
-/* 54 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _meaning = __webpack_require__(57);
+var _meaning = __webpack_require__(26);
 
 var _meaning2 = _interopRequireDefault(_meaning);
 
@@ -1791,7 +2129,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 55 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1816,7 +2154,7 @@ var Journey = module.exports = function (_node) {
 exports.default = Journey;
 
 /***/ }),
-/* 56 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1841,37 +2179,7 @@ var Location = module.exports = function (_node) {
 exports.default = Location;
 
 /***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _lodash = __webpack_require__(0);
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Meaning = module.exports = function (_node) {
-    _lodash2.default.extend(this, {
-        'id': _node.properties['id'],
-        'label': _node.properties['label'],
-        'description': _node.properties['description'],
-        'sourceURI': _node.properties['sourceURI'],
-        'schemaName': _node.properties['schemaName'],
-        'lastUpdate': _node.properties['lastUpdate']
-    });
-};
-
-exports.default = Meaning;
-
-/***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1896,7 +2204,7 @@ var Notebook = module.exports = function (_node) {
 exports.default = Notebook;
 
 /***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1921,7 +2229,7 @@ var Page = module.exports = function (_node) {
 exports.default = Page;
 
 /***/ }),
-/* 60 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1951,7 +2259,7 @@ var Quest = module.exports = function (_node) {
 exports.default = Quest;
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1977,7 +2285,7 @@ var Schema = module.exports = function (_node) {
 exports.default = Schema;
 
 /***/ }),
-/* 62 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2002,17 +2310,17 @@ var Work = module.exports = function (_node) {
 exports.default = Work;
 
 /***/ }),
-/* 63 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _notebook = __webpack_require__(58);
+var _notebook = __webpack_require__(61);
 
 var _notebook2 = _interopRequireDefault(_notebook);
 
@@ -2031,17 +2339,17 @@ module.exports = {
 };
 
 /***/ }),
-/* 64 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _page = __webpack_require__(59);
+var _page = __webpack_require__(62);
 
 var _page2 = _interopRequireDefault(_page);
 
@@ -2060,21 +2368,21 @@ module.exports = {
 };
 
 /***/ }),
-/* 65 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _quest = __webpack_require__(60);
+var _quest = __webpack_require__(63);
 
 var _quest2 = _interopRequireDefault(_quest);
 
-var _suggestion = __webpack_require__(26);
+var _suggestion = __webpack_require__(27);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
@@ -2082,7 +2390,7 @@ var _user = __webpack_require__(22);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _meaning = __webpack_require__(57);
+var _meaning = __webpack_require__(26);
 
 var _meaning2 = _interopRequireDefault(_meaning);
 
@@ -2125,25 +2433,32 @@ var display = function display(session, questId) {
     });
 };
 
+var mine = function mine(session, userId) {
+    return session.run('MATCH (u:User {id:{userId}}) MATCH (q:Quest)<-[:IS_PARTICIPATING_IN]-(u) RETURN q', { userId: userId }).then(function (results) {
+        return new _quest2.default(results.records[0].get('q'));
+    });
+};
+
 module.exports = {
     create: create,
     update: update,
     deletion: deletion,
-    display: display
+    display: display,
+    mine: mine
 };
 
 /***/ }),
-/* 66 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _schema = __webpack_require__(61);
+var _schema = __webpack_require__(64);
 
 var _schema2 = _interopRequireDefault(_schema);
 
@@ -2199,17 +2514,17 @@ module.exports = {
 };
 
 /***/ }),
-/* 67 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _suggestion = __webpack_require__(26);
+var _suggestion = __webpack_require__(27);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
@@ -2284,13 +2599,13 @@ module.exports = {
 };
 
 /***/ }),
-/* 68 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -2357,17 +2672,17 @@ module.exports = {
 };
 
 /***/ }),
-/* 69 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(8);
+var _uuid = __webpack_require__(9);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _work = __webpack_require__(62);
+var _work = __webpack_require__(65);
 
 var _work2 = _interopRequireDefault(_work);
 
@@ -2428,17 +2743,17 @@ module.exports = {
 };
 
 /***/ }),
-/* 70 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Images = __webpack_require__(51),
+var Images = __webpack_require__(55),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -2659,17 +2974,17 @@ exports.getTags = function (req, res, next) {
 };
 
 /***/ }),
-/* 71 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Journeys = __webpack_require__(52),
+var Journeys = __webpack_require__(56),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -2758,17 +3073,17 @@ exports.update = function (req, res, next) {};
 exports.deletion = function (req, res, next) {};
 
 /***/ }),
-/* 72 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Locations = __webpack_require__(53),
+var Locations = __webpack_require__(57),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -2857,17 +3172,17 @@ exports.update = function (req, res, next) {};
 exports.deletion = function (req, res, next) {};
 
 /***/ }),
-/* 73 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Meanings = __webpack_require__(54),
+var Meanings = __webpack_require__(58),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -2991,17 +3306,17 @@ exports.retrieve = function (req, res, next) {
 };
 
 /***/ }),
-/* 74 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Notebooks = __webpack_require__(63),
+var Notebooks = __webpack_require__(66),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -3090,17 +3405,17 @@ exports.update = function (req, res, next) {};
 exports.deletion = function (req, res, next) {};
 
 /***/ }),
-/* 75 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Pages = __webpack_require__(64),
+var Pages = __webpack_require__(67),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -3189,17 +3504,17 @@ exports.update = function (req, res, next) {};
 exports.deletion = function (req, res, next) {};
 
 /***/ }),
-/* 76 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Quests = __webpack_require__(65),
+var Quests = __webpack_require__(68),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 //ToDo: Update Swagger descriptions
@@ -3350,18 +3665,46 @@ exports.display = function (req, res, next) {
   }).catch(next);
 };
 
+/**
+ * @swagger
+ * /api/v0/quests/my-quests:
+ *   post:
+ *     tags:
+ *     - quests
+ *     description: Retrieves a user's quests
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.mine = function (req, res, next) {
+  var userId = _.get(req.body, 'userId');
+  Quests.mine(dbUtils.getSession(req), userId).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
+
 /***/ }),
-/* 77 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Schemata = __webpack_require__(66),
+var Schemata = __webpack_require__(69),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -3527,17 +3870,17 @@ exports.seed = function (req, res, next) {
 };
 
 /***/ }),
-/* 78 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Suggestions = __webpack_require__(67),
+var Suggestions = __webpack_require__(70),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -3683,17 +4026,17 @@ exports.getSuggestions = function (req, res, next) {
 };
 
 /***/ }),
-/* 79 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Tags = __webpack_require__(68),
+var Tags = __webpack_require__(71),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -3870,17 +4213,17 @@ exports.enrich = function (req, res, next) {
 exports.tagItem = function (req, res, next) {};
 
 /***/ }),
-/* 80 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Users = __webpack_require__(27),
+var Users = __webpack_require__(28),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 /**
  * @swagger
@@ -4079,17 +4422,17 @@ exports.deletion = function (req, res, next) {};
 exports.update = function (req, res, next) {};
 
 /***/ }),
-/* 81 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Works = __webpack_require__(69),
+var Works = __webpack_require__(72),
     writeResponse = __webpack_require__(1).writeResponse,
     writeError = __webpack_require__(1).writeError,
-    loginRequired = __webpack_require__(7),
-    dbUtils = __webpack_require__(5),
+    loginRequired = __webpack_require__(8),
+    dbUtils = __webpack_require__(6),
     _ = __webpack_require__(0);
 
 /**
@@ -4212,7 +4555,7 @@ exports.display = function (req, res, next) {
 };
 
 /***/ }),
-/* 82 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4222,7 +4565,7 @@ var _express = __webpack_require__(24);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(44);
+var _index = __webpack_require__(48);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -4230,23 +4573,23 @@ var _neo4j = __webpack_require__(23);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
-var _methodOverride = __webpack_require__(46);
+var _methodOverride = __webpack_require__(50);
 
 var _methodOverride2 = _interopRequireDefault(_methodOverride);
 
-var _swaggerJsdoc = __webpack_require__(50);
+var _swaggerJsdoc = __webpack_require__(54);
 
 var _swaggerJsdoc2 = _interopRequireDefault(_swaggerJsdoc);
 
-var _bodyParser = __webpack_require__(45);
+var _bodyParser = __webpack_require__(49);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _setAuthUser = __webpack_require__(42);
+var _setAuthUser = __webpack_require__(46);
 
 var _setAuthUser2 = _interopRequireDefault(_setAuthUser);
 
-var _neo4jSessionCleanup = __webpack_require__(41);
+var _neo4jSessionCleanup = __webpack_require__(45);
 
 var _neo4jSessionCleanup2 = _interopRequireDefault(_neo4jSessionCleanup);
 
@@ -4257,13 +4600,13 @@ var _response2 = _interopRequireDefault(_response);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 __webpack_require__(19).config();
-var PathHelper = __webpack_require__(9);
+var PathHelper = __webpack_require__(7);
 
-var request = __webpack_require__(49);
-var path = __webpack_require__(48);
+var request = __webpack_require__(53);
+var path = __webpack_require__(52);
 
-var routes = __webpack_require__(43);
-var scheduler = __webpack_require__(47);
+var routes = __webpack_require__(47);
+var scheduler = __webpack_require__(51);
 
 var app = (0, _express2.default)();
 var api = (0, _express2.default)();
@@ -4440,6 +4783,7 @@ api.post('/api/' + "v0" + '/quests/create', routes.quests.create);
 api.post('/api/' + "v0" + '/quests/update', routes.quests.update);
 api.post('/api/' + "v0" + '/quests/delete', routes.quests.deletion);
 api.post('/api/' + "v0" + '/quests/display', routes.quests.display);
+api.post('/api/' + "v0" + '/quests/my-quests', routes.quests.mine);
 
 app.listen("3000", function () {
     console.log('Ioc Express Server started on ' + "3000");
@@ -4460,7 +4804,7 @@ var schemaChron = scheduler.scheduleJob('15 * * * *', function () {
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 83 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4476,7 +4820,7 @@ var DISMISS_MATCHING_QUEST = exports.DISMISS_MATCHING_QUEST = 'DISMISS_MATCHING_
 var CONFIRM_MATCHING_QUEST = exports.CONFIRM_MATCHING_QUEST = 'CONFIRM_MATCHING_QUEST';
 
 /***/ }),
-/* 84 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4488,7 +4832,33 @@ Object.defineProperty(exports, "__esModule", {
 var GO_TO_PROFILE = exports.GO_TO_PROFILE = 'GO_TO_PROFILE';
 
 /***/ }),
-/* 85 */
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.loadMyQuests = undefined;
+
+var _quests = __webpack_require__(34);
+
+var QuestsActionTypes = _interopRequireWildcard(_quests);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var loadMyQuests = exports.loadMyQuests = function loadMyQuests(having, quests) {
+    return {
+        type: QuestsActionTypes.LOAD_MY_QUESTS,
+        having: having,
+        quests: quests
+    };
+};
+
+/***/ }),
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4499,7 +4869,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signIn = __webpack_require__(33);
+var _signIn = __webpack_require__(35);
 
 var SignInActionTypes = _interopRequireWildcard(_signIn);
 
@@ -4512,7 +4882,7 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 };
 
 /***/ }),
-/* 86 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4523,7 +4893,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signUp = __webpack_require__(34);
+var _signUp = __webpack_require__(36);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -4536,7 +4906,7 @@ var onClickSubmit = exports.onClickSubmit = function onClickSubmit() {
 };
 
 /***/ }),
-/* 87 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4547,7 +4917,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.showQuest = exports.hideSuggestion = exports.showSuggestion = exports.moreSuggestionsLikeThis = exports.undoTakeSuggestion = exports.takeSuggestion = undefined;
 
-var _suggestion = __webpack_require__(35);
+var _suggestion = __webpack_require__(37);
 
 var SuggestionActionTypes = _interopRequireWildcard(_suggestion);
 
@@ -4591,7 +4961,7 @@ var showQuest = exports.showQuest = function showQuest(meaning) {
 };
 
 /***/ }),
-/* 88 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4602,7 +4972,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.editBio = exports.uploadAvatar = undefined;
 
-var _userInfo = __webpack_require__(36);
+var _userInfo = __webpack_require__(38);
 
 var UserInfoActionTypes = _interopRequireWildcard(_userInfo);
 
@@ -4621,7 +4991,7 @@ var editBio = exports.editBio = function editBio() {
 };
 
 /***/ }),
-/* 89 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4637,7 +5007,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -4649,19 +5019,19 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _artwork_actions = __webpack_require__(37);
+var _artwork_actions = __webpack_require__(39);
 
 var ArtworkActions = _interopRequireWildcard(_artwork_actions);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _tag = __webpack_require__(96);
+var _tag = __webpack_require__(99);
 
 var _tag2 = _interopRequireDefault(_tag);
 
-var _suggestion = __webpack_require__(95);
+var _suggestion = __webpack_require__(98);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
@@ -4942,7 +5312,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Artwork);
 
 /***/ }),
-/* 90 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4958,13 +5328,13 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactDropzone = __webpack_require__(124);
+var _reactDropzone = __webpack_require__(127);
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
@@ -4976,11 +5346,11 @@ var _reactRouterDom = __webpack_require__(16);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _imageUploader_actions = __webpack_require__(38);
+var _imageUploader_actions = __webpack_require__(40);
 
 var ImageUploaderActions = _interopRequireWildcard(_imageUploader_actions);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
@@ -5385,7 +5755,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageUploader);
 
 /***/ }),
-/* 91 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5401,7 +5771,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -5413,17 +5783,17 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _quest_actions = __webpack_require__(39);
+var _quests_actions = __webpack_require__(88);
 
-var QuestActions = _interopRequireWildcard(_quest_actions);
+var QuestsActions = _interopRequireWildcard(_quests_actions);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _moment = __webpack_require__(119);
+var _quest = __webpack_require__(42);
 
-var _moment2 = _interopRequireDefault(_moment);
+var _quest2 = _interopRequireDefault(_quest);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -5435,243 +5805,112 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Quest = function (_Component) {
-    _inherits(Quest, _Component);
+var Quests = function (_Component) {
+    _inherits(Quests, _Component);
 
-    function Quest(props) {
-        _classCallCheck(this, Quest);
+    function Quests(props) {
+        _classCallCheck(this, Quests);
 
-        var _this = _possibleConstructorReturn(this, (Quest.__proto__ || Object.getPrototypeOf(Quest)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Quests.__proto__ || Object.getPrototypeOf(Quests)).call(this, props));
 
         _this.state = props;
         _this.setUser = _this.setUser.bind(_this);
+        _this.getMyQuests = _this.getMyQuests.bind(_this);
         return _this;
     }
 
-    _createClass(Quest, [{
+    _createClass(Quests, [{
+        key: 'getMyQuests',
+        value: function getMyQuests() {
+            var _this2 = this;
+
+            if (!this.state.stopper) {
+                var data = {
+                    userId: this.userId
+                };
+                _superagent2.default.post(_pathHelper2.default.apiPath + '/quests/my-quests').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                    if (!error && response) {
+                        var res = response.body;
+                        var questIds = [];
+                        for (var v in res) {
+                            if (res.hasOwnProperty(v)) {
+                                if (v === 'id') {
+                                    questIds.push({ id: res[v] });
+                                }
+                            }
+                        }
+                        _this2.props.loadMyQuests(true, questIds);
+                    } else {
+                        console.log('error retrieving your quests', error);
+                    }
+                });
+            }
+        }
+    }, {
         key: 'setUser',
         value: function setUser(data) {
             this.userId = data.id;
+            this.getMyQuests();
+            this.setState({ stopper: true });
         }
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             this.setState(nextProps.state);
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            this.setUser(this.props.user['userInfo']);
-            var data = {
-                questId: this.props.id
-            };
-            _superagent2.default.post(_pathHelper2.default.apiPath + '/quests/display').set('Content-Type', 'application/json').send(data).end(function (error, response) {
-                if (!error && response) {
-                    var responseData = {
-                        quest: {
-                            startDate: response.body.quest.startDate,
-                            goalDate: response.body.quest.goalDate,
-                            completed: response.body.quest.completed,
-                            hidden: response.body.quest.hidden,
-                            statement: response.body.quest.statement
-                        },
-                        suggestion: {
-                            prompt: response.body.suggestion.prompt
-                        },
-                        user: {
-                            id: response.body.user.id
-                        },
-                        meaning: {
-                            label: response.body.meaning.label,
-                            description: response.body.meaning.description,
-                            schemaName: response.body.meaning.schemaName
-                        }
-                    };
-                    _this2.setState({
-                        startDate: responseData.quest.startDate,
-                        goalDate: responseData.quest.goalDate,
-                        completed: responseData.quest.completed,
-                        hidden: responseData.quest.hidden,
-                        statement: responseData.quest.statement,
-                        label: responseData.meaning.label,
-                        description: responseData.meaning.description,
-                        prompt: responseData.suggestion.prompt
-                    });
-                } else {
-                    _this2.setState({ errorText: error, hasError: true });
-                }
-            });
+            if (nextProps.user.userInfo.id !== '' && nextProps.user.userInfo.id !== undefined) {
+                this.setUser(nextProps.user.userInfo);
+            }
         }
     }, {
         key: 'render',
         value: function render() {
+            var questGroup = null;
+            if (this.state.haveQuests) {
+                var quests = this.state.myQuests;
+                questGroup = quests.map(function (q, index) {
+                    return _react2.default.createElement(_quest2.default, { promoMode: true, id: q.id, key: index });
+                });
+            }
             return _react2.default.createElement(
-                _semanticUiReact.Container,
+                _semanticUiReact.Segment,
                 null,
-                this.props.promoMode ? _react2.default.createElement(
-                    _semanticUiReact.Container,
-                    null,
-                    _react2.default.createElement(
-                        _semanticUiReact.Card,
-                        null,
-                        _react2.default.createElement(_semanticUiReact.Card.Content, { header: this.state.prompt }),
-                        _react2.default.createElement(_semanticUiReact.Card.Content, { description: this.state.description }),
-                        _react2.default.createElement(
-                            _semanticUiReact.Card.Content,
-                            { extra: true },
-                            _react2.default.createElement(
-                                _semanticUiReact.Statistic,
-                                null,
-                                _react2.default.createElement(
-                                    _semanticUiReact.Statistic.Label,
-                                    null,
-                                    'Goal Date'
-                                ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Statistic.Value,
-                                    null,
-                                    (0, _moment2.default)(this.state.goalDate).toNow()
-                                )
-                            )
-                        )
-                    )
-                ) : _react2.default.createElement(
-                    _semanticUiReact.Container,
-                    null,
-                    _react2.default.createElement(
-                        _semanticUiReact.Segment,
-                        null,
-                        _react2.default.createElement(_semanticUiReact.Header, { content: this.state.prompt, subheader: "You started this quest on " + (0, _moment2.default)(this.state.startDate).format("dddd, MMMM Do YYYY, h:mm:ss a") }),
-                        _react2.default.createElement(_semanticUiReact.Divider, null),
-                        _react2.default.createElement(
-                            'h3',
-                            null,
-                            'About ',
-                            this.state.label
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            this.state.description
-                        ),
-                        this.state.completed ? _react2.default.createElement(
-                            _semanticUiReact.Container,
-                            null,
-                            _react2.default.createElement(
-                                'h3',
-                                null,
-                                'Completion Date'
-                            ),
-                            _react2.default.createElement(
-                                'p',
-                                null,
-                                'TK'
-                            )
-                        ) : _react2.default.createElement(
-                            _semanticUiReact.Container,
-                            null,
-                            _react2.default.createElement(
-                                _semanticUiReact.Statistic,
-                                null,
-                                _react2.default.createElement(
-                                    _semanticUiReact.Statistic.Label,
-                                    null,
-                                    'Goal Date'
-                                ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Statistic.Value,
-                                    null,
-                                    (0, _moment2.default)(this.state.goalDate).toNow()
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _semanticUiReact.Container,
-                            null,
-                            _react2.default.createElement(
-                                _semanticUiReact.Button,
-                                null,
-                                'Abandon'
-                            ),
-                            _react2.default.createElement(
-                                _semanticUiReact.Button,
-                                null,
-                                'Upload & Complete'
-                            )
-                        )
-                    )
-                )
+                _react2.default.createElement(_semanticUiReact.Header, { content: 'My quests' }),
+                questGroup
             );
         }
     }]);
 
-    return Quest;
+    return Quests;
 }(_react.Component);
 
-Quest.propTypes = {
-    id: _propTypes2.default.string.isRequired,
-    startDate: _propTypes2.default.instanceOf(Date),
-    goalDate: _propTypes2.default.instanceOf(Date),
-    completed: _propTypes2.default.bool,
-    hidden: _propTypes2.default.bool,
-    statement: _propTypes2.default.string,
-    promoMode: _propTypes2.default.bool.isRequired,
-    label: _propTypes2.default.string,
-    description: _propTypes2.default.string,
-    prompt: _propTypes2.default.string,
-    hasError: _propTypes2.default.bool,
-    errorText: _propTypes2.default.string,
-    userInfo: _propTypes2.default.shape({
-        id: _propTypes2.default.string,
-        username: _propTypes2.default.string,
-        firstName: _propTypes2.default.string,
-        lastName: _propTypes2.default.string
-    })
+Quests.propTypes = {
+    myQuests: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+        id: _propTypes2.default.string
+    })),
+    haveQuests: _propTypes2.default.bool,
+    stopper: _propTypes2.default.bool,
+    loadMyQuests: _propTypes2.default.func.isRequired
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        setGoalDate: function setGoalDate() {
-            dispatch(QuestActions.setGoalDate());
-        },
-        addNote: function addNote() {
-            dispatch(QuestActions.addNote());
-        },
-        joinQuest: function joinQuest() {
-            dispatch(QuestActions.joinQuest());
-        },
-        adabdonQuest: function adabdonQuest() {
-            dispatch(QuestActions.adabdonQuest());
-        },
-        seeAllMyQuests: function seeAllMyQuests() {
-            dispatch(QuestActions.seeAllMyQuests());
-        },
-        goToQuestPage: function goToQuestPage() {
-            dispatch(QuestActions.goToQuestPage());
+        loadMyQuests: function loadMyQuests(having, quests) {
+            dispatch(QuestsActions.loadMyQuests(having, quests));
         }
     };
 };
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        state: state['Quest'],
+        state: state['Quests'],
         user: state['Nav']
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Quest);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Quests);
 
 /***/ }),
-/* 92 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 93 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5695,7 +5934,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _reactRouterDom = __webpack_require__(16);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
@@ -5800,7 +6039,7 @@ var SignIn = function (_Component) {
 exports.default = SignIn;
 
 /***/ }),
-/* 94 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5824,7 +6063,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _reactRouterDom = __webpack_require__(16);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
@@ -6019,7 +6258,7 @@ var SignUp = function (_Component) {
 exports.default = SignUp;
 
 /***/ }),
-/* 95 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6035,7 +6274,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6045,11 +6284,11 @@ var _semanticUiReact = __webpack_require__(3);
 
 var _reactFontawesome = __webpack_require__(17);
 
-var _suggestion_actions = __webpack_require__(87);
+var _suggestion_actions = __webpack_require__(91);
 
 var SuggestionActions = _interopRequireWildcard(_suggestion_actions);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
@@ -6057,11 +6296,11 @@ var _superagent = __webpack_require__(10);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactDatepicker = __webpack_require__(122);
+var _reactDatepicker = __webpack_require__(125);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
-var _moment = __webpack_require__(119);
+var _moment = __webpack_require__(43);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -6312,7 +6551,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Suggestion);
 
 /***/ }),
-/* 96 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6380,7 +6619,7 @@ Tags.propTypes = {
 exports.default = Tags;
 
 /***/ }),
-/* 97 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6435,7 +6674,7 @@ UserCard.propTypes = {
 exports.default = UserCard;
 
 /***/ }),
-/* 98 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6451,7 +6690,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6461,11 +6700,11 @@ var _superagent = __webpack_require__(10);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _userCard = __webpack_require__(97);
+var _userCard = __webpack_require__(100);
 
 var _userCard2 = _interopRequireDefault(_userCard);
 
-var _userInfo_actions = __webpack_require__(88);
+var _userInfo_actions = __webpack_require__(92);
 
 var UserInfoActions = _interopRequireWildcard(_userInfo_actions);
 
@@ -6507,7 +6746,7 @@ var UserInfo = function (_Component) {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                'div',
+                _semanticUiReact.Segment,
                 null,
                 _react2.default.createElement(_userCard2.default, {
                     firstName: this.props.user['userInfo'].firstName,
@@ -6562,7 +6801,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UserInfo);
 
 /***/ }),
-/* 99 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6580,7 +6819,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6594,7 +6833,7 @@ var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _artwork_actions = __webpack_require__(37);
+var _artwork_actions = __webpack_require__(39);
 
 var ArtworkActionCreators = _interopRequireWildcard(_artwork_actions);
 
@@ -6608,11 +6847,11 @@ var _footer2 = _interopRequireDefault(_footer);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _artwork = __webpack_require__(89);
+var _artwork = __webpack_require__(93);
 
 var _artwork2 = _interopRequireDefault(_artwork);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
@@ -6708,7 +6947,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(ArtPage);
 
 /***/ }),
-/* 100 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6726,7 +6965,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6740,7 +6979,7 @@ var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _imageUploader_actions = __webpack_require__(38);
+var _imageUploader_actions = __webpack_require__(40);
 
 var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
 
@@ -6752,7 +6991,7 @@ var _footer = __webpack_require__(14);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _imageUploader = __webpack_require__(90);
+var _imageUploader = __webpack_require__(94);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
@@ -6850,7 +7089,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(HomePage);
 
 /***/ }),
-/* 101 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6866,33 +7105,33 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _artPage = __webpack_require__(99);
+var _artPage = __webpack_require__(102);
 
 var _artPage2 = _interopRequireDefault(_artPage);
 
-var _homePage = __webpack_require__(100);
+var _homePage = __webpack_require__(103);
 
 var _homePage2 = _interopRequireDefault(_homePage);
 
-var _signUpPage = __webpack_require__(105);
+var _signUpPage = __webpack_require__(108);
 
 var _signUpPage2 = _interopRequireDefault(_signUpPage);
 
-var _signInPage = __webpack_require__(104);
+var _signInPage = __webpack_require__(107);
 
 var _signInPage2 = _interopRequireDefault(_signInPage);
 
-var _profilePage = __webpack_require__(102);
+var _profilePage = __webpack_require__(105);
 
 var _profilePage2 = _interopRequireDefault(_profilePage);
 
-var _questPage = __webpack_require__(103);
+var _questPage = __webpack_require__(106);
 
 var _questPage2 = _interopRequireDefault(_questPage);
 
 var _reactRouterDom = __webpack_require__(16);
 
-var _pathHelper = __webpack_require__(9);
+var _pathHelper = __webpack_require__(7);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
@@ -6963,7 +7202,7 @@ var Ioc = function (_Component) {
 exports.default = Ioc;
 
 /***/ }),
-/* 102 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6981,7 +7220,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -6995,6 +7234,10 @@ var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
+var _quests_actions = __webpack_require__(88);
+
+var QuestsActionCreators = _interopRequireWildcard(_quests_actions);
+
 var _nav = __webpack_require__(15);
 
 var _nav2 = _interopRequireDefault(_nav);
@@ -7005,11 +7248,11 @@ var _footer2 = _interopRequireDefault(_footer);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _userInfo = __webpack_require__(98);
+var _userInfo = __webpack_require__(101);
 
 var _userInfo2 = _interopRequireDefault(_userInfo);
 
-var _quests = __webpack_require__(92);
+var _quests = __webpack_require__(95);
 
 var _quests2 = _interopRequireDefault(_quests);
 
@@ -7038,10 +7281,11 @@ var ProfilePage = function (_Component) {
             var dispatch = this.props.dispatch;
 
             var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
-            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
             var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
+            var loadMyQuests = (0, _redux.bindActionCreators)(QuestsActionCreators.loadMyQuests, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             return _react2.default.createElement(
                 'div',
                 null,
@@ -7054,14 +7298,15 @@ var ProfilePage = function (_Component) {
                         updateUserInfo: updateUserInfo,
                         setLoggedIn: setLoggedIn }),
                     _react2.default.createElement(
-                        _semanticUiReact.Segment,
+                        _semanticUiReact.Container,
                         null,
                         _react2.default.createElement(
                             'h1',
                             null,
                             'Profile'
                         ),
-                        _react2.default.createElement(_userInfo2.default, null)
+                        _react2.default.createElement(_userInfo2.default, null),
+                        _react2.default.createElement(_quests2.default, { loadMyQuests: loadMyQuests })
                     )
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
@@ -7086,7 +7331,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProfilePage);
 
 /***/ }),
-/* 103 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7104,7 +7349,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -7118,7 +7363,7 @@ var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _quest_actions = __webpack_require__(39);
+var _quest_actions = __webpack_require__(41);
 
 var QuestActionCreators = _interopRequireWildcard(_quest_actions);
 
@@ -7132,7 +7377,7 @@ var _footer2 = _interopRequireDefault(_footer);
 
 var _semanticUiReact = __webpack_require__(3);
 
-var _quest = __webpack_require__(91);
+var _quest = __webpack_require__(42);
 
 var _quest2 = _interopRequireDefault(_quest);
 
@@ -7214,7 +7459,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(QuestPage);
 
 /***/ }),
-/* 104 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7232,7 +7477,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -7246,7 +7491,7 @@ var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signIn_actions = __webpack_require__(85);
+var _signIn_actions = __webpack_require__(89);
 
 var SignInActionCreators = _interopRequireWildcard(_signIn_actions);
 
@@ -7258,7 +7503,7 @@ var _footer = __webpack_require__(14);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signInForm = __webpack_require__(93);
+var _signInForm = __webpack_require__(96);
 
 var _signInForm2 = _interopRequireDefault(_signInForm);
 
@@ -7329,7 +7574,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignInPage);
 
 /***/ }),
-/* 105 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7347,7 +7592,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(11);
 
-var _reactRedux = __webpack_require__(6);
+var _reactRedux = __webpack_require__(5);
 
 var _propTypes = __webpack_require__(4);
 
@@ -7361,7 +7606,7 @@ var _footer_actions = __webpack_require__(13);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _signUp_actions = __webpack_require__(86);
+var _signUp_actions = __webpack_require__(90);
 
 var SignUpActionCreators = _interopRequireWildcard(_signUp_actions);
 
@@ -7373,7 +7618,7 @@ var _footer = __webpack_require__(14);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _signUpForm = __webpack_require__(94);
+var _signUpForm = __webpack_require__(97);
 
 var _signUpForm2 = _interopRequireDefault(_signUpForm);
 
@@ -7444,7 +7689,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SignUpPage);
 
 /***/ }),
-/* 106 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7455,7 +7700,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Footer;
 
-var _artwork = __webpack_require__(28);
+var _artwork = __webpack_require__(29);
 
 var ArtworkActionTypes = _interopRequireWildcard(_artwork);
 
@@ -7511,7 +7756,7 @@ function Footer() {
 }
 
 /***/ }),
-/* 107 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7522,7 +7767,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Footer;
 
-var _footer = __webpack_require__(29);
+var _footer = __webpack_require__(30);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -7544,7 +7789,7 @@ function Footer() {
 }
 
 /***/ }),
-/* 108 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7558,7 +7803,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = ImageUploader;
 
-var _imageUploder = __webpack_require__(30);
+var _imageUploder = __webpack_require__(31);
 
 var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
 
@@ -7610,7 +7855,7 @@ function ImageUploader() {
 }
 
 /***/ }),
-/* 109 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7623,47 +7868,51 @@ exports.mainReducer = undefined;
 
 var _redux = __webpack_require__(11);
 
-var _footer = __webpack_require__(107);
+var _footer = __webpack_require__(110);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _nav = __webpack_require__(110);
+var _nav = __webpack_require__(113);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _signIn = __webpack_require__(112);
+var _signIn = __webpack_require__(116);
 
 var _signIn2 = _interopRequireDefault(_signIn);
 
-var _signUp = __webpack_require__(113);
+var _signUp = __webpack_require__(117);
 
 var _signUp2 = _interopRequireDefault(_signUp);
 
-var _imageUploader = __webpack_require__(108);
+var _imageUploader = __webpack_require__(111);
 
 var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
-var _artwork = __webpack_require__(106);
+var _artwork = __webpack_require__(109);
 
 var _artwork2 = _interopRequireDefault(_artwork);
 
-var _userCard = __webpack_require__(116);
+var _userCard = __webpack_require__(120);
 
 var _userCard2 = _interopRequireDefault(_userCard);
 
-var _suggestion = __webpack_require__(114);
+var _suggestion = __webpack_require__(118);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
-var _suggestions = __webpack_require__(115);
+var _suggestions = __webpack_require__(119);
 
 var _suggestions2 = _interopRequireDefault(_suggestions);
 
-var _quest = __webpack_require__(111);
+var _quest = __webpack_require__(114);
 
 var _quest2 = _interopRequireDefault(_quest);
 
-var _userInfo = __webpack_require__(117);
+var _quests = __webpack_require__(115);
+
+var _quests2 = _interopRequireDefault(_quests);
+
+var _userInfo = __webpack_require__(121);
 
 var _userInfo2 = _interopRequireDefault(_userInfo);
 
@@ -7680,13 +7929,13 @@ var mainReducer = exports.mainReducer = (0, _redux.combineReducers)({
     UserInfo: _userInfo2.default,
     Suggestions: _suggestions2.default,
     Suggestion: _suggestion2.default,
-    Quest: _quest2.default
+    Quest: _quest2.default,
+    Quests: _quests2.default
 });
-//import QuestsReducer from './quests';
 exports.default = mainReducer;
 
 /***/ }),
-/* 110 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7697,7 +7946,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Nav;
 
-var _nav = __webpack_require__(31);
+var _nav = __webpack_require__(32);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -7745,7 +7994,7 @@ function Nav() {
 }
 
 /***/ }),
-/* 111 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7756,7 +8005,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Quest;
 
-var _quest = __webpack_require__(32);
+var _quest = __webpack_require__(33);
 
 var QuestActionTypes = _interopRequireWildcard(_quest);
 
@@ -7774,7 +8023,8 @@ var initialState = {
     prompt: '',
     description: '',
     hasError: false,
-    errorText: ''
+    errorText: '',
+    doRedirect: false
 };
 
 function Quest() {
@@ -7793,14 +8043,57 @@ function Quest() {
         case QuestActionTypes.SEE_ALL_MY_QUESTS:
             return state;
         case QuestActionTypes.GO_TO_QUEST_PAGE:
-            return state;
+            return Object.assign({}, state, {
+                doRedirect: action.redirect
+            });
         default:
             return state;
     }
 }
 
 /***/ }),
-/* 112 */
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = Quests;
+
+var _quests = __webpack_require__(34);
+
+var QuestsActionTypes = _interopRequireWildcard(_quests);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var initialState = {
+    myQuests: [{
+        id: ''
+    }],
+    haveQuests: false,
+    stopper: false
+};
+
+function Quests() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case QuestsActionTypes.LOAD_MY_QUESTS:
+            return Object.assign({}, state, {
+                haveQuests: action.having,
+                myQuests: action.quests
+            });
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7811,7 +8104,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SignIn;
 
-var _signIn = __webpack_require__(33);
+var _signIn = __webpack_require__(35);
 
 var SignInActionTypes = _interopRequireWildcard(_signIn);
 
@@ -7836,7 +8129,7 @@ function SignIn() {
 }
 
 /***/ }),
-/* 113 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7847,7 +8140,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SignUp;
 
-var _signUp = __webpack_require__(34);
+var _signUp = __webpack_require__(36);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -7879,7 +8172,7 @@ function SignUp() {
 }
 
 /***/ }),
-/* 114 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7890,7 +8183,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Suggestion;
 
-var _suggestion = __webpack_require__(35);
+var _suggestion = __webpack_require__(37);
 
 var SuggestionActionTypes = _interopRequireWildcard(_suggestion);
 
@@ -7936,7 +8229,7 @@ function Suggestion() {
 }
 
 /***/ }),
-/* 115 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7947,7 +8240,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Suggestions;
 
-var _suggestions = __webpack_require__(83);
+var _suggestions = __webpack_require__(86);
 
 var SuggestionsActionTypes = _interopRequireWildcard(_suggestions);
 
@@ -7979,7 +8272,7 @@ function Suggestions() {
 }
 
 /***/ }),
-/* 116 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7990,7 +8283,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = UserCard;
 
-var _userCard = __webpack_require__(84);
+var _userCard = __webpack_require__(87);
 
 var UserCardActionTypes = _interopRequireWildcard(_userCard);
 
@@ -8016,7 +8309,7 @@ function UserCard() {
 }
 
 /***/ }),
-/* 117 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8027,7 +8320,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = UserInfo;
 
-var _userInfo = __webpack_require__(36);
+var _userInfo = __webpack_require__(38);
 
 var UserInfoActionTypes = _interopRequireWildcard(_userInfo);
 
@@ -8050,55 +8343,49 @@ function UserInfo() {
 }
 
 /***/ }),
-/* 118 */
+/* 122 */
 /***/ (function(module, exports) {
 
 module.exports = require("crypto");
 
 /***/ }),
-/* 119 */
-/***/ (function(module, exports) {
-
-module.exports = require("moment");
-
-/***/ }),
-/* 120 */
+/* 123 */
 /***/ (function(module, exports) {
 
 module.exports = require("nconf");
 
 /***/ }),
-/* 121 */
+/* 124 */
 /***/ (function(module, exports) {
 
 module.exports = require("neo4j-driver");
 
 /***/ }),
-/* 122 */
+/* 125 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-datepicker");
 
 /***/ }),
-/* 123 */
+/* 126 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 124 */
+/* 127 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dropzone");
 
 /***/ }),
-/* 125 */
+/* 128 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 126 */
+/* 129 */
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");

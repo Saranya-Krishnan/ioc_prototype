@@ -6,6 +6,7 @@ import { Container, Segment, Header, Divider, Button, Card, Statistic} from 'sem
 import * as QuestActions from '../actions/quest_actions'
 import PathHelper from '../helpers/path-helper';
 import moment from 'moment';
+import { Redirect } from 'react-router';
 
 class Quest extends Component {
     constructor(props) {
@@ -20,6 +21,9 @@ class Quest extends Component {
         this.setState(nextProps.state);
     }
     componentDidMount() {
+        if(!this.props.promoMode){
+            this.state.goToQuestPage(false);
+        }
         this.setUser(this.props.user['userInfo']);
         const data = {
             questId: this.props.id
@@ -69,7 +73,8 @@ class Quest extends Component {
         return(
             <Container>
                 {this.props.promoMode ?
-                    <Container>
+                    <Container onClick={ () => this.state.goToQuestPage(true)}>
+                        {this.state.doRedirect ? <Redirect push to={"/quest/"+this.props.id}/> : null}
                         <Card>
                             <Card.Content header={this.state.prompt}/>
                             <Card.Content description={this.state.description}/>
@@ -128,6 +133,7 @@ Quest.propTypes = {
         firstName:PropTypes.string,
         lastName:PropTypes.string
     }),
+    doRedirect: PropTypes.bool
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -147,8 +153,8 @@ const mapDispatchToProps = (dispatch) => {
         seeAllMyQuests: () => {
             dispatch(QuestActions.seeAllMyQuests())
         },
-        goToQuestPage: () => {
-            dispatch(QuestActions.goToQuestPage())
+        goToQuestPage: redirect => {
+            dispatch(QuestActions.goToQuestPage(redirect))
         }
     }
 };

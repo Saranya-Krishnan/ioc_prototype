@@ -9,7 +9,7 @@ import UserCardReducer from './user-card';
 import SuggestionReducer from './suggestion';
 import SuggestionsReducer from './suggestions';
 import QuestReducer from './quest';
-//import QuestsReducer from './quests';
+import QuestsReducer from './quests';
 import UserInfoReducer from './user-info';
 
 export const mainReducer = combineReducers({
@@ -23,6 +23,7 @@ export const mainReducer = combineReducers({
     UserInfo: UserInfoReducer,
     Suggestions: SuggestionsReducer,
     Suggestion: SuggestionReducer,
-    Quest: QuestReducer
+    Quest: QuestReducer,
+    Quests: QuestsReducer
 });
 export default mainReducer;

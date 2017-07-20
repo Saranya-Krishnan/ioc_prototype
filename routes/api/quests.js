@@ -155,3 +155,32 @@ exports.display = function (req, res, next) {
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
+
+
+/**
+ * @swagger
+ * /api/v0/quests/my-quests:
+ *   post:
+ *     tags:
+ *     - quests
+ *     description: Retrieves a user's quests
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.mine = function (req, res, next) {
+    const userId = _.get(req.body,'userId');
+    Quests.mine(dbUtils.getSession(req), userId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};

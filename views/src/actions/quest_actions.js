@@ -32,8 +32,8 @@ export const seeAllMyQuests = () => {
     };
 };
 
-export const goToQuestPage = () => {
+export const goToQuestPage = redirect => {
     return {
-        type: QuestActionTypes.GO_TO_QUEST_PAGE
+        type: QuestActionTypes.GO_TO_QUEST_PAGE, redirect
     };
 };

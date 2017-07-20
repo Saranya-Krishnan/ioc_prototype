@@ -12,7 +12,8 @@ const initialState = {
     prompt: '',
     description: '',
     hasError: false,
-    errorText: ''
+    errorText: '',
+    doRedirect: false
 };
 
 export default function Quest(state=initialState, action) {
@@ -28,7 +29,9 @@ export default function Quest(state=initialState, action) {
         case QuestActionTypes.SEE_ALL_MY_QUESTS:
             return state;
         case QuestActionTypes.GO_TO_QUEST_PAGE:
-            return state;
+            return Object.assign({}, state, {
+                doRedirect: action.redirect
+            });
         default:
             return state;
     }

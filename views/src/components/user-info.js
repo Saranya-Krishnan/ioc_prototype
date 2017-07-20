@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ajax from 'superagent';
 import UserCard from './user-card';
 import * as UserInfoActions from '../actions/user-info_actions'
-import { Button } from 'semantic-ui-react'
+import { Button, Segment } from 'semantic-ui-react'
 import {FontAwesome} from 'react-fontawesome';
 
 class UserInfo extends Component {
@@ -20,14 +20,14 @@ class UserInfo extends Component {
     }
     render(){
         return(
-            <div>
+            <Segment>
             <UserCard
                 firstName={this.props.user['userInfo'].firstName}
                 lastName={this.props.user['userInfo'].lastName}
             />
                 <Button onClick={this.props.uploadAvatar}>Edit Avatar</Button>
                 <Button onClick={this.props.editBio}>Edit Bio</Button>
-            </div>
+            </Segment>
         )
     }
 }
