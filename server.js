@@ -80,6 +80,7 @@ api.post('/api/'+process.env.API_VERSION+'/login', routes.users.login);
 api.get('/api/'+process.env.API_VERSION+'/users/me', routes.users.me);
 api.post('/api/'+process.env.API_VERSION+'/users/update', routes.users.update);
 api.post('/api/'+process.env.API_VERSION+'/users/delete', routes.users.deletion);
+api.post('/api/'+process.env.API_VERSION+'/users/update-preferences', routes.users.updatePreferences);
 
 // ***************************
 // * Images
@@ -104,12 +105,15 @@ api.post('/api/'+process.env.API_VERSION+'/images/get-tags', routes.images.getTa
 api.post('/api/'+process.env.API_VERSION+'/notebooks/create', routes.notebooks.create);
 api.post('/api/'+process.env.API_VERSION+'/notebooks/update', routes.notebooks.update);
 api.post('/api/'+process.env.API_VERSION+'/notebooks/delete', routes.notebooks.deletion);
+api.post('/api/'+process.env.API_VERSION+'/notebooks/mine', routes.notebooks.mine);
 // ***************************
 // * Pages
 // ***************************
 api.post('/api/'+process.env.API_VERSION+'/pages/create', routes.pages.create);
 api.post('/api/'+process.env.API_VERSION+'/pages/update', routes.pages.update);
 api.post('/api/'+process.env.API_VERSION+'/pages/delete', routes.pages.deletion);
+api.post('/api/'+process.env.API_VERSION+'/pages/in-notebook', routes.pages.inNotebook);
+
 // ***************************
 // * Works
 // ***************************

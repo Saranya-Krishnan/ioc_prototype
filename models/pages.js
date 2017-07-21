@@ -14,9 +14,15 @@ const deletion = function (session) {
 
 };
 
+const inNotebook = function (session) {
+
+};
+
+
 
 module.exports = {
     create: create,
     update: update,
-    deletion: deletion
+    deletion: deletion,
+    inNotebook:inNotebook
 };

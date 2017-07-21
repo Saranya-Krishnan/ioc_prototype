@@ -5,10 +5,15 @@ import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import * as ImageUploadCreators from '../actions/image-uploader_actions';
+import * as MyNotebookCreators from '../actions/my-notebooks_actions';
+import * as NotebookCreators from '../actions/notebook_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 import ImageUploader from '../components/image-uploader';
-import { Container, Segment, Grid, Image, Card } from 'semantic-ui-react';
+import MyNotebooks from '../components/my-notebooks';
+import Notebook from '../components/notebook';
+import { Container, Segment, Grid } from 'semantic-ui-react';
+
 
 class UploadPage extends Component {
     static propTypes = {
@@ -20,6 +25,11 @@ class UploadPage extends Component {
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
+        const getMyNotebooks = bindActionCreators(MyNotebookCreators.getMyNotebooks, dispatch);
+        const getPagesFromCurrentNotebook = bindActionCreators(MyNotebookCreators.getPagesFromCurrentNotebook, dispatch);
+        const setCurrentNotebook = bindActionCreators(MyNotebookCreators.setCurrentNotebook, dispatch);
+        const createNewNotebook = bindActionCreators(NotebookCreators.createNewNotebook, dispatch);
+
         const uploadImage = bindActionCreators(ImageUploadCreators.uploadImage, dispatch);
         const createImage = bindActionCreators(ImageUploadCreators.createImage, dispatch);
         const createArtwork = bindActionCreators(ImageUploadCreators.createArtwork, dispatch);
@@ -41,29 +51,37 @@ class UploadPage extends Component {
                         updateUserInfo={updateUserInfo}
                         setLoggedIn={setLoggedIn}>
                     </Nav>
-                    <Segment>
-                        <Grid divided>
-                            <Grid.Column width={10}>
-                                {/*Component*/}
-                                Notebooks
-                                {/*Component*/}
-                            </Grid.Column>
-                            <Grid.Column width={6}>
-                                <ImageUploader
-                                    makeMeaning={makeMeaning}
-                                    uploadImage={uploadImage}
-                                    getNewTagOntology={getNewTagOntology}
-                                    enrichNewTag={enrichNewTag}
-                                    createImage={createImage}
-                                    createArtwork={createArtwork}
-                                    classifyImage={classifyImage}
-                                    createTag={createTag}
-                                    exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
-                                    classificationToTags={classificationToTags}
-                                    visualRecognition={visualRecognition}/>
-                            </Grid.Column>
-                        </Grid>
-                    </Segment>
+                    { this.props.upload['MyNotebooks'].noteBooksFound > 0 ?
+                        <Segment>
+                            <Grid divided>
+                                <Grid.Column width={10}>
+                                <MyNotebooks
+                                    getMyNotebooks={getMyNotebooks}
+                                    getPagesFromCurrentNotebook={getPagesFromCurrentNotebook}
+                                    setCurrentNotebook={setCurrentNotebook}
+                                />
+                                </Grid.Column>
+                                <Grid.Column width={6}>
+                                    <ImageUploader
+                                        makeMeaning={makeMeaning}
+                                        uploadImage={uploadImage}
+                                        getNewTagOntology={getNewTagOntology}
+                                        enrichNewTag={enrichNewTag}
+                                        createImage={createImage}
+                                        createArtwork={createArtwork}
+                                        classifyImage={classifyImage}
+                                        createTag={createTag}
+                                        exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
+                                        classificationToTags={classificationToTags}
+                                        visualRecognition={visualRecognition}/>
+                                </Grid.Column>
+                            </Grid>
+                        </Segment>
+                    :   <Segment >
+                        <Notebook
+                            isNewNotebook={true}/>
+                        </Segment>
+                    }
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>

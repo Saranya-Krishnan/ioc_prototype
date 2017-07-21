@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Segment } from 'semantic-ui-react';
 import * as SuggestionsActions from '../actions/suggestions_actions'
-import Suggestion from './suggestion';
 
 class Suggestions extends Component {
     constructor(props) {

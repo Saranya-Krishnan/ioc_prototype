@@ -98,3 +98,34 @@ exports.update = function (req, res, next) {
 exports.deletion = function (req, res, next) {
 
 };
+
+/**
+ * @swagger
+ * /api/v0/pages/in-notebook:
+ *   post:
+ *     tags:
+ *     - pages
+ *     description: Displays pages in a given notebook
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.inNotebook = function (req, res, next) {
+    const userId = _.get(req.body,'userId');
+    const notebookId = _.get(req.body,'notebookId');
+    Pages.inNotebook(dbUtils.getSession(req), userId, notebookId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};

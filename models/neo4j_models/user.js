@@ -5,7 +5,8 @@ const User = module.exports = function (_node) {
         'id': _node.properties['id'],
         'username': _node.properties['email'],
         'firstName': _node.properties['firstName'],
-        'lastName': _node.properties['lastName']
+        'lastName': _node.properties['lastName'],
+        'preferences': _node.properties['preferences']
     });
 };
 

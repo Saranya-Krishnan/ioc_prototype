@@ -6,6 +6,7 @@ import SignInPage from './sign-in-page';
 import ProfilePage from './profile-page';
 import QuestPage from './quest-page';
 import UploadPage from './upload-page';
+import BrowsePage from './browse-page';
 import { Route } from 'react-router-dom';
 import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
@@ -40,6 +41,7 @@ export default class Ioc extends Component {
                 <Route path="/upload" component={UploadPage}/>
                 <Route path="/sign-up" component={SignUpPage}/>
                 <Route path="/sign-in" component={SignInPage}/>
+                <Route path="/journey" component={BrowsePage}/>
                 <Route path="/profile" component={ProfilePage}/>
                 <Route path="/art/:id" component={ArtPage}/>
                 <Route path="/user/artwork/:id" component={ArtPage}/>

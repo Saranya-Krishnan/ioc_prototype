@@ -205,3 +205,35 @@ exports.deletion = function (req, res, next) {
 exports.update = function (req, res, next) {
 
 };
+
+/**
+ * @swagger
+ * /api/v0/user/update-preferences:
+ *   post:
+ *     tags:
+ *     - tags
+ *     description: Updates a user's preferences
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.updatePreferences = function (req, res, next) {
+    const userId = _.get(req.body, 'userId');
+    const preferences = _.get(req.body, 'preferences');
+    Users.updatePreferences(dbUtils.getSession(req), userId, preferences)
+        .then(response => writeResponse(res, response))
+        .catch(next);
+};
+

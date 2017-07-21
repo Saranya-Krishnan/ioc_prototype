@@ -98,3 +98,34 @@ exports.update = function (req, res, next) {
 exports.deletion = function (req, res, next) {
 
 };
+
+
+/**
+ * @swagger
+ * /api/v0/notebooks/mine:
+ *   post:
+ *     tags:
+ *     - notebooks
+ *     description: Displays the user's notebook
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.mine = function (req, res, next) {
+    const userId = _.get(req.body,'userId');
+    Notebooks.mine(dbUtils.getSession(req), userId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};

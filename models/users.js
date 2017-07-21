@@ -11,7 +11,7 @@ const register = function (session, email, password, firstName, lastName) {
                 throw {err: 'username already in use', status: 400}
             }
             else {
-                return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, api_key: {api_key}}) RETURN user',
+                return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, api_key: {api_key}, preferences:{preferences}}) RETURN user',
                     {
                         id: uuid.v4(),
                         email: email,
@@ -21,7 +21,8 @@ const register = function (session, email, password, firstName, lastName) {
                         api_key: randomstring.generate({
                             length: 20,
                             charset: 'hex'
-                        })
+                        }),
+                        preferences: {}
                     }
                 ).then(results => {
                         return new User(results.records[0].get('user'));
@@ -48,13 +49,17 @@ const login = function (session, email, password) {
                 }
                 else {
                     const dbUser = _.get(results.records[0].get('user'), 'properties');
-                    if (dbUser.password != hashPassword(email, password)) {
+                    if (dbUser.password !== hashPassword(email, password)) {
                         throw {password: 'wrong password', status: 400}
                     }
                     return {token: _.get(dbUser, 'api_key')};
                 }
             }
         );
+};
+
+const updatePreferences = function (session, email, preferences, userId) {
+    //ToDo: Create update prefs call
 };
 
 function hashPassword(username, password) {
@@ -65,5 +70,6 @@ function hashPassword(username, password) {
 module.exports = {
     register: register,
     me: me,
-    login: login
+    login: login,
+    updatePreferences: updatePreferences
 };

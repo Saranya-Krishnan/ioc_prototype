@@ -13,6 +13,9 @@ import QuestsReducer from './quests';
 import UserInfoReducer from './user-info';
 import MyArtworkReducer from './my-artwork';
 import ArtworkCardReducer from './artwork-card';
+import MyNotebooksReducer from './my-notebooks';
+import NotebookReducer from './notebook';
+
 
 export const mainReducer = combineReducers({
     Footer: FooterReducer,
@@ -28,6 +31,8 @@ export const mainReducer = combineReducers({
     Quest: QuestReducer,
     Quests: QuestsReducer,
     MyArtwork: MyArtworkReducer,
-    ArtworkCard: ArtworkCardReducer
+    ArtworkCard: ArtworkCardReducer,
+    MyNotebooks: MyNotebooksReducer,
+    Notebook: NotebookReducer
 });
 export default mainReducer;
