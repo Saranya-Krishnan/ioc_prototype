@@ -5,6 +5,7 @@ import SignUpPage from './sign-up-page';
 import SignInPage from './sign-in-page';
 import ProfilePage from './profile-page';
 import QuestPage from './quest-page';
+import UploadPage from './upload-page';
 import { Route } from 'react-router-dom';
 import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
@@ -36,6 +37,7 @@ export default class Ioc extends Component {
         return (
             <div>
                 <Route exact={true} path="/" component={HomePage}/>
+                <Route path="/upload" component={UploadPage}/>
                 <Route path="/sign-up" component={SignUpPage}/>
                 <Route path="/sign-in" component={SignInPage}/>
                 <Route path="/profile" component={ProfilePage}/>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import ajax from 'superagent';
 import { Link } from 'react-router-dom';
-import { Segment, Image, Loader, Dimmer } from 'semantic-ui-react';
+import { Container, Image, Loader, Dimmer } from 'semantic-ui-react';
 import * as ImageUploaderActions from '../actions/image-uploader_actions'
 import PathHelper from '../helpers/path-helper';
 
@@ -230,7 +230,7 @@ class ImageUploader extends Component {
     }
     render() {
         return (
-            <Segment className="image-uploader-hold">
+            <Container className="image-uploader-hold">
                 { this.state.hasUploaded === true ? null :
                     <h1>Upload your Moleskine artwork.</h1>
                 }
@@ -269,7 +269,7 @@ class ImageUploader extends Component {
                           : null
                         }
                 </form>
-            </Segment>
+            </Container>
         )
     }
 }

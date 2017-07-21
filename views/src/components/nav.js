@@ -37,17 +37,19 @@ class Nav extends Component {
     }
     render(){
         return (
-            <Container text className="nav-container">
-                <Menu pointing secondary>
+            <Container className="nav-container">
+                <Menu pointing secondary fluid>
                     <Link to="/" className={this.state.activeItem === 'home' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('home')}>Home</Link>
-                    { !this.state.isLoggedIn &&
+                    <Link to="/" className={this.state.activeItem === 'journey' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('journey')}>Start a Journey</Link>
+                    {!this.state.isLoggedIn ? null
+                    : <Link to="/upload" className={this.state.activeItem === 'upload' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('upload')}>Capture My Notebook</Link>
+                    }
+                    { !this.state.isLoggedIn ?
                     <Menu.Menu position='right'>
                         <Link to="/sign-in" className={this.state.activeItem === 'sign-in' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-in')}>Sign In</Link>
                         <Link to="/sign-up" className={this.state.activeItem === 'sign-up' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-up')}>Sign Up</Link>
                     </Menu.Menu>
-                    }
-                    { this.state.isLoggedIn &&
-                    <Menu.Menu position='right'>
+                    : <Menu.Menu position='right'>
                         <Link to="/" className="item" onClick={ () => this.props.signOut()}>Sign Out</Link>
                         <Link to="/profile" className={this.state.activeItem === 'profile' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('profile')}><FontAwesome name="user" className="icon profile-icon"/>{this.state.userInfo.firstName}</Link>
                     </Menu.Menu>

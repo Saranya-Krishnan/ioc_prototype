@@ -10577,10 +10577,10 @@ var Nav = function (_Component) {
 
             return _react2.default.createElement(
                 _semanticUiReact.Container,
-                { text: true, className: 'nav-container' },
+                { className: 'nav-container' },
                 _react2.default.createElement(
                     _semanticUiReact.Menu,
-                    { pointing: true, secondary: true },
+                    { pointing: true, secondary: true, fluid: true },
                     _react2.default.createElement(
                         _reactRouterDom.Link,
                         { to: '/', className: this.state.activeItem === 'home' ? 'active item' : 'item', onClick: function onClick() {
@@ -10588,7 +10588,21 @@ var Nav = function (_Component) {
                             } },
                         'Home'
                     ),
-                    !this.state.isLoggedIn && _react2.default.createElement(
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: '/', className: this.state.activeItem === 'journey' ? 'active item' : 'item', onClick: function onClick() {
+                                return _this3.props.clickMenuItem('journey');
+                            } },
+                        'Start a Journey'
+                    ),
+                    !this.state.isLoggedIn ? null : _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: '/upload', className: this.state.activeItem === 'upload' ? 'active item' : 'item', onClick: function onClick() {
+                                return _this3.props.clickMenuItem('upload');
+                            } },
+                        'Capture My Notebook'
+                    ),
+                    !this.state.isLoggedIn ? _react2.default.createElement(
                         _semanticUiReact.Menu.Menu,
                         { position: 'right' },
                         _react2.default.createElement(
@@ -10605,8 +10619,7 @@ var Nav = function (_Component) {
                                 } },
                             'Sign Up'
                         )
-                    ),
-                    this.state.isLoggedIn && _react2.default.createElement(
+                    ) : _react2.default.createElement(
                         _semanticUiReact.Menu.Menu,
                         { position: 'right' },
                         _react2.default.createElement(
@@ -47619,6 +47632,10 @@ var _questPage = __webpack_require__(627);
 
 var _questPage2 = _interopRequireDefault(_questPage);
 
+var _uploadPage = __webpack_require__(1128);
+
+var _uploadPage2 = _interopRequireDefault(_uploadPage);
+
 var _reactRouterDom = __webpack_require__(61);
 
 var _pathHelper = __webpack_require__(36);
@@ -47675,6 +47692,7 @@ var Ioc = function (_Component) {
                 'div',
                 null,
                 _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _homePage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/upload', component: _uploadPage2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-up', component: _signUpPage2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/sign-in', component: _signInPage2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/profile', component: _profilePage2.default }),
@@ -48924,7 +48942,7 @@ var ImageUploader = function (_Component) {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                _semanticUiReact.Segment,
+                _semanticUiReact.Container,
                 { className: 'image-uploader-hold' },
                 this.state.hasUploaded === true ? null : _react2.default.createElement(
                     'h1',
@@ -50445,10 +50463,6 @@ var _footer_actions = __webpack_require__(75);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _imageUploader_actions = __webpack_require__(270);
-
-var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
-
 var _nav = __webpack_require__(77);
 
 var _nav2 = _interopRequireDefault(_nav);
@@ -50456,10 +50470,6 @@ var _nav2 = _interopRequireDefault(_nav);
 var _footer = __webpack_require__(76);
 
 var _footer2 = _interopRequireDefault(_footer);
-
-var _imageUploader = __webpack_require__(615);
-
-var _imageUploader2 = _interopRequireDefault(_imageUploader);
 
 var _semanticUiReact = __webpack_require__(22);
 
@@ -50491,17 +50501,6 @@ var HomePage = function (_Component) {
             var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
             var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
             var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
-            var uploadImage = (0, _redux.bindActionCreators)(ImageUploadCreators.uploadImage, dispatch);
-            var createImage = (0, _redux.bindActionCreators)(ImageUploadCreators.createImage, dispatch);
-            var createArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.createArtwork, dispatch);
-            var classifyImage = (0, _redux.bindActionCreators)(ImageUploadCreators.classifyImage, dispatch);
-            var createTag = (0, _redux.bindActionCreators)(ImageUploadCreators.createTag, dispatch);
-            var getNewTagOntology = (0, _redux.bindActionCreators)(ImageUploadCreators.getNewTagOntology, dispatch);
-            var enrichNewTag = (0, _redux.bindActionCreators)(ImageUploadCreators.enrichNewTag, dispatch);
-            var makeMeaning = (0, _redux.bindActionCreators)(ImageUploadCreators.makeMeaning, dispatch);
-            var exploreBasedOnThisArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
-            var classificationToTags = (0, _redux.bindActionCreators)(ImageUploadCreators.classificationToTags, dispatch);
-            var visualRecognition = (0, _redux.bindActionCreators)(ImageUploadCreators.visualRecognition, dispatch);
             var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
             return _react2.default.createElement(
                 'div',
@@ -50514,23 +50513,166 @@ var HomePage = function (_Component) {
                         clickMenuItem: clickMenuItem,
                         updateUserInfo: updateUserInfo,
                         setLoggedIn: setLoggedIn }),
-                    _react2.default.createElement(
+                    !this.props.home['Nav'].isLoggedIn ? _react2.default.createElement(
                         'div',
                         null,
-                        'select notebook'
+                        _react2.default.createElement(
+                            _semanticUiReact.Segment,
+                            null,
+                            'Key visual'
+                        ),
+                        _react2.default.createElement(_semanticUiReact.Divider, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Grid,
+                            { divided: true },
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'Intro Copy'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 8 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'Featured'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'CTA'
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(_semanticUiReact.Divider, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Grid,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'Latest Img'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'Latest Img'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'Latest Img'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'Latest Img'
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Segment,
+                            null,
+                            'Large Offer'
+                        ),
+                        _react2.default.createElement(
+                            _semanticUiReact.Grid,
+                            null,
+                            _react2.default.createElement(_semanticUiReact.Grid.Column, { width: 2 }),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'How it works'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'How it works'
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 4 },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Segment,
+                                    null,
+                                    'How it works'
+                                )
+                            ),
+                            _react2.default.createElement(_semanticUiReact.Grid.Column, { width: 2 })
+                        ),
+                        _react2.default.createElement(_semanticUiReact.Divider, null)
+                    ) : _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid,
+                                { divided: true },
+                                _react2.default.createElement(
+                                    _semanticUiReact.Grid.Column,
+                                    { width: 3 },
+                                    _react2.default.createElement(
+                                        _semanticUiReact.Segment,
+                                        null,
+                                        'Controls/Notebooks'
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Grid.Column,
+                                    { width: 10 },
+                                    _react2.default.createElement(
+                                        _semanticUiReact.Segment,
+                                        null,
+                                        'Wall'
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Grid.Column,
+                                    { width: 3 },
+                                    _react2.default.createElement(
+                                        _semanticUiReact.Segment,
+                                        null,
+                                        'Social'
+                                    )
+                                )
+                            )
+                        )
                     ),
-                    _react2.default.createElement(_imageUploader2.default, {
-                        makeMeaning: makeMeaning,
-                        uploadImage: uploadImage,
-                        getNewTagOntology: getNewTagOntology,
-                        enrichNewTag: enrichNewTag,
-                        createImage: createImage,
-                        createArtwork: createArtwork,
-                        classifyImage: classifyImage,
-                        createTag: createTag,
-                        exploreBasedOnThisArtwork: exploreBasedOnThisArtwork,
-                        classificationToTags: classificationToTags,
-                        visualRecognition: visualRecognition })
+                    _react2.default.createElement(_semanticUiReact.Container, null)
                 ),
                 _react2.default.createElement(_footer2.default, {
                     clickFooterItem: clickFooterItem })
@@ -89768,6 +89910,160 @@ var goToArtworkPage = exports.goToArtworkPage = function goToArtworkPage(redirec
         type: ArtworkCardActionTypes.GO_TO_ARTWORK_PAGE, redirect: redirect
     };
 };
+
+/***/ }),
+/* 1128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(44);
+
+var _reactRedux = __webpack_require__(26);
+
+var _propTypes = __webpack_require__(10);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _nav_actions = __webpack_require__(62);
+
+var NavActionCreators = _interopRequireWildcard(_nav_actions);
+
+var _footer_actions = __webpack_require__(75);
+
+var FooterActionCreators = _interopRequireWildcard(_footer_actions);
+
+var _imageUploader_actions = __webpack_require__(270);
+
+var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
+
+var _nav = __webpack_require__(77);
+
+var _nav2 = _interopRequireDefault(_nav);
+
+var _footer = __webpack_require__(76);
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _imageUploader = __webpack_require__(615);
+
+var _imageUploader2 = _interopRequireDefault(_imageUploader);
+
+var _semanticUiReact = __webpack_require__(22);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UploadPage = function (_Component) {
+    _inherits(UploadPage, _Component);
+
+    function UploadPage() {
+        _classCallCheck(this, UploadPage);
+
+        return _possibleConstructorReturn(this, (UploadPage.__proto__ || Object.getPrototypeOf(UploadPage)).apply(this, arguments));
+    }
+
+    _createClass(UploadPage, [{
+        key: 'render',
+        value: function render() {
+            var dispatch = this.props.dispatch;
+
+            var clickMenuItem = (0, _redux.bindActionCreators)(NavActionCreators.clickMenuItem, dispatch);
+            var updateUserInfo = (0, _redux.bindActionCreators)(NavActionCreators.updateUserInfo, dispatch);
+            var setLoggedIn = (0, _redux.bindActionCreators)(NavActionCreators.setLoggedIn, dispatch);
+            var signOut = (0, _redux.bindActionCreators)(NavActionCreators.signOut, dispatch);
+            var uploadImage = (0, _redux.bindActionCreators)(ImageUploadCreators.uploadImage, dispatch);
+            var createImage = (0, _redux.bindActionCreators)(ImageUploadCreators.createImage, dispatch);
+            var createArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.createArtwork, dispatch);
+            var classifyImage = (0, _redux.bindActionCreators)(ImageUploadCreators.classifyImage, dispatch);
+            var createTag = (0, _redux.bindActionCreators)(ImageUploadCreators.createTag, dispatch);
+            var getNewTagOntology = (0, _redux.bindActionCreators)(ImageUploadCreators.getNewTagOntology, dispatch);
+            var enrichNewTag = (0, _redux.bindActionCreators)(ImageUploadCreators.enrichNewTag, dispatch);
+            var makeMeaning = (0, _redux.bindActionCreators)(ImageUploadCreators.makeMeaning, dispatch);
+            var exploreBasedOnThisArtwork = (0, _redux.bindActionCreators)(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
+            var classificationToTags = (0, _redux.bindActionCreators)(ImageUploadCreators.classificationToTags, dispatch);
+            var visualRecognition = (0, _redux.bindActionCreators)(ImageUploadCreators.visualRecognition, dispatch);
+            var clickFooterItem = (0, _redux.bindActionCreators)(FooterActionCreators.clickFooterItem, dispatch);
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _semanticUiReact.Container,
+                    { className: 'main-content' },
+                    _react2.default.createElement(_nav2.default, {
+                        signOut: signOut,
+                        clickMenuItem: clickMenuItem,
+                        updateUserInfo: updateUserInfo,
+                        setLoggedIn: setLoggedIn }),
+                    _react2.default.createElement(
+                        _semanticUiReact.Segment,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Grid,
+                            { divided: true },
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 10 },
+                                'Notebooks'
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { width: 6 },
+                                _react2.default.createElement(_imageUploader2.default, {
+                                    makeMeaning: makeMeaning,
+                                    uploadImage: uploadImage,
+                                    getNewTagOntology: getNewTagOntology,
+                                    enrichNewTag: enrichNewTag,
+                                    createImage: createImage,
+                                    createArtwork: createArtwork,
+                                    classifyImage: classifyImage,
+                                    createTag: createTag,
+                                    exploreBasedOnThisArtwork: exploreBasedOnThisArtwork,
+                                    classificationToTags: classificationToTags,
+                                    visualRecognition: visualRecognition })
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(_footer2.default, {
+                    clickFooterItem: clickFooterItem })
+            );
+        }
+    }]);
+
+    return UploadPage;
+}(_react.Component);
+
+UploadPage.propTypes = {
+    upload: _propTypes2.default.object.isRequired
+};
+
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        upload: state
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(UploadPage);
 
 /***/ })
 /******/ ]);

@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
-import * as ImageUploadCreators from '../actions/image-uploader_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
-import ImageUploader from '../components/image-uploader';
-import { Container } from 'semantic-ui-react';
+import { Container, Segment, Grid, Divider } from 'semantic-ui-react';
 
 class HomePage extends Component {
     static propTypes = {
@@ -20,17 +18,6 @@ class HomePage extends Component {
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
-        const uploadImage = bindActionCreators(ImageUploadCreators.uploadImage, dispatch);
-        const createImage = bindActionCreators(ImageUploadCreators.createImage, dispatch);
-        const createArtwork = bindActionCreators(ImageUploadCreators.createArtwork, dispatch);
-        const classifyImage = bindActionCreators(ImageUploadCreators.classifyImage, dispatch);
-        const createTag = bindActionCreators(ImageUploadCreators.createTag, dispatch);
-        const getNewTagOntology = bindActionCreators(ImageUploadCreators.getNewTagOntology, dispatch);
-        const enrichNewTag = bindActionCreators(ImageUploadCreators.enrichNewTag, dispatch);
-        const makeMeaning = bindActionCreators(ImageUploadCreators.makeMeaning, dispatch);
-        const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
-        const classificationToTags = bindActionCreators(ImageUploadCreators.classificationToTags, dispatch);
-        const visualRecognition = bindActionCreators(ImageUploadCreators.visualRecognition, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         return (
             <div>
@@ -41,19 +28,99 @@ class HomePage extends Component {
                         updateUserInfo={updateUserInfo}
                         setLoggedIn={setLoggedIn}>
                     </Nav>
-                    <div>select notebook</div>
-                    <ImageUploader
-                        makeMeaning={makeMeaning}
-                        uploadImage={uploadImage}
-                        getNewTagOntology={getNewTagOntology}
-                        enrichNewTag={enrichNewTag}
-                        createImage={createImage}
-                        createArtwork={createArtwork}
-                        classifyImage={classifyImage}
-                        createTag={createTag}
-                        exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
-                        classificationToTags={classificationToTags}
-                        visualRecognition={visualRecognition}/>
+
+                    {/*Not logged in promo mode*/}
+                    {! this.props.home['Nav'].isLoggedIn ?
+                    <div>
+                        <Segment>Key visual</Segment>
+                        <Divider />
+
+                        {/*Component*/}
+
+                        <Grid divided>
+                            <Grid.Column width={4}>
+                                <Segment>Intro Copy</Segment>
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                               <Segment>Featured</Segment>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Segment>CTA</Segment>
+                            </Grid.Column>
+                        </Grid>
+                        <Divider />
+
+
+                        {/*Component*/}
+
+
+                        <Grid>
+                            <Grid.Column width={4}>
+                                <Segment>Latest Img</Segment>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Segment>Latest Img</Segment>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Segment>Latest Img</Segment>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Segment>Latest Img</Segment>
+                            </Grid.Column>
+                        </Grid>
+
+
+                        {/*Component*/}
+
+
+                        <Segment>Large Offer</Segment>
+                        <Grid>
+                            <Grid.Column width={2}>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Segment>How it works</Segment>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Segment>How it works</Segment>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Segment>How it works</Segment>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                            </Grid.Column>
+                        </Grid>
+                        <Divider />
+
+                        {/*Component*/}
+                    </div> :
+                     <div>
+                        <Container>
+                            <Grid divided>
+                                <Grid.Column width={3}>
+
+                                    {/*Component*/}
+                                    <Segment>Controls/Notebooks</Segment>
+                                    {/*Component*/}
+
+                                </Grid.Column>
+                                <Grid.Column width={10}>
+
+                                    {/*Component*/}
+                                    <Segment>Wall</Segment>
+                                    {/*Component*/}
+
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    {/*Component*/}
+                                    <Segment>Social</Segment>
+                                    {/*Component*/}
+
+                                </Grid.Column>
+                            </Grid>
+                        </Container>
+                    </div>
+                    }
+                    <Container/>
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>
