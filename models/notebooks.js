@@ -1,12 +1,41 @@
 import uuid from 'uuid';
 import Notebook from './neo4j_models/notebook';
+import _ from 'lodash';
 
-
-const create = function (session) {
-
+const create = function (session, when, what, how, name1, name2, name3, userId) {
+    const notebookId = uuid.v4();
+    return session.run('MATCH (n:Notebook {id:{notebookId}}) RETURN n',{notebookId:notebookId}
+        ).then(results => {
+        if (!_.isEmpty(results.records)) {
+            throw {url: 'Notebook already in use', status: 400}
+        } else {
+            return session.run('CREATE (notebook:Notebook {id:{notebookId}, when:{when}, how:{how}, name1:{name1}, name2:{name2}, name3:{name3}}) RETURN notebook', {
+                    notebookId: notebookId,
+                    when: when,
+                    what: what,
+                    how: how,
+                    name1: name1,
+                    name2: name2,
+                    name3: name3
+                }
+            ).then(results => {
+                    const notebook = new Notebook(results.records[0].get('notebook'));
+                    return session.run('MATCH (nb:Notebook {id:{notebookId}}) CREATE (u:User {id:{userId}})-[:OWNS_THIS_BOOK]->(n:Notebook) RETURN nb', {
+                            notebookId: notebookId,
+                            userId: userId
+                        }
+                    ).then(Nresults => {
+                            return notebook;
+                        }
+                    )
+                }
+            )
+        }
+    })
 };
 
-const update = function (session) {
+
+const update = function (session3) {
 
 };
 

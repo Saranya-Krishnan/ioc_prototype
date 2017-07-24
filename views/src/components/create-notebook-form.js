@@ -1,0 +1,144 @@
+import React, { Component } from 'react';
+import { Button, Form } from 'semantic-ui-react'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import ajax from 'superagent';
+import * as CreateNotebookFormActions from '../actions/create-notebook-form_actions'
+import PathHelper from '../helpers/path-helper';
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import { Redirect } from 'react-router';
+
+class CreateNotebookForm extends Component {
+    constructor(props){
+        super(props);
+        this.state = props;
+        this.setUser = this.setUser.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleNext= this.handleNext.bind(this);
+        this.handleTyping = this.handleTyping.bind(this);
+        this.handleDatePicker = this.handleDatePicker.bind(this);
+    }
+    setUser(data){
+        this.props.updateUserId(data.id);
+    }
+    handleDatePicker(date){
+        this.setState({startDate: date});
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState(nextProps.state);
+    }
+    componentWillMount(){
+        this.setState({when: moment()});
+    }
+    handleNext(e){
+        e.preventDefault();
+        this.setUser(this.props.user['userInfo']);
+        this.props.nextStep(1);
+    }
+    handleSubmit(e){
+        e.preventDefault();
+        ajax.post(PathHelper.apiPath + '/notebooks/create')
+            .set('Content-Type', 'application/json')
+            .send(JSON.stringify(this.state))
+            .end((error, response) => {
+                    if (!error && response) {
+                        const nId = response.body.id;
+                        this.setState({ noteBookId: nId,  doRedirect: true});
+                    } else {
+                        console.log('Error submitting your notebook', error);
+                    }
+                }
+            );
+    };
+    handleTyping(e){
+        e.preventDefault();
+        const target = e.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        });
+    };
+    render(){
+        return(
+            <div>
+                {this.state.step === 0 ?
+                    <div>
+                        <Form onSubmit={this.handleNext}>
+                            <Form.Field>
+                                <label>Name</label>
+                                <input placeholder='' name='name1' value={this.props.name1}
+                                       onChange={this.handleTyping}/>
+                                <input placeholder='' name='name2' value={this.props.name2}
+                                       onChange={this.handleTyping}/>
+                                <input placeholder='' name='name3' value={this.props.name3}
+                                       onChange={this.handleTyping}/>
+                            </Form.Field>
+                            <Button type='submit' onClick={() => this.handleNext}>Next</Button>
+                        </Form>
+                    </div>
+                    :
+                    <div>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Field>
+                                <label>When did receive this notebook?</label>
+                                <DatePicker
+                                    selected={this.state.when}
+                                    onChange={this.handleDatePicker}
+                                />
+                            </Form.Field>
+                            <Form.Field>
+                                <label>How do you plan to use it?</label>
+                                <input placeholder='' name='how' value={this.props.how} onChange={this.handleTyping}/>
+                            </Form.Field>
+                            <Form.Field>
+                                <label>What do you wish to accomplish by the time you've filled this notebook?</label>
+                                <input placeholder='' name='what' value={this.props.what} onChange={this.handleTyping}/>
+                                <input type="hidden" name="userId" value={this.state.userId}/>
+                            </Form.Field>
+                            <Button type='submit' onClick={() => this.handleSubmit}>Submit</Button>
+                        </Form>
+                    </div>
+                }
+                {this.state.doRedirect ? <Redirect to={"/notebooks/"+this.state.noteBookId}/> : null}
+            </div>
+        )
+    }
+}
+
+CreateNotebookForm.propTypes = {
+    name1: PropTypes.string,
+    name2: PropTypes.string,
+    name3: PropTypes.string,
+    how: PropTypes.string,
+    when: PropTypes.instanceOf(Date),
+    what: PropTypes.string,
+    step: PropTypes.number.isRequired,
+    doRedirect:PropTypes.bool.isRequired,
+    noteBookId: PropTypes.string,
+    userId: PropTypes.string
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        doCreation: (data) => {
+            dispatch(CreateNotebookFormActions.doCreation(data))
+        },
+        nextStep: (step) => {
+            dispatch(CreateNotebookFormActions.nextStep(step))
+        },
+        updateUserId: (id) => {
+            dispatch(CreateNotebookFormActions.updateUserId(id))
+        }
+    }
+};
+
+const mapStateToProps = (state) => {
+    return {
+        state: state['CreateNotebookForm'],
+        user: state['Nav']
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNotebookForm);

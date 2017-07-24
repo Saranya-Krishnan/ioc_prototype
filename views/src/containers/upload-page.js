@@ -29,7 +29,6 @@ class UploadPage extends Component {
         const getPagesFromCurrentNotebook = bindActionCreators(MyNotebookCreators.getPagesFromCurrentNotebook, dispatch);
         const setCurrentNotebook = bindActionCreators(MyNotebookCreators.setCurrentNotebook, dispatch);
         const createNewNotebook = bindActionCreators(NotebookCreators.createNewNotebook, dispatch);
-
         const uploadImage = bindActionCreators(ImageUploadCreators.uploadImage, dispatch);
         const createImage = bindActionCreators(ImageUploadCreators.createImage, dispatch);
         const createArtwork = bindActionCreators(ImageUploadCreators.createArtwork, dispatch);
@@ -42,6 +41,7 @@ class UploadPage extends Component {
         const classificationToTags = bindActionCreators(ImageUploadCreators.classificationToTags, dispatch);
         const visualRecognition = bindActionCreators(ImageUploadCreators.visualRecognition, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
+
         return (
             <div>
                 <Container className={'main-content'}>
@@ -79,7 +79,9 @@ class UploadPage extends Component {
                         </Segment>
                     :   <Segment >
                         <Notebook
-                            isNewNotebook={true}/>
+                            isNewNotebook={true}
+                            createNewNotebook={createNewNotebook}
+                            doRedirect={false}/>
                         </Segment>
                     }
                 </Container>

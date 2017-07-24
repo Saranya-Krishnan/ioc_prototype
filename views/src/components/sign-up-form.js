@@ -60,6 +60,7 @@ class SignUp extends Component {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
+        //ToDo convert to reducer
         this.setState({
             [name]: value
         });
@@ -103,7 +104,7 @@ class SignUp extends Component {
                     </Form.Field>
                     <Button type='submit' disabled={!this.state.doAgree}>Submit</Button>
                 </Form>
-                {this.state.redirect ? <Redirect to="/profile"/> : ''}
+                {this.state.redirect ? <Redirect to="/profile"/> : null}
             </div>
         )
     }

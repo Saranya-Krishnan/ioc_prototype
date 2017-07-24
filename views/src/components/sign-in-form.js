@@ -10,6 +10,7 @@ class SignIn extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTyping = this.handleTyping.bind(this);
+        //ToDo convert to reducer
         this.state = {
             email: '',
             password:'',
@@ -23,7 +24,6 @@ class SignIn extends Component {
                 .send(JSON.stringify(this.state))
                 .end((error, response) => {
                         if (!error && response) {
-                            console.log('from sign in', response);
                             token.setToken(response.body.token);
                             this.setState({ redirect: true});
                         } else {
@@ -31,7 +31,6 @@ class SignIn extends Component {
                         }
                     }
                 );
-
     };
     handleTyping(e){
         e.preventDefault();

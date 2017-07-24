@@ -1,12 +1,16 @@
-import * as notebookActionTypes from '../action_types/notebook';
+import * as NotebookActionTypes from '../action_types/notebook';
 
 const initialState = {
-    isNewNotebook: false
+    isNewNotebook: false,
+    doRedirect:false
 };
 
 export default function Notebook(state=initialState, action) {
     switch(action.type) {
-        case notebookActionTypes.CREATE_NEW_NOTEBOOK:
+        case NotebookActionTypes.CREATE_NEW_NOTEBOOK:
+            return Object.assign({}, state, {
+                doRedirect: true
+            });
             return state;
         default:
             return state;
