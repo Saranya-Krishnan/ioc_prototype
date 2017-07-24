@@ -22,7 +22,7 @@ const register = function (session, email, password, firstName, lastName) {
                             length: 20,
                             charset: 'hex'
                         }),
-                        preferences: {}
+                        preferences: '{}'
                     }
                 ).then(results => {
                         return new User(results.records[0].get('user'));
