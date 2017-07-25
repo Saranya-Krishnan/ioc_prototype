@@ -6,7 +6,9 @@ import SignInPage from './sign-in-page';
 import ProfilePage from './profile-page';
 import QuestPage from './quest-page';
 import UploadPage from './upload-page';
+import CreateNewNotebookPage from './create-new-notebook-page';
 import BrowsePage from './browse-page';
+import NotebookPage from './notebook-page';
 import { Route } from 'react-router-dom';
 import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
@@ -47,6 +49,8 @@ export default class Ioc extends Component {
                 <Route path="/user/artwork/:id" component={ArtPage}/>
                 <Route path="/quest/:id" component={QuestPage}/>
                 <Route path="/user/quest/:id" component={QuestPage}/>
+                <Route path="/notebooks/new" component={CreateNewNotebookPage}/>
+                <Route path="/notebooks/:id" component={NotebookPage}/>
             </div>
         );
     }

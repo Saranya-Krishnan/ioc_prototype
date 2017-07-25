@@ -2,6 +2,7 @@ import uuid from 'uuid';
 import randomstring from "randomstring";
 import _ from 'lodash';
 import User from './neo4j_models/user';
+import Notebook from './neo4j_models/notebook';
 import crypto from 'crypto';
 
 const register = function (session, email, password, firstName, lastName) {
@@ -9,8 +10,7 @@ const register = function (session, email, password, firstName, lastName) {
         .then(results => {
             if (!_.isEmpty(results.records)) {
                 throw {err: 'username already in use', status: 400}
-            }
-            else {
+            } else {
                 return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, api_key: {api_key}, preferences:{preferences}}) RETURN user',
                     {
                         id: uuid.v4(),
@@ -21,8 +21,7 @@ const register = function (session, email, password, firstName, lastName) {
                         api_key: randomstring.generate({
                             length: 20,
                             charset: 'hex'
-                        }),
-                        preferences: '{}'
+                        })
                     }
                 ).then(results => {
                         return new User(results.records[0].get('user'));
@@ -58,9 +57,24 @@ const login = function (session, email, password) {
         );
 };
 
-const updatePreferences = function (session, email, preferences, userId) {
-    //ToDo: Create update prefs call
+const updateCurrentNotebook = function (session, userId, notebookId) {
+    return session.run('MATCH(n:Notebook {id:{notebookId}}) MATCH (u:User {id:{userId}}) CREATE (n)<-[:CURRENT_NOTEBOOK_OF]-(u) RETURN n', {notebookId:notebookId, userId:userId}
+    ).then(results=> {
+        return new Notebook(results.records[0].get('n'));
+    });
 };
+
+const getCurrentNotebook = function (session,userId) {
+    return session.run('MATCH (u:User {id:{userId}})-[:CURRENT_NOTEBOOK_OF]->(n:Notebook) RETURN n', {userId:userId}
+    ).then(results=> {
+        if(results.records[0]){
+            return new Notebook(results.records[0].get('n'));
+        }else{
+            return {body:[]};
+        }
+    });
+};
+
 
 function hashPassword(username, password) {
     let s = username + ':' + password;
@@ -71,5 +85,6 @@ module.exports = {
     register: register,
     me: me,
     login: login,
-    updatePreferences: updatePreferences
+    updateCurrentNotebook: updateCurrentNotebook,
+    getCurrentNotebook:getCurrentNotebook
 };

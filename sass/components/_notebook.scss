@@ -1,0 +1,14 @@
+.notebook-tout-wrapper {
+  width: 290px;
+  .notebook-tout {
+    &.active-notebook {
+      border: 2px solid transparentize(setcolor('cyan'), 0.3);
+      &:hover {
+        border: 2px solid transparentize(setcolor('cyan'), 0.6) !important;
+      }
+    }
+  }
+  .notebook-tout-link{
+    float:right;
+  }
+}

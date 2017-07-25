@@ -42,7 +42,16 @@ const Notebooks = require('../../models/notebooks')
  */
 
 exports.create = function (req, res, next) {
-
+    const when = _.get(req.body,'when');
+    const what = _.get(req.body,'what');
+    const how = _.get(req.body,'how');
+    const name1 = _.get(req.body,'name1');
+    const name2 = _.get(req.body,'name2');
+    const name3 = _.get(req.body,'name3');
+    const userId = _.get(req.body,'userId');
+    Notebooks.create(dbUtils.getSession(req), when, what, how, name1, name2, name3, userId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
 
 /**

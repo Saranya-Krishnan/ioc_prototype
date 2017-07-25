@@ -80,7 +80,9 @@ api.post('/api/'+process.env.API_VERSION+'/login', routes.users.login);
 api.get('/api/'+process.env.API_VERSION+'/users/me', routes.users.me);
 api.post('/api/'+process.env.API_VERSION+'/users/update', routes.users.update);
 api.post('/api/'+process.env.API_VERSION+'/users/delete', routes.users.deletion);
-api.post('/api/'+process.env.API_VERSION+'/users/update-preferences', routes.users.updatePreferences);
+api.post('/api/'+process.env.API_VERSION+'/users/update-current-notebook', routes.users.updateCurrentNotebook);
+api.post('/api/'+process.env.API_VERSION+'/users/get-current-notebook', routes.users.getCurrentNotebook);
+
 
 // ***************************
 // * Images

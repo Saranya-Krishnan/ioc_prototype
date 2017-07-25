@@ -43,7 +43,8 @@ const Works = require('../../models/works')
 exports.create = function (req, res, next) {
     const imageId = _.get(req.body, 'imageId');
     const userId = _.get(req.body,'userId');
-    Works.create(dbUtils.getSession(req), imageId, userId)
+    const notebookId = _.get(req.body,'notebookId');
+    Works.create(dbUtils.getSession(req), imageId, userId, notebookId)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };

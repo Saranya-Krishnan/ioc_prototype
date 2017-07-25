@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as notebookActions from '../actions/notebook_actions'
-import { Container, Segment, Grid, Card, Header } from 'semantic-ui-react';
+import * as NotebookActions from '../actions/notebook_actions'
+import { Container,  Grid, Card, Header } from 'semantic-ui-react';
 import FontAwesome from 'react-fontawesome';
+import { Redirect } from 'react-router';
 
 
 class Notebook extends Component {
@@ -14,6 +15,9 @@ class Notebook extends Component {
     componentWillReceiveProps(nextProps){
         this.setState(nextProps.state);
     }
+    componentDidMount() {
+        this.setState({doRedirect: false});
+    }
     render(){
         return(
             <Container>
@@ -22,7 +26,8 @@ class Notebook extends Component {
                         <Header>You don't have an active notebook. Please add one.</Header>
                         <Grid centered columns={4}>
                             <Grid.Column>
-                                <Card onClick={() => createNewNotebook}>
+                                <Card onClick={ () => this.state.createNewNotebook()}>
+                                    {this.state.doRedirect ? <Redirect push to={"/notebooks/new/"}/> : null}
                                     <FontAwesome name="plus" size={'4x'} className="add-notebook-icon"/>
                                     <Card.Content>
                                         <Card.Header className="add-notebook-header">
@@ -43,20 +48,22 @@ class Notebook extends Component {
 }
 
 Notebook.propTypes = {
-    isNewNotebook: PropTypes.bool.isRequired
+    isNewNotebook: PropTypes.bool.isRequired,
+    createNewNotebook: PropTypes.func.isRequired,
+    doRedirect:PropTypes.bool.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         createNewNotebook: () => {
-            dispatch(notebookActions.createNewNotebook())
+            dispatch(NotebookActions.createNewNotebook())
         }
     }
 };
 
 const mapStateToProps = (state) => {
     return {
-        state: state['notebook']
+        state: state['Notebook']
     }
 };
 

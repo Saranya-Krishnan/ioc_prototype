@@ -7,21 +7,16 @@ const initialState = {
         }
     ],
     currentNotebook:'',
-    hasNoNotebooks: false,
-    stopper: false,
-    doRedirect: false
+    noteBooksFound:0
 };
 
 export default function YourNoteBook(state=initialState, action) {
     switch(action.type) {
-        case UserInfoActionTypes.GET_MY_NOTEBOOKS:
-            return state;
-        case UserInfoActionTypes.GET_PAGES_FROM_CURRENT_NOTEBOOK:
-            return state;
-        case UserInfoActionTypes.SET_CURRENT_NOTEBOOK:
-            return state;
-        case UserInfoActionTypes.CREATE_NEW_NOTEBOOK:
-            return state;
+        case UserInfoActionTypes.SHOW_MY_NOTEBOOKS:
+            return Object.assign({}, state, {
+                noteBooksFound: action.noteBooksFound,
+                myNoteBooks: action.notebooks
+            });
         default:
             return state;
     }

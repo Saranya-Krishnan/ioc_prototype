@@ -4,15 +4,16 @@ import Image from './neo4j_models/image';
 import User from './neo4j_models/user';
 import Tag from './neo4j_models/tag';
 
-const create = function (session, imageId, userId) {
+const create = function (session, imageId, userId, notebookId) {
     const artworkId = uuid.v4();
     return session.run('CREATE (work:Work {id: {id}}) RETURN work', {id: artworkId}
     ).then(results => {
         const artResults = results;
-        return session.run('MATCH (work:Work {id:{artworkId}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})<-[:DISPLAYS]-(work)', {
+        return session.run('MATCH (work:Work {id:{artworkId}}) MATCH(notebook:Notebook {id:{notebookId}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})<-[:DISPLAYS]-(work) CREATE((work)-[:IS_PART_OF_THIS_NOTEBOOK]->(notebook))', {
                 artworkId: artworkId,
                 userId: userId,
-                imageId: imageId
+                imageId: imageId,
+                notebookId:notebookId
             }
         ).then(thirdResults => {
              return session.run('MATCH (w:Work {id:{artworkId}}) MATCH (i:Image {id:{imageId}}) MATCH (i)-[:ASSOCIATED_WITH]->(t) WITH collect(t) as endNodes,w FOREACH(x in endNodes | CREATE (w)-[:ASSOCIATED_WITH]->(x))', {artworkId:artworkId,imageId:imageId }
@@ -53,8 +54,6 @@ const display = function (session, workId) {
 const mine = function (session, userId){
     return session.run('MATCH ({id:{userId}})-[:CREATED]->(w:Work) MATCH ({id:w.id})-[:DISPLAYS]->(im) MATCH(i:Image {id:im.id}) RETURN i,w',{userId:userId}
     ).then(results => {
-        console.log('NUM REC', results.records.length);
-
         const works =[];
         const images =[];
         for(let i=0; i<results.records.length;i++){
