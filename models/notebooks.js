@@ -20,7 +20,7 @@ const create = function (session, when, what, how, name1, name2, name3, userId) 
                 }
             ).then(results => {
                     const notebook = new Notebook(results.records[0].get('notebook'));
-                    return session.run('MATCH (nb:Notebook {id:{notebookId}}) CREATE (u:User {id:{userId}})-[:OWNS_THIS_BOOK]->(n:Notebook) RETURN nb', {
+                    return session.run('MATCH (nb:Notebook {id:{notebookId}}) CREATE (u:User {id:{userId}})-[:OWNS_THIS_BOOK]->(nb) RETURN nb', {
                             notebookId: notebookId,
                             userId: userId
                         }
@@ -44,7 +44,9 @@ const deletion = function (session) {
 };
 
 const mine = function (session, userId) {
-    return session.run('MATCH ({id:{userId}})-[:OWNS_THIS_BOOK]->(n:Notebook) MATCH ({id:n.id})<-[:IS_BOUND_IN]-(pg) MATCH(p:Page {id:pg.id}) RETURN n,p',{userId:userId}
+    //return session.run('MATCH ({id:{userId}})-[:OWNS_THIS_BOOK]->(n:Notebook) MATCH ({id:n.id})<-[:IS_BOUND_IN]-(pg) MATCH(p:Page {id:pg.id}) RETURN n,p',{userId:userId}
+
+    return session.run('MATCH ({id:{userId}})-[:OWNS_THIS_BOOK]->(n) MATCH (notebook:Notebook {id:n.id}) RETURN notebook',{userId:userId}
     ).then(results => {
         if(results.records.length===0){
             return {noteBooksFound:0}
@@ -52,14 +54,14 @@ const mine = function (session, userId) {
         const notebooks =[];
         const pages =[];
         for(let i=0; i<results.records.length;i++){
-            let aNotebook = new Work(results.records[i].get('n'));
+            let aNotebook = new Notebook(results.records[i].get('notebook'));
             notebooks.push(aNotebook);
-            let aPage = new Image(results.records[i].get('p'));
-            pages.push(aPage);
+            // let aPage = new Image(results.records[i].get('p'));
+            // pages.push(aPage);
         }
         return {
             notebooks: notebooks,
-            pages: pages,
+            //pages: pages,
             noteBooksFound: notebooks.length
         }
     })

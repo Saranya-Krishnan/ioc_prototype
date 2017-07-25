@@ -7,8 +7,6 @@ import * as QuestsActions from '../actions/quests_actions'
 import PathHelper from '../helpers/path-helper';
 import Quest from './quest';
 
-
-
 class Quests extends Component {
     constructor(props) {
         super(props);

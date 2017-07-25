@@ -23,13 +23,16 @@ class CreateNotebookForm extends Component {
         this.props.updateUserId(data.id);
     }
     handleDatePicker(date){
-        this.setState({startDate: date});
+        this.setState({when: date});
     }
     componentWillReceiveProps(nextProps){
         this.setState(nextProps.state);
     }
     componentWillMount(){
         this.setState({when: moment()});
+    }
+    componentDidMount(){
+        this.props.parentPage['doRedirect'] = false;
     }
     handleNext(e){
         e.preventDefault();
@@ -137,6 +140,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         state: state['CreateNotebookForm'],
+        parentPage: state['Notebook'],
         user: state['Nav']
     }
 };

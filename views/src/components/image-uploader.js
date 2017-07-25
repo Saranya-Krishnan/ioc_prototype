@@ -113,23 +113,52 @@ class ImageUploader extends Component {
                 }
             });
     }
+
+
+
+
     createArtWork(imageId,userId){
-        const createData = {
-            imageId:imageId,
-            userId:userId
+
+
+        const userData = {
+            userId: userId
         };
-        let data = JSON.stringify(createData);
-        ajax.post( PathHelper.apiPath + '/works/create')
+        ajax.post( PathHelper.apiPath + '/users/get-current-notebook')
             .set('Content-Type', 'application/json')
-            .send(data)
+            .send(userData)
             .end((error, response) => {
                 if (!error && response) {
-                    this.setState({newArtWorkId:response.body.id});
+                    const res = response.body;
+                    this.currentNotebook = res.id;
+
+                    const createData = {
+                        imageId:imageId,
+                        userId:userId,
+                        notebookId: this.currentNotebook
+                    };
+                    let data = JSON.stringify(createData);
+                    ajax.post( PathHelper.apiPath + '/works/create')
+                        .set('Content-Type', 'application/json')
+                        .send(data)
+                        .end((error, response) => {
+                            if (!error && response) {
+                                this.setState({newArtWorkId:response.body.id});
+                            } else {
+                                console.log('Error saving your image', error);
+                            }
+                        });
+
+
+
                 } else {
-                    console.log('Error saving your image', error);
+                    console.log('error retrieving your quests', error);
                 }
             });
     }
+
+
+
+
     isJSON(d){
         try {
             return JSON.parse(d);
@@ -232,7 +261,7 @@ class ImageUploader extends Component {
         return (
             <Container className="image-uploader-hold">
                 { this.state.hasUploaded === true ? null :
-                    <h1>Upload your Moleskine artwork.</h1>
+                    <h1>Upload your artwork from this Moleskine notebook.</h1>
                 }
                 <form>
                     { this.state.hasUploaded === true ? null :

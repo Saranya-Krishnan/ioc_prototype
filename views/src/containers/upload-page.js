@@ -19,15 +19,16 @@ class UploadPage extends Component {
     static propTypes = {
         upload: PropTypes.object.isRequired
     };
+    handleNoNoteBooks = function(){
+       this.noCards = true;
+    };
     render() {
         const { dispatch } = this.props;
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
-        const getMyNotebooks = bindActionCreators(MyNotebookCreators.getMyNotebooks, dispatch);
-        const getPagesFromCurrentNotebook = bindActionCreators(MyNotebookCreators.getPagesFromCurrentNotebook, dispatch);
-        const setCurrentNotebook = bindActionCreators(MyNotebookCreators.setCurrentNotebook, dispatch);
+        const showMyNotebooks = bindActionCreators(MyNotebookCreators.showMyNotebooks, dispatch);
         const createNewNotebook = bindActionCreators(NotebookCreators.createNewNotebook, dispatch);
         const uploadImage = bindActionCreators(ImageUploadCreators.uploadImage, dispatch);
         const createImage = bindActionCreators(ImageUploadCreators.createImage, dispatch);
@@ -51,39 +52,40 @@ class UploadPage extends Component {
                         updateUserInfo={updateUserInfo}
                         setLoggedIn={setLoggedIn}>
                     </Nav>
-                    { this.props.upload['MyNotebooks'].noteBooksFound > 0 ?
                         <Segment>
                             <Grid divided>
                                 <Grid.Column width={10}>
-                                <MyNotebooks
-                                    getMyNotebooks={getMyNotebooks}
-                                    getPagesFromCurrentNotebook={getPagesFromCurrentNotebook}
-                                    setCurrentNotebook={setCurrentNotebook}
-                                />
+                                    {this.noCards ? null :
+                                        <MyNotebooks
+                                            showMyNotebooks={showMyNotebooks}
+                                            broadcastUp={this.handleNoNoteBooks}
+                                        />
+                                    }
+                                    {this.noCards ?
+                                        <Notebook
+                                            isNewNotebook={true}
+                                            createNewNotebook={createNewNotebook}
+                                            doRedirect={false}/> : null
+                                    }
                                 </Grid.Column>
-                                <Grid.Column width={6}>
-                                    <ImageUploader
-                                        makeMeaning={makeMeaning}
-                                        uploadImage={uploadImage}
-                                        getNewTagOntology={getNewTagOntology}
-                                        enrichNewTag={enrichNewTag}
-                                        createImage={createImage}
-                                        createArtwork={createArtwork}
-                                        classifyImage={classifyImage}
-                                        createTag={createTag}
-                                        exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
-                                        classificationToTags={classificationToTags}
-                                        visualRecognition={visualRecognition}/>
-                                </Grid.Column>
+                                {this.noCards ? null :
+                                    <Grid.Column width={6}>
+                                        <ImageUploader
+                                            makeMeaning={makeMeaning}
+                                            uploadImage={uploadImage}
+                                            getNewTagOntology={getNewTagOntology}
+                                            enrichNewTag={enrichNewTag}
+                                            createImage={createImage}
+                                            createArtwork={createArtwork}
+                                            classifyImage={classifyImage}
+                                            createTag={createTag}
+                                            exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
+                                            classificationToTags={classificationToTags}
+                                            visualRecognition={visualRecognition}/>
+                                    </Grid.Column>
+                                }
                             </Grid>
                         </Segment>
-                    :   <Segment >
-                        <Notebook
-                            isNewNotebook={true}
-                            createNewNotebook={createNewNotebook}
-                            doRedirect={false}/>
-                        </Segment>
-                    }
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>

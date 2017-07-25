@@ -13,10 +13,9 @@ class Notebook extends Component {
         this.state = props;
     }
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
         this.setState(nextProps.state);
     }
-    componentDidMount(){
+    componentDidMount() {
         this.setState({doRedirect: false});
     }
     render(){
