@@ -16,12 +16,9 @@ This application will outline some of the capabilities of a the actual applicati
 ## Happy Path 1 from new book to task subscription.
 
 1. ~A user can log in.~
-2. A user can log in using myMS
-3. A user can log in using oAuth from FB and Google
 4. Stub out basic buying experience
-5. A user can "bind" a notebook with a dynamically created address
-6. A user can upload an image from a bound notebook
-7. The page information from the notebook can be detected.
+5. ~A user can "bind" a notebook with a dynamically created address~
+6. ~A user can upload an image from a bound notebook~
 8. ~Exif info can be extracted and saved from image.~
 9. ~Image can be sent to Watson~
 10. ~Classification data and image creates an ArtUpload~
