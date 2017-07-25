@@ -8,6 +8,7 @@ import {Provider} from 'react-redux';
 import Ioc from '../views/src/containers/ioc';
 let router = express.Router();
 
+
 router.get('*', (req, res) => {
     let context = {};
     const store = createStore(mainReducer);
@@ -37,6 +38,7 @@ function renderFullPage(html, initialState) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <title>IoC Prototype</title>
+            <link rel="shortcut icon" href="favicon.ico">
             <script src="https://use.typekit.net/ipx6imu.js"></script>
             <script>try{Typekit.load({ async: true });}catch(e){}</script>
             <base href="/" />

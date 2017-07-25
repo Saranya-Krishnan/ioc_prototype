@@ -6776,7 +6776,7 @@ Response.prototype._parseBody = function(str){
  * Return an `Error` representative of this response.
  *
  * @return {Error}
- * @api public
+ * @api favicons
  */
 
 Response.prototype.toError = function(){
@@ -6804,7 +6804,7 @@ request.Response = Response;
  *
  * @param {String} method
  * @param {String} url
- * @api public
+ * @api favicons
  */
 
 function Request(method, url) {
@@ -6888,7 +6888,7 @@ RequestBase(Request.prototype);
  *
  * @param {String} type
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 Request.prototype.type = function(type){
@@ -6913,7 +6913,7 @@ Request.prototype.type = function(type){
  *
  * @param {String} accept
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 Request.prototype.accept = function(type){
@@ -6928,7 +6928,7 @@ Request.prototype.accept = function(type){
  * @param {String} [pass] optional in case of using 'bearer' as type
  * @param {Object} options with 'type' property 'auto', 'basic' or 'bearer' (default 'basic')
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 Request.prototype.auth = function(user, pass, options){
@@ -6969,7 +6969,7 @@ Request.prototype.auth = function(user, pass, options){
  *
  * @param {Object|String} val
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 Request.prototype.query = function(val){
@@ -6992,7 +6992,7 @@ Request.prototype.query = function(val){
  * @param {Blob|File} file
  * @param {String|Object} options
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 Request.prototype.attach = function(field, file, options){
@@ -7112,7 +7112,7 @@ Request.prototype._isHost = function _isHost(obj) {
  *
  * @param {Function} fn
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 Request.prototype.end = function(fn){
@@ -7234,7 +7234,7 @@ Request.prototype._end = function() {
  * @param {Mixed|Function} [data] or fn
  * @param {Function} [fn]
  * @return {Request}
- * @api public
+ * @api favicons
  */
 
 request.get = function(url, data, fn){
@@ -7252,7 +7252,7 @@ request.get = function(url, data, fn){
  * @param {Mixed|Function} [data] or fn
  * @param {Function} [fn]
  * @return {Request}
- * @api public
+ * @api favicons
  */
 
 request.head = function(url, data, fn){
@@ -7270,7 +7270,7 @@ request.head = function(url, data, fn){
  * @param {Mixed|Function} [data] or fn
  * @param {Function} [fn]
  * @return {Request}
- * @api public
+ * @api favicons
  */
 
 request.options = function(url, data, fn){
@@ -7288,7 +7288,7 @@ request.options = function(url, data, fn){
  * @param {Mixed} [data]
  * @param {Function} [fn]
  * @return {Request}
- * @api public
+ * @api favicons
  */
 
 function del(url, data, fn){
@@ -7309,7 +7309,7 @@ request['delete'] = del;
  * @param {Mixed} [data]
  * @param {Function} [fn]
  * @return {Request}
- * @api public
+ * @api favicons
  */
 
 request.patch = function(url, data, fn){
@@ -7327,7 +7327,7 @@ request.patch = function(url, data, fn){
  * @param {Mixed} [data]
  * @param {Function} [fn]
  * @return {Request}
- * @api public
+ * @api favicons
  */
 
 request.post = function(url, data, fn){
@@ -7345,7 +7345,7 @@ request.post = function(url, data, fn){
  * @param {Mixed|Function} [data] or fn
  * @param {Function} [fn]
  * @return {Request}
- * @api public
+ * @api favicons
  */
 
 request.put = function(url, data, fn){
@@ -8139,7 +8139,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(16);
 
-var _reactRouterDom = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(56);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8197,7 +8197,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(16);
 
-var _reactRouterDom = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(56);
 
 var _superagent = __webpack_require__(31);
 
@@ -8211,7 +8211,7 @@ var _pathHelper = __webpack_require__(33);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _reactFontawesome = __webpack_require__(56);
+var _reactFontawesome = __webpack_require__(66);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -9306,150 +9306,62 @@ process.env.NODE_ENV !== "production" ? FormField.propTypes = {
 
 /***/ }),
 /* 56 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(1019);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(1020);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(512);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(1021);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(1022);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(1023);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(1024);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(1025);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(1026);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(1027);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(1028);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(1029);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(1030);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
 
-var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(9);
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _screenReaderStyles = __webpack_require__(1007);
 
-var _screenReaderStyles2 = _interopRequireDefault(_screenReaderStyles);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/**
- * A React component for the font-awesome icon library.
- *
- * @param {String} [ariaLabel] An extra accessibility label to put on the icon
- * @param {Boolean} [border=false] Whether or not to show a border radius
- * @param {String} [className] An extra set of CSS classes to add to the component
- * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
- * @param {Boolean} [fixedWidth=false] Make buttons fixed width
- * @param {String} [flip=false] Flip the icon's orientation.
- * @param {Boolean} [inverse=false]Inverse the icon's color
- * @param {String} name Name of the icon to use
- * @param {Boolean} [pulse=false] Rotate icon with 8 steps, rather than smoothly
- * @param {Number} [rotate] The degress to rotate the icon by
- * @param {String} [size] The icon scaling size
- * @param {Boolean} [spin=false] Spin the icon
- * @param {String} [stack] Stack an icon on top of another
- * @param {String} [tag=span] The HTML tag to use as a string, eg 'i' or 'em'
- * @module FontAwesome
- * @type {ReactClass}
- */
-var FontAwesome = function (_React$Component) {
-  _inherits(FontAwesome, _React$Component);
 
-  function FontAwesome() {
-    _classCallCheck(this, FontAwesome);
 
-    var _this = _possibleConstructorReturn(this, (FontAwesome.__proto__ || Object.getPrototypeOf(FontAwesome)).call(this));
 
-    _this.displayName = 'FontAwesome';
-    return _this;
-  }
 
-  _createClass(FontAwesome, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          border = _props.border,
-          cssModule = _props.cssModule,
-          className = _props.className,
-          fixedWidth = _props.fixedWidth,
-          flip = _props.flip,
-          inverse = _props.inverse,
-          name = _props.name,
-          pulse = _props.pulse,
-          rotate = _props.rotate,
-          size = _props.size,
-          spin = _props.spin,
-          stack = _props.stack,
-          _props$tag = _props.tag,
-          tag = _props$tag === undefined ? 'span' : _props$tag,
-          ariaLabel = _props.ariaLabel,
-          props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag', 'ariaLabel']);
 
-      var classNames = [];
 
-      if (cssModule) {
-        classNames.push(cssModule['fa']);
-        classNames.push(cssModule['fa-' + name]);
-        size && classNames.push(cssModule['fa-' + size]);
-        spin && classNames.push(cssModule['fa-spin']);
-        pulse && classNames.push(cssModule['fa-pulse']);
-        border && classNames.push(cssModule['fa-border']);
-        fixedWidth && classNames.push(cssModule['fa-fw']);
-        inverse && classNames.push(cssModule['fa-inverse']);
-        flip && classNames.push(cssModule['fa-flip-' + flip]);
-        rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
-        stack && classNames.push(cssModule['fa-stack-' + stack]);
-      } else {
-        classNames.push('fa');
-        classNames.push('fa-' + name);
-        size && classNames.push('fa-' + size);
-        spin && classNames.push('fa-spin');
-        pulse && classNames.push('fa-pulse');
-        border && classNames.push('fa-border');
-        fixedWidth && classNames.push('fa-fw');
-        inverse && classNames.push('fa-inverse');
-        flip && classNames.push('fa-flip-' + flip);
-        rotate && classNames.push('fa-rotate-' + rotate);
-        stack && classNames.push('fa-stack-' + stack);
-      }
 
-      // Add any custom class names at the end.
-      className && classNames.push(className);
-      return _react2.default.createElement(tag, _extends({}, props, { 'aria-hidden': true, className: classNames.join(' ') }), ariaLabel ? _react2.default.createElement('span', { style: _screenReaderStyles2.default }, ariaLabel) : null);
-    }
-  }]);
 
-  return FontAwesome;
-}(_react2.default.Component);
 
-FontAwesome.propTypes = {
-  ariaLabel: _propTypes2.default.string,
-  border: _propTypes2.default.bool,
-  className: _propTypes2.default.string,
-  cssModule: _propTypes2.default.object,
-  fixedWidth: _propTypes2.default.bool,
-  flip: _propTypes2.default.oneOf(['horizontal', 'vertical']),
-  inverse: _propTypes2.default.bool,
-  name: _propTypes2.default.string.isRequired,
-  pulse: _propTypes2.default.bool,
-  rotate: _propTypes2.default.oneOf([90, 180, 270]),
-  size: _propTypes2.default.oneOf(['lg', '2x', '3x', '4x', '5x']),
-  spin: _propTypes2.default.bool,
-  stack: _propTypes2.default.oneOf(['1x', '2x']),
-  tag: _propTypes2.default.string
-};
 
-exports.default = FontAwesome;
-module.exports = exports['default'];
 
 /***/ }),
 /* 57 */
@@ -9895,62 +9807,150 @@ module.exports = DOMProperty;
 
 /***/ }),
 /* 66 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(1019);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(1020);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(512);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(1021);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(1022);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(1023);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(1024);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(1025);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(1026);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(1027);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(1028);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(1029);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(1030);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _react = __webpack_require__(1);
 
+var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(9);
 
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _screenReaderStyles = __webpack_require__(1007);
 
+var _screenReaderStyles2 = _interopRequireDefault(_screenReaderStyles);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * A React component for the font-awesome icon library.
+ *
+ * @param {String} [ariaLabel] An extra accessibility label to put on the icon
+ * @param {Boolean} [border=false] Whether or not to show a border radius
+ * @param {String} [className] An extra set of CSS classes to add to the component
+ * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
+ * @param {Boolean} [fixedWidth=false] Make buttons fixed width
+ * @param {String} [flip=false] Flip the icon's orientation.
+ * @param {Boolean} [inverse=false]Inverse the icon's color
+ * @param {String} name Name of the icon to use
+ * @param {Boolean} [pulse=false] Rotate icon with 8 steps, rather than smoothly
+ * @param {Number} [rotate] The degress to rotate the icon by
+ * @param {String} [size] The icon scaling size
+ * @param {Boolean} [spin=false] Spin the icon
+ * @param {String} [stack] Stack an icon on top of another
+ * @param {String} [tag=span] The HTML tag to use as a string, eg 'i' or 'em'
+ * @module FontAwesome
+ * @type {ReactClass}
+ */
+var FontAwesome = function (_React$Component) {
+  _inherits(FontAwesome, _React$Component);
 
+  function FontAwesome() {
+    _classCallCheck(this, FontAwesome);
 
+    var _this = _possibleConstructorReturn(this, (FontAwesome.__proto__ || Object.getPrototypeOf(FontAwesome)).call(this));
 
+    _this.displayName = 'FontAwesome';
+    return _this;
+  }
 
+  _createClass(FontAwesome, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          border = _props.border,
+          cssModule = _props.cssModule,
+          className = _props.className,
+          fixedWidth = _props.fixedWidth,
+          flip = _props.flip,
+          inverse = _props.inverse,
+          name = _props.name,
+          pulse = _props.pulse,
+          rotate = _props.rotate,
+          size = _props.size,
+          spin = _props.spin,
+          stack = _props.stack,
+          _props$tag = _props.tag,
+          tag = _props$tag === undefined ? 'span' : _props$tag,
+          ariaLabel = _props.ariaLabel,
+          props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag', 'ariaLabel']);
 
+      var classNames = [];
 
+      if (cssModule) {
+        classNames.push(cssModule['fa']);
+        classNames.push(cssModule['fa-' + name]);
+        size && classNames.push(cssModule['fa-' + size]);
+        spin && classNames.push(cssModule['fa-spin']);
+        pulse && classNames.push(cssModule['fa-pulse']);
+        border && classNames.push(cssModule['fa-border']);
+        fixedWidth && classNames.push(cssModule['fa-fw']);
+        inverse && classNames.push(cssModule['fa-inverse']);
+        flip && classNames.push(cssModule['fa-flip-' + flip]);
+        rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
+        stack && classNames.push(cssModule['fa-stack-' + stack]);
+      } else {
+        classNames.push('fa');
+        classNames.push('fa-' + name);
+        size && classNames.push('fa-' + size);
+        spin && classNames.push('fa-spin');
+        pulse && classNames.push('fa-pulse');
+        border && classNames.push('fa-border');
+        fixedWidth && classNames.push('fa-fw');
+        inverse && classNames.push('fa-inverse');
+        flip && classNames.push('fa-flip-' + flip);
+        rotate && classNames.push('fa-rotate-' + rotate);
+        stack && classNames.push('fa-stack-' + stack);
+      }
 
+      // Add any custom class names at the end.
+      className && classNames.push(className);
+      return _react2.default.createElement(tag, _extends({}, props, { 'aria-hidden': true, className: classNames.join(' ') }), ariaLabel ? _react2.default.createElement('span', { style: _screenReaderStyles2.default }, ariaLabel) : null);
+    }
+  }]);
 
+  return FontAwesome;
+}(_react2.default.Component);
 
+FontAwesome.propTypes = {
+  ariaLabel: _propTypes2.default.string,
+  border: _propTypes2.default.bool,
+  className: _propTypes2.default.string,
+  cssModule: _propTypes2.default.object,
+  fixedWidth: _propTypes2.default.bool,
+  flip: _propTypes2.default.oneOf(['horizontal', 'vertical']),
+  inverse: _propTypes2.default.bool,
+  name: _propTypes2.default.string.isRequired,
+  pulse: _propTypes2.default.bool,
+  rotate: _propTypes2.default.oneOf([90, 180, 270]),
+  size: _propTypes2.default.oneOf(['lg', '2x', '3x', '4x', '5x']),
+  spin: _propTypes2.default.bool,
+  stack: _propTypes2.default.oneOf(['1x', '2x']),
+  tag: _propTypes2.default.string
+};
 
+exports.default = FontAwesome;
+module.exports = exports['default'];
 
 /***/ }),
 /* 67 */
@@ -11859,7 +11859,7 @@ function shouldPreventMouseEvent(name, type, props) {
  *
  * Each plugin that is injected into `EventsPluginHub` is immediately operable.
  *
- * @public
+ * @favicons
  */
 var EventPluginHub = {
   /**
@@ -11868,7 +11868,7 @@ var EventPluginHub = {
   injection: {
     /**
      * @param {array} InjectedEventPluginOrder
-     * @public
+     * @favicons
      */
     injectEventPluginOrder: EventPluginRegistry.injectEventPluginOrder,
 
@@ -12188,8 +12188,8 @@ module.exports = EventPropagators;
 
 
 /**
- * `ReactInstanceMap` maintains a mapping from a public facing stateful
- * instance (key) and the internal representation (value). This allows public
+ * `ReactInstanceMap` maintains a mapping from a favicons facing stateful
+ * instance (key) and the internal representation (value). This allows favicons
  * methods to accept the user facing instance as an argument and map them back
  * to internal methods.
  */
@@ -14387,7 +14387,7 @@ var matchHtmlRegExp = /["'&<>]/;
  *
  * @param  {string} string The string to escape for inserting into HTML
  * @return {string}
- * @public
+ * @favicons
  */
 
 function escapeHtml(string) {
@@ -17781,7 +17781,7 @@ var ReactUpdateQueue = {
    *
    * @param {ReactClass} publicInstance The instance to use as `this` context.
    * @param {?function} callback Called after state is updated.
-   * @param {string} callerName Name of the calling function in the public API.
+   * @param {string} callerName Name of the calling function in the favicons API.
    * @internal
    */
   enqueueCallback: function (publicInstance, callback, callerName) {
@@ -18644,7 +18644,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
- * The public API for putting history on context.
+ * The favicons API for putting history on context.
  */
 
 var Router = function (_React$Component) {
@@ -21462,7 +21462,7 @@ var NotebookActions = _interopRequireWildcard(_notebook_actions);
 
 var _semanticUiReact = __webpack_require__(16);
 
-var _reactFontawesome = __webpack_require__(56);
+var _reactFontawesome = __webpack_require__(66);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -39285,7 +39285,7 @@ var isModifiedEvent = function isModifiedEvent(event) {
 };
 
 /**
- * The public API for rendering a history-aware <a>.
+ * The favicons API for rendering a history-aware <a>.
  */
 
 var Link = function (_React$Component) {
@@ -39387,7 +39387,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
- * The public API for matching a single path and rendering.
+ * The favicons API for matching a single path and rendering.
  */
 
 var Route = function (_React$Component) {
@@ -47956,7 +47956,7 @@ var _notebookPage = __webpack_require__(640);
 
 var _notebookPage2 = _interopRequireDefault(_notebookPage);
 
-var _reactRouterDom = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(56);
 
 var _pathHelper = __webpack_require__(33);
 
@@ -48329,19 +48329,20 @@ var _registerServiceWorker = __webpack_require__(610);
 
 var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
-var _reactRouterDom = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(56);
 
 var _ioc = __webpack_require__(611);
 
 var _ioc2 = _interopRequireDefault(_ioc);
 
-var _reactFontawesome = __webpack_require__(56);
+var _reactFontawesome = __webpack_require__(66);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 __webpack_require__(258).config();
+
 
 var initialState = window.__INITIAL_STATE__ = {};
 
@@ -49282,7 +49283,7 @@ var _superagent = __webpack_require__(31);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(56);
 
 var _semanticUiReact = __webpack_require__(16);
 
@@ -50075,7 +50076,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(16);
 
-var _reactRouterDom = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(56);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50301,7 +50302,7 @@ var _superagent = __webpack_require__(31);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(56);
 
 var _pathHelper = __webpack_require__(33);
 
@@ -50430,7 +50431,7 @@ var _superagent = __webpack_require__(31);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(66);
+var _reactRouterDom = __webpack_require__(56);
 
 var _pathHelper = __webpack_require__(33);
 
@@ -50652,7 +50653,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(16);
 
-var _reactFontawesome = __webpack_require__(56);
+var _reactFontawesome = __webpack_require__(66);
 
 var _suggestion_actions = __webpack_require__(620);
 
@@ -50940,7 +50941,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(16);
 
-var _reactFontawesome = __webpack_require__(56);
+var _reactFontawesome = __webpack_require__(66);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -51008,7 +51009,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(16);
 
-var _reactFontawesome = __webpack_require__(56);
+var _reactFontawesome = __webpack_require__(66);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51079,7 +51080,7 @@ var UserInfoActions = _interopRequireWildcard(_userInfo_actions);
 
 var _semanticUiReact = __webpack_require__(16);
 
-var _reactFontawesome = __webpack_require__(56);
+var _reactFontawesome = __webpack_require__(66);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -54410,7 +54411,7 @@ if (true) {
 /**
  * Initialize a new `Emitter`.
  *
- * @api public
+ * @api favicons
  */
 
 function Emitter(obj) {
@@ -54438,7 +54439,7 @@ function mixin(obj) {
  * @param {String} event
  * @param {Function} fn
  * @return {Emitter}
- * @api public
+ * @api favicons
  */
 
 Emitter.prototype.on =
@@ -54456,7 +54457,7 @@ Emitter.prototype.addEventListener = function(event, fn){
  * @param {String} event
  * @param {Function} fn
  * @return {Emitter}
- * @api public
+ * @api favicons
  */
 
 Emitter.prototype.once = function(event, fn){
@@ -54477,7 +54478,7 @@ Emitter.prototype.once = function(event, fn){
  * @param {String} event
  * @param {Function} fn
  * @return {Emitter}
- * @api public
+ * @api favicons
  */
 
 Emitter.prototype.off =
@@ -54542,7 +54543,7 @@ Emitter.prototype.emit = function(event){
  *
  * @param {String} event
  * @return {Array}
- * @api public
+ * @api favicons
  */
 
 Emitter.prototype.listeners = function(event){
@@ -54555,7 +54556,7 @@ Emitter.prototype.listeners = function(event){
  *
  * @param {String} event
  * @return {Boolean}
- * @api public
+ * @api favicons
  */
 
 Emitter.prototype.hasListeners = function(event){
@@ -55323,7 +55324,7 @@ function factory(ReactComponent, isValidElement, ReactNoopUpdateQueue) {
    *
    * @param {object} spec Class specification (which must define `render`).
    * @return {function} Component constructor function.
-   * @public
+   * @favicons
    */
   function createClass(spec) {
     // To keep our warnings more understandable, we'll use a little hack here to
@@ -55617,7 +55618,7 @@ exports.formatters.j = function(v) {
 /**
  * Colorize log arguments if enabled.
  *
- * @api public
+ * @api favicons
  */
 
 function formatArgs(args) {
@@ -55657,7 +55658,7 @@ function formatArgs(args) {
  * Invokes `console.log()` when available.
  * No-op when `console.log` is not a "function".
  *
- * @api public
+ * @api favicons
  */
 
 function log() {
@@ -55794,7 +55795,7 @@ function selectColor(namespace) {
  *
  * @param {String} namespace
  * @return {Function}
- * @api public
+ * @api favicons
  */
 
 function createDebug(namespace) {
@@ -55869,7 +55870,7 @@ function createDebug(namespace) {
  * separated by a colon and wildcards.
  *
  * @param {String} namespaces
- * @api public
+ * @api favicons
  */
 
 function enable(namespaces) {
@@ -55895,7 +55896,7 @@ function enable(namespaces) {
 /**
  * Disable debug output.
  *
- * @api public
+ * @api favicons
  */
 
 function disable() {
@@ -55907,7 +55908,7 @@ function disable() {
  *
  * @param {String} name
  * @return {Boolean}
- * @api public
+ * @api favicons
  */
 
 function enabled(name) {
@@ -64860,7 +64861,7 @@ var y = d * 365.25;
  * @param {Object} [options]
  * @throws {Error} throw an error if val is not a non-empty string or a number
  * @return {String|Number}
- * @api public
+ * @api favicons
  */
 
 module.exports = function(val, options) {
@@ -67516,7 +67517,7 @@ var ReactCompositeComponent = {
 
     var updateQueue = transaction.getUpdateQueue();
 
-    // Initialize the public class
+    // Initialize the favicons class
     var doConstruct = shouldConstruct(Component);
     var inst = this._constructComponent(doConstruct, publicProps, publicContext, updateQueue);
     var renderedElement;
@@ -67771,7 +67772,7 @@ var ReactCompositeComponent = {
 
     // Delete the reference from the instance to this internal representation
     // which allow the internals to be properly cleaned up even if the user
-    // leaks a reference to the public instance.
+    // leaks a reference to the favicons instance.
     ReactInstanceMap.remove(inst);
 
     // Some existing components rely on inst.props even after they've been
@@ -68016,9 +68017,9 @@ var ReactCompositeComponent = {
    * performs update.
    *
    * @param {ReactElement} nextElement Next element
-   * @param {object} nextProps Next public object to set as properties.
+   * @param {object} nextProps Next favicons object to set as properties.
    * @param {?object} nextState Next object to set as state.
-   * @param {?object} nextContext Next public object to set as context.
+   * @param {?object} nextContext Next favicons object to set as context.
    * @param {ReactReconcileTransaction} transaction
    * @param {?object} unmaskedContext
    * @private
@@ -68215,7 +68216,7 @@ var ReactCompositeComponent = {
    * is exposed by refs and returned by render. Can be null for stateless
    * components.
    *
-   * @return {ReactComponent} the public component instance.
+   * @return {ReactComponent} the favicons component instance.
    * @internal
    */
   getPublicInstance: function () {
@@ -72661,7 +72662,7 @@ ReactRef.shouldUpdateRefs = function (prevElement, nextElement) {
   // If either the owner or a `ref` has changed, make sure the newest owner
   // has stored a reference to `this`, and the previous owner (if different)
   // has forgotten the reference to `this`. We use the element instead
-  // of the public this.props because the post processing cannot determine
+  // of the favicons this.props because the post processing cannot determine
   // a ref. The ref conceptually lives on the element.
 
   // TODO: Should this even be possible? The owner cannot change because
@@ -75350,7 +75351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	     * Open system file upload dialog.
 	     *
-	     * @public
+	     * @favicons
 	     */
 	
 	  }, {
@@ -76826,7 +76827,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
- * The public API for a <Router> that uses HTML5 history.
+ * The favicons API for a <Router> that uses HTML5 history.
  */
 
 var BrowserRouter = function (_React$Component) {
@@ -76886,7 +76887,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
- * The public API for a <Router> that uses window.location.hash.
+ * The favicons API for a <Router> that uses window.location.hash.
  */
 
 var HashRouter = function (_React$Component) {
@@ -77103,7 +77104,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
- * The public API for a <Router> that stores location in memory.
+ * The favicons API for a <Router> that stores location in memory.
  */
 
 var MemoryRouter = function (_React$Component) {
@@ -77158,7 +77159,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
- * The public API for prompting the user before navigating away
+ * The favicons API for prompting the user before navigating away
  * from a screen with a component.
  */
 
@@ -77244,7 +77245,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
- * The public API for updating the location programatically
+ * The favicons API for updating the location programatically
  * with a component.
  */
 
@@ -77394,7 +77395,7 @@ var staticHandler = function staticHandler(methodName) {
 var noop = function noop() {};
 
 /**
- * The public top-level API for a "static" <Router>, so-called because it
+ * The favicons top-level API for a "static" <Router>, so-called because it
  * can't actually change the current location. Instead, it just records
  * location changes in a context object. Useful mainly in testing and
  * server-rendering scenarios.
@@ -77511,7 +77512,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
- * The public API for rendering the first <Route> that matches.
+ * The favicons API for rendering the first <Route> that matches.
  */
 
 var Switch = function (_React$Component) {
@@ -77595,7 +77596,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 
 /**
- * A public higher-order component to access the imperative API
+ * A favicons higher-order component to access the imperative API
  */
 var withRouter = function withRouter(Component) {
   var C = function C(props) {
@@ -78029,7 +78030,7 @@ if (process.env.NODE_ENV !== 'production') {
 /**
  * Creates a mapping from supported HTML tags to `ReactDOMComponent` classes.
  *
- * @public
+ * @favicons
  */
 var ReactDOMFactories = {
   a: createDOMFactory('a'),
@@ -90491,7 +90492,7 @@ module.exports = RequestBase;
 /**
  * Initialize a new `RequestBase`.
  *
- * @api public
+ * @api favicons
  */
 
 function RequestBase(obj) {
@@ -90517,7 +90518,7 @@ function mixin(obj) {
  * Clear previous timeout.
  *
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.clearTimeout = function _clearTimeout(){
@@ -90534,7 +90535,7 @@ RequestBase.prototype.clearTimeout = function _clearTimeout(){
  * This function will be called to convert incoming data into request.body
  *
  * @param {Function}
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.parse = function parse(fn){
@@ -90557,7 +90558,7 @@ RequestBase.prototype.parse = function parse(fn){
  *
  * @param {String} val
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.responseType = function(val){
@@ -90571,7 +90572,7 @@ RequestBase.prototype.responseType = function(val){
  * This function will be called to convert data set via .send or .attach into payload to send
  *
  * @param {Function}
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.serialize = function serialize(fn){
@@ -90589,7 +90590,7 @@ RequestBase.prototype.serialize = function serialize(fn){
  *
  * @param {Number|Object} ms or {response, read, deadline}
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.timeout = function timeout(options){
@@ -90621,7 +90622,7 @@ RequestBase.prototype.timeout = function timeout(options){
  *
  * @param {Number} count
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.retry = function retry(count){
@@ -90716,7 +90717,7 @@ RequestBase.prototype._isResponseOK = function(res) {
  *
  * @param {String} field
  * @return {String}
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.get = function(field){
@@ -90755,7 +90756,7 @@ RequestBase.prototype.getHeader = RequestBase.prototype.get;
  * @param {String|Object} field
  * @param {String} val
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.set = function(field, val){
@@ -90805,7 +90806,7 @@ RequestBase.prototype.unset = function(field){
  * @param {String|Object} name
  * @param {String|Blob|File|Buffer|fs.ReadStream} val
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 RequestBase.prototype.field = function(name, val) {
 
@@ -90847,7 +90848,7 @@ RequestBase.prototype.field = function(name, val) {
  * Abort the request, and clear potential timeout.
  *
  * @return {Request}
- * @api public
+ * @api favicons
  */
 RequestBase.prototype.abort = function(){
   if (this._aborted) {
@@ -90869,7 +90870,7 @@ RequestBase.prototype.abort = function(){
  * and also must set "Access-Control-Allow-Credentials"
  * to "true".
  *
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.withCredentials = function(on){
@@ -90884,7 +90885,7 @@ RequestBase.prototype.withCredentials = function(on){
  *
  * @param {Number} n
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.redirects = function(n){
@@ -90898,7 +90899,7 @@ RequestBase.prototype.redirects = function(n){
  * it cannot be chained.
  *
  * @return {Object} describing method, url, and data of this request
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.toJSON = function(){
@@ -90948,7 +90949,7 @@ RequestBase.prototype.toJSON = function(){
  *
  * @param {String|Object} data
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.send = function(data){
@@ -91024,7 +91025,7 @@ RequestBase.prototype.send = function(data){
  *
  * @param {Function} sort
  * @return {Request} for chaining
- * @api public
+ * @api favicons
  */
 
 RequestBase.prototype.sortQuery = function(sort) {
@@ -91090,7 +91091,7 @@ module.exports = ResponseBase;
 /**
  * Initialize a new `ResponseBase`.
  *
- * @api public
+ * @api favicons
  */
 
 function ResponseBase(obj) {
@@ -91117,7 +91118,7 @@ function mixin(obj) {
  *
  * @param {String} field
  * @return {String}
- * @api public
+ * @api favicons
  */
 
 ResponseBase.prototype.get = function(field){

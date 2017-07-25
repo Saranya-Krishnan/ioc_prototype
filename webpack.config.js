@@ -50,8 +50,17 @@ module.exports = [
                     test: /\.scss$/,
                     loader: 'style-loader!css-loader!sass-loader'
                 },
-                { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-                { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+                {   test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    loader: "url-loader?limit=10000&mimetype=application/font-woff"
+                },
+
+                {   test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    loader: "file-loader"
+                },
+                {
+                    test: /\.(gif|png|jpe?g|svg)$/i,
+                    loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]!image-webpack-loader'
+                }
             ]
         },
         plugins: [

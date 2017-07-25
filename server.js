@@ -13,9 +13,12 @@ import neo4jSessionCleanup from './middlewares/neo4jSessionCleanup';
 import writeError from './helpers/response';
 const routes = require('./routes/api');
 const scheduler = require('node-schedule');
+const favicon = require('serve-favicon');
 
 let app = express();
 let api = express();
+
+app.use(favicon('favicons/favicon.ico'));
 
 const swaggerDefinition = {
     info: {
