@@ -56,10 +56,6 @@ module.exports = [
 
                 {   test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: "file-loader"
-                },
-                {
-                    test: /\.(gif|png|jpe?g|svg)$/i,
-                    loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]!image-webpack-loader'
                 }
             ]
         },
