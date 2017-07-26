@@ -191,11 +191,11 @@ api.post('/api/'+process.env.API_VERSION+'/journeys/delete', routes.journeys.del
 // ***************************
 // * Suggestions
 // ***************************
-api.post('/api/'+process.env.API_VERSION+'/suggestions/batch-create-from-meanings', routes.suggestions.batchCreateFromMeanings);
-api.post('/api/'+process.env.API_VERSION+'/suggestions/create-from-tag', routes.suggestions.createFromTag);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/get-suggestions', routes.suggestions.getSuggestions);
+api.post('/api/'+process.env.API_VERSION+'/suggestions/create', routes.suggestions.create);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/update', routes.suggestions.update);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/delete', routes.suggestions.deletion);
+
 // ***************************
 // * Quests
 // ***************************
@@ -212,12 +212,4 @@ app.listen(process.env.CLIENT_PORT, function () {
 api.listen(process.env.API_PORT, function () {
     console.log('Neo4j server started on '+process.env.API_PORT);
     console.log('Bolt server at '+process.env.GRAPHENEDB_BOLT_URL);
-});
-
-const suggestionChron = scheduler.scheduleJob('30 * * * * *', function(){
-    console.log('suggestionChron');
-});
-
-const schemaChron = scheduler.scheduleJob('15 * * * *', function(){
-    console.log('Bind Schema to Meanings');
 });

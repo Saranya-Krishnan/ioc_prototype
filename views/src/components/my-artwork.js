@@ -24,7 +24,6 @@ class MyArtwork extends Component {
                 .send(data)
                 .end((error, response) => {
                     if (!error && response) {
-                        console.log(response.body.work.length, response.body['work'].length);
                         const worksOfArt =[];
                         for(let i=0;i<response.body.work.length;i++){
                             let aWork = {

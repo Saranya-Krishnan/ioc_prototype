@@ -17,6 +17,7 @@ class Suggestion extends Component {
         this.handleDatePicker = this.handleDatePicker.bind(this);
         this.acceptSuggestion = this.acceptSuggestion.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
+
     }
     handleOpen(){
         this.setState({modalOpen:true});
@@ -52,9 +53,8 @@ class Suggestion extends Component {
             );
     }
     getMeaning(){
-        //ToDo: Work with passed Meaning if available then call
         const data = {
-            meaningId: this.props.meaningId
+            suggestionId: this.props.id
         };
         ajax.post(PathHelper.apiPath + '/meanings/retrieve')
             .set('Content-Type', 'application/json')
@@ -87,7 +87,7 @@ class Suggestion extends Component {
                     </Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
-                    <Modal trigger={<Button basic color='green' onClick={() => this.handleOpen}>Accept</Button>} onOpen={()=>this.getMeaning} closeIcon={true}  open={this.state.modalOpen}>
+                    <Modal trigger={<Button basic color='green' onClick={() => this.handleOpen}>Accept</Button>} onOpen={()=>this.getMeaning()} closeIcon={true}  open={this.state.modalOpen}>
                         <Modal.Header>Accept this suggestion</Modal.Header>
                         <Modal.Content image>
                             <Image wrapped size='medium' src='' />

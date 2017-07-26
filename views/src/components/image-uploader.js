@@ -239,23 +239,47 @@ class ImageUploader extends Component {
             });
     }
     makeMeaning(tag){
-        const data ={
-            ontology: this.isJSON(tag.body.ontology),
-            tagId: tag.body.id
-        };
-        ajax.post( PathHelper.apiPath + '/meanings/extract-from-tag/')
-            .set('Content-Type', 'application/json')
-            .send(data)
-            .end((error, response) => {
-                if (!error && response) {
-                    this.tagCreationCount++;
-                    this.checkTagsCompleted(false);
-                } else {
-                    console.log('Error extracting meaning from your Tag', error);
-                    this.tagCreationCount++;
-                    this.checkTagsCompleted(false);
-                }
-            });
+        const ontology = this.isJSON(tag.body.ontology);
+        if(ontology.results && ontology.results.length){
+            const data ={
+                ontology: ontology,
+                tagId: tag.body.id
+            };
+            ajax.post( PathHelper.apiPath + '/meanings/extract-from-tag/')
+                .set('Content-Type', 'application/json')
+                .send(data)
+                .end((error, response) => {
+                    if (!error && response) {
+                        this.makeSuggestions(response);
+                        this.tagCreationCount++;
+                        this.checkTagsCompleted(false);
+                    } else {
+                        console.log('Error extracting meaning from your Tag', error);
+                        this.tagCreationCount++;
+                        this.checkTagsCompleted(false);
+                    }
+                });
+        }else{
+            this.tagCreationCount++;
+            this.checkTagsCompleted(false);
+        }
+    }
+    makeSuggestions(meaning){
+        if(meaning.body.schemaName && meaning.body.schemaName!=='none'){
+            const data = {
+                schemaName: meaning.body.schemaName,
+                meaningId: meaning.body.id,
+                label: meaning.body.label
+            };
+            ajax.post( PathHelper.apiPath + '/suggestions/create/')
+                .set('Content-Type', 'application/json')
+                .send(data)
+                .end((error, response) => {
+                    if (error && response) {
+                        console.log('Error extracting a suggestion from your tag\'s meaning.', error);
+                    }
+                });
+        }
     }
     render() {
         return (
@@ -314,6 +338,7 @@ ImageUploader.propTypes = {
     getNewTagOntology: PropTypes.func.isRequired,
     enrichNewTag: PropTypes.func.isRequired,
     makeMeaning: PropTypes.func.isRequired,
+    makeSuggestions: PropTypes.func.isRequired,
     exploreBasedOnThisArtwork: PropTypes.func.isRequired,
     classificationToTags: PropTypes.func.isRequired,
     visualRecognition: PropTypes.func.isRequired,
@@ -352,6 +377,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         makeMeaning: (tag) =>{
             dispatch(ImageUploaderActions.makeMeaning(tag))
+        },
+        makeSuggestions: (meaning) =>{
+            dispatch(ImageUploaderActions.makeSuggestions(meaning))
         },
         getNewTagOntology: (tag) =>{
             dispatch(ImageUploaderActions.getNewTagOntology(tag))

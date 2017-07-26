@@ -37,9 +37,15 @@ const extractFromTag = function (session, tagId, ontology) {
         };
         meanings.push(meaning);
     }
-    return session.run('UNWIND {meanings} AS map MATCH(tag:Tag {id:{tagId}}) CREATE (m:Meaning)-[:DERIVED_FROM]->(tag) SET m=map RETURN map', { meanings:meanings, tagId:tagId })
+    return session.run('UNWIND {meanings} AS map MATCH(tag:Tag {id:{tagId}}) CREATE (m:Meaning)-[:DERIVED_FROM]->(tag) SET m=map ', { meanings:meanings, tagId:tagId })
         .then(results => {
-            return results.records[0].get('map');
+            if(results.records) {
+                return session.run('MATCH(tag:Tag {id:{tagId}}) MATCH( (m:Meaning)-[:DERIVED_FROM]->(tag)) RETURN m', {tagId: tagId}
+                ).then(results => {
+                    return new Meaning(results.records[0].get('m'));
+                    }
+                )
+            }
         }
     )
 };
@@ -53,10 +59,10 @@ const deletion = function (session) {
 
 };
 
-const retrieve = function (session, meaningId) {
-    return session.run('MATCH (meaning:Meaning {id:{meaningId}}) RETURN meaning', { meaningId:meaningId }
+const retrieve = function (session, suggestionId) {
+    return session.run('MATCH(s:Suggestion {id:{suggestionId}}) MATCH ((s)<-[:CAME_FROM_THIS_MEANING]-(m:Meaning)) RETURN m', { suggestionId:suggestionId }
     ).then(results => {
-        return new Meaning(results.records[0].get('meaning'));
+        return new Meaning(results.records[0].get('m'));
     })
 };
 

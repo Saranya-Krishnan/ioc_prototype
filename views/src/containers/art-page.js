@@ -9,25 +9,9 @@ import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container } from 'semantic-ui-react';
 import Artwork from '../components/artwork';
-import PathHelper from '../helpers/path-helper';
-import ajax from 'superagent';
 
 
 class ArtPage extends Component {
-    componentDidMount(){
-        const data = {
-        };
-        ajax.post( PathHelper.apiPath + '/suggestions/batch-create-from-meanings')
-            .set('Content-Type', 'application/json')
-            .send(data)
-            .end((error, response) => {
-                if (!error && response) {
-                    console.log('Suggestions temp',response.body);
-                } else {
-                    console.log('Batch create error', error);
-                }
-            });
-    }
     static propTypes = {
         art: PropTypes.object.isRequired
     };

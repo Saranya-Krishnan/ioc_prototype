@@ -78,3 +78,10 @@ export const makeMeaning = tag => {
         tag
     };
 };
+
+export const makeSuggestions = meaning => {
+    return {
+        type: ImageUploaderActionTypes.MAKE_SUGGESTIONS,
+        meaning
+    };
+};

@@ -33,38 +33,40 @@ class Quest extends Component {
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    const responseData ={
-                        quest: {
-                            startDate: response.body.quest.startDate,
-                            goalDate: response.body.quest.goalDate,
-                            completed: response.body.quest.completed,
-                            hidden: response.body.quest.hidden,
-                            statement: response.body.quest.statement
-                        },
-                        suggestion: {
-                            prompt: response.body.suggestion.prompt
-                        },
-                        user: {
-                            id: response.body.user.id
-                        },
-                        meaning: {
-                            label: response.body.meaning.label,
-                            description: response.body.meaning.description,
-                            schemaName: response.body.meaning.schemaName
-                        }
-                    };
-                    this.setState({
-                        startDate: responseData.quest.startDate,
-                        goalDate: responseData.quest.goalDate,
-                        completed: responseData.quest.completed,
-                        hidden: responseData.quest.hidden,
-                        statement: responseData.quest.statement,
-                        label: responseData.meaning.label,
-                        description: responseData.meaning.description,
-                        prompt: responseData.suggestion.prompt
-                    });
-                } else {
-                    this.setState({errorText: error, hasError: true});
+                    if (!response.body.noQuest) {
+                        const responseData = {
+                            quest: {
+                                startDate: response.body.quest.startDate,
+                                goalDate: response.body.quest.goalDate,
+                                completed: response.body.quest.completed,
+                                hidden: response.body.quest.hidden,
+                                statement: response.body.quest.statement
+                            },
+                            suggestion: {
+                                prompt: response.body.suggestion.prompt
+                            },
+                            user: {
+                                id: response.body.user.id
+                            },
+                            meaning: {
+                                label: response.body.meaning.label,
+                                description: response.body.meaning.description,
+                                schemaName: response.body.meaning.schemaName
+                            }
+                        };
+                        this.setState({
+                            startDate: responseData.quest.startDate,
+                            goalDate: responseData.quest.goalDate,
+                            completed: responseData.quest.completed,
+                            hidden: responseData.quest.hidden,
+                            statement: responseData.quest.statement,
+                            label: responseData.meaning.label,
+                            description: responseData.meaning.description,
+                            prompt: responseData.suggestion.prompt
+                        });
+                    } else {
+                        this.setState({errorText: error, hasError: true});
+                    }
                 }
             });
     }

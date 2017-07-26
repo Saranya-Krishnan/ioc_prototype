@@ -19,13 +19,15 @@ const Suggestions = require('../../models/suggestions')
  *       classificationData:
  *          type: string
  */
+
+
 /**
  * @swagger
- * /api/v0/suggestions/create-from-tag:
+ * /api/v0/suggestions/create:
  *   post:
  *     tags:
  *     - suggestions
- *     description: Creates a new suggestion from a tag
+ *     description: Creates a new suggestion
  *     produces:
  *       - application/json
  *     parameters:
@@ -41,8 +43,13 @@ const Suggestions = require('../../models/suggestions')
  *         description: Error message(s)
  */
 
-exports.createFromTag = function (req, res, next) {
-
+exports.create = function (req, res, next) {
+    const meaningId = _.get(req.body, 'meaningId');
+    const schemaName = _.get(req.body, 'schemaName');
+    const label = _.get(req.body, 'label');
+    Suggestions.create(dbUtils.getSession(req), meaningId, schemaName, label)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };
 
 /**
@@ -97,34 +104,6 @@ exports.update = function (req, res, next) {
 
 exports.deletion = function (req, res, next) {
 
-};
-
-/**
- * @swagger
- * /api/v0/suggestions/batch-create-from-meanings:
- *   post:
- *     tags:
- *     - suggestions
- *     description: Creates suggestions from meanings
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
-exports.batchCreateFromMeanings = function (req, res, next) {
-    Suggestions.batchCreateFromMeanings(dbUtils.getSession(req))
-        .then(response => writeResponse(res, response, 201))
-        .catch(next);
 };
 
 /**

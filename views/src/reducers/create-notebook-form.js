@@ -7,7 +7,6 @@ const initialState = {
     how: '',
     when: '',
     what: '',
-    step: 0,
     doRedirect: false,
     noteBookId: '',
     userId:''

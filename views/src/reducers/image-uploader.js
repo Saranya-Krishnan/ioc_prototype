@@ -1,6 +1,5 @@
 import * as ImageUploaderActionTypes from '../action_types/image-uploder';
 
-
 const initialState = {
     uploadedFileCloudinaryUrl: null,
     uploadedFile: null,
@@ -57,6 +56,10 @@ export default function ImageUploader(state=initialState, action) {
                 ...state
             });
         case ImageUploaderActionTypes.MAKE_MEANING :
+            return Object.assign({}, state, {
+                ...state
+            });
+        case ImageUploaderActionTypes.MAKE_SUGGESTIONS :
             return Object.assign({}, state, {
                 ...state
             });

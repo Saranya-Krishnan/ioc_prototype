@@ -4,7 +4,6 @@ import Suggestion from './neo4j_models/suggestion';
 import User from './neo4j_models/user';
 import Meaning from './neo4j_models/meaning';
 
-
 const create = function (session, suggestionId, userId, startDate, goalDate, completed, hidden, statement) {
     const questId = uuid.v4();
     return session.run('CREATE (quest:Quest {id:{questId}, startDate:{startDate}, goalDate:{goalDate}, completed:{completed}, hidden:{hidden}, statement:{statement}}) RETURN quest', { questId:questId, startDate:startDate, goalDate:goalDate, completed:completed, hidden:hidden, statement:statement }
@@ -31,27 +30,35 @@ const deletion = function (session, questId) {
     })
 };
 
-
 const display = function (session, questId) {
     return session.run('MATCH (q:Quest {id:{questId}}) MATCH (q)-[:SUGGESTED_BY]->(s:Suggestion) MATCH (m:Meaning {id:s.meaningId}) MATCH(u:User)-[:IS_PARTICIPATING_IN]->(q) RETURN q, s, m, u',{questId:questId}
     ).then(results => {
-       const quest = new Quest(results.records[0].get('q'));
-       const suggestion = new Suggestion(results.records[0].get('s'));
-       const meaning = new Meaning(results.records[0].get('m'));
-       const user = new User(results.records[0].get('u'));
-       return{
-           user: user,
-           quest: quest,
-           suggestion: suggestion,
-           meaning: meaning
-       }
+        if(results.records.length){
+            const quest = new Quest(results.records[0].get('q'));
+            const suggestion = new Suggestion(results.records[0].get('s'));
+            const meaning = new Meaning(results.records[0].get('m'));
+            const user = new User(results.records[0].get('u'));
+            return{
+                user: user,
+                quest: quest,
+                suggestion: suggestion,
+                meaning: meaning
+            }
+        }else{
+            return {noQuest:true}
+        }
+
     })
 };
 
 const mine = function (session, userId){
   return session.run('MATCH (u:User {id:{userId}}) MATCH (q:Quest)<-[:IS_PARTICIPATING_IN]-(u) RETURN q',{userId:userId}
   ).then(results => {
-      return new Quest(results.records[0].get('q'))
+      if(results.records) {
+          return new Quest(results.records[0].get('q'));
+      }else{
+          return {body:'No quests found.'}
+      }
   })
 };
 

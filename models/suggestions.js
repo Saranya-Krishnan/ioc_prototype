@@ -1,19 +1,8 @@
 import uuid from 'uuid';
 import Suggestion from './neo4j_models/suggestion';
 const IoCSeed = require('../ioc.seed');
-const suggestionBox = [];
 
-const create = function (session) {
-
-};
-
-const update = function (session) {
-
-};
-
-
-const getASuggestion = function(meaning){
-    const schemaName = meaning.properties.schemaName;
+const create = function (session, meaningId, schemaName, label) {
     if(schemaName!==undefined){
         if(IoCSeed.suggestionData[schemaName] && schemaName!=='none'){
             const schema =IoCSeed.suggestionData[schemaName];
@@ -22,42 +11,36 @@ const getASuggestion = function(meaning){
                 const spString = pString.split(' ');
                 for(let y=0; y<spString.length; y++){
                     let article = null;
-                    if(/\b[aeiou]\w*/ig.test(meaning.properties.label)){
+                    if(/\b[aeiou]\w*/ig.test(label)){
                         article ='an';
                     }else{
                         article ='a';
                     }
                     spString[y] = spString[y].replace(/%&.*&%/,article);
-                    spString[y] = spString[y].replace(/%\^.*\^%/,meaning.properties.label);
+                    spString[y] = spString[y].replace(/%\^.*\^%/,label);
                 }
-                let suggestion = {
-                    id: uuid.v4(),
-                    meaningId: meaning.properties.id,
-                    prompt:spString.join(' ')
-                };
-                suggestionBox.push(suggestion);
+                let suggestionId = uuid.v4();
+                let prompt = spString.join(' ');
+                return session.run('CREATE (s:Suggestion {id:{suggestionId}, prompt:{prompt}}) RETURN s',{suggestionId:suggestionId, prompt:prompt }
+                ).then(firstResults => {
+                    return session.run('MATCH (m:Meaning {id:{meaningId}}) MATCH(s:Suggestion {id:{suggestionId}}) CREATE (s)<-[:CAME_FROM_THIS_MEANING]-(m) RETURN s',{suggestionId:suggestionId,meaningId:meaningId}
+                    ).then(secondResults => {
+                        return new Suggestion(secondResults.records[0].get('s'));
+                    });
+                });
+
             }
         }
     }
+
 };
 
-const batchCreateFromMeanings = function(session){
-    return session.run('MATCH (n:Meaning {lastUpdate:{lastUpdate}}) SET n.lastUpdate={newUpdate} RETURN n LIMIT 100',{lastUpdate:'new',newUpdate:'updated'}
-        ).then(results => {
-                for(let i=0; i<results.records.length; i++){
-                    let examined = results.records[i].get('n');
-                    getASuggestion(examined);
-                }
-                return session.run('UNWIND {suggestionBox} AS box CREATE (suggestion:Suggestion) SET suggestion=box',{suggestionBox:suggestionBox}
-                ).then(sResults=> {
+const update = function (session) {
 
-                });
-            }
-        )
 };
 
 const getSuggestions = function (session, tagId) {
-    return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:m.id}) MATCH(s:Suggestion {meaningId:m.id}) RETURN s', {tagId:tagId}
+    return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:m.id}) MATCH (s:Suggestion)<-[:CAME_FROM_THIS_MEANING]-(m) RETURN s', {tagId:tagId}
     ).then(results => {
         const suggestionGroup = [];
         let aSuggestion = null;
@@ -69,7 +52,6 @@ const getSuggestions = function (session, tagId) {
     });
 };
 
-
 const deletion = function (session) {
 
 };
@@ -78,6 +60,5 @@ module.exports = {
     create: create,
     update: update,
     deletion: deletion,
-    batchCreateFromMeanings:batchCreateFromMeanings,
     getSuggestions:getSuggestions
 };

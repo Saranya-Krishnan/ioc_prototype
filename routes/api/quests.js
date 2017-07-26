@@ -82,7 +82,6 @@ exports.create = function (req, res, next) {
  *         description: Error message(s)
  */
 
-
 exports.update = function (req, res, next) {
     const questId = _.get(req.body,'questId');
     const startDate = _.get(req.body,'startDate');

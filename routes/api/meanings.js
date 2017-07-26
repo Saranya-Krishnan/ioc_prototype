@@ -109,7 +109,7 @@ exports.deletion = function (req, res, next) {
  *   post:
  *     tags:
  *     - meanings
- *     description: Gets a meaning
+ *     description: Gets a meaning from a suggestion
  *     produces:
  *       - application/json
  *     parameters:
@@ -127,8 +127,8 @@ exports.deletion = function (req, res, next) {
 
 
 exports.retrieve = function (req, res, next) {
-    const meaningId = _.get(req.body,'meaningId');
-    Meanings.retrieve(dbUtils.getSession(req),meaningId)
+    const suggestionId = _.get(req.body,'suggestionId');
+    Meanings.retrieve(dbUtils.getSession(req),suggestionId)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };

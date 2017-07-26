@@ -92,10 +92,10 @@ class Artwork extends Component {
         let suggestionsOptions = null;
         if(this.state.work) {
             const t = this.state.work.tags;
-            tagOptions = t.map((tag) => (
+            tagOptions = t.map((tag, index) => (
                 <Tag
                     word={tag.word}
-                    key={tag.id}
+                    key={tag.id +'_tag'+ index}
                     ontology={tag.ontology}
                     id={tag.id}
                     isEditable={true}
@@ -105,11 +105,11 @@ class Artwork extends Component {
         }
         if(this.state.suggestions){
                 const s = this.state.suggestions;
-                suggestionsOptions = s.map((suggestion) => (
+                suggestionsOptions = s.map((suggestion, index) => (
                     <Suggestion
                         id={suggestion.id}
                         prompt={suggestion.prompt}
-                        key={suggestion.prompt+suggestion.meaningId}
+                        key={suggestion.prompt+'_suggestion'+index}
                         meaningId={suggestion.meaningId}
                     />
                 ));

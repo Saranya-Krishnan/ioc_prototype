@@ -19,9 +19,6 @@ class UploadPage extends Component {
     static propTypes = {
         upload: PropTypes.object.isRequired
     };
-    handleNoNoteBooks = function(){
-       this.noCards = true;
-    };
     render() {
         const { dispatch } = this.props;
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
@@ -38,11 +35,11 @@ class UploadPage extends Component {
         const getNewTagOntology = bindActionCreators(ImageUploadCreators.getNewTagOntology, dispatch);
         const enrichNewTag = bindActionCreators(ImageUploadCreators.enrichNewTag, dispatch);
         const makeMeaning = bindActionCreators(ImageUploadCreators.makeMeaning, dispatch);
+        const makeSuggestions = bindActionCreators(ImageUploadCreators.makeSuggestions, dispatch);
         const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
         const classificationToTags = bindActionCreators(ImageUploadCreators.classificationToTags, dispatch);
         const visualRecognition = bindActionCreators(ImageUploadCreators.visualRecognition, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
-
         return (
             <div>
                 <Container className={'main-content'}>
@@ -55,13 +52,12 @@ class UploadPage extends Component {
                         <Segment>
                             <Grid divided>
                                 <Grid.Column width={10}>
-                                    {this.noCards ? null :
+                                    {this.props.upload['MyNotebooks'].notebooksFound ? null :
                                         <MyNotebooks
                                             showMyNotebooks={showMyNotebooks}
-                                            broadcastUp={this.handleNoNoteBooks}
                                         />
                                     }
-                                    {this.noCards ?
+                                    {this.props.upload['MyNotebooks'].notebooksFound  ?
                                         <Notebook
                                             isNewNotebook={true}
                                             createNewNotebook={createNewNotebook}
@@ -71,6 +67,7 @@ class UploadPage extends Component {
                                 {this.noCards ? null :
                                     <Grid.Column width={6}>
                                         <ImageUploader
+                                            makeSuggestions={makeSuggestions}
                                             makeMeaning={makeMeaning}
                                             uploadImage={uploadImage}
                                             getNewTagOntology={getNewTagOntology}

@@ -27,9 +27,7 @@ class MyNotebooks extends Component {
             .end((error, response) => {
                 if (!error && response) {
                     const res = response.body;
-                    if(res.noteBooksFound<=0){
-                        this.props.broadcastUp();
-                    }
+
                     this.setState({noteBooksFound: res.noteBooksFound, myNoteBooks:res.notebooks});
                 } else {
                     console.log('error retrieving your quests', error);
@@ -107,8 +105,7 @@ MyNotebooks.propTypes = {
         id:PropTypes.string,
     })),
     currentNotebook:PropTypes.string,
-    noteBooksFound: PropTypes.number,
-    broadcastUp: PropTypes.func
+    noteBooksFound: PropTypes.number
 };
 
 const mapDispatchToProps = (dispatch) => {
