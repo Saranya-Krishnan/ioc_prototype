@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import {Card, Image } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-//Example Image
-const img = require('!!url-loader!../../assets/img/splash-image.jpg');
+const img = require('!!url-loader!../../assets/img/notebook_basic.jpg');
 
 const NotebookTout = props => {
     const setMe = function(){
@@ -12,8 +11,7 @@ const NotebookTout = props => {
     return (
         <div className="notebook-tout-wrapper">
             <Card onClick={() => setMe()} className={props.isActive ? 'notebook-tout active-notebook' : 'notebook-tout'}>
-                <div className="notebook-tout-image"></div>
-                <Image src={img}/>
+                <Image className="notebook-tout-image" src={img}/>
                 <Card.Content>
                 <Card.Header>{props.name}</Card.Header>
                     <Card.Description>
