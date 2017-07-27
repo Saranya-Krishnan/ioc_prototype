@@ -205,11 +205,13 @@ api.post('/api/'+process.env.API_VERSION+'/quests/delete', routes.quests.deletio
 api.post('/api/'+process.env.API_VERSION+'/quests/display', routes.quests.display);
 api.post('/api/'+process.env.API_VERSION+'/quests/my-quests', routes.quests.mine);
 
-app.listen(process.env.CLIENT_PORT, function () {
-    console.log('Ioc Express Server started on '+process.env.CLIENT_PORT);
+
+
+app.listen(process.env.PORT || process.env.CLIENT_PORT, function () {
+    console.log("IoC Express server listening on port " + this.address().port);
 });
 
-api.listen(process.env.API_PORT, function () {
-    console.log('Neo4j server started on '+process.env.API_PORT);
+api.listen(process.env.PORT || process.env.API_PORT, function () {
+    console.log('Neo4j server started on '+this.address().port);
     console.log('Bolt server at '+process.env.GRAPHENEDB_BOLT_URL);
 });
