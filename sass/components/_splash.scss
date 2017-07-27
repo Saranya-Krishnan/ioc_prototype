@@ -1,0 +1,17 @@
+.splash-main{
+  background-size: cover !important;
+  height: 400px;
+  text-align: center;
+  margin: 0 -5rem 0 -5rem;
+  h1{
+    font-size: 4rem;
+    padding-top: 15rem;
+    padding-bottom:0 !important;
+    color: setcolor('white');
+    text-shadow: 0px -1px 9px rgba(0, 0, 0, 0.5);
+  }
+  h2{
+    color: setcolor('white');
+    text-shadow: 0px -1px 9px rgba(0, 0, 0, 0.5);
+  }
+}

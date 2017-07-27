@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = props => {
     return (
+        <div className="footer-wrapper">
         <Segment vertical={true} className={"ioc-footer"} inverted={true}>
             <Container className={"center aligned"}>
                 <Image centered={true}/>
@@ -13,6 +14,7 @@ const Footer = props => {
                 </List>
             </Container>
         </Segment>
+        </div>
     )
 };
 

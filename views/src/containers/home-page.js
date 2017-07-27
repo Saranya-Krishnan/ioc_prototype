@@ -6,7 +6,14 @@ import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
-import { Container, Segment, Grid, Divider } from 'semantic-ui-react';
+import Wall from '../components/wall';
+import MyFriends from '../components/my-friends';
+import HomeControls from '../components/home-controls';
+import HowItWorksPromo from '../components/how-it-works-promo';
+import Splash from '../components/Splash';
+import LatestImages from '../components/latest-images';
+import OfferPromo from '../components/offer-promo';
+import { Container, Segment, Grid, Divider,Header } from 'semantic-ui-react';
 
 class HomePage extends Component {
     static propTypes = {
@@ -28,94 +35,36 @@ class HomePage extends Component {
                         updateUserInfo={updateUserInfo}
                         setLoggedIn={setLoggedIn}>
                     </Nav>
-
-                    {/*Not logged in promo mode*/}
                     {! this.props.home['Nav'].isLoggedIn ?
                     <div>
-                        <Segment>Key visual</Segment>
+                        <Splash/>
                         <Divider />
-
-                        {/*Component*/}
-
-                        <Grid divided>
-                            <Grid.Column width={4}>
-                                <Segment>Intro Copy</Segment>
-                            </Grid.Column>
-                            <Grid.Column width={8}>
-                               <Segment>Featured</Segment>
-                            </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment>CTA</Segment>
-                            </Grid.Column>
-                        </Grid>
+                        <HowItWorksPromo/>
                         <Divider />
-
-
-                        {/*Component*/}
-
-
-                        <Grid>
-                            <Grid.Column width={4}>
-                                <Segment>Latest Img</Segment>
-                            </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment>Latest Img</Segment>
-                            </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment>Latest Img</Segment>
-                            </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment>Latest Img</Segment>
-                            </Grid.Column>
-                        </Grid>
-
-
-                        {/*Component*/}
-
-
-                        <Segment>Large Offer</Segment>
-                        <Grid>
-                            <Grid.Column width={2}>
-                            </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment>How it works</Segment>
-                            </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment>How it works</Segment>
-                            </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment>How it works</Segment>
-                            </Grid.Column>
-                            <Grid.Column width={2}>
-                            </Grid.Column>
-                        </Grid>
-                        <Divider />
-
-                        {/*Component*/}
+                        <LatestImages/>
+                        <OfferPromo/>
                     </div> :
                      <div>
                         <Container>
-                            <Grid divided>
-                                <Grid.Column width={3}>
-
-                                    {/*Component*/}
-                                    <Segment>Controls/Notebooks</Segment>
-                                    {/*Component*/}
-
-                                </Grid.Column>
-                                <Grid.Column width={10}>
-
-                                    {/*Component*/}
-                                    <Segment>Wall</Segment>
-                                    {/*Component*/}
-
-                                </Grid.Column>
-                                <Grid.Column width={3}>
-                                    {/*Component*/}
-                                    <Segment>Social</Segment>
-                                    {/*Component*/}
-
-                                </Grid.Column>
+                            <Header content="Welcome to the Moleskine Internet of Creativity"/>
+                            <Grid>
+                                <Grid.Row stretched>
+                                    <Grid.Column width={4}>
+                                        <Segment>
+                                            <HomeControls/>
+                                        </Segment>
+                                    </Grid.Column>
+                                    <Grid.Column width={8}>
+                                        <Segment>
+                                            <Wall></Wall>
+                                        </Segment>
+                                    </Grid.Column>
+                                    <Grid.Column width={4}>
+                                        <Segment>
+                                            <MyFriends/>
+                                        </Segment>
+                                    </Grid.Column>
+                                </Grid.Row>
                             </Grid>
                         </Container>
                     </div>

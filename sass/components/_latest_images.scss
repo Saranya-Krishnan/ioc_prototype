@@ -1,0 +1,15 @@
+.latest-images-container{
+  background-color: setcolor('gunmetal');
+  margin: 0 -5rem 0 -5rem;
+  .latest-images-inner-container {
+    margin: 0 6rem 0 6rem;
+    padding: 2rem 0 2rem 0;
+    .heading {
+      color: setcolor('white');
+    }
+    .poc-text{
+      margin-top: 1rem;
+      color: setcolor('white');
+    }
+  }
+}

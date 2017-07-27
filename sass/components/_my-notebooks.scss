@@ -6,3 +6,14 @@
   margin: 0 auto 0 auto;
   font-size: 1.2rem !important;
 }
+
+.add-notebook-instructions{
+  margin: 1rem 0 1rem 0;
+  color: setcolor('gunmetal','dark');
+}
+
+.notebook-tout-grid{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

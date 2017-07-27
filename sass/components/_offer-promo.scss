@@ -1,0 +1,24 @@
+.offer-promo-container{
+  background-color: setcolor('red-orange');
+  margin: 0 -5rem 0 -5rem;
+  .offer-promo-inner-container {
+    margin: 0 6rem 0 6rem;
+    padding: 2rem 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .heading {
+      color: setcolor('white');
+      font-size: 4rem;
+    }
+    .detail{
+      color: setcolor('white');
+      padding: 1rem 0 1rem 0;
+    }
+    .poc-text{
+      margin-top: 1rem;
+      color: setcolor('white');
+      align-self: flex-start;
+    }
+  }
+}

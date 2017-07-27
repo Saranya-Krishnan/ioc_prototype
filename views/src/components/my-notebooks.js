@@ -90,12 +90,13 @@ class MyNotebooks extends Component {
             ));
         }
         return (
-            <div>
-                <Container>
-                    <Header content="My notebooks"/>
+            <Container>
+                <Header content="My notebooks"/>
+                <p className="add-notebook-instructions">Click to select the notebook your upload comes from.</p>
+                <div className="notebook-tout-grid">
                     {notebookGroup}
-                </Container>
-            </div>
+                </div>
+            </Container>
         )
     }
 }
