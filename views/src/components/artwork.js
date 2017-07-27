@@ -95,7 +95,7 @@ class Artwork extends Component {
             tagOptions = t.map((tag, index) => (
                 <Tag
                     word={tag.word}
-                    key={tag.id +'_tag'+ index}
+                    key={tag.id}
                     ontology={tag.ontology}
                     id={tag.id}
                     isEditable={true}
@@ -109,7 +109,7 @@ class Artwork extends Component {
                     <Suggestion
                         id={suggestion.id}
                         prompt={suggestion.prompt}
-                        key={suggestion.prompt+'_suggestion'+index}
+                        key={suggestion.id}
                         meaningId={suggestion.meaningId}
                     />
                 ));

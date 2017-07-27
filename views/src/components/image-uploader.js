@@ -114,12 +114,7 @@ class ImageUploader extends Component {
             });
     }
 
-
-
-
     createArtWork(imageId,userId){
-
-
         const userData = {
             userId: userId
         };
@@ -130,12 +125,12 @@ class ImageUploader extends Component {
                 if (!error && response) {
                     const res = response.body;
                     this.currentNotebook = res.id;
-
                     const createData = {
                         imageId:imageId,
                         userId:userId,
                         notebookId: this.currentNotebook
                     };
+
                     let data = JSON.stringify(createData);
                     ajax.post( PathHelper.apiPath + '/works/create')
                         .set('Content-Type', 'application/json')
@@ -147,9 +142,6 @@ class ImageUploader extends Component {
                                 console.log('Error saving your image', error);
                             }
                         });
-
-
-
                 } else {
                     console.log('error retrieving your quests', error);
                 }

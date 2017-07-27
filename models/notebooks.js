@@ -20,7 +20,7 @@ const create = function (session, when, what, how, name1, name2, name3, userId) 
                 }
             ).then(results => {
                     const notebook = new Notebook(results.records[0].get('notebook'));
-                    return session.run('MATCH (nb:Notebook {id:{notebookId}}) CREATE (u:User {id:{userId}})-[:OWNS_THIS_BOOK]->(nb) RETURN nb', {
+                    return session.run('MATCH (nb:Notebook {id:{notebookId}}) MATCH (u:User {id:{userId}}) CREATE UNIQUE (u)-[:OWNS_THIS_BOOK]->(nb) CREATE UNIQUE (u)-[:CURRENT_NOTEBOOK_OF]->(nb) RETURN nb', {
                             notebookId: notebookId,
                             userId: userId
                         }

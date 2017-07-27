@@ -37,3 +37,16 @@ export const goToQuestPage = redirect => {
         type: QuestActionTypes.GO_TO_QUEST_PAGE, redirect
     };
 };
+
+export const displayThatThereAreNoQuests = () => {
+    return {
+        type: QuestActionTypes.DISPLAY_THAT_THERE_ARE_NO_QUESTS
+    };
+};
+
+export const showDetail = (data) => {
+    return {
+        type: QuestActionTypes.SHOW_DETAIL,
+        data
+    };
+};

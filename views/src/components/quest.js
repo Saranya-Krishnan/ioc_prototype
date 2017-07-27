@@ -33,6 +33,7 @@ class Quest extends Component {
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
+                    console.log(response);
                     if (!response.body.noQuest) {
                         const responseData = {
                             quest: {
@@ -54,7 +55,7 @@ class Quest extends Component {
                                 schemaName: response.body.meaning.schemaName
                             }
                         };
-                        this.setState({
+                        const quest = {
                             startDate: responseData.quest.startDate,
                             goalDate: responseData.quest.goalDate,
                             completed: responseData.quest.completed,
@@ -62,11 +63,18 @@ class Quest extends Component {
                             statement: responseData.quest.statement,
                             label: responseData.meaning.label,
                             description: responseData.meaning.description,
-                            prompt: responseData.suggestion.prompt
-                        });
+                            prompt: responseData.suggestion.prompt,
+                            doRedirect: false
+                        };
+                        this.setState(quest);
+                        if(!this.props.promoMode){
+                            this.props.showDetail(quest);
+                        }
                     } else {
-                        this.setState({errorText: error, hasError: true});
+                        this.props.displayThatThereAreNoQuests();
                     }
+                }else{
+                    this.setState({errorText: error, hasError: true});
                 }
             });
     }
@@ -74,6 +82,12 @@ class Quest extends Component {
     render(){
         return(
             <Container>
+                {this.state.noQuest ?
+                    <Container>
+                        <Header content="No Quests found."/>
+                    </Container>
+                    :
+                    <Container>
                 {this.props.promoMode ?
                     <Container >
                         <Card onClick={ () => this.state.goToQuestPage(true)}>
@@ -81,7 +95,7 @@ class Quest extends Component {
                             <Card.Content header={this.state.prompt}/>
                             <Card.Content description={this.state.description}/>
                             <Card.Content extra>
-                                <Statistic>
+                                <Statistic  size='mini'>
                                     <Statistic.Label>Goal Date</Statistic.Label>
                                     <Statistic.Value>{moment(this.state.goalDate).fromNow()}</Statistic.Value>
                                 </Statistic>
@@ -89,28 +103,21 @@ class Quest extends Component {
                         </Card>
                     </Container>
                     : <Container>
-                        <Segment>
-                            <Header content={this.state.prompt} subheader={"You started this quest on " + moment(this.state.startDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}/>
-                            <Divider/>
-                            <h3>About {this.state.label}</h3>
+                        <Container text>
+
+                            <Header content={this.state.prompt}/>
                             <p>{this.state.description}</p>
-                            { this.state.completed ?
-                                <Container>
-                                    <h3>Completion Date</h3>
-                                    <p>TK</p>
-                                </Container> :
-                                <Container>
-                                    <Statistic>
-                                        <Statistic.Label>Goal Date</Statistic.Label>
-                                        <Statistic.Value>{moment(this.state.goalDate).fromNow()}</Statistic.Value>
-                                    </Statistic>
-                                </Container> }
+                                <Statistic  size='mini'>
+                                    <Statistic.Label>Goal Date</Statistic.Label>
+                                    <Statistic.Value>{moment(this.state.goalDate).fromNow()}</Statistic.Value>
+                                </Statistic>
                             <Container>
                                 <Button>Abandon</Button>
                                 <Button>Upload & Complete</Button>
                             </Container>
-                        </Segment>
+                        </Container>
                     </Container> }
+                </Container> }
             </Container>
         )
     }
@@ -129,6 +136,7 @@ Quest.propTypes = {
     prompt: PropTypes.string,
     hasError: PropTypes.bool,
     errorText: PropTypes.string,
+    noQuests: PropTypes.bool,
     userInfo: PropTypes.shape({
         id: PropTypes.string,
         username:PropTypes.string,
@@ -157,6 +165,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         goToQuestPage: redirect => {
             dispatch(QuestActions.goToQuestPage(redirect))
+        },
+        displayThatThereAreNoQuests: () => {
+            dispatch(QuestActions.displayThatThereAreNoQuests())
+        },
+        showDetail: (data) => {
+            dispatch(QuestActions.showDetail(data))
         }
     }
 };

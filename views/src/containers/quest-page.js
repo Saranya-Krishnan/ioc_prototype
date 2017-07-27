@@ -25,7 +25,9 @@ class QuestPage extends Component {
         const joinQuest = bindActionCreators(QuestActionCreators.joinQuest, dispatch);
         const adabdonQuest = bindActionCreators(QuestActionCreators.adabdonQuest, dispatch);
         const seeAllMyQuests = bindActionCreators(QuestActionCreators.seeAllMyQuests, dispatch);
+        const showDetail = bindActionCreators(QuestActionCreators.showDetail, dispatch);
         const goToQuestPage = bindActionCreators(QuestActionCreators.goToQuestPage, dispatch);
+        const displayThatThereAreNoQuests = bindActionCreators(QuestActionCreators.displayThatThereAreNoQuests, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         return (
             <div>
@@ -44,7 +46,9 @@ class QuestPage extends Component {
                         joinQuest={joinQuest}
                         adabdonQuest={adabdonQuest}
                         seeAllMyQuests={seeAllMyQuests}
-                        goToQuestPage={goToQuestPage}>
+                        goToQuestPage={goToQuestPage}
+                        displayThatThereAreNoQuests={displayThatThereAreNoQuests}
+                        showDetail={showDetail}>
                     </Quest>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>

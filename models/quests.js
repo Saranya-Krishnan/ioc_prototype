@@ -31,7 +31,7 @@ const deletion = function (session, questId) {
 };
 
 const display = function (session, questId) {
-    return session.run('MATCH (q:Quest {id:{questId}}) MATCH (q)-[:SUGGESTED_BY]->(s:Suggestion) MATCH (m:Meaning {id:s.meaningId}) MATCH(u:User)-[:IS_PARTICIPATING_IN]->(q) RETURN q, s, m, u',{questId:questId}
+    return session.run('MATCH (q:Quest {id:{questId}}) MATCH (q)-[:SUGGESTED_BY]->(s:Suggestion) MATCH ((s)<-[:CAME_FROM_THIS_MEANING]-(m:Meaning)) MATCH(u:User)-[:IS_PARTICIPATING_IN]->(q) RETURN q, s, u, m',{questId:questId}
     ).then(results => {
         if(results.records.length){
             const quest = new Quest(results.records[0].get('q'));

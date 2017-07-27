@@ -25,7 +25,7 @@ const createFromImage = function (session, word, imageId) {
     return session.run('MATCH (tag:Tag {word:{word}}) RETURN tag', { word:word })
         .then(results => {
             if (!_.isEmpty(results.records)) {
-                return session.run('MATCH (tag:Tag {id:{tagId}}) MATCH (image:Image {id:{imageId}}) CREATE(image)-[:ASSOCIATED_WITH]->(tag) RETURN tag',{imageId:imageId, tagId:tagId}
+                return session.run('MATCH (tag:Tag {id:{tagId}}) MATCH (image:Image {id:{imageId}}) CREATE (image)-[:ASSOCIATED_WITH]->(tag) RETURN tag',{imageId:imageId, tagId:tagId}
                 ).then(tResults => {
                         return new Tag(results.records[0].get('tag'));
                     }
@@ -34,7 +34,7 @@ const createFromImage = function (session, word, imageId) {
                 return session.run('CREATE (tag:Tag {id: {id}, word:{word}, ontology:{ontology}}) RETURN tag',{ id:tagId, word:word, ontology:"{}"})
                     .then(results => {
                             const tagResults = results;
-                            return session.run('MATCH (tag:Tag {id:{tagId}}) MATCH (image:Image {id:{imageId}}) CREATE(image)-[:ASSOCIATED_WITH]->(tag) RETURN tag',{imageId:imageId, tagId:tagId}
+                            return session.run('MATCH (tag:Tag {id:{tagId}}) MATCH (image:Image {id:{imageId}}) CREATE (image)-[:ASSOCIATED_WITH]->(tag) RETURN tag',{imageId:imageId, tagId:tagId}
                             ).then(tResults => {
                                     return new Tag(tagResults.records[0].get('tag'));
                                 }

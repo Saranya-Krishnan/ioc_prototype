@@ -9,7 +9,7 @@ const create = function (session, imageId, userId, notebookId) {
     return session.run('CREATE (work:Work {id: {id}}) RETURN work', {id: artworkId}
     ).then(results => {
         const artResults = results;
-        return session.run('MATCH (work:Work {id:{artworkId}}) MATCH(notebook:Notebook {id:{notebookId}}) CREATE(user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})<-[:DISPLAYS]-(work) CREATE((work)-[:IS_PART_OF_THIS_NOTEBOOK]->(notebook))', {
+        return session.run('MATCH (work:Work {id:{artworkId}}) MATCH(notebook:Notebook {id:{notebookId}}) CREATE (user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})<-[:DISPLAYS]-(work) CREATE((work)-[:IS_PART_OF_THIS_NOTEBOOK]->(notebook))', {
                 artworkId: artworkId,
                 userId: userId,
                 imageId: imageId,

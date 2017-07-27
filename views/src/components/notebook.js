@@ -38,8 +38,9 @@ class Notebook extends Component {
                             </Grid.Column>
                         </Grid>
                     </Container>
-                    :   <Container>
-                            display
+                    :   <Container text>
+                            <Header content={this.props.name}/>
+                            <p>Will place all images / pages here.</p>
                         </Container>
                 }
             </Container>
@@ -50,7 +51,10 @@ class Notebook extends Component {
 Notebook.propTypes = {
     isNewNotebook: PropTypes.bool.isRequired,
     createNewNotebook: PropTypes.func.isRequired,
-    doRedirect:PropTypes.bool.isRequired
+    doRedirect:PropTypes.bool.isRequired,
+    name: PropTypes.string,
+    id: PropTypes.string,
+    isActive: PropTypes.bool
 };
 
 const mapDispatchToProps = (dispatch) => {

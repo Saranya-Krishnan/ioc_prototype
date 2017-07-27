@@ -70,7 +70,7 @@ const getCurrentNotebook = function (session,userId) {
         if(results.records[0]){
             return new Notebook(results.records[0].get('n'));
         }else{
-            return {body:[]};
+            return {noCurrentNotebook:true};
         }
     });
 };

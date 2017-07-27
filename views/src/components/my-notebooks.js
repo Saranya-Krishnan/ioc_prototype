@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ajax from 'superagent';
 import { Container, Header} from 'semantic-ui-react';
-import * as MyNotebooksActions from '../actions/my-notebooks_actions';
 import PathHelper from '../helpers/path-helper';
 import NotebookTout from './note-book-tout';
 
@@ -13,30 +12,11 @@ class MyNotebooks extends Component {
         super(props);
         this.state = props;
         this.setUser = this.setUser.bind(this);
-        this.getNotebooks = this.getNotebooks.bind(this);
         this.setNotebook = this.setNotebook.bind(this);
-
-    }
-    getNotebooks(){
-        const data = {
-            userId: this.userId
-        };
-        ajax.post( PathHelper.apiPath + '/notebooks/mine')
-            .set('Content-Type', 'application/json')
-            .send(data)
-            .end((error, response) => {
-                if (!error && response) {
-                    const res = response.body;
-
-                    this.setState({noteBooksFound: res.noteBooksFound, myNoteBooks:res.notebooks});
-                } else {
-                    console.log('error retrieving your quests', error);
-                }
-            });
+        this.stopper = false;
     }
     setUser(data) {
         this.userId = data.id;
-        this.getNotebooks();
         this.setState({stopper: true, doRedirect: false});
         const userData = {
             userId: this.userId
@@ -49,7 +29,7 @@ class MyNotebooks extends Component {
                     const res = response.body;
                     this.setState({currentNotebook:res.id});
                 } else {
-                    console.log('error retrieving your quests', error);
+                    console.log('error retrieving your notebooks', error);
                 }
             });
     }
@@ -71,20 +51,21 @@ class MyNotebooks extends Component {
                     console.log('error retrieving your quests', error);
                 }
             });
-
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState(nextProps.state);
         if(nextProps.user.userInfo.id !=='' && nextProps.user.userInfo.id !==undefined){
-            this.setUser(nextProps.user.userInfo);
+            if(!this.stopper){
+                this.setUser(nextProps.user.userInfo);
+            }
         }
     }
 
     render() {
         let notebookGroup = null;
-        if(this.state.noteBooksFound > 0){
-            const notebooks = this.state.myNoteBooks;
+        if(this.props.myNoteBooks){
+            const notebooks = this.props.myNoteBooks;
             notebookGroup = notebooks.map((n, index) => (
                 <NotebookTout name={n.name1+'-'+n.name2+'-'+n.name3} isActive={n.id === this.state.currentNotebook} id={n.id} linkToNotebook={() => this.setNotebook(n.id)} key={index}/>
             ));
@@ -105,15 +86,12 @@ MyNotebooks.propTypes = {
     myNoteBooks: PropTypes.arrayOf(PropTypes.shape({
         id:PropTypes.string,
     })),
-    currentNotebook:PropTypes.string,
-    noteBooksFound: PropTypes.number
+    currentNotebook:PropTypes.string
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showMyNotebooks: (notebooks, notebooksFound) => {
-            dispatch(MyNotebooksActions.showMyNotebooks(notebooks,notebooksFound))
-        }
+
     }
 };
 

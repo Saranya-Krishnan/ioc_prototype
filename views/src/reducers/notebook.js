@@ -11,7 +11,6 @@ export default function Notebook(state=initialState, action) {
             return Object.assign({}, state, {
                 doRedirect: true
             });
-            return state;
         default:
             return state;
     }

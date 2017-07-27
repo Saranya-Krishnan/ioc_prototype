@@ -1,9 +1,8 @@
 import * as MyNotebooksActionTypes from '../action_types/my-notebooks';
 
-export const showMyNotebooks = (notebooks, notebooksFound) => {
+export const displayMyNotebooks = (notebooks) => {
     return {
-        type: MyNotebooksActionTypes.SHOW_MY_NOTEBOOKS,
-        notebooks,
-        notebooksFound
+        type: MyNotebooksActionTypes.DISPLAY_MY_NOTEBOOKS,
+        notebooks
     };
 };

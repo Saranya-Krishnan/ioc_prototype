@@ -16,6 +16,8 @@ import ArtworkCardReducer from './artwork-card';
 import MyNotebooksReducer from './my-notebooks';
 import NotebookReducer from './notebook';
 import CreateNotebookFormReducer from './create-notebook-form';
+import UploadSharedReducer from './upload-shared';
+
 
 export const mainReducer = combineReducers({
     Footer: FooterReducer,
@@ -34,6 +36,7 @@ export const mainReducer = combineReducers({
     ArtworkCard: ArtworkCardReducer,
     MyNotebooks: MyNotebooksReducer,
     Notebook: NotebookReducer,
-    CreateNotebookForm :CreateNotebookFormReducer
+    CreateNotebookForm :CreateNotebookFormReducer,
+    UploadShared: UploadSharedReducer
 });
 export default mainReducer;

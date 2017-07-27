@@ -13,7 +13,8 @@ const initialState = {
     description: '',
     hasError: false,
     errorText: '',
-    doRedirect: false
+    doRedirect: false,
+    noQuest: false
 };
 
 export default function Quest(state=initialState, action) {
@@ -31,6 +32,22 @@ export default function Quest(state=initialState, action) {
         case QuestActionTypes.GO_TO_QUEST_PAGE:
             return Object.assign({}, state, {
                 doRedirect: action.redirect
+            });
+        case QuestActionTypes.DISPLAY_THAT_THERE_ARE_NO_QUESTS:
+            return Object.assign({}, state, {
+                noQuest: true
+            });
+        case QuestActionTypes.SHOW_DETAIL:
+            return Object.assign({}, state, {
+                startDate: action.data.startDate,
+                goalDate: action.data.goalDate,
+                completed:action.data.completed,
+                hidden: action.data.hidden,
+                statement: action.data.statement,
+                label: action.data.label,
+                description: action.data.description,
+                prompt: action.data.prompt,
+                doRedirect: action.data.doRedirect
             });
         default:
             return state;

@@ -32,7 +32,7 @@ export default class Ioc extends Component {
                 if (!error && response) {
                     console.log('Schema initialized');
                 } else {
-                    console.log('Initializing schema', error);
+                    console.log('ERROR Initializing schema', error);
                 }
             });
     }

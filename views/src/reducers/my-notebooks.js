@@ -1,4 +1,4 @@
-import * as UserInfoActionTypes from '../action_types/my-notebooks';
+import * as MyNotebookActionsTypes from '../action_types/my-notebooks';
 
 const initialState = {
     myNoteBooks: [
@@ -6,15 +6,12 @@ const initialState = {
             id:''
         }
     ],
-    currentNotebook:'',
-    noteBooksFound:0
-};
+    currentNotebook:''};
 
 export default function YourNoteBook(state=initialState, action) {
     switch(action.type) {
-        case UserInfoActionTypes.SHOW_MY_NOTEBOOKS:
+        case MyNotebookActionsTypes.DISPLAY_MY_NOTEBOOKS:
             return Object.assign({}, state, {
-                noteBooksFound: action.noteBooksFound,
                 myNoteBooks: action.notebooks
             });
         default:

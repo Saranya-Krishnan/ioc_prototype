@@ -30,7 +30,6 @@ export default function Suggestion(state=initialState, action) {
             return Object.assign({}, state, {
                 meaning: action.meaning
             });
-            return state;
         default:
             return state;
     }

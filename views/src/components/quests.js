@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ajax from 'superagent';
-import { Header, Segment} from 'semantic-ui-react';
+import { Header, Segment, Card} from 'semantic-ui-react';
 import * as QuestsActions from '../actions/quests_actions'
 import PathHelper from '../helpers/path-helper';
 import Quest from './quest';
@@ -63,7 +63,9 @@ class Quests extends Component {
         return (
             <Segment>
                 <Header content="My quests"/>
-                {questGroup}
+                <Card.Group>
+                    {questGroup}
+                </Card.Group>
             </Segment>
         )
     }

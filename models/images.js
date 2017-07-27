@@ -59,7 +59,7 @@ const create = function (session, signature, userId, width, height, format, url,
         }
     ).then(results => {
             const imgResults = results;
-            return session.run('MATCH (image:Image {id:{imageId}}) CREATE(user {id:{userId}})-[:UPLOADED]->(image)', {imageId:imageId, userId:userId}
+            return session.run('MATCH (image:Image {id:{imageId}}) CREATE (user {id:{userId}})-[:UPLOADED]->(image)', {imageId:imageId, userId:userId}
             ).then(mResults => {
                 return new Image(imgResults.records[0].get('image'));
                 }
