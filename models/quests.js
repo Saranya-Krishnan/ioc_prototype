@@ -52,10 +52,16 @@ const display = function (session, questId) {
 };
 
 const mine = function (session, userId){
-  return session.run('MATCH (u:User {id:{userId}}) MATCH (q:Quest)<-[:IS_PARTICIPATING_IN]-(u) RETURN q',{userId:userId}
+  return session.run('MATCH (u:User {id:{userId}}) MATCH (quest:Quest)<-[:IS_PARTICIPATING_IN]-(u) RETURN quest',{userId:userId}
   ).then(results => {
       if(results.records) {
-          return new Quest(results.records[0].get('q'));
+          const quests =[];
+          let aQuest = null;
+          for(let q=0;  q<results.records.length; q++){
+              aQuest = new Quest(results.records[q].get('quest'));
+              quests.push(aQuest);
+          }
+          return quests;
       }else{
           return {body:'No quests found.'}
       }

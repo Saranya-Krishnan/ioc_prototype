@@ -25,8 +25,8 @@ class UserInfo extends Component {
                 firstName={this.props.user['userInfo'].firstName}
                 lastName={this.props.user['userInfo'].lastName}
             />
-                <Button onClick={this.props.uploadAvatar}>Edit Avatar</Button>
-                <Button onClick={this.props.editBio}>Edit Bio</Button>
+                {/*<Button onClick={this.props.uploadAvatar}>Edit Avatar</Button>*/}
+                {/*<Button onClick={this.props.editBio}>Edit Bio</Button>*/}
             </Segment>
         )
     }

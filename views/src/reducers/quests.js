@@ -1,9 +1,7 @@
 import * as QuestsActionTypes from '../action_types/quests';
 
 const initialState = {
-    myQuests:[{
-        id:''
-    }],
+    myQuestIds:[''],
     haveQuests: false,
     stopper: false
 };
@@ -13,7 +11,7 @@ export default function Quests(state=initialState, action) {
         case QuestsActionTypes.LOAD_MY_QUESTS:
             return Object.assign({}, state, {
                 haveQuests: action.having,
-                myQuests: action.quests
+                myQuestIds: action.quests
             });
         default:
             return state;

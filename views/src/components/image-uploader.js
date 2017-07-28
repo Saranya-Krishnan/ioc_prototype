@@ -277,7 +277,7 @@ class ImageUploader extends Component {
         return (
             <Container className="image-uploader-hold">
                 { this.state.hasUploaded === true ? null :
-                    <h1>Upload your artwork from this Moleskine notebook.</h1>
+                    <h4>Upload your artwork from this Moleskine notebook.</h4>
                 }
                 <form>
                     { this.state.hasUploaded === true ? null :

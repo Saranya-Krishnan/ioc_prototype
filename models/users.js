@@ -58,7 +58,7 @@ const login = function (session, email, password) {
 };
 
 const updateCurrentNotebook = function (session, userId, notebookId) {
-    return session.run('MATCH(n:Notebook {id:{notebookId}}) MATCH (u:User {id:{userId}}) CREATE (n)<-[:CURRENT_NOTEBOOK_OF]-(u) RETURN n', {notebookId:notebookId, userId:userId}
+    return session.run('MATCH(n:Notebook {id:{notebookId}}) MATCH (u:User {id:{userId}}) MATCH(u)-[r:CURRENT_NOTEBOOK_OF]-() DELETE r CREATE (n)<-[:CURRENT_NOTEBOOK_OF]-(u) RETURN n', {notebookId:notebookId, userId:userId}
     ).then(results=> {
         return new Notebook(results.records[0].get('n'));
     });

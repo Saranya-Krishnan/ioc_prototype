@@ -40,7 +40,7 @@ class Nav extends Component {
             <Container className="nav-container">
                 <Menu pointing secondary fluid>
                     <Link to="/" className={this.state.activeItem === 'home' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('home')}>Home</Link>
-                    <Link to="/journey" className={this.state.activeItem === 'journey' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('journey')}>Start a Journey</Link>
+                    {/*<Link to="/journey" className={this.state.activeItem === 'journey' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('journey')}>Start a Journey</Link>*/}
                     {!this.state.isLoggedIn ? null
                     : <Link to="/upload" className={this.state.activeItem === 'upload' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('upload')}>Capture My Notebook</Link>
                     }

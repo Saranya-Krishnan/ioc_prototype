@@ -5,16 +5,9 @@ import {FontAwesome} from 'react-fontawesome';
 
 const UserCard = props => {
     return (
-        <Card onClick={function(){}}>
-            <Image src={''}/>
-            <Card.Content>
-                <Card.Header>
-                    {props.firstName} {props.lastName}
-                </Card.Header>
-                <Card.Meta>
-                </Card.Meta>
-            </Card.Content>
-        </Card>
+    <div>
+        <h1>{props.firstName} {props.lastName}</h1>
+    </div>
     )
 };
 

@@ -6,3 +6,10 @@ export const createNewNotebook = (userId) => {
         userId
     };
 };
+
+export const loadNotebook = (notebook) => {
+    return {
+        type: notebookActionTypes.LOAD_NOTE_BOOK,
+        notebook
+    };
+};

@@ -111,6 +111,10 @@ api.post('/api/'+process.env.API_VERSION+'/notebooks/create', routes.notebooks.c
 api.post('/api/'+process.env.API_VERSION+'/notebooks/update', routes.notebooks.update);
 api.post('/api/'+process.env.API_VERSION+'/notebooks/delete', routes.notebooks.deletion);
 api.post('/api/'+process.env.API_VERSION+'/notebooks/mine', routes.notebooks.mine);
+api.post('/api/'+process.env.API_VERSION+'/notebooks/artwork-in-notebook', routes.notebooks.artworkInNotebook);
+api.post('/api/'+process.env.API_VERSION+'/notebooks/display', routes.notebooks.display);
+
+
 // ***************************
 // * Pages
 // ***************************

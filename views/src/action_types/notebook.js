@@ -1,1 +1,2 @@
 export const CREATE_NEW_NOTEBOOK = 'CREATE_NEW_NOTEBOOK';
+export const LOAD_NOTE_BOOK = 'LOAD_NOTE_BOOK';

@@ -35,7 +35,8 @@ class NotebookPage extends Component {
                         <Notebook
                             isNewNotebook={false}
                             createNewNotebook={createNewNotebook}
-                            doRedirect={false}/>
+                            doRedirect={false}
+                            id={this.props.match.params.id}/>
                     </Segment>
                 </Container>
                 <Footer clickFooterItem={clickFooterItem}></Footer>

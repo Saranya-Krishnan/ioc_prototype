@@ -33,7 +33,6 @@ class Quest extends Component {
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log(response);
                     if (!response.body.noQuest) {
                         const responseData = {
                             quest: {
@@ -81,30 +80,27 @@ class Quest extends Component {
 
     render(){
         return(
-            <Container>
+            <div>
                 {this.state.noQuest ?
                     <Container>
                         <Header content="No Quests found."/>
                     </Container>
                     :
-                    <Container>
+                    <div>
                 {this.props.promoMode ?
-                    <Container >
-                        <Card onClick={ () => this.state.goToQuestPage(true)}>
+                        <Card onClick={ () => this.state.goToQuestPage(true)} className="quest-promo-card">
                             {this.state.doRedirect ? <Redirect push to={"/quest/"+this.props.id}/> : null}
                             <Card.Content header={this.state.prompt}/>
                             <Card.Content description={this.state.description}/>
-                            <Card.Content extra>
+                            <Card.Content extra className="goal-date-holder">
                                 <Statistic  size='mini'>
                                     <Statistic.Label>Goal Date</Statistic.Label>
                                     <Statistic.Value>{moment(this.state.goalDate).fromNow()}</Statistic.Value>
                                 </Statistic>
                             </Card.Content>
                         </Card>
-                    </Container>
                     : <Container>
                         <Container text>
-
                             <Header content={this.state.prompt}/>
                             <p>{this.state.description}</p>
                                 <Statistic  size='mini'>
@@ -117,8 +113,8 @@ class Quest extends Component {
                             </Container>
                         </Container>
                     </Container> }
-                </Container> }
-            </Container>
+                </div> }
+            </div>
         )
     }
 }

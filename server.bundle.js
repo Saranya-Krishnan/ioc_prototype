@@ -483,13 +483,6 @@ var Nav = function (_Component) {
                             } },
                         'Home'
                     ),
-                    _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/journey', className: this.state.activeItem === 'journey' ? 'active item' : 'item', onClick: function onClick() {
-                                return _this3.props.clickMenuItem('journey');
-                            } },
-                        'Start a Journey'
-                    ),
                     !this.state.isLoggedIn ? null : _react2.default.createElement(
                         _reactRouterDom.Link,
                         { to: '/upload', className: this.state.activeItem === 'upload' ? 'active item' : 'item', onClick: function onClick() {
@@ -858,7 +851,7 @@ exports.default = User;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.createNewNotebook = undefined;
+exports.loadNotebook = exports.createNewNotebook = undefined;
 
 var _notebook = __webpack_require__(41);
 
@@ -870,6 +863,13 @@ var createNewNotebook = exports.createNewNotebook = function createNewNotebook(u
     return {
         type: notebookActionTypes.CREATE_NEW_NOTEBOOK,
         userId: userId
+    };
+};
+
+var loadNotebook = exports.loadNotebook = function loadNotebook(notebook) {
+    return {
+        type: notebookActionTypes.LOAD_NOTE_BOOK,
+        notebook: notebook
     };
 };
 
@@ -1140,7 +1140,7 @@ var login = function login(session, email, password) {
 };
 
 var updateCurrentNotebook = function updateCurrentNotebook(session, userId, notebookId) {
-    return session.run('MATCH(n:Notebook {id:{notebookId}}) MATCH (u:User {id:{userId}}) CREATE (n)<-[:CURRENT_NOTEBOOK_OF]-(u) RETURN n', { notebookId: notebookId, userId: userId }).then(function (results) {
+    return session.run('MATCH(n:Notebook {id:{notebookId}}) MATCH (u:User {id:{userId}}) MATCH(u)-[r:CURRENT_NOTEBOOK_OF]-() DELETE r CREATE (n)<-[:CURRENT_NOTEBOOK_OF]-(u) RETURN n', { notebookId: notebookId, userId: userId }).then(function (results) {
         return new _notebook2.default(results.records[0].get('n'));
     });
 };
@@ -1297,6 +1297,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var CREATE_NEW_NOTEBOOK = exports.CREATE_NEW_NOTEBOOK = 'CREATE_NEW_NOTEBOOK';
+var LOAD_NOTE_BOOK = exports.LOAD_NOTE_BOOK = 'LOAD_NOTE_BOOK';
 
 /***/ }),
 /* 42 */
@@ -1746,6 +1747,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(5);
 
+var _redux = __webpack_require__(10);
+
 var _propTypes = __webpack_require__(4);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -1754,13 +1757,33 @@ var _notebook_actions = __webpack_require__(24);
 
 var NotebookActions = _interopRequireWildcard(_notebook_actions);
 
+var _artworkInNotebook_actions = __webpack_require__(173);
+
+var ArtworkInNotebookActionCreators = _interopRequireWildcard(_artworkInNotebook_actions);
+
 var _semanticUiReact = __webpack_require__(1);
+
+var _artworkInNotebook = __webpack_require__(175);
+
+var _artworkInNotebook2 = _interopRequireDefault(_artworkInNotebook);
 
 var _reactFontawesome = __webpack_require__(16);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
 var _reactRouter = __webpack_require__(18);
+
+var _superagent = __webpack_require__(8);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _pathHelper = __webpack_require__(6);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
+
+var _moment = __webpack_require__(25);
+
+var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -1781,10 +1804,38 @@ var Notebook = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Notebook.__proto__ || Object.getPrototypeOf(Notebook)).call(this, props));
 
         _this.state = props;
+        _this.getNotebook = _this.getNotebook.bind(_this);
         return _this;
     }
 
     _createClass(Notebook, [{
+        key: 'getNotebook',
+        value: function getNotebook() {
+            var _this2 = this;
+
+            if (this.props.id) {
+                var data = {
+                    notebookId: this.props.id
+                };
+                _superagent2.default.post(_pathHelper2.default.apiPath + '/notebooks/display').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                    if (!error && response) {
+                        var res = response.body;
+                        var notebookData = {
+                            when: res.when,
+                            how: res.how,
+                            what: res.what,
+                            name1: res.name1,
+                            name2: res.name2,
+                            name3: res.name3
+                        };
+                        _this2.props.loadNotebook(notebookData);
+                    } else {
+                        console.log('Error', error);
+                    }
+                });
+            }
+        }
+    }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             this.setState(nextProps.state);
@@ -1793,12 +1844,16 @@ var Notebook = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setState({ doRedirect: false });
+            this.getNotebook();
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
+            var dispatch = this.props.dispatch;
+
+            var loadMyArtwork = (0, _redux.bindActionCreators)(ArtworkInNotebookActionCreators.loadMyArtwork, dispatch);
             return _react2.default.createElement(
                 _semanticUiReact.Container,
                 null,
@@ -1819,7 +1874,7 @@ var Notebook = function (_Component) {
                             _react2.default.createElement(
                                 _semanticUiReact.Card,
                                 { onClick: function onClick() {
-                                        return _this2.state.createNewNotebook();
+                                        return _this3.state.createNewNotebook();
                                     } },
                                 this.state.doRedirect ? _react2.default.createElement(_reactRouter.Redirect, { push: true, to: "/notebooks/new/" }) : null,
                                 _react2.default.createElement(_reactFontawesome2.default, { name: 'plus', size: '4x', className: 'add-notebook-icon' }),
@@ -1838,12 +1893,41 @@ var Notebook = function (_Component) {
                 ) : _react2.default.createElement(
                     _semanticUiReact.Container,
                     { text: true },
-                    _react2.default.createElement(_semanticUiReact.Header, { content: this.props.name }),
+                    _react2.default.createElement(_semanticUiReact.Header, { content: this.state.name1 + '-' + this.state.name2 + '-' + this.state.name3 }),
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Received'
+                    ),
                     _react2.default.createElement(
                         'p',
                         null,
-                        'Will place all images / pages here.'
-                    )
+                        (0, _moment2.default)(this.state.when).format("MMM Do YYYY")
+                    ),
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Intended For'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        this.state.how
+                    ),
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Goals'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        this.state.what
+                    ),
+                    _react2.default.createElement(_semanticUiReact.Divider, null),
+                    _react2.default.createElement(_artworkInNotebook2.default, {
+                        notebookId: this.props.id,
+                        loadMyArtwork: loadMyArtwork })
                 )
             );
         }
@@ -1855,16 +1939,30 @@ var Notebook = function (_Component) {
 Notebook.propTypes = {
     isNewNotebook: _propTypes2.default.bool.isRequired,
     createNewNotebook: _propTypes2.default.func.isRequired,
+    loadNotebook: _propTypes2.default.func.isRequired,
     doRedirect: _propTypes2.default.bool.isRequired,
     name: _propTypes2.default.string,
     id: _propTypes2.default.string,
-    isActive: _propTypes2.default.bool
+    isActive: _propTypes2.default.bool,
+    when: _propTypes2.default.instanceOf(Date),
+    how: _propTypes2.default.string,
+    what: _propTypes2.default.string,
+    name1: _propTypes2.default.string,
+    name2: _propTypes2.default.string,
+    name3: _propTypes2.default.string,
+    userId: _propTypes2.default.string
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         createNewNotebook: function createNewNotebook() {
             dispatch(NotebookActions.createNewNotebook());
+        },
+        loadNotebook: function loadNotebook(notebook) {
+            dispatch(NotebookActions.loadNotebook(notebook));
+        },
+        loadMyArtwork: function loadMyArtwork(notebook) {
+            dispatch(ArtworkInNotebookActionCreators.loadMyArtwork(notebook));
         }
     };
 };
@@ -1967,7 +2065,6 @@ var Quest = function (_Component) {
             };
             _superagent2.default.post(_pathHelper2.default.apiPath + '/quests/display').set('Content-Type', 'application/json').send(data).end(function (error, response) {
                 if (!error && response) {
-                    console.log(response);
                     if (!response.body.noQuest) {
                         var responseData = {
                             quest: {
@@ -2018,42 +2115,38 @@ var Quest = function (_Component) {
             var _this3 = this;
 
             return _react2.default.createElement(
-                _semanticUiReact.Container,
+                'div',
                 null,
                 this.state.noQuest ? _react2.default.createElement(
                     _semanticUiReact.Container,
                     null,
                     _react2.default.createElement(_semanticUiReact.Header, { content: 'No Quests found.' })
                 ) : _react2.default.createElement(
-                    _semanticUiReact.Container,
+                    'div',
                     null,
                     this.props.promoMode ? _react2.default.createElement(
-                        _semanticUiReact.Container,
-                        null,
+                        _semanticUiReact.Card,
+                        { onClick: function onClick() {
+                                return _this3.state.goToQuestPage(true);
+                            }, className: 'quest-promo-card' },
+                        this.state.doRedirect ? _react2.default.createElement(_reactRouter.Redirect, { push: true, to: "/quest/" + this.props.id }) : null,
+                        _react2.default.createElement(_semanticUiReact.Card.Content, { header: this.state.prompt }),
+                        _react2.default.createElement(_semanticUiReact.Card.Content, { description: this.state.description }),
                         _react2.default.createElement(
-                            _semanticUiReact.Card,
-                            { onClick: function onClick() {
-                                    return _this3.state.goToQuestPage(true);
-                                } },
-                            this.state.doRedirect ? _react2.default.createElement(_reactRouter.Redirect, { push: true, to: "/quest/" + this.props.id }) : null,
-                            _react2.default.createElement(_semanticUiReact.Card.Content, { header: this.state.prompt }),
-                            _react2.default.createElement(_semanticUiReact.Card.Content, { description: this.state.description }),
+                            _semanticUiReact.Card.Content,
+                            { extra: true, className: 'goal-date-holder' },
                             _react2.default.createElement(
-                                _semanticUiReact.Card.Content,
-                                { extra: true },
+                                _semanticUiReact.Statistic,
+                                { size: 'mini' },
                                 _react2.default.createElement(
-                                    _semanticUiReact.Statistic,
-                                    { size: 'mini' },
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Statistic.Label,
-                                        null,
-                                        'Goal Date'
-                                    ),
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Statistic.Value,
-                                        null,
-                                        (0, _moment2.default)(this.state.goalDate).fromNow()
-                                    )
+                                    _semanticUiReact.Statistic.Label,
+                                    null,
+                                    'Goal Date'
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Statistic.Value,
+                                    null,
+                                    (0, _moment2.default)(this.state.goalDate).fromNow()
                                 )
                             )
                         )
@@ -2780,6 +2873,14 @@ var _notebook = __webpack_require__(30);
 
 var _notebook2 = _interopRequireDefault(_notebook);
 
+var _work = __webpack_require__(81);
+
+var _work2 = _interopRequireDefault(_work);
+
+var _image = __webpack_require__(28);
+
+var _image2 = _interopRequireDefault(_image);
+
 var _lodash = __webpack_require__(2);
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -2818,25 +2919,42 @@ var update = function update(session3) {};
 var deletion = function deletion(session) {};
 
 var mine = function mine(session, userId) {
-    //return session.run('MATCH ({id:{userId}})-[:OWNS_THIS_BOOK]->(n:Notebook) MATCH ({id:n.id})<-[:IS_BOUND_IN]-(pg) MATCH(p:Page {id:pg.id}) RETURN n,p',{userId:userId}
-
     return session.run('MATCH ({id:{userId}})-[:OWNS_THIS_BOOK]->(n) MATCH (notebook:Notebook {id:n.id}) RETURN notebook', { userId: userId }).then(function (results) {
         if (results.records.length === 0) {
             return { noteBooksFound: 0 };
         }
         var notebooks = [];
-        var pages = [];
         for (var i = 0; i < results.records.length; i++) {
             var aNotebook = new _notebook2.default(results.records[i].get('notebook'));
             notebooks.push(aNotebook);
-            // let aPage = new Image(results.records[i].get('p'));
-            // pages.push(aPage);
         }
         return {
             notebooks: notebooks,
-            //pages: pages,
             noteBooksFound: notebooks.length
         };
+    });
+};
+
+var artworkInNotebook = function artworkInNotebook(session, notebookId) {
+    return session.run('MATCH ({id:{notebookId}})<-[:IS_PART_OF_THIS_NOTEBOOK]->(w) MATCH (work:Work {id:w.id}) MATCH ({id:w.id})-[:DISPLAYS]->(im) MATCH(image:Image {id:im.id}) RETURN work, image', { notebookId: notebookId }).then(function (results) {
+        var works = [];
+        var images = [];
+        for (var i = 0; i < results.records.length; i++) {
+            var aWork = new _work2.default(results.records[i].get('work'));
+            works.push(aWork);
+            var anImage = new _image2.default(results.records[i].get('image'));
+            images.push(anImage);
+        }
+        return {
+            work: works,
+            image: images
+        };
+    });
+};
+
+var display = function display(session, notebookId) {
+    return session.run('MATCH (n:Notebook {id:{notebookId}}) RETURN n', { notebookId: notebookId }).then(function (results) {
+        return new _notebook2.default(results.records[0].get('n'));
     });
 };
 
@@ -2844,7 +2962,9 @@ module.exports = {
     create: create,
     update: update,
     deletion: deletion,
-    mine: mine
+    mine: mine,
+    artworkInNotebook: artworkInNotebook,
+    display: display
 };
 
 /***/ }),
@@ -2950,9 +3070,15 @@ var display = function display(session, questId) {
 };
 
 var mine = function mine(session, userId) {
-    return session.run('MATCH (u:User {id:{userId}}) MATCH (q:Quest)<-[:IS_PARTICIPATING_IN]-(u) RETURN q', { userId: userId }).then(function (results) {
+    return session.run('MATCH (u:User {id:{userId}}) MATCH (quest:Quest)<-[:IS_PARTICIPATING_IN]-(u) RETURN quest', { userId: userId }).then(function (results) {
         if (results.records) {
-            return new _quest2.default(results.records[0].get('q'));
+            var quests = [];
+            var aQuest = null;
+            for (var q = 0; q < results.records.length; q++) {
+                aQuest = new _quest2.default(results.records[q].get('quest'));
+                quests.push(aQuest);
+            }
+            return quests;
         } else {
             return { body: 'No quests found.' };
         }
@@ -3976,6 +4102,64 @@ exports.deletion = function (req, res, next) {};
 exports.mine = function (req, res, next) {
   var userId = _.get(req.body, 'userId');
   Notebooks.mine(dbUtils.getSession(req), userId).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
+
+/**
+ * @swagger
+ * /api/v0/notebooks/art-in-notebooks:
+ *   post:
+ *     tags:
+ *     - notebooks
+ *     description: Retrieves artwork from a given notebook
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.artworkInNotebook = function (req, res, next) {
+  var notebookId = _.get(req.body, 'notebookId');
+  Notebooks.artworkInNotebook(dbUtils.getSession(req), notebookId).then(function (response) {
+    return writeResponse(res, response, 201);
+  }).catch(next);
+};
+
+/**
+ * @swagger
+ * /api/v0/notebooks/display:
+ *   post:
+ *     tags:
+ *     - notebooks
+ *     description: Displays a notebook
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+exports.display = function (req, res, next) {
+  var notebookId = _.get(req.body, 'notebookId');
+  Notebooks.display(dbUtils.getSession(req), notebookId).then(function (response) {
     return writeResponse(res, response, 201);
   }).catch(next);
 };
@@ -5377,6 +5561,9 @@ api.post('/api/' + "v0" + '/notebooks/create', routes.notebooks.create);
 api.post('/api/' + "v0" + '/notebooks/update', routes.notebooks.update);
 api.post('/api/' + "v0" + '/notebooks/delete', routes.notebooks.deletion);
 api.post('/api/' + "v0" + '/notebooks/mine', routes.notebooks.mine);
+api.post('/api/' + "v0" + '/notebooks/artwork-in-notebook', routes.notebooks.artworkInNotebook);
+api.post('/api/' + "v0" + '/notebooks/display', routes.notebooks.display);
+
 // ***************************
 // * Pages
 // ***************************
@@ -5780,7 +5967,7 @@ var ArtworkCard = function (_Component) {
                 _semanticUiReact.Card,
                 { onClick: function onClick() {
                         return _this2.state.goToArtworkPage(true);
-                    } },
+                    }, className: 'artwork-card' },
                 this.state.doRedirect ? _react2.default.createElement(_reactRouter.Redirect, { push: true, to: "/user/artwork/" + this.props.id }) : null,
                 _react2.default.createElement(_semanticUiReact.Image, { src: this.props.image }),
                 _react2.default.createElement(
@@ -6919,7 +7106,7 @@ var ImageUploader = function (_Component) {
                 _semanticUiReact.Container,
                 { className: 'image-uploader-hold' },
                 this.state.hasUploaded === true ? null : _react2.default.createElement(
-                    'h1',
+                    'h4',
                     null,
                     'Upload your artwork from this Moleskine notebook.'
                 ),
@@ -7232,7 +7419,11 @@ var MyArtwork = function (_Component) {
                 _semanticUiReact.Segment,
                 null,
                 _react2.default.createElement(_semanticUiReact.Header, { content: 'My Artwork' }),
-                ArtworkCardGroup
+                _react2.default.createElement(
+                    _semanticUiReact.Card.Group,
+                    null,
+                    ArtworkCardGroup
+                )
             );
         }
     }]);
@@ -7683,12 +7874,8 @@ var Quests = function (_Component) {
                     if (!error && response) {
                         var res = response.body;
                         var questIds = [];
-                        for (var v in res) {
-                            if (res.hasOwnProperty(v)) {
-                                if (v === 'id') {
-                                    questIds.push({ id: res[v] });
-                                }
-                            }
+                        for (var i = 0; i < res.length; i++) {
+                            questIds.push(res[i].id);
                         }
                         _this2.props.loadMyQuests(true, questIds);
                     } else {
@@ -7717,15 +7904,15 @@ var Quests = function (_Component) {
         value: function render() {
             var questGroup = null;
             if (this.state.haveQuests) {
-                var quests = this.state.myQuests;
+                var quests = this.state.myQuestIds;
                 questGroup = quests.map(function (q, index) {
-                    return _react2.default.createElement(_quest2.default, { promoMode: true, id: q.id, key: index });
+                    return _react2.default.createElement(_quest2.default, { promoMode: true, id: q, key: index });
                 });
             }
             return _react2.default.createElement(
                 _semanticUiReact.Segment,
-                null,
-                _react2.default.createElement(_semanticUiReact.Header, { content: 'My quests' }),
+                { className: 'quests-container' },
+                _react2.default.createElement(_semanticUiReact.Header, { content: 'My quests', className: 'quests-header' }),
                 _react2.default.createElement(
                     _semanticUiReact.Card.Group,
                     null,
@@ -7739,9 +7926,7 @@ var Quests = function (_Component) {
 }(_react.Component);
 
 Quests.propTypes = {
-    myQuests: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-        id: _propTypes2.default.string
-    })),
+    myQuestIds: _propTypes2.default.arrayOf(_propTypes2.default.string),
     haveQuests: _propTypes2.default.bool,
     stopper: _propTypes2.default.bool,
     loadMyQuests: _propTypes2.default.func.isRequired
@@ -8500,20 +8685,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var UserCard = function UserCard(props) {
     return _react2.default.createElement(
-        _semanticUiReact.Card,
-        { onClick: function onClick() {} },
-        _react2.default.createElement(_semanticUiReact.Image, { src: '' }),
+        'div',
+        null,
         _react2.default.createElement(
-            _semanticUiReact.Card.Content,
+            'h1',
             null,
-            _react2.default.createElement(
-                _semanticUiReact.Card.Header,
-                null,
-                props.firstName,
-                ' ',
-                props.lastName
-            ),
-            _react2.default.createElement(_semanticUiReact.Card.Meta, null)
+            props.firstName,
+            ' ',
+            props.lastName
         )
     );
 };
@@ -8606,17 +8785,7 @@ var UserInfo = function (_Component) {
                 _react2.default.createElement(_userCard2.default, {
                     firstName: this.props.user['userInfo'].firstName,
                     lastName: this.props.user['userInfo'].lastName
-                }),
-                _react2.default.createElement(
-                    _semanticUiReact.Button,
-                    { onClick: this.props.uploadAvatar },
-                    'Edit Avatar'
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Button,
-                    { onClick: this.props.editBio },
-                    'Edit Bio'
-                )
+                })
             );
         }
     }]);
@@ -9600,7 +9769,8 @@ var NotebookPage = function (_Component) {
                         _react2.default.createElement(_notebook2.default, {
                             isNewNotebook: false,
                             createNewNotebook: createNewNotebook,
-                            doRedirect: false })
+                            doRedirect: false,
+                            id: this.props.match.params.id })
                     )
                 ),
                 _react2.default.createElement(_footer2.default, { clickFooterItem: clickFooterItem })
@@ -10585,6 +10755,10 @@ var _uploadShared = __webpack_require__(172);
 
 var _uploadShared2 = _interopRequireDefault(_uploadShared);
 
+var _artworkInNotebook = __webpack_require__(176);
+
+var _artworkInNotebook2 = _interopRequireDefault(_artworkInNotebook);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mainReducer = exports.mainReducer = (0, _redux.combineReducers)({
@@ -10605,7 +10779,8 @@ var mainReducer = exports.mainReducer = (0, _redux.combineReducers)({
     MyNotebooks: _myNotebooks2.default,
     Notebook: _notebook2.default,
     CreateNotebookForm: _createNotebookForm2.default,
-    UploadShared: _uploadShared2.default
+    UploadShared: _uploadShared2.default,
+    ArtworkInNotebook: _artworkInNotebook2.default
 });
 exports.default = mainReducer;
 
@@ -10767,7 +10942,16 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var initialState = {
     isNewNotebook: false,
-    doRedirect: false
+    doRedirect: false,
+    id: '',
+    name: '',
+    when: '',
+    how: '',
+    what: '',
+    name1: '',
+    name2: '',
+    name3: '',
+    userId: ''
 };
 
 function Notebook() {
@@ -10778,6 +10962,16 @@ function Notebook() {
         case NotebookActionTypes.CREATE_NEW_NOTEBOOK:
             return Object.assign({}, state, {
                 doRedirect: true
+            });
+        case NotebookActionTypes.LOAD_NOTE_BOOK:
+            return Object.assign({}, state, {
+                name: action.notebook.name,
+                when: action.notebook.when,
+                how: action.notebook.how,
+                what: action.notebook.what,
+                name1: action.notebook.name1,
+                name2: action.notebook.name2,
+                name3: action.notebook.name3
             });
         default:
             return state;
@@ -10878,9 +11072,7 @@ var QuestsActionTypes = _interopRequireWildcard(_quests);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var initialState = {
-    myQuests: [{
-        id: ''
-    }],
+    myQuestIds: [''],
     haveQuests: false,
     stopper: false
 };
@@ -10893,7 +11085,7 @@ function Quests() {
         case QuestsActionTypes.LOAD_MY_QUESTS:
             return Object.assign({}, state, {
                 haveQuests: action.having,
-                myQuests: action.quests
+                myQuestIds: action.quests
             });
         default:
             return state;
@@ -11364,7 +11556,7 @@ var UploadShared = function (_Component) {
                     { divided: true },
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
-                        { width: 10 },
+                        { width: 12 },
                         _react2.default.createElement(_myNotebooks2.default, {
                             myNoteBooks: this.state.sharedNotebooks,
                             displayMyNotebooks: displayMyNotebooks
@@ -11372,7 +11564,7 @@ var UploadShared = function (_Component) {
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
-                        { width: 6 },
+                        { width: 4 },
                         _react2.default.createElement(_imageUploader2.default, {
                             makeSuggestions: makeSuggestions,
                             makeMeaning: makeMeaning,
@@ -11494,6 +11686,243 @@ function UploadShared() {
         case UploadSharedActionTypes.ACCOUNT_FOR_NO_NOTEBOOKS:
             return Object.assign({}, state, {
                 noNotebooks: action.none
+            });
+        default:
+            return state;
+    }
+}
+
+/***/ }),
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.loadMyArtwork = undefined;
+
+var _artworkInNotebook = __webpack_require__(174);
+
+var ArtWorkInNotebookActionTypes = _interopRequireWildcard(_artworkInNotebook);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var loadMyArtwork = exports.loadMyArtwork = function loadMyArtwork(having, artwork) {
+    return {
+        type: ArtWorkInNotebookActionTypes.LOAD_MY_ARTWORK,
+        having: having,
+        artwork: artwork
+    };
+};
+
+/***/ }),
+/* 174 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var LOAD_MY_ARTWORK = exports.LOAD_MY_ARTWORK = 'LOAD_MY_ARTWORK';
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(5);
+
+var _propTypes = __webpack_require__(4);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _superagent = __webpack_require__(8);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _artworkInNotebook_actions = __webpack_require__(173);
+
+var ArtworkInNotebookActions = _interopRequireWildcard(_artworkInNotebook_actions);
+
+var _pathHelper = __webpack_require__(6);
+
+var _pathHelper2 = _interopRequireDefault(_pathHelper);
+
+var _artworkCard = __webpack_require__(110);
+
+var _artworkCard2 = _interopRequireDefault(_artworkCard);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ArtWorkInNoteBook = function (_Component) {
+    _inherits(ArtWorkInNoteBook, _Component);
+
+    function ArtWorkInNoteBook(props) {
+        _classCallCheck(this, ArtWorkInNoteBook);
+
+        var _this = _possibleConstructorReturn(this, (ArtWorkInNoteBook.__proto__ || Object.getPrototypeOf(ArtWorkInNoteBook)).call(this, props));
+
+        _this.state = props;
+        _this.setUser = _this.setUser.bind(_this);
+        _this.getMyArtwork = _this.getMyArtwork.bind(_this);
+        return _this;
+    }
+
+    _createClass(ArtWorkInNoteBook, [{
+        key: 'getMyArtwork',
+        value: function getMyArtwork() {
+            var _this2 = this;
+
+            if (!this.state.stopper) {
+                var data = {
+                    notebookId: this.props.notebookId
+                };
+                _superagent2.default.post(_pathHelper2.default.apiPath + '/notebooks/artwork-in-notebook').set('Content-Type', 'application/json').send(data).end(function (error, response) {
+                    if (!error && response) {
+                        var worksOfArt = [];
+                        for (var i = 0; i < response.body.work.length; i++) {
+                            var aWork = {
+                                id: response.body.work[i].id,
+                                image: response.body.image[i].url,
+                                height: response.body.image[i].height,
+                                width: response.body.image[i].width
+                            };
+                            worksOfArt.push(aWork);
+                        }
+                        _this2.props.loadMyArtwork(true, worksOfArt);
+                    } else {
+                        console.log('error retrieving your quests', error);
+                    }
+                });
+            }
+        }
+    }, {
+        key: 'setUser',
+        value: function setUser(data) {
+            this.userId = data.id;
+            this.getMyArtwork();
+            this.setState({ stopper: true });
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.setState(nextProps.state);
+            if (nextProps.user.userInfo.id !== '' && nextProps.user.userInfo.id !== undefined) {
+                this.setUser(nextProps.user.userInfo);
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var ArtworkCardGroup = null;
+            if (this.state.haveArtwork) {
+                var artwork = this.state.myArtwork;
+                ArtworkCardGroup = artwork.map(function (a, index) {
+                    return _react2.default.createElement(_artworkCard2.default, { id: a.id, title: 'TK', image: a.image, key: index });
+                });
+            }
+            return _react2.default.createElement(
+                _semanticUiReact.Container,
+                null,
+                _react2.default.createElement(_semanticUiReact.Header, { content: 'Artwork in this Notebook' }),
+                ArtworkCardGroup
+            );
+        }
+    }]);
+
+    return ArtWorkInNoteBook;
+}(_react.Component);
+
+ArtWorkInNoteBook.propTypes = {
+    myArtwork: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+        id: _propTypes2.default.string
+    })),
+    haveArtwork: _propTypes2.default.bool,
+    stopper: _propTypes2.default.bool,
+    loadMyArtwork: _propTypes2.default.func.isRequired,
+    notebookId: _propTypes2.default.string.isRequired
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        loadMyArtwork: function loadMyArtwork(having, artwork) {
+            dispatch(ArtworkInNotebookActions.loadMyArtwork(having, artwork));
+        }
+    };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        state: state['ArtworkInNotebook'],
+        user: state['Nav']
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ArtWorkInNoteBook);
+
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = ArtWorkInNoteBook;
+
+var _artworkInNotebook = __webpack_require__(174);
+
+var ArtworkInNotebookActionTypes = _interopRequireWildcard(_artworkInNotebook);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var initialState = {
+    myArtwork: [{
+        id: ''
+    }],
+    haveArtwork: false,
+    stopper: false,
+    notebookId: ''
+};
+
+function ArtWorkInNoteBook() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case ArtworkInNotebookActionTypes.LOAD_MY_ARTWORK:
+            return Object.assign({}, state, {
+                haveArtwork: action.having,
+                myArtwork: action.artwork
             });
         default:
             return state;

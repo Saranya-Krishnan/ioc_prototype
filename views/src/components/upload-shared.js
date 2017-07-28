@@ -79,14 +79,14 @@ class UploadShared extends Component {
             <Segment>
                 { this.state.noNotebooks ? null :
                 <Grid divided>
-                    <Grid.Column width={10}>
+                    <Grid.Column width={12}>
 
                         <MyNotebooks
                             myNoteBooks={this.state.sharedNotebooks}
                             displayMyNotebooks={displayMyNotebooks}
                         />
                     </Grid.Column>
-                    <Grid.Column width={6}>
+                    <Grid.Column width={4}>
                             <ImageUploader
                                 makeSuggestions={makeSuggestions}
                                 makeMeaning={makeMeaning}

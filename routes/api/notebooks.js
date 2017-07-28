@@ -138,3 +138,65 @@ exports.mine = function (req, res, next) {
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
+
+
+/**
+ * @swagger
+ * /api/v0/notebooks/art-in-notebooks:
+ *   post:
+ *     tags:
+ *     - notebooks
+ *     description: Retrieves artwork from a given notebook
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.artworkInNotebook = function (req, res, next) {
+    const notebookId = _.get(req.body,'notebookId');
+    Notebooks.artworkInNotebook(dbUtils.getSession(req), notebookId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};
+
+
+/**
+ * @swagger
+ * /api/v0/notebooks/display:
+ *   post:
+ *     tags:
+ *     - notebooks
+ *     description: Displays a notebook
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         type: object
+ *         schema:
+ *           properties:
+ *     responses:
+ *       201:
+ *         description: Data
+ *       400:
+ *         description: Error message(s)
+ */
+
+
+exports.display = function (req, res, next) {
+    const notebookId = _.get(req.body,'notebookId');
+    Notebooks.display(dbUtils.getSession(req), notebookId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};

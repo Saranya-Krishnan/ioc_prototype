@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ajax from 'superagent';
-import { Header, Segment} from 'semantic-ui-react';
+import { Header, Segment, Card} from 'semantic-ui-react';
 import * as MyArtworkActions from '../actions/my-artwork_actions';
 import PathHelper from '../helpers/path-helper';
 import ArtworkCard from './artwork-card';
@@ -63,7 +63,9 @@ class MyArtwork extends Component {
         return (
             <Segment>
                 <Header content="My Artwork"/>
-                {ArtworkCardGroup}
+                <Card.Group>
+                    {ArtworkCardGroup}
+                </Card.Group>
             </Segment>
         )
     }

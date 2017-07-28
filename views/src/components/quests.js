@@ -27,12 +27,8 @@ class Quests extends Component {
                     if (!error && response) {
                         const res = response.body;
                         const questIds = [];
-                        for(let v in res){
-                            if (res.hasOwnProperty(v)) {
-                                if(v === 'id'){
-                                    questIds.push({id:res[v]});
-                                }
-                            }
+                        for(let i=0; i<res.length; i++){
+                            questIds.push(res[i].id);
                         }
                         this.props.loadMyQuests(true,questIds);
                     } else {
@@ -55,14 +51,14 @@ class Quests extends Component {
     render() {
         let questGroup = null;
         if(this.state.haveQuests){
-            const quests = this.state.myQuests;
+            const quests = this.state.myQuestIds;
             questGroup = quests.map((q, index) => (
-                <Quest promoMode={true} id={q.id} key={index}/>
+                <Quest promoMode={true} id={q} key={index}/>
             ));
         }
         return (
-            <Segment>
-                <Header content="My quests"/>
+            <Segment className="quests-container">
+                <Header content="My quests" className="quests-header"/>
                 <Card.Group>
                     {questGroup}
                 </Card.Group>
@@ -72,9 +68,7 @@ class Quests extends Component {
 }
 
 Quests.propTypes = {
-    myQuests: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string
-    })),
+    myQuestIds: PropTypes.arrayOf(PropTypes.string),
     haveQuests:PropTypes.bool,
     stopper: PropTypes.bool,
     loadMyQuests: PropTypes.func.isRequired

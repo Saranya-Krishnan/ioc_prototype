@@ -17,6 +17,7 @@ import MyNotebooksReducer from './my-notebooks';
 import NotebookReducer from './notebook';
 import CreateNotebookFormReducer from './create-notebook-form';
 import UploadSharedReducer from './upload-shared';
+import ArtworkInNotebookReducer from './artwork-in-notebook';
 
 
 export const mainReducer = combineReducers({
@@ -37,6 +38,7 @@ export const mainReducer = combineReducers({
     MyNotebooks: MyNotebooksReducer,
     Notebook: NotebookReducer,
     CreateNotebookForm :CreateNotebookFormReducer,
-    UploadShared: UploadSharedReducer
+    UploadShared: UploadSharedReducer,
+    ArtworkInNotebook: ArtworkInNotebookReducer
 });
 export default mainReducer;
