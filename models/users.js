@@ -34,7 +34,7 @@ const me = function (session, apiKey) {
     return session.run('MATCH (user:User {api_key: {api_key}}) RETURN user', {api_key: apiKey})
         .then(results => {
             if (_.isEmpty(results.records)) {
-                throw {message: 'invalid authorization key', status: 401};
+               return {noSignedIn:true}
             }
             return new User(results.records[0].get('user'));
         });

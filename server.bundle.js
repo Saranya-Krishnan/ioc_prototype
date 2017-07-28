@@ -437,10 +437,18 @@ var Nav = function (_Component) {
 
         _this.state = props;
         _this.getUserInfo = _this.getUserInfo.bind(_this);
+        _this.signOut = _this.signOut.bind(_this);
         return _this;
     }
 
     _createClass(Nav, [{
+        key: 'signOut',
+        value: function signOut() {
+            token.removeToken();
+            this.setState({ isLoggedIn: false });
+            this.props.signOut();
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.getUserInfo();
@@ -458,8 +466,12 @@ var Nav = function (_Component) {
             this.sessionToken = token.getToken();
             _superagent2.default.get(_pathHelper2.default.apiPath + '/users/me').set({ Accept: 'application/json', Authorization: 'Token ' + this.sessionToken }).end(function (error, response) {
                 if (!error && response) {
-                    _this2.props.setLoggedIn(true);
-                    _this2.props.updateUserInfo(JSON.parse(response.text));
+                    if (!response.body.noSignedIn) {
+                        _this2.props.setLoggedIn(true);
+                        _this2.props.updateUserInfo(JSON.parse(response.text));
+                    } else {
+                        _this2.props.setLoggedIn(false);
+                    }
                 } else {
                     _this2.props.setLoggedIn(false);
                 }
@@ -513,7 +525,7 @@ var Nav = function (_Component) {
                         _react2.default.createElement(
                             _reactRouterDom.Link,
                             { to: '/', className: 'item', onClick: function onClick() {
-                                    return _this3.props.signOut();
+                                    return _this3.signOut();
                                 } },
                             'Sign Out'
                         ),
@@ -1119,7 +1131,7 @@ var register = function register(session, email, password, firstName, lastName) 
 var me = function me(session, apiKey) {
     return session.run('MATCH (user:User {api_key: {api_key}}) RETURN user', { api_key: apiKey }).then(function (results) {
         if (_lodash2.default.isEmpty(results.records)) {
-            throw { message: 'invalid authorization key', status: 401 };
+            return { noSignedIn: true };
         }
         return new _user2.default(results.records[0].get('user'));
     });
@@ -8288,7 +8300,7 @@ var SignUp = function (_Component) {
                         'Submit'
                     )
                 ),
-                this.state.redirect ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/profile' }) : null
+                this.state.redirect ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/sign-in' }) : null
             );
         }
     }]);
@@ -10881,8 +10893,6 @@ var NavActionTypes = _interopRequireWildcard(_nav);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var Token = __webpack_require__(19);
-
 var initialState = {
     activeItem: 'home',
     isLoggedIn: false,
@@ -10913,7 +10923,6 @@ function Nav() {
                 isLoggedIn: action.status
             });
         case NavActionTypes.SIGN_OUT:
-            Token.removeToken();
             return Object.assign({}, state, {
                 isLoggedIn: false
             });

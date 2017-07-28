@@ -104,7 +104,7 @@ class SignUp extends Component {
                     </Form.Field>
                     <Button type='submit' disabled={!this.state.doAgree}>Submit</Button>
                 </Form>
-                {this.state.redirect ? <Redirect to="/profile"/> : null}
+                {this.state.redirect ? <Redirect to="/sign-in"/> : null}
             </div>
         )
     }

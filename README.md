@@ -13,10 +13,9 @@ This application will outline some of the capabilities of a the actual applicati
 5. And in another terminal keep `webpack --watch` up while developing.
 
 
-## Happy Path 1 from new book to task subscription.
+## Prototype 1 Completion Happy Path.
 
 1. ~A user can log in.~
-4. Stub out basic buying experience
 5. ~A user can "bind" a notebook with a dynamically created address~
 6. ~A user can upload an image from a bound notebook~
 8. ~Exif info can be extracted and saved from image.~
@@ -28,6 +27,4 @@ This application will outline some of the capabilities of a the actual applicati
 14. ~Tag Type is applied based on Ontology~
 15. ~Recommendations and tasks are created for new tags based on Modality~
 16. ~Recommendations are presented to the user~
-17. Selecting a recommendation queries another set of recommendations.
-18. A pinned recommendation becomes a Journey Step associated with the ArtUpload
 19. ~An accepted recommendations are subscribed to by a user~.

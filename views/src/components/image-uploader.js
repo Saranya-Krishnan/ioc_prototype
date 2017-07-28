@@ -113,7 +113,6 @@ class ImageUploader extends Component {
                 }
             });
     }
-
     createArtWork(imageId,userId){
         const userData = {
             userId: userId
@@ -147,10 +146,6 @@ class ImageUploader extends Component {
                 }
             });
     }
-
-
-
-
     isJSON(d){
         try {
             return JSON.parse(d);

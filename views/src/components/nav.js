@@ -14,6 +14,12 @@ class Nav extends Component {
         super(props);
         this.state = props;
         this.getUserInfo = this.getUserInfo.bind(this);
+        this.signOut = this.signOut.bind(this);
+    }
+    signOut(){
+        token.removeToken();
+        this.setState({isLoggedIn: false});
+        this.props.signOut();
     }
     componentDidMount(){
         this.getUserInfo();
@@ -27,8 +33,12 @@ class Nav extends Component {
             .set({Accept:'application/json', Authorization:'Token '+ this.sessionToken})
             .end((error, response) => {
                     if (!error && response) {
-                        this.props.setLoggedIn(true);
-                        this.props.updateUserInfo(JSON.parse(response.text));
+                        if(!response.body.noSignedIn){
+                            this.props.setLoggedIn(true);
+                            this.props.updateUserInfo(JSON.parse(response.text));
+                        }else {
+                            this.props.setLoggedIn(false);
+                        }
                     }else{
                         this.props.setLoggedIn(false);
                     }
@@ -50,7 +60,7 @@ class Nav extends Component {
                         <Link to="/sign-up" className={this.state.activeItem === 'sign-up' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-up')}>Sign Up</Link>
                     </Menu.Menu>
                     : <Menu.Menu position='right'>
-                        <Link to="/" className="item" onClick={ () => this.props.signOut()}>Sign Out</Link>
+                        <Link to="/" className="item" onClick={ () => this.signOut()}>Sign Out</Link>
                         <Link to="/profile" className={this.state.activeItem === 'profile' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('profile')}><FontAwesome name="user" className="icon profile-icon"/>{this.state.userInfo.firstName}</Link>
                     </Menu.Menu>
                     }

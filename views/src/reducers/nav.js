@@ -1,5 +1,4 @@
 import * as NavActionTypes from '../action_types/nav';
-const Token = require('../../../helpers/token');
 
 const initialState = {
     activeItem: 'home',
@@ -28,7 +27,6 @@ export default function Nav(state=initialState, action) {
                 isLoggedIn: action.status
             });
         case NavActionTypes.SIGN_OUT:
-            Token.removeToken();
             return Object.assign({}, state, {
                 isLoggedIn: false
             });
