@@ -7,6 +7,8 @@ import * as ArtworkActions from '../actions/artwork_actions'
 import PathHelper from '../helpers/path-helper';
 import Tag from './tag';
 import Suggestion from './suggestion';
+import {toastr} from 'react-redux-toastr'
+
 
 class Artwork extends Component {
     constructor(props) {
@@ -128,7 +130,7 @@ class Artwork extends Component {
                                 bordered={true}
                             />
                             <Button.Group className="art-bottom-controls">
-                                <Button basic={true} onClick={() => this.state.browseBasedOnThis()}>Start Journey Based on this Work</Button>
+                                <Button basic={true} onClick={() => toastr.success('The title', 'The message')}>Start Journey Based on this Work</Button>
                                 <Button basic={true} onClick={() => this.state.userNameClicked()}>User Name</Button>
                                 <Button basic={true} onClick={() => this.state.moreLikeThis()}>More Like This</Button>
                                 <Button basic={true} onClick={() => this.state.relatedToMe()}>Show My Work Related to This</Button>
