@@ -45,6 +45,7 @@
     "request": "^2.81.0",
     "semantic-ui-react": "^0.68.5",
     "serve-favicon": "^2.4.3",
+    "socket.io": "^2.0.3",
     "superagent": "^3.5.2",
     "swagger-jsdoc": "^1.9.4",
     "swagger-node-express": "^2.1.3",
