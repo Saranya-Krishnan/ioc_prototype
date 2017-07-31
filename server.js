@@ -15,8 +15,14 @@ const routes = require('./routes/api');
 const scheduler = require('node-schedule');
 const favicon = require('serve-favicon');
 
-let app = express();
-let api = express();
+let app = express()();
+let server = require('http').Server(app);
+let io = require('socket.io')(server);
+
+
+let api = express()();
+let apiServer = require('http').Server(api);
+let ioApi = require('socket.io')(apiServer);
 
 app.use(favicon('favicons/favicon.ico'));
 
@@ -211,11 +217,11 @@ api.post('/api/'+process.env.API_VERSION+'/quests/my-quests', routes.quests.mine
 
 
 
-app.listen(process.env.PORT || process.env.CLIENT_PORT, function () {
+server.listen(process.env.PORT || process.env.CLIENT_PORT, function () {
     console.log("IoC Express server listening on port " + this.address().port);
 });
 
-api.listen(process.env.PORT || process.env.API_PORT, function () {
+apiServer.listen(process.env.PORT || process.env.API_PORT, function () {
     console.log('Neo4j server started on '+this.address().port);
     console.log('Bolt server at '+process.env.GRAPHENEDB_BOLT_URL);
 });
