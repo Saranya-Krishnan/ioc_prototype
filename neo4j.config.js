@@ -1,6 +1,6 @@
 require('dotenv').config();
 import nconf from 'nconf';
-import PathHelper from './views/src/helpers/path-helper';
+
 nconf.env(['PORT', 'NODE_ENV'])
     .argv({
         'e': {
@@ -23,12 +23,12 @@ nconf.env(['PORT', 'NODE_ENV'])
         }
     })
     .defaults({
-        'USERNAME': 'neo4j',
-        'PASSWORD' : 'neo4j',
-        'neo4j': 'local',
-        'neo4j-local': 'bolt://localhost:7687',
-        'neo4j-remote': 'bolt:http://162.243.100.222:7474',
-        'base_url': 'http://localhost:3030',
+        'USERNAME':  process.env.GRAPHENEDB_BOLT_USER,
+        'PASSWORD' : process.env.GRAPHENEDB_BOLT_PASSWORD,
+        'neo4j': 'remote',
+        'neo4j-local': process.env.GRAPHENEDB_BOLT_URL,
+        'neo4j-remote': process.env.GRAPHENEDB_BOLT_URL,
+        'base_url': process.env.BASE_URL + ':' + process.env.API_PORT || process.env.BASE_URL + ':' + process.env.PORT,
         'api_path': '/api/v0'
     });
 
