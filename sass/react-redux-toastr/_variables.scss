@@ -1,0 +1,9 @@
+@import "../common/palette";
+
+
+$toastr-width: 350px !default;
+$successBgColor:setcolor('green', 'dark') !default;
+$infoBgColor: setcolor('blue') !default;
+$warningBgColor:setcolor('red-orange') !default;
+$errorBgColor: setcolor('crimson') !default;
+$defaultSpace: 1rem;

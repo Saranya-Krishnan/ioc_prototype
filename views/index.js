@@ -9,6 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from 'react-router-dom';
 import Ioc from './src/containers/ioc';
 import FontAwesome from 'react-fontawesome';
+import ReduxToastr from 'react-redux-toastr'
 
 const initialState = window.__INITIAL_STATE__ = {};
 
@@ -23,7 +24,18 @@ ReactDOM.render(
                     </div>
                     <p>The application can't find its environment variables.</p>
                 </div>
-             :<Ioc />}
+                :<div>
+                    <Ioc />
+                    <ReduxToastr
+                        timeOut={4000}
+                        newestOnTop={false}
+                        preventDuplicates
+                        position="top-left"
+                        transitionIn="fadeIn"
+                        transitionOut="fadeOut"
+                        progressBar/>
+                </div>
+            }
         </BrowserRouter>
     </Provider>,
     document.getElementById('ioc-app')
