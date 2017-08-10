@@ -15,12 +15,12 @@ const routes = require('./routes/api');
 const scheduler = require('node-schedule');
 const favicon = require('serve-favicon');
 
-let app = express()();
+let app = express();
 let server = require('http').Server(app);
 let io = require('socket.io')(server);
 
 
-let api = express()();
+let api = express();
 let apiServer = require('http').Server(api);
 let ioApi = require('socket.io')(apiServer);
 
