@@ -3410,7 +3410,7 @@ var create = function create(session, meaningId, schemaName, label) {
 var update = function update(session) {};
 
 var getSuggestions = function getSuggestions(session, tagId) {
-    return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:m.id}) MATCH (s:Suggestion)<-[:CAME_FROM_THIS_MEANING]-(m) RETURN s', { tagId: tagId }).then(function (results) {
+    return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:meaning.id}) MATCH (s:Suggestion)<-[:CAME_FROM_THIS_MEANING]-(m) RETURN s', { tagId: tagId }).then(function (results) {
         var suggestionGroup = [];
         var aSuggestion = null;
         for (var n = 0; n < results.records.length; n++) {
@@ -6317,6 +6317,10 @@ var _tag = __webpack_require__(134);
 
 var _tag2 = _interopRequireDefault(_tag);
 
+var _color = __webpack_require__(180);
+
+var _color2 = _interopRequireDefault(_color);
+
 var _suggestion = __webpack_require__(133);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
@@ -6436,6 +6440,25 @@ var Artwork = function (_Component) {
 
             var tagOptions = null;
             var suggestionsOptions = null;
+            var colorOptions = null;
+
+            if (this.state.work) {
+                if (this.state.work.image) {
+                    if (this.state.work.image.colors.length) {
+                        var c = this.state.work.image.colors;
+                        colorOptions = c.map(function (colorItem, index) {
+                            return _react2.default.createElement(
+                                _semanticUiReact.Grid.Column,
+                                { key: index },
+                                _react2.default.createElement(_color2.default, {
+                                    color: colorItem[0]
+                                })
+                            );
+                        });
+                    }
+                }
+            }
+
             if (this.state.work) {
                 var t = this.state.work.tags;
                 tagOptions = t.map(function (tag, index) {
@@ -6476,6 +6499,21 @@ var Artwork = function (_Component) {
                             centered: true,
                             bordered: true
                         }),
+                        _react2.default.createElement(_semanticUiReact.Divider, null),
+                        _react2.default.createElement(
+                            _semanticUiReact.Container,
+                            null,
+                            _react2.default.createElement(
+                                'h3',
+                                null,
+                                'Colors in this work'
+                            ),
+                            _react2.default.createElement(
+                                _semanticUiReact.Grid,
+                                { columns: 6 },
+                                colorOptions
+                            )
+                        ),
                         _react2.default.createElement(
                             _semanticUiReact.Button.Group,
                             { className: 'art-bottom-controls' },
@@ -11962,6 +12000,58 @@ module.exports = require("react-dropzone");
 /***/ (function(module, exports) {
 
 module.exports = require("swagger-node-express");
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Color = function Color(props) {
+    var myColor = { backgroundColor: props.color };
+    var textColor = void 0;
+    var c = props.color.substring(1);
+    var rgb = parseInt(c, 16);
+    var r = rgb >> 16 & 0xff;
+    var g = rgb >> 8 & 0xff;
+    var b = rgb >> 0 & 0xff;
+    var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+    if (luma < 65) {
+        textColor = { color: '#ffffff' };
+    } else {
+        textColor = { color: '#000000' };
+    }
+    return _react2.default.createElement(
+        'div',
+        { className: 'color-sample', style: myColor },
+        _react2.default.createElement(
+            'h3',
+            { style: textColor },
+            props.color
+        )
+    );
+};
+
+Color.propTypes = {
+    color: _propTypes2.default.string.isRequired
+};
+
+exports.default = Color;
 
 /***/ })
 /******/ ]);

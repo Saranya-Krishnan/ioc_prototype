@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ajax from 'superagent';
-import { Segment, Container, Image, Button, Card, Divider } from 'semantic-ui-react';
+import { Segment, Container, Image, Button, Card, Divider, Grid } from 'semantic-ui-react';
 import * as ArtworkActions from '../actions/artwork_actions'
 import PathHelper from '../helpers/path-helper';
 import Tag from './tag';
+import Color from './color';
 import Suggestion from './suggestion';
 import {toastr} from 'react-redux-toastr'
 
@@ -92,6 +93,23 @@ class Artwork extends Component {
     render(){
         let tagOptions = null;
         let suggestionsOptions = null;
+        let colorOptions = null;
+
+        if(this.state.work){
+            if(this.state.work.image){
+                if(this.state.work.image.colors.length) {
+                    const c = this.state.work.image.colors;
+                    colorOptions = c.map((colorItem, index) => (
+                        <Grid.Column key={index}>
+                            <Color
+                                color={colorItem[0]}
+                            />
+                        </Grid.Column>
+                    ));
+                }
+            }
+        }
+
         if(this.state.work) {
             const t = this.state.work.tags;
             tagOptions = t.map((tag, index) => (
@@ -129,6 +147,13 @@ class Artwork extends Component {
                                 centered={true}
                                 bordered={true}
                             />
+                            <Divider/>
+                            <Container>
+                                <h3>Colors in this work</h3>
+                                <Grid columns={6}>
+                                    {colorOptions}
+                                </Grid>
+                            </Container>
                             <Button.Group className="art-bottom-controls">
                                 <Button basic={true} onClick={() => toastr.success('The title', 'The message')}>Start Journey Based on this Work</Button>
                                 <Button basic={true} onClick={() => this.state.userNameClicked()}>User Name</Button>

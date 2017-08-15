@@ -40,7 +40,7 @@ const update = function (session) {
 };
 
 const getSuggestions = function (session, tagId) {
-    return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:m.id}) MATCH (s:Suggestion)<-[:CAME_FROM_THIS_MEANING]-(m) RETURN s', {tagId:tagId}
+    return session.run('MATCH (t:Tag {id:{tagId}}) MATCH (meaning:Meaning)-[:DERIVED_FROM]->(t) MATCH(m:Meaning {id:meaning.id}) MATCH (s:Suggestion)<-[:CAME_FROM_THIS_MEANING]-(m) RETURN s', {tagId:tagId}
     ).then(results => {
         const suggestionGroup = [];
         let aSuggestion = null;

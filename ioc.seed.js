@@ -1,73 +1,73 @@
 const suggestionData = {
-    person:{
+    person: {
         actions: [
             {
-                actionKey:'draw',
-                prompt:'Draw a portrait of %^person^%',
-                schema:'person',
-                qualifiers:[
+                actionKey: 'draw',
+                prompt: 'Draw a portrait of %^person^%',
+                schema: 'person',
+                qualifiers: [
                     {
-                        schema:'person',
+                        schema: 'person',
                         qualifier: ' in the style or from the perspective of %^person^%.'
                     },
                     {
-                        schema:'person',
+                        schema: 'person',
                         qualifier: ' and %^person^%.'
                     },
                     {
-                        schema:'place',
+                        schema: 'place',
                         qualifier: ' in %^place^%.'
                     },
                     {
-                        schema:'species',
+                        schema: 'species',
                         qualifier: ' as %&a&% %^species^%.'
                     },
                     {
-                        schema:'species',
+                        schema: 'species',
                         qualifier: ' with %&a&% %^species^%.'
                     },
                     {
-                        schema:'work',
+                        schema: 'work',
                         qualifier: ' in the style of %^work^%.'
                     },
                     {
-                        schema:'timePeriod',
+                        schema: 'timePeriod',
                         qualifier: ' in the %^timePeriod^%.'
                     },
                     {
-                        schema:'colour',
+                        schema: 'colour',
                         qualifier: ' using lots of %^colour^%.'
                     },
                     {
-                        schema:'colour',
+                        schema: 'colour',
                         qualifier: ' using only %^colour^% and %^colour^%.'
                     },
                     {
-                        schema:'colour',
+                        schema: 'colour',
                         qualifier: ' using only %^colour^%, %^colour^% and %^colour^%.'
                     },
                     {
-                        schema:'colour',
+                        schema: 'colour',
                         qualifier: ' using only %^colour^%, %^colour^%, %^colour^% and %^colour^%.'
                     },
                     {
-                        schema:'device',
+                        schema: 'device',
                         qualifier: ' holding %&a&% %^device^%.'
                     },
                     {
-                        schema:'device',
+                        schema: 'device',
                         qualifier: ' using %&a&% %^device^%.'
                     },
                     {
-                        schema:'device',
+                        schema: 'device',
                         qualifier: ' as %&a&% %^device^%.'
                     }
                 ]
             }
         ]
     },
-    place:{
-        actions:[
+    place: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'Draw a picture of %&a&% %^place^%',
@@ -81,8 +81,8 @@ const suggestionData = {
             }
         ]
     },
-    species:{
-        actions:[
+    species: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'Draw a picture of %&a&% %^species^%',
@@ -96,8 +96,8 @@ const suggestionData = {
             }
         ]
     },
-    work:{
-        actions:[
+    work: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'Draw your interpretation of %^work^%',
@@ -111,8 +111,8 @@ const suggestionData = {
             }
         ]
     },
-    topicalConcept:{
-        actions:[
+    topicalConcept: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'What would %^topicalConcept^% look like if it were a person? Draw it!',
@@ -126,8 +126,8 @@ const suggestionData = {
             }
         ]
     },
-    timePeriod:{
-        actions:[
+    timePeriod: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'Imagine your self in the  %&a&% %^timePeriod^%. Write what your breakfast would be like if you lived then.',
@@ -141,8 +141,8 @@ const suggestionData = {
             }
         ]
     },
-    colour:{
-        actions:[
+    colour: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'Draw a picture using a lot of %^colour^%',
@@ -156,8 +156,8 @@ const suggestionData = {
             }
         ]
     },
-    device:{
-        actions:[
+    device: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'Draw a picture of %&a&% %^device^%',
@@ -171,8 +171,8 @@ const suggestionData = {
             }
         ]
     },
-    event:{
-        actions:[
+    event: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'Draw a picture of %&a& %^event^%',
@@ -186,8 +186,8 @@ const suggestionData = {
             }
         ]
     },
-    food:{
-        actions:[
+    food: {
+        actions: [
             {
                 actionKey: 'draw',
                 prompt: 'Draw a picture of %&a&% %^food^%',
@@ -203,6 +203,7 @@ const suggestionData = {
     }
 };
 
+
 module.exports = {
-    suggestionData:suggestionData
+    suggestionData: suggestionData
 };
