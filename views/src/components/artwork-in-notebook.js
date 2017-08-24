@@ -6,6 +6,7 @@ import { Header, Container} from 'semantic-ui-react';
 import * as ArtworkInNotebookActions from '../actions/artwork-in-notebook_actions';
 import PathHelper from '../helpers/path-helper';
 import ArtworkCard from './artwork-card';
+import {toastr} from 'react-redux-toastr';
 
 class ArtWorkInNoteBook extends Component {
     constructor(props) {
@@ -36,7 +37,7 @@ class ArtWorkInNoteBook extends Component {
                         }
                         this.props.loadMyArtwork(true,worksOfArt);
                     } else {
-                        console.log('error retrieving your quests', error);
+                       toastr.error('Error retrieving your artwork.', error);
                     }
                 });
         }

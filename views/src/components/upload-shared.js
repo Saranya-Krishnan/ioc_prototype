@@ -8,7 +8,7 @@ import * as ImageUploadCreators from '../actions/image-uploader_actions';
 import * as MyNotebookCreators from '../actions/my-notebooks_actions';
 import * as NotebookCreators from '../actions/notebook_actions';
 import * as UploadSharedCreators from '../actions/upload-shared_actions';
-
+import {toastr} from 'react-redux-toastr';
 import ImageUploader from '../components/image-uploader';
 import MyNotebooks from '../components/my-notebooks';
 import Notebook from '../components/notebook';
@@ -46,7 +46,7 @@ class UploadShared extends Component {
                         this.setState({sharedNotebooks:res.notebooks});
                     }
                 } else {
-                    console.log('error retrieving your quests', error);
+                    toastr.error('Error retrieving your quests', error);
                 }
             });
     }
