@@ -127,7 +127,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-__webpack_require__(20).config();
+__webpack_require__(21).config();
 
 var PathHelper = function () {
     function PathHelper() {
@@ -170,23 +170,29 @@ module.exports = require("superagent");
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux");
+module.exports = require("react-redux-toastr");
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _randomstring = __webpack_require__(66);
+var _randomstring = __webpack_require__(67);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // neo4j_models cypher helper module
-var nconf = __webpack_require__(29);
+var nconf = __webpack_require__(30);
 
 var neo4j = __webpack_require__(177).v1;
 var driver = neo4j.driver(nconf.get('neo4j-local'), neo4j.auth.basic(nconf.get('USERNAME'), nconf.get('PASSWORD')));
@@ -221,7 +227,7 @@ function whereTemplate(name, key, paramKey) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -242,13 +248,13 @@ module.exports = function loginRequired(req, res, next) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("uuid");
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -259,7 +265,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.signOut = exports.setLoggedIn = exports.updateUserInfo = exports.clickMenuItem = undefined;
 
-var _nav = __webpack_require__(44);
+var _nav = __webpack_require__(45);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -291,7 +297,7 @@ var signOut = exports.signOut = function signOut() {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -302,7 +308,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clickFooterItem = undefined;
 
-var _footer = __webpack_require__(40);
+var _footer = __webpack_require__(41);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -315,7 +321,7 @@ var clickFooterItem = exports.clickFooterItem = function clickFooterItem() {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -335,7 +341,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(17);
+var _reactRouterDom = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -373,7 +379,7 @@ Footer.propTypes = {
 exports.default = Footer;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -397,13 +403,13 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(17);
+var _reactRouterDom = __webpack_require__(18);
 
 var _superagent = __webpack_require__(7);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActions = _interopRequireWildcard(_nav_actions);
 
@@ -411,11 +417,11 @@ var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -427,7 +433,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var token = __webpack_require__(23);
+var token = __webpack_require__(24);
 
 var Nav = function (_Component) {
     _inherits(Nav, _Component);
@@ -588,49 +594,49 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Nav);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-fontawesome");
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("moment");
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("dotenv");
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("socket.io");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -657,7 +663,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -820,7 +826,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -859,7 +865,7 @@ var Image = module.exports = function (_node) {
 exports.default = Image;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,7 +892,7 @@ var Tag = module.exports = function (_node) {
 exports.default = Tag;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -914,7 +920,7 @@ var User = module.exports = function (_node) {
 exports.default = User;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -925,7 +931,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadNotebook = exports.createNewNotebook = undefined;
 
-var _notebook = __webpack_require__(45);
+var _notebook = __webpack_require__(46);
 
 var notebookActionTypes = _interopRequireWildcard(_notebook);
 
@@ -946,7 +952,7 @@ var loadNotebook = exports.loadNotebook = function loadNotebook(notebook) {
 };
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -958,7 +964,7 @@ var _nconf2 = _interopRequireDefault(_nconf);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(20).config();
+__webpack_require__(21).config();
 
 
 _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
@@ -993,13 +999,13 @@ _nconf2.default.env(['PORT', 'NODE_ENV']).argv({
 module.exports = _nconf2.default;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1029,7 +1035,7 @@ var Meaning = module.exports = function (_node) {
 exports.default = Meaning;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1061,7 +1067,7 @@ var Notebook = module.exports = function (_node) {
 exports.default = Notebook;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1087,7 +1093,7 @@ var Suggestion = module.exports = function (_node) {
 exports.default = Suggestion;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1112,17 +1118,17 @@ var Work = module.exports = function (_node) {
 exports.default = Work;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _randomstring = __webpack_require__(66);
+var _randomstring = __webpack_require__(67);
 
 var _randomstring2 = _interopRequireDefault(_randomstring);
 
@@ -1130,11 +1136,11 @@ var _lodash = __webpack_require__(2);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _user = __webpack_require__(27);
+var _user = __webpack_require__(28);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _notebook = __webpack_require__(32);
+var _notebook = __webpack_require__(33);
 
 var _notebook2 = _interopRequireDefault(_notebook);
 
@@ -1218,7 +1224,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1230,7 +1236,7 @@ Object.defineProperty(exports, "__esModule", {
 var GO_TO_ARTWORK_PAGE = exports.GO_TO_ARTWORK_PAGE = 'GO_TO_ARTWORK_PAGE';
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1242,7 +1248,7 @@ Object.defineProperty(exports, "__esModule", {
 var LOAD_MY_ARTWORK = exports.LOAD_MY_ARTWORK = 'LOAD_MY_ARTWORK';
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1259,7 +1265,7 @@ var BROWSE_BASED_ON_THIS = exports.BROWSE_BASED_ON_THIS = 'BROWSE_BASED_ON_THIS'
 var RELATED_TO_ME = exports.RELATED_TO_ME = 'RELATED_TO_ME';
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1273,7 +1279,7 @@ var NEXT_STEP = exports.NEXT_STEP = 'NEXT_STEP';
 var UPDATE_USER_ID = exports.UPDATE_USER_ID = 'UPDATE_USER_ID';
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1285,7 +1291,7 @@ Object.defineProperty(exports, "__esModule", {
 var FOOTER_ITEM_CLICKED = exports.FOOTER_ITEM_CLICKED = 'FOOTER_ITEM_CLICKED';
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1309,7 +1315,7 @@ var MAKE_MEANING = exports.MAKE_MEANING = 'MAKE_MEANING';
 var MAKE_SUGGESTIONS = exports.MAKE_SUGGESTIONS = 'MAKE_SUGGESTIONS';
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1321,7 +1327,7 @@ Object.defineProperty(exports, "__esModule", {
 var LOAD_MY_ARTWORK = exports.LOAD_MY_ARTWORK = 'LOAD_MY_ARTWORK';
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1333,7 +1339,7 @@ Object.defineProperty(exports, "__esModule", {
 var DISPLAY_MY_NOTEBOOKS = exports.DISPLAY_MY_NOTEBOOKS = 'DISPLAY_MY_NOTEBOOKS';
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1348,7 +1354,7 @@ var CHECK_LOGGED_IN = exports.CHECK_LOGGED_IN = 'CHECK_LOGGED_IN';
 var SIGN_OUT = exports.SIGN_OUT = 'SIGN_OUT';
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1361,7 +1367,7 @@ var CREATE_NEW_NOTEBOOK = exports.CREATE_NEW_NOTEBOOK = 'CREATE_NEW_NOTEBOOK';
 var LOAD_NOTE_BOOK = exports.LOAD_NOTE_BOOK = 'LOAD_NOTE_BOOK';
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1380,7 +1386,7 @@ var DISPLAY_THAT_THERE_ARE_NO_QUESTS = exports.DISPLAY_THAT_THERE_ARE_NO_QUESTS 
 var SHOW_DETAIL = exports.SHOW_DETAIL = 'SHOW_DETAIL';
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1392,7 +1398,7 @@ Object.defineProperty(exports, "__esModule", {
 var LOAD_MY_QUESTS = exports.LOAD_MY_QUESTS = 'LOAD_MY_QUESTS';
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1404,7 +1410,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_IN_FORM_SUBMITTED = exports.SIGN_IN_FORM_SUBMITTED = 'SIGN_IN_FORM_SUBMITTED';
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1416,7 +1422,7 @@ Object.defineProperty(exports, "__esModule", {
 var SIGN_UP_FORM_SUBMITTED = exports.SIGN_UP_FORM_SUBMITTED = 'SIGN_UP_FORM_SUBMITTED';
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1433,7 +1439,7 @@ var HIDE_SUGGESTION = exports.HIDE_SUGGESTION = 'HIDE_SUGGESTION';
 var SHOW_QUEST = exports.SHOW_QUEST = 'SHOW_QUEST';
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1445,7 +1451,7 @@ Object.defineProperty(exports, "__esModule", {
 var ACCOUNT_FOR_NO_NOTEBOOKS = exports.ACCOUNT_FOR_NO_NOTEBOOKS = 'ACCOUNT_FOR_NO_NOTEBOOKS';
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1458,7 +1464,7 @@ var UPLOAD_AVATAR = exports.UPLOAD_AVATAR = 'UPLOAD_AVATAR';
 var EDIT_BIO = exports.EDIT_BIO = 'EDIT_BIO';
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1469,7 +1475,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadMyArtwork = undefined;
 
-var _artworkInNotebook = __webpack_require__(37);
+var _artworkInNotebook = __webpack_require__(38);
 
 var ArtWorkInNotebookActionTypes = _interopRequireWildcard(_artworkInNotebook);
 
@@ -1484,7 +1490,7 @@ var loadMyArtwork = exports.loadMyArtwork = function loadMyArtwork(having, artwo
 };
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1495,7 +1501,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.userNameClicked = exports.moreLikeThis = exports.relatedToMe = exports.browseBasedOnThis = exports.getSuggestions = exports.loadArtwork = undefined;
 
-var _artwork = __webpack_require__(38);
+var _artwork = __webpack_require__(39);
 
 var ArtworkActionTypes = _interopRequireWildcard(_artwork);
 
@@ -1540,7 +1546,7 @@ var userNameClicked = exports.userNameClicked = function userNameClicked() {
 };
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1551,7 +1557,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updateUserId = exports.doCreation = exports.nextStep = undefined;
 
-var _createNotebookForm = __webpack_require__(39);
+var _createNotebookForm = __webpack_require__(40);
 
 var CreateNotebookFormActionTypes = _interopRequireWildcard(_createNotebookForm);
 
@@ -1579,7 +1585,7 @@ var updateUserId = exports.updateUserId = function updateUserId(id) {
 };
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1590,7 +1596,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeSuggestions = exports.makeMeaning = exports.getNewTagOntology = exports.enrichNewTag = exports.visualRecognition = exports.classificationToTags = exports.exploreBasedOnThisArtwork = exports.createTag = exports.classifyImage = exports.createArtwork = exports.createImage = exports.uploadImage = undefined;
 
-var _imageUploder = __webpack_require__(41);
+var _imageUploder = __webpack_require__(42);
 
 var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
 
@@ -1683,7 +1689,7 @@ var makeSuggestions = exports.makeSuggestions = function makeSuggestions(meaning
 };
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1694,7 +1700,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadMyArtwork = undefined;
 
-var _myArtwork = __webpack_require__(42);
+var _myArtwork = __webpack_require__(43);
 
 var MyArtWorkActionTypes = _interopRequireWildcard(_myArtwork);
 
@@ -1709,7 +1715,7 @@ var loadMyArtwork = exports.loadMyArtwork = function loadMyArtwork(having, artwo
 };
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1720,7 +1726,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.showDetail = exports.displayThatThereAreNoQuests = exports.goToQuestPage = exports.seeAllMyQuests = exports.adabdonQuest = exports.joinQuest = exports.addNote = exports.setGoalDate = undefined;
 
-var _quest = __webpack_require__(46);
+var _quest = __webpack_require__(47);
 
 var QuestActionTypes = _interopRequireWildcard(_quest);
 
@@ -1777,7 +1783,7 @@ var showDetail = exports.showDetail = function showDetail(data) {
 };
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1788,7 +1794,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadMyQuests = undefined;
 
-var _quests = __webpack_require__(47);
+var _quests = __webpack_require__(48);
 
 var QuestsActionTypes = _interopRequireWildcard(_quests);
 
@@ -1803,7 +1809,7 @@ var loadMyQuests = exports.loadMyQuests = function loadMyQuests(having, quests) 
 };
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1814,7 +1820,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.accountForNoNotebooks = undefined;
 
-var _uploadShared = __webpack_require__(51);
+var _uploadShared = __webpack_require__(52);
 
 var UploadSharedActionTypes = _interopRequireWildcard(_uploadShared);
 
@@ -1828,7 +1834,7 @@ var accountForNoNotebooks = exports.accountForNoNotebooks = function accountForN
 };
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1856,7 +1862,7 @@ var _artworkCard_actions = __webpack_require__(111);
 
 var ArtworkCardActions = _interopRequireWildcard(_artworkCard_actions);
 
-var _reactRouter = __webpack_require__(18);
+var _reactRouter = __webpack_require__(19);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -1940,7 +1946,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ArtworkCard);
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1958,17 +1964,17 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(5);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _notebook_actions = __webpack_require__(28);
+var _notebook_actions = __webpack_require__(29);
 
 var NotebookActions = _interopRequireWildcard(_notebook_actions);
 
-var _artworkInNotebook_actions = __webpack_require__(53);
+var _artworkInNotebook_actions = __webpack_require__(54);
 
 var ArtworkInNotebookActionCreators = _interopRequireWildcard(_artworkInNotebook_actions);
 
@@ -1978,11 +1984,11 @@ var _artworkInNotebook = __webpack_require__(118);
 
 var _artworkInNotebook2 = _interopRequireDefault(_artworkInNotebook);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
-var _reactRouter = __webpack_require__(18);
+var _reactRouter = __webpack_require__(19);
 
 var _superagent = __webpack_require__(7);
 
@@ -1992,11 +1998,11 @@ var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _moment = __webpack_require__(19);
+var _moment = __webpack_require__(20);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -2189,7 +2195,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Notebook);
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2217,7 +2223,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _quest_actions = __webpack_require__(58);
+var _quest_actions = __webpack_require__(59);
 
 var QuestActions = _interopRequireWildcard(_quest_actions);
 
@@ -2225,13 +2231,13 @@ var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _moment = __webpack_require__(19);
+var _moment = __webpack_require__(20);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactRouter = __webpack_require__(18);
+var _reactRouter = __webpack_require__(19);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -2478,34 +2484,28 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Quest);
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/jpeg;base64,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"
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/jpeg;base64,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"
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports) {
 
 module.exports = require("randomstring");
 
 /***/ }),
-/* 67 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-datepicker");
-
-/***/ }),
 /* 68 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-redux-toastr");
+module.exports = require("react-datepicker");
 
 /***/ }),
 /* 69 */
@@ -2535,11 +2535,11 @@ var _response = __webpack_require__(4);
 
 var _response2 = _interopRequireDefault(_response);
 
-var _users = __webpack_require__(35);
+var _users = __webpack_require__(36);
 
 var _users2 = _interopRequireDefault(_users);
 
-var _dbUtils = __webpack_require__(9);
+var _dbUtils = __webpack_require__(10);
 
 var _dbUtils2 = _interopRequireDefault(_dbUtils);
 
@@ -2595,7 +2595,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(30);
+var _express = __webpack_require__(31);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -2603,7 +2603,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(18);
+var _reactRouter = __webpack_require__(19);
 
 var _server = __webpack_require__(178);
 
@@ -2613,7 +2613,7 @@ var _index = __webpack_require__(157);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -2704,7 +2704,7 @@ module.exports = require("swagger-jsdoc");
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -2712,11 +2712,11 @@ var _lodash = __webpack_require__(2);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _image = __webpack_require__(25);
+var _image = __webpack_require__(26);
 
 var _image2 = _interopRequireDefault(_image);
 
-var _tag = __webpack_require__(26);
+var _tag = __webpack_require__(27);
 
 var _tag2 = _interopRequireDefault(_tag);
 
@@ -2796,7 +2796,7 @@ module.exports = {
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -2825,7 +2825,7 @@ module.exports = {
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -2854,17 +2854,17 @@ module.exports = {
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _meaning = __webpack_require__(31);
+var _meaning = __webpack_require__(32);
 
 var _meaning2 = _interopRequireDefault(_meaning);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var IoCSeed = __webpack_require__(24);
+var IoCSeed = __webpack_require__(25);
 
 var matchClassifications = function matchClassifications(classes) {
     if (!classes || !classes.length) {
@@ -3062,19 +3062,19 @@ exports.default = Schema;
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _notebook = __webpack_require__(32);
+var _notebook = __webpack_require__(33);
 
 var _notebook2 = _interopRequireDefault(_notebook);
 
-var _work = __webpack_require__(34);
+var _work = __webpack_require__(35);
 
 var _work2 = _interopRequireDefault(_work);
 
-var _image = __webpack_require__(25);
+var _image = __webpack_require__(26);
 
 var _image2 = _interopRequireDefault(_image);
 
@@ -3171,7 +3171,7 @@ module.exports = {
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -3203,7 +3203,7 @@ module.exports = {
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -3211,15 +3211,15 @@ var _quest = __webpack_require__(87);
 
 var _quest2 = _interopRequireDefault(_quest);
 
-var _suggestion = __webpack_require__(33);
+var _suggestion = __webpack_require__(34);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
-var _user = __webpack_require__(27);
+var _user = __webpack_require__(28);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _meaning = __webpack_require__(31);
+var _meaning = __webpack_require__(32);
 
 var _meaning2 = _interopRequireDefault(_meaning);
 
@@ -3297,7 +3297,7 @@ module.exports = {
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -3365,17 +3365,17 @@ module.exports = {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _suggestion = __webpack_require__(33);
+var _suggestion = __webpack_require__(34);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var IoCSeed = __webpack_require__(24);
+var IoCSeed = __webpack_require__(25);
 
 var create = function create(session, meaningId, schemaName, label) {
     if (schemaName !== undefined) {
@@ -3445,11 +3445,11 @@ module.exports = {
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _tag = __webpack_require__(26);
+var _tag = __webpack_require__(27);
 
 var _tag2 = _interopRequireDefault(_tag);
 
@@ -3518,23 +3518,23 @@ module.exports = {
 "use strict";
 
 
-var _uuid = __webpack_require__(11);
+var _uuid = __webpack_require__(12);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
-var _work = __webpack_require__(34);
+var _work = __webpack_require__(35);
 
 var _work2 = _interopRequireDefault(_work);
 
-var _image = __webpack_require__(25);
+var _image = __webpack_require__(26);
 
 var _image2 = _interopRequireDefault(_image);
 
-var _user = __webpack_require__(27);
+var _user = __webpack_require__(28);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _tag = __webpack_require__(26);
+var _tag = __webpack_require__(27);
 
 var _tag2 = _interopRequireDefault(_tag);
 
@@ -3611,8 +3611,8 @@ module.exports = {
 var Images = __webpack_require__(80),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -3842,8 +3842,8 @@ exports.getTags = function (req, res, next) {
 var Journeys = __webpack_require__(81),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -3941,8 +3941,8 @@ exports.deletion = function (req, res, next) {};
 var Locations = __webpack_require__(82),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -4040,8 +4040,8 @@ exports.deletion = function (req, res, next) {};
 var Meanings = __webpack_require__(83),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -4174,8 +4174,8 @@ exports.retrieve = function (req, res, next) {
 var Notebooks = __webpack_require__(89),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -4371,8 +4371,8 @@ exports.display = function (req, res, next) {
 var Pages = __webpack_require__(90),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -4500,8 +4500,8 @@ exports.inNotebook = function (req, res, next) {
 var Quests = __webpack_require__(91),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 //ToDo: Update Swagger descriptions
@@ -4690,8 +4690,8 @@ exports.mine = function (req, res, next) {
 var Schemata = __webpack_require__(92),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -4866,8 +4866,8 @@ exports.seed = function (req, res, next) {
 var Suggestions = __webpack_require__(93),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -5002,8 +5002,8 @@ exports.getSuggestions = function (req, res, next) {
 var Tags = __webpack_require__(94),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -5186,11 +5186,11 @@ exports.tagItem = function (req, res, next) {};
 "use strict";
 
 
-var Users = __webpack_require__(35),
+var Users = __webpack_require__(36),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 /**
  * @swagger
@@ -5458,8 +5458,8 @@ exports.getCurrentNotebook = function (req, res, next) {
 var Works = __webpack_require__(95),
     writeResponse = __webpack_require__(4).writeResponse,
     writeError = __webpack_require__(4).writeError,
-    loginRequired = __webpack_require__(10),
-    dbUtils = __webpack_require__(9),
+    loginRequired = __webpack_require__(11),
+    dbUtils = __webpack_require__(10),
     _ = __webpack_require__(2);
 
 /**
@@ -5618,7 +5618,7 @@ exports.mine = function (req, res, next) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var _express = __webpack_require__(30);
+var _express = __webpack_require__(31);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -5626,7 +5626,7 @@ var _index = __webpack_require__(72);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _neo4j = __webpack_require__(29);
+var _neo4j = __webpack_require__(30);
 
 var _neo4j2 = _interopRequireDefault(_neo4j);
 
@@ -5656,7 +5656,7 @@ var _response2 = _interopRequireDefault(_response);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(20).config();
+__webpack_require__(21).config();
 var PathHelper = __webpack_require__(6);
 
 var request = __webpack_require__(77);
@@ -5667,12 +5667,12 @@ var scheduler = __webpack_require__(75);
 var favicon = __webpack_require__(78);
 
 var app = (0, _express2.default)();
-var server = __webpack_require__(21).Server(app);
-var io = __webpack_require__(22)(server);
+var server = __webpack_require__(22).Server(app);
+var io = __webpack_require__(23)(server);
 
 var api = (0, _express2.default)();
-var apiServer = __webpack_require__(21).Server(api);
-var ioApi = __webpack_require__(22)(apiServer);
+var apiServer = __webpack_require__(22).Server(api);
+var ioApi = __webpack_require__(23)(apiServer);
 
 app.use(favicon('favicons/favicon.ico'));
 
@@ -5910,7 +5910,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.goToArtworkPage = undefined;
 
-var _artworkCard = __webpack_require__(36);
+var _artworkCard = __webpack_require__(37);
 
 var ArtworkCardActionTypes = _interopRequireWildcard(_artworkCard);
 
@@ -5934,7 +5934,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.displayMyNotebooks = undefined;
 
-var _myNotebooks = __webpack_require__(43);
+var _myNotebooks = __webpack_require__(44);
 
 var MyNotebooksActionTypes = _interopRequireWildcard(_myNotebooks);
 
@@ -5959,7 +5959,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signIn = __webpack_require__(48);
+var _signIn = __webpack_require__(49);
 
 var SignInActionTypes = _interopRequireWildcard(_signIn);
 
@@ -5983,7 +5983,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.onClickSubmit = undefined;
 
-var _signUp = __webpack_require__(49);
+var _signUp = __webpack_require__(50);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -6007,7 +6007,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.showQuest = exports.hideSuggestion = exports.showSuggestion = exports.moreSuggestionsLikeThis = exports.undoTakeSuggestion = exports.takeSuggestion = undefined;
 
-var _suggestion = __webpack_require__(50);
+var _suggestion = __webpack_require__(51);
 
 var SuggestionActionTypes = _interopRequireWildcard(_suggestion);
 
@@ -6062,7 +6062,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.editBio = exports.uploadAvatar = undefined;
 
-var _userInfo = __webpack_require__(52);
+var _userInfo = __webpack_require__(53);
 
 var UserInfoActionTypes = _interopRequireWildcard(_userInfo);
 
@@ -6156,7 +6156,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _artworkInNotebook_actions = __webpack_require__(53);
+var _artworkInNotebook_actions = __webpack_require__(54);
 
 var ArtworkInNotebookActions = _interopRequireWildcard(_artworkInNotebook_actions);
 
@@ -6164,11 +6164,11 @@ var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _artworkCard = __webpack_require__(61);
+var _artworkCard = __webpack_require__(62);
 
 var _artworkCard2 = _interopRequireDefault(_artworkCard);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -6315,7 +6315,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _artwork_actions = __webpack_require__(54);
+var _artwork_actions = __webpack_require__(55);
 
 var ArtworkActions = _interopRequireWildcard(_artwork_actions);
 
@@ -6335,7 +6335,7 @@ var _suggestion = __webpack_require__(134);
 
 var _suggestion2 = _interopRequireDefault(_suggestion);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -6415,6 +6415,7 @@ var Artwork = function (_Component) {
         value: function componentDidMount() {
             var _this3 = this;
 
+            console.log(this.props, this.props.user);
             this.setUser(this.props.user['userInfo']);
             var data = {
                 workId: this.state.workId
@@ -6726,7 +6727,7 @@ var _superagent = __webpack_require__(7);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _createNotebookForm_actions = __webpack_require__(55);
+var _createNotebookForm_actions = __webpack_require__(56);
 
 var CreateNotebookFormActions = _interopRequireWildcard(_createNotebookForm_actions);
 
@@ -6734,17 +6735,17 @@ var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _moment = __webpack_require__(19);
+var _moment = __webpack_require__(20);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactDatepicker = __webpack_require__(67);
+var _reactDatepicker = __webpack_require__(68);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
-var _reactRouter = __webpack_require__(18);
+var _reactRouter = __webpack_require__(19);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -6975,7 +6976,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -7043,7 +7044,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -7160,11 +7161,11 @@ var _superagent = __webpack_require__(7);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(17);
+var _reactRouterDom = __webpack_require__(18);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _imageUploader_actions = __webpack_require__(56);
+var _imageUploader_actions = __webpack_require__(57);
 
 var ImageUploaderActions = _interopRequireWildcard(_imageUploader_actions);
 
@@ -7172,7 +7173,7 @@ var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -7638,8 +7639,8 @@ var _semanticUiReact = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SamplePanda = __webpack_require__(65);
-var SampleOwl = __webpack_require__(64);
+var SamplePanda = __webpack_require__(66);
+var SampleOwl = __webpack_require__(65);
 var SampleWalk = __webpack_require__(173);
 var SampleBird = __webpack_require__(172);
 
@@ -7699,7 +7700,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _myArtwork_actions = __webpack_require__(57);
+var _myArtwork_actions = __webpack_require__(58);
 
 var MyArtworkActions = _interopRequireWildcard(_myArtwork_actions);
 
@@ -7707,11 +7708,11 @@ var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _artworkCard = __webpack_require__(61);
+var _artworkCard = __webpack_require__(62);
 
 var _artworkCard2 = _interopRequireDefault(_artworkCard);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -7925,7 +7926,7 @@ var _noteBookTout = __webpack_require__(129);
 
 var _noteBookTout2 = _interopRequireDefault(_noteBookTout);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8075,7 +8076,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(17);
+var _reactRouterDom = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8203,7 +8204,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _quests_actions = __webpack_require__(59);
+var _quests_actions = __webpack_require__(60);
 
 var QuestsActions = _interopRequireWildcard(_quests_actions);
 
@@ -8211,11 +8212,11 @@ var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _quest = __webpack_require__(63);
+var _quest = __webpack_require__(64);
 
 var _quest2 = _interopRequireDefault(_quest);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -8352,13 +8353,13 @@ var _superagent = __webpack_require__(7);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(17);
+var _reactRouterDom = __webpack_require__(18);
 
 var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8370,7 +8371,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var token = __webpack_require__(23);
+var token = __webpack_require__(24);
 
 var SignIn = function (_Component) {
     _inherits(SignIn, _Component);
@@ -8483,13 +8484,13 @@ var _superagent = __webpack_require__(7);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactRouterDom = __webpack_require__(17);
+var _reactRouterDom = __webpack_require__(18);
 
 var _pathHelper = __webpack_require__(6);
 
 var _pathHelper2 = _interopRequireDefault(_pathHelper);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8501,7 +8502,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var token = __webpack_require__(23);
+var token = __webpack_require__(24);
 
 var SignUp = function (_Component) {
     _inherits(SignUp, _Component);
@@ -8707,7 +8708,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 var _suggestion_actions = __webpack_require__(115);
 
@@ -8721,15 +8722,15 @@ var _superagent = __webpack_require__(7);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _reactDatepicker = __webpack_require__(67);
+var _reactDatepicker = __webpack_require__(68);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
-var _moment = __webpack_require__(19);
+var _moment = __webpack_require__(20);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -8997,7 +8998,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
@@ -9067,7 +9068,7 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _superagent = __webpack_require__(7);
 
@@ -9075,7 +9076,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _imageUploader_actions = __webpack_require__(56);
+var _imageUploader_actions = __webpack_require__(57);
 
 var ImageUploadCreators = _interopRequireWildcard(_imageUploader_actions);
 
@@ -9083,15 +9084,15 @@ var _myNotebooks_actions = __webpack_require__(112);
 
 var MyNotebookCreators = _interopRequireWildcard(_myNotebooks_actions);
 
-var _notebook_actions = __webpack_require__(28);
+var _notebook_actions = __webpack_require__(29);
 
 var NotebookCreators = _interopRequireWildcard(_notebook_actions);
 
-var _uploadShared_actions = __webpack_require__(60);
+var _uploadShared_actions = __webpack_require__(61);
 
 var UploadSharedCreators = _interopRequireWildcard(_uploadShared_actions);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 var _imageUploader = __webpack_require__(124);
 
@@ -9101,7 +9102,7 @@ var _myNotebooks = __webpack_require__(128);
 
 var _myNotebooks2 = _interopRequireDefault(_myNotebooks);
 
-var _notebook = __webpack_require__(62);
+var _notebook = __webpack_require__(63);
 
 var _notebook2 = _interopRequireDefault(_notebook);
 
@@ -9282,7 +9283,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9347,7 +9348,7 @@ var UserInfoActions = _interopRequireWildcard(_userInfo_actions);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -9444,14 +9445,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(17);
 
 var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SamplePanda = __webpack_require__(65);
-var SampleOwl = __webpack_require__(64);
+var SamplePanda = __webpack_require__(66);
+var SampleOwl = __webpack_require__(65);
 
 var Wall = function Wall() {
     return _react2.default.createElement(
@@ -9605,7 +9606,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -9613,23 +9614,23 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _artwork_actions = __webpack_require__(54);
+var _artwork_actions = __webpack_require__(55);
 
 var ArtworkActionCreators = _interopRequireWildcard(_artwork_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -9731,7 +9732,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -9739,19 +9740,19 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -9845,7 +9846,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -9853,23 +9854,23 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _createNotebookForm_actions = __webpack_require__(55);
+var _createNotebookForm_actions = __webpack_require__(56);
 
 var CreateNotebookFormActionCreators = _interopRequireWildcard(_createNotebookForm_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -9970,7 +9971,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -9978,19 +9979,19 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -10198,7 +10199,7 @@ var _notebookPage = __webpack_require__(145);
 
 var _notebookPage2 = _interopRequireDefault(_notebookPage);
 
-var _reactRouterDom = __webpack_require__(17);
+var _reactRouterDom = __webpack_require__(18);
 
 var _pathHelper = __webpack_require__(6);
 
@@ -10216,7 +10217,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var IoCSeed = __webpack_require__(24);
+var IoCSeed = __webpack_require__(25);
 
 var Ioc = function (_Component) {
     _inherits(Ioc, _Component);
@@ -10291,7 +10292,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -10299,27 +10300,27 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _notebook_actions = __webpack_require__(28);
+var _notebook_actions = __webpack_require__(29);
 
 var NotebookActionCreators = _interopRequireWildcard(_notebook_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
-var _notebook = __webpack_require__(62);
+var _notebook = __webpack_require__(63);
 
 var _notebook2 = _interopRequireDefault(_notebook);
 
@@ -10414,7 +10415,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -10422,27 +10423,27 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _quests_actions = __webpack_require__(59);
+var _quests_actions = __webpack_require__(60);
 
 var QuestsActionCreators = _interopRequireWildcard(_quests_actions);
 
-var _myArtwork_actions = __webpack_require__(57);
+var _myArtwork_actions = __webpack_require__(58);
 
 var MyArtworkActionCreators = _interopRequireWildcard(_myArtwork_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -10553,7 +10554,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -10561,29 +10562,29 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _quest_actions = __webpack_require__(58);
+var _quest_actions = __webpack_require__(59);
 
 var QuestActionCreators = _interopRequireWildcard(_quest_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _quest = __webpack_require__(63);
+var _quest = __webpack_require__(64);
 
 var _quest2 = _interopRequireDefault(_quest);
 
@@ -10685,7 +10686,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -10693,11 +10694,11 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
@@ -10705,11 +10706,11 @@ var _signIn_actions = __webpack_require__(113);
 
 var SignInActionCreators = _interopRequireWildcard(_signIn_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -10800,7 +10801,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -10808,11 +10809,11 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
@@ -10820,11 +10821,11 @@ var _signUp_actions = __webpack_require__(114);
 
 var SignUpActionCreators = _interopRequireWildcard(_signUp_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -10915,7 +10916,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(5);
 
@@ -10923,23 +10924,23 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _nav_actions = __webpack_require__(12);
+var _nav_actions = __webpack_require__(13);
 
 var NavActionCreators = _interopRequireWildcard(_nav_actions);
 
-var _footer_actions = __webpack_require__(13);
+var _footer_actions = __webpack_require__(14);
 
 var FooterActionCreators = _interopRequireWildcard(_footer_actions);
 
-var _uploadShared_actions = __webpack_require__(60);
+var _uploadShared_actions = __webpack_require__(61);
 
 var UploadSharedActionCreators = _interopRequireWildcard(_uploadShared_actions);
 
-var _nav = __webpack_require__(15);
+var _nav = __webpack_require__(16);
 
 var _nav2 = _interopRequireDefault(_nav);
 
-var _footer = __webpack_require__(14);
+var _footer = __webpack_require__(15);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -11028,7 +11029,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Quest;
 
-var _artworkCard = __webpack_require__(36);
+var _artworkCard = __webpack_require__(37);
 
 var ArtworkCardActionTypes = _interopRequireWildcard(_artworkCard);
 
@@ -11066,7 +11067,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ArtWorkInNoteBook;
 
-var _artworkInNotebook = __webpack_require__(37);
+var _artworkInNotebook = __webpack_require__(38);
 
 var ArtworkInNotebookActionTypes = _interopRequireWildcard(_artworkInNotebook);
 
@@ -11108,7 +11109,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Footer;
 
-var _artwork = __webpack_require__(38);
+var _artwork = __webpack_require__(39);
 
 var ArtworkActionTypes = _interopRequireWildcard(_artwork);
 
@@ -11175,7 +11176,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Notebook;
 
-var _createNotebookForm = __webpack_require__(39);
+var _createNotebookForm = __webpack_require__(40);
 
 var CreateNotebookFormTypes = _interopRequireWildcard(_createNotebookForm);
 
@@ -11225,7 +11226,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Footer;
 
-var _footer = __webpack_require__(40);
+var _footer = __webpack_require__(41);
 
 var FooterActionTypes = _interopRequireWildcard(_footer);
 
@@ -11261,7 +11262,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = ImageUploader;
 
-var _imageUploder = __webpack_require__(41);
+var _imageUploder = __webpack_require__(42);
 
 var ImageUploaderActionTypes = _interopRequireWildcard(_imageUploder);
 
@@ -11326,7 +11327,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.mainReducer = undefined;
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(9);
 
 var _footer = __webpack_require__(155);
 
@@ -11404,7 +11405,7 @@ var _artworkInNotebook = __webpack_require__(152);
 
 var _artworkInNotebook2 = _interopRequireDefault(_artworkInNotebook);
 
-var _reactReduxToastr = __webpack_require__(68);
+var _reactReduxToastr = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11444,7 +11445,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = MyArtwork;
 
-var _myArtwork = __webpack_require__(42);
+var _myArtwork = __webpack_require__(43);
 
 var MyArtworkActionTypes = _interopRequireWildcard(_myArtwork);
 
@@ -11485,7 +11486,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = YourNoteBook;
 
-var _myNotebooks = __webpack_require__(43);
+var _myNotebooks = __webpack_require__(44);
 
 var MyNotebookActionsTypes = _interopRequireWildcard(_myNotebooks);
 
@@ -11523,7 +11524,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Nav;
 
-var _nav = __webpack_require__(44);
+var _nav = __webpack_require__(45);
 
 var NavActionTypes = _interopRequireWildcard(_nav);
 
@@ -11579,7 +11580,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Notebook;
 
-var _notebook = __webpack_require__(45);
+var _notebook = __webpack_require__(46);
 
 var NotebookActionTypes = _interopRequireWildcard(_notebook);
 
@@ -11635,7 +11636,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Quest;
 
-var _quest = __webpack_require__(46);
+var _quest = __webpack_require__(47);
 
 var QuestActionTypes = _interopRequireWildcard(_quest);
 
@@ -11710,7 +11711,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Quests;
 
-var _quests = __webpack_require__(47);
+var _quests = __webpack_require__(48);
 
 var QuestsActionTypes = _interopRequireWildcard(_quests);
 
@@ -11749,7 +11750,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SignIn;
 
-var _signIn = __webpack_require__(48);
+var _signIn = __webpack_require__(49);
 
 var SignInActionTypes = _interopRequireWildcard(_signIn);
 
@@ -11785,7 +11786,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SignUp;
 
-var _signUp = __webpack_require__(49);
+var _signUp = __webpack_require__(50);
 
 var SignUpActionTypes = _interopRequireWildcard(_signUp);
 
@@ -11828,7 +11829,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Suggestion;
 
-var _suggestion = __webpack_require__(50);
+var _suggestion = __webpack_require__(51);
 
 var SuggestionActionTypes = _interopRequireWildcard(_suggestion);
 
@@ -11927,7 +11928,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = UploadShared;
 
-var _uploadShared = __webpack_require__(51);
+var _uploadShared = __webpack_require__(52);
 
 var UploadSharedActionTypes = _interopRequireWildcard(_uploadShared);
 
@@ -12003,7 +12004,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = UserInfo;
 
-var _userInfo = __webpack_require__(52);
+var _userInfo = __webpack_require__(53);
 
 var UserInfoActionTypes = _interopRequireWildcard(_userInfo);
 

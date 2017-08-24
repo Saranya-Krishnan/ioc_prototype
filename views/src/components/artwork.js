@@ -59,6 +59,7 @@ class Artwork extends Component {
         this.setState(nextProps.state);
     }
     componentDidMount(){
+        console.log(this.props, this.props.user);
         this.setUser(this.props.user['userInfo']);
         const data = {
             workId: this.state.workId
