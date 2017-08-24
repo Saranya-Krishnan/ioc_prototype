@@ -11,7 +11,7 @@ import { Redirect } from 'react-router';
 import ajax from 'superagent';
 import PathHelper from '../helpers/path-helper';
 import moment from 'moment';
-
+import {toastr} from 'react-redux-toastr';
 
 
 class Notebook extends Component {
@@ -42,7 +42,7 @@ class Notebook extends Component {
                         };
                         this.props.loadNotebook(notebookData);
                     } else {
-                        console.log('Error', error);
+                       toastr.error('Error', error);
                     }
                 });
 

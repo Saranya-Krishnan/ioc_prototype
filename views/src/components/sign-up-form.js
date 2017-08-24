@@ -4,6 +4,7 @@ import ajax from 'superagent';
 import { Redirect } from 'react-router-dom'
 import PathHelper from '../helpers/path-helper';
 const token  = require( '../../../helpers/token');
+import {toastr} from 'react-redux-toastr';
 
 class SignUp extends Component {
     constructor(props){
@@ -49,7 +50,7 @@ class SignUp extends Component {
                         if (!error && response) {
                             this.setState({ redirect: true});
                         } else {
-                            console.log('Error submitting your credentials', error);
+                            toastr.error('Error submitting your credentials', error);
                         }
                     }
                 );

@@ -8,6 +8,7 @@ import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import {toastr} from 'react-redux-toastr';
 
 class Suggestion extends Component {
     constructor(props) {
@@ -45,9 +46,9 @@ class Suggestion extends Component {
             .send(data)
             .end((error, response) => {
                     if (!error && response) {
-                        console.log('ok');
+                        toastr.success('Let\'s do this!', 'This suggestion is now added to your list of activities to do.')
                     }else{
-                        console.log('Error accepting suggestion', error);
+                        toastr.error('Error accepting suggestion', error);
                     }
                 }
             );
@@ -63,7 +64,7 @@ class Suggestion extends Component {
                     if (!error && response) {
                         this.props.showQuest(response.body);
                     }else{
-                        console.log('Error getting meaning', error);
+                        toastr.error('Error getting meaning', error);
                     }
                 }
             );

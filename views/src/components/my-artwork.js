@@ -6,6 +6,7 @@ import { Header, Segment, Card} from 'semantic-ui-react';
 import * as MyArtworkActions from '../actions/my-artwork_actions';
 import PathHelper from '../helpers/path-helper';
 import ArtworkCard from './artwork-card';
+import {toastr} from 'react-redux-toastr';
 
 class MyArtwork extends Component {
     constructor(props) {

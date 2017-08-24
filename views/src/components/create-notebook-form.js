@@ -8,6 +8,7 @@ import PathHelper from '../helpers/path-helper';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import { Redirect } from 'react-router';
+import {toastr} from 'react-redux-toastr';
 
 class CreateNotebookForm extends Component {
     constructor(props){
@@ -45,7 +46,7 @@ class CreateNotebookForm extends Component {
                         const nId = response.body.id;
                         this.setState({ noteBookId: nId,  doRedirect: true});
                     } else {
-                        console.log('Error submitting your notebook', error);
+                       toastr.error('Error submitting your notebook', error);
                     }
                 }
             );

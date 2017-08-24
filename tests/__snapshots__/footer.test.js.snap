@@ -2,28 +2,32 @@
 
 exports[`it displays the correct footer items 1`] = `
 <div
-  className="ui inverted vertical segment ioc-footer"
+  className="footer-wrapper"
 >
   <div
-    className="ui container center aligned"
+    className="ui inverted vertical segment ioc-footer"
   >
-    <img
-      alt={undefined}
-      className="ui centered image"
-      height={undefined}
-      src={undefined}
-      width={undefined}
-    />
     <div
-      className="ui small divided inverted link list"
-      role="list"
+      className="ui container center aligned"
     >
-      <a
-        href="/profile"
-        onClick={[Function]}
+      <img
+        alt={undefined}
+        className="ui centered image"
+        height={undefined}
+        src={undefined}
+        width={undefined}
+      />
+      <div
+        className="ui small divided inverted link list"
+        role="list"
       >
-        profile
-      </a>
+        <a
+          href="/profile"
+          onClick={[Function]}
+        >
+          profile
+        </a>
+      </div>
     </div>
   </div>
 </div>

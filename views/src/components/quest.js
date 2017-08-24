@@ -7,6 +7,7 @@ import * as QuestActions from '../actions/quest_actions'
 import PathHelper from '../helpers/path-helper';
 import moment from 'moment';
 import { Redirect } from 'react-router';
+import {toastr} from 'react-redux-toastr';
 
 class Quest extends Component {
     constructor(props) {
@@ -74,6 +75,7 @@ class Quest extends Component {
                     }
                 }else{
                     this.setState({errorText: error, hasError: true});
+                    toastr.error('Error', error);
                 }
             });
     }

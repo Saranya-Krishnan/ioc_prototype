@@ -8,7 +8,7 @@ import PathHelper from '../helpers/path-helper';
 import Tag from './tag';
 import Color from './color';
 import Suggestion from './suggestion';
-import {toastr} from 'react-redux-toastr'
+import {toastr} from 'react-redux-toastr';
 
 
 class Artwork extends Component {
@@ -20,9 +20,8 @@ class Artwork extends Component {
         this.loadSuggestions = this.loadSuggestions.bind(this);
         this.updateSuggestions = this.updateSuggestions.bind(this);
     }
-    // ToDo: Can Remove Tags #11
     temp(){
-        console.log('temp');
+        toastr.warning('Feature not implemented.', 'Only image owners can remove tags #11');
     }
     updateSuggestions(suggestions){
         this.props.getSuggestions(suggestions);
@@ -48,7 +47,7 @@ class Artwork extends Component {
                         }
                         this.updateSuggestions(suggestionHolder);
                     } else {
-                        console.log('Error getting suggestions', error);
+                        toastr.error('Error getting suggestions', error);
                     }
                 });
             }
@@ -85,7 +84,7 @@ class Artwork extends Component {
                     this.loadSuggestions(response.body.tags);
                     this.props.loadArtwork(data);
                 } else {
-                    console.log('Error', error);
+                    toastr.error('Error', error);
                 }
             });
 

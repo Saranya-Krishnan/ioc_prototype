@@ -8,6 +8,7 @@ import ajax from 'superagent';
 import * as NavActions from '../actions/nav_actions';
 import PathHelper from '../helpers/path-helper';
 import FontAwesome from 'react-fontawesome';
+import {toastr} from 'react-redux-toastr';
 
 class Nav extends Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class Nav extends Component {
     signOut(){
         token.removeToken();
         this.setState({isLoggedIn: false});
+        toastr.warning('Signing Out');
         this.props.signOut();
     }
     componentDidMount(){

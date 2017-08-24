@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { Container, Image, Loader, Dimmer } from 'semantic-ui-react';
 import * as ImageUploaderActions from '../actions/image-uploader_actions'
 import PathHelper from '../helpers/path-helper';
+import {toastr} from 'react-redux-toastr';
+
 
 class ImageUploader extends Component {
     constructor(props) {
@@ -37,7 +39,7 @@ class ImageUploader extends Component {
         upload.end((err, response) => {
             if (err) {
                 this.setState({isLoading:false, hasUploaded:false});
-                console.error(err);
+                toastr.error('Error Encountered', err);
             }
             if(response){
                 const imageResponse = response.body;
@@ -76,8 +78,9 @@ class ImageUploader extends Component {
                 if (!error && response) {
                     this.currentImageID = response.body.id;
                     this.visualRecognition(response.body.url);
+                    toastr.success('Saving Image', 'This looks very promising.');
                 } else {
-                    console.log('Error saving your image', error);
+                    toastr.error('Error saving your image', error);
                 }
             });
     }
@@ -92,8 +95,9 @@ class ImageUploader extends Component {
             .end((error, response) => {
                 if (!error && response) {
                     this.classifyImage(response.text, this.currentImageID);
+                    toastr.success('Analyzing Image', 'Using IBM\'s Watson to determine what you\'ve uploaded.');
                 } else {
-                    console.log('Error saving your image', error);
+                    toastr.error('Error analyzing your image', error);
                 }
             });
     }
@@ -108,9 +112,9 @@ class ImageUploader extends Component {
             .end((error, response) => {
                 if (!error && response) {
                     this.classificationToTags(response.body.classification);
+                    toastr.success('Classifying Image', 'Adding tags and other data.');
                 } else {
-                    console.log('Error saving your image', error);
-                }
+                    toastr.error('Error classifying your image', error);                }
             });
     }
     createArtWork(imageId,userId){
@@ -137,9 +141,9 @@ class ImageUploader extends Component {
                         .end((error, response) => {
                             if (!error && response) {
                                 this.setState({newArtWorkId:response.body.id});
+                                toastr.success('Creating Artwork', 'Copying your image to an artwork associated with your current notebook.');
                             } else {
-                                console.log('Error saving your image', error);
-                            }
+                                toastr.error('Error saving your artwork', error);                            }
                         });
                 } else {
                     console.log('error retrieving your quests', error);
@@ -165,7 +169,7 @@ class ImageUploader extends Component {
             }
         }else{
             this.checkTagsCompleted(true);
-            console.log('there\'s a problem with the visual recognition service.');
+            toastr.error('Connection problem', 'There\'s a problem with the visual recognition service.');
         }
     }
     checkTagsCompleted(checksOut){
@@ -196,7 +200,7 @@ class ImageUploader extends Component {
                     this.checkTagsCompleted(false);
                 } else {
                     this.tagCreationCount++;
-                    console.log('Error saving your Tag', error);
+                    toastr.error('Error saving your tag', error);
                     this.checkTagsCompleted(false);
                 }
             });
@@ -208,8 +212,9 @@ class ImageUploader extends Component {
             .end((error, response) => {
                 if (!error && response) {
                     this.enrichNewTag(response);
+                    toastr.success('Enriching Artwork', 'Finding out what those tags mean.');
                 } else {
-                    console.log('Error saving your Tag', error);
+                    toastr.error('Error getting your ontology', error);
                 }
             });
     }
@@ -221,7 +226,7 @@ class ImageUploader extends Component {
                 if (!error && response) {
                     this.makeMeaning(response);
                 } else {
-                    console.log('Error saving your Tag', error);
+                    toastr.error('Error enriching your tag.', error);
                 }
             });
     }
@@ -241,7 +246,7 @@ class ImageUploader extends Component {
                         this.tagCreationCount++;
                         this.checkTagsCompleted(false);
                     } else {
-                        console.log('Error extracting meaning from your Tag', error);
+                        toastr.error('Error extracting meaning from your tag.', error);
                         this.tagCreationCount++;
                         this.checkTagsCompleted(false);
                     }
@@ -263,7 +268,7 @@ class ImageUploader extends Component {
                 .send(data)
                 .end((error, response) => {
                     if (error && response) {
-                        console.log('Error extracting a suggestion from your tag\'s meaning.', error);
+                        toastr.error('Error extracting a suggestion from your tag\'s meaning.', error);
                     }
                 });
         }

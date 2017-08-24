@@ -6,6 +6,7 @@ import { Header, Segment, Card} from 'semantic-ui-react';
 import * as QuestsActions from '../actions/quests_actions'
 import PathHelper from '../helpers/path-helper';
 import Quest from './quest';
+import {toastr} from 'react-redux-toastr';
 
 class Quests extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class Quests extends Component {
                         }
                         this.props.loadMyQuests(true,questIds);
                     } else {
-                        console.log('error retrieving your quests', error);
+                        toastr.error('Error retrieving your quests', error);
                     }
                 });
         }

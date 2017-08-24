@@ -5,7 +5,7 @@ import ajax from 'superagent';
 import { Container, Header} from 'semantic-ui-react';
 import PathHelper from '../helpers/path-helper';
 import NotebookTout from './note-book-tout';
-
+import {toastr} from 'react-redux-toastr';
 
 class MyNotebooks extends Component {
     constructor(props) {
@@ -47,6 +47,7 @@ class MyNotebooks extends Component {
                 if (!error && response) {
                     const res = response.body;
                     this.setState({currentNotebook:res.id});
+                    toastr.success('Notebook set', 'All uploads will be associated with this notebook.');
                 } else {
                     console.log('error retrieving your quests', error);
                 }
