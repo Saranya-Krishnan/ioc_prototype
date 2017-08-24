@@ -37,7 +37,7 @@ class MyArtwork extends Component {
                         }
                         this.props.loadMyArtwork(true,worksOfArt);
                     } else {
-                        console.log('error retrieving your quests', error);
+                        toastr.error('Error retrieving your quests', error);
                     }
                 });
         }

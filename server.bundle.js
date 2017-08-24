@@ -7761,7 +7761,7 @@ var MyArtwork = function (_Component) {
                         }
                         _this2.props.loadMyArtwork(true, worksOfArt);
                     } else {
-                        console.log('error retrieving your quests', error);
+                        _reactReduxToastr.toastr.error('Error retrieving your quests', error);
                     }
                 });
             }
@@ -7966,7 +7966,7 @@ var MyNotebooks = function (_Component) {
                     var res = response.body;
                     _this2.setState({ currentNotebook: res.id });
                 } else {
-                    console.log('error retrieving your notebooks', error);
+                    _reactReduxToastr.toastr.error('error retrieving your notebooks', error);
                 }
             });
         }
@@ -7986,7 +7986,7 @@ var MyNotebooks = function (_Component) {
                     _this3.setState({ currentNotebook: res.id });
                     _reactReduxToastr.toastr.success('Notebook set', 'All uploads will be associated with this notebook.');
                 } else {
-                    console.log('error retrieving your quests', error);
+                    _reactReduxToastr.toastr.error('error retrieving your quests', error);
                 }
             });
         }

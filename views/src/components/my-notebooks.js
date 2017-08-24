@@ -29,7 +29,7 @@ class MyNotebooks extends Component {
                     const res = response.body;
                     this.setState({currentNotebook:res.id});
                 } else {
-                    console.log('error retrieving your notebooks', error);
+                    toastr.error('error retrieving your notebooks', error);
                 }
             });
     }
@@ -49,7 +49,7 @@ class MyNotebooks extends Component {
                     this.setState({currentNotebook:res.id});
                     toastr.success('Notebook set', 'All uploads will be associated with this notebook.');
                 } else {
-                    console.log('error retrieving your quests', error);
+                    toastr.error('error retrieving your quests', error);
                 }
             });
     }
