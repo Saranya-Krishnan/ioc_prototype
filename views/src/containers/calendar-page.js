@@ -6,6 +6,7 @@ import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
+import Calendar from '../components/calendar';
 import { Container} from 'semantic-ui-react';
 
 
@@ -29,7 +30,7 @@ class CalendarPage extends Component {
                     setLoggedIn={setLoggedIn}>
                 </Nav>
                 <Container>
-                    Calendar Page
+                    <Calendar/>
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>

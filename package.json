@@ -34,6 +34,7 @@
     "prop-types": "^15.5.10",
     "randomstring": "^1.1.5",
     "react": "^15.6.1",
+    "react-big-calendar": "^0.14.4",
     "react-datepicker": "^0.52.0",
     "react-dropzone": "^3.13.3",
     "react-fontawesome": "^1.6.1",
