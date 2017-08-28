@@ -9,6 +9,14 @@ import UploadPage from './upload-page';
 import CreateNewNotebookPage from './create-new-notebook-page';
 import BrowsePage from './browse-page';
 import NotebookPage from './notebook-page';
+import PurchasePage from './purchase-page';
+import CalendarPage from './calendar-page';
+import FeaturesPage from './features-page';
+import GurusPage from './gurus-page';
+import GuruPage from './gurus-page';
+import QuestGroupPage from './quest-group-page';
+import PlacesPage from './places-page';
+import ExplorePage from './explore-page';
 import { Route } from 'react-router-dom';
 import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
@@ -51,6 +59,14 @@ export default class Ioc extends Component {
                 <Route path="/user/quest/:id" component={QuestPage}/>
                 <Route path="/notebooks/new" component={CreateNewNotebookPage}/>
                 <Route path="/notebooks/:id" component={NotebookPage}/>
+                <Route path="/user/calendar/" component={CalendarPage}/>
+                <Route path="/features/" component={FeaturesPage}/>
+                <Route path="/gurus/" component={GurusPage}/>
+                <Route path="/guru/:id" component={GuruPage}/>
+                <Route path="/places/" component={PlacesPage}/>
+                <Route path="/purchase/" component={PurchasePage}/>
+                <Route path="/quest-group/:id" component={QuestGroupPage}/>
+                <Route path="/explore/" component={ExplorePage}/>
             </div>
         );
     }
