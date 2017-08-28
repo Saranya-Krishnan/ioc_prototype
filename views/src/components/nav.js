@@ -52,9 +52,17 @@ class Nav extends Component {
             <Container className="nav-container">
                 <Menu pointing secondary fluid>
                     <Link to="/" className={this.state.activeItem === 'home' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('home')}>Home</Link>
-                    {/*<Link to="/journey" className={this.state.activeItem === 'journey' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('journey')}>Start a Journey</Link>*/}
-                    {!this.state.isLoggedIn ? null
-                    : <Link to="/upload" className={this.state.activeItem === 'upload' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('upload')}>Capture My Notebook</Link>
+                    {!this.state.isLoggedIn ?
+                        <Menu.Menu>
+                            <Link to="/features" className={this.state.activeItem === 'features' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('features')}>How it works</Link>
+                            <Link to="/purchase" className={this.state.activeItem === 'purchase' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('purchase')}>Subscribe/Purchase</Link>
+                        </Menu.Menu>
+                    :   <Menu.Menu>
+                            <Link to="/explore" className={this.state.activeItem === 'explore' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('explore')}>Get Inspired</Link>
+                            <Link to="/upload" className={this.state.activeItem === 'upload' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('upload')}>Capture Pages</Link>
+                            <Link to="/gurus" className={this.state.activeItem === 'gurus' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('gurus')}>Instructors</Link>
+                            <Link to="/user/calendar" className={this.state.activeItem === 'calendar' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('calendar')}>Creativity Calendar</Link>
+                        </Menu.Menu>
                     }
                     { !this.state.isLoggedIn ?
                     <Menu.Menu position='right'>
