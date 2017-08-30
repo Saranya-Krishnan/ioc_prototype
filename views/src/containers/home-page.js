@@ -13,6 +13,7 @@ import HowItWorksPromo from '../components/how-it-works-promo';
 import Splash from '../components/Splash';
 import LatestImages from '../components/latest-images';
 import OfferPromo from '../components/offer-promo';
+import WelcomeDialog from '../components/welcome-dialog';
 import { Container, Segment, Grid, Divider,Header } from 'semantic-ui-react';
 
 class HomePage extends Component {
@@ -46,7 +47,7 @@ class HomePage extends Component {
                     </div> :
                      <div>
                         <Container>
-                            <Header content="Welcome to the Moleskine Internet of Creativity"/>
+                            <WelcomeDialog/>
                             <Grid>
                                 <Grid.Row stretched>
                                     <Grid.Column width={4}>
