@@ -6,8 +6,14 @@ export const uploadAvatar = () => {
     };
 };
 
-export const editBio = () => {
+export const edit = () => {
     return {
-        type: UserInfoActionTypes.EDIT_BIO
+        type: UserInfoActionTypes.EDIT
+    };
+};
+
+export const toggleMode = () => {
+    return {
+        type: UserInfoActionTypes.TOGGLE_MODE
     };
 };

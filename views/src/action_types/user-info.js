@@ -1,2 +1,3 @@
 export const UPLOAD_AVATAR = 'UPLOAD_AVATAR';
-export const EDIT_BIO = 'EDIT_BIO';
+export const EDIT = 'EDIT';
+export const TOGGLE_MODE = 'TOGGLE_MODE';

@@ -5,19 +5,21 @@ import User from './neo4j_models/user';
 import Notebook from './neo4j_models/notebook';
 import crypto from 'crypto';
 
-const register = function (session, email, password, firstName, lastName) {
+const register = function (session, email, password, firstName, lastName, bio, avatar) {
     return session.run('MATCH (user:User {email: {email}}) RETURN user', {email: email})
         .then(results => {
             if (!_.isEmpty(results.records)) {
                 throw {err: 'username already in use', status: 400}
             } else {
-                return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, api_key: {api_key}}) RETURN user',
+                return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, bio:{bio}, avatar:{avatar} api_key: {api_key}}) RETURN user',
                     {
                         id: uuid.v4(),
                         email: email,
                         firstName: firstName,
                         lastName: lastName,
                         password: hashPassword(email, password),
+                        bio:bio,
+                        avatar: avatar,
                         api_key: randomstring.generate({
                             length: 20,
                             charset: 'hex'
@@ -76,6 +78,15 @@ const getCurrentNotebook = function (session,userId) {
 };
 
 
+const update = function (session, userId, username, firstName, lastName, bio, avatar) {
+    return session.run('MATCH (u:User {id:{userId}}) SET u.email = {email}, u.firstName={firstName}, u.lastName={lastName}, u.bio={u.bio}, u.avatar={avatar} RETURN u', {userId:userId, email:username, firstName:firstName, lastName:lastName, bio:bio, avatar:avatar}
+    ).then(results=> {
+        return new User(results.records[0].get('user'));
+    });
+};
+
+
+
 function hashPassword(username, password) {
     let s = username + ':' + password;
     return crypto.createHash('sha256').update(s).digest('hex');
@@ -86,5 +97,6 @@ module.exports = {
     me: me,
     login: login,
     updateCurrentNotebook: updateCurrentNotebook,
-    getCurrentNotebook:getCurrentNotebook
+    getCurrentNotebook:getCurrentNotebook,
+    update: update
 };
