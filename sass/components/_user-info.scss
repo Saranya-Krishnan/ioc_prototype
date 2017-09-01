@@ -1,3 +1,17 @@
 .user-info{
-
+  >input, .upload-button{
+    opacity:1 !important;
+  }
+  .submit-button{
+    margin-top: 1rem;
+  }
+  .avatar-label{
+    font-weight: 800;
+  }
+  .user-info-display{
+    display: flex;
+    .user-info-display-left{
+      margin-right: 1rem;
+    }
+  }
 }

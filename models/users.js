@@ -79,9 +79,9 @@ const getCurrentNotebook = function (session,userId) {
 
 
 const update = function (session, userId, username, firstName, lastName, bio, avatar) {
-    return session.run('MATCH (u:User {id:{userId}}) SET u.email = {email}, u.firstName={firstName}, u.lastName={lastName}, u.bio={u.bio}, u.avatar={avatar} RETURN u', {userId:userId, email:username, firstName:firstName, lastName:lastName, bio:bio, avatar:avatar}
+    return session.run('MATCH (u:User {id:{userId}}) SET u.email = {email}, u.firstName={firstName}, u.lastName={lastName}, u.bio={bio}, u.avatar={avatar} RETURN u', {userId:userId, email:username, firstName:firstName, lastName:lastName, bio:bio, avatar:avatar}
     ).then(results=> {
-        return new User(results.records[0].get('user'));
+        return new User(results.records[0].get('u'));
     });
 };
 

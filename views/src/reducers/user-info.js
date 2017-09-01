@@ -1,7 +1,8 @@
 import * as UserInfoActionTypes from '../action_types/user-info';
 
 const initialState = {
-    editMode: false
+    editMode: false,
+    avatarSet: false
 };
 
 export default function UserInfo(state=initialState, action) {

@@ -7,6 +7,7 @@ import * as UserInfoActions from '../actions/user-info_actions'
 import { Segment, Button, Container, Image, Form, Input, TextArea } from 'semantic-ui-react'
 import {FontAwesome} from 'react-fontawesome';
 import {toastr} from 'react-redux-toastr';
+const FileInput = require('react-file-input');
 
 
 class UserInfo extends Component {
@@ -16,6 +17,8 @@ class UserInfo extends Component {
         this.setUser = this.setUser.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.setFile = this.setFile.bind(this);
+        this.saveData = this.saveData.bind(this);
     }
     componentWillReceiveProps(nextProps){
         this.setState(nextProps.state);
@@ -29,23 +32,56 @@ class UserInfo extends Component {
         });
     };
 
+    setFile(event){
+        const value = event.target.files[0];
+        this.setState({avatar:value, avatarSet:true});
+        event.preventDefault();
+    }
+
     handleSubmit(event){
         event.preventDefault();
+        if(this.state.avatarSet){
+            let upload = ajax.post(process.env.CLOUDINARY_UPLOAD_URL)
+                .field('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
+                .field('file', this.state.avatar);
+            upload.end((err, response) => {
+                if (err) {
+                    this.setState({avatar:'', avatarSet:false});
+                    toastr.error('Error Encountered saving your avatar', err);
+                }
+                if (response) {
+                    this.setState({avatar: response.body.url });
+                    this.saveData();
+                }
+            });
+        }else{
+            setState({avatar:''});
+            this.saveData();
+        }
+    }
+
+    saveData(){
         const data = {
             userId: this.userId,
             username: this.state.username,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             bio: this.state.bio,
-            avatar: 'http://www.placehold.it/200/200'
+            avatar:  this.state.avatar
         };
         ajax.post( PathHelper.apiPath + '/users/update')
             .set('Content-Type', 'application/json')
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    console.log(response.body);
-
+                    this.setState({
+                        editMode: false,
+                        username: response.username,
+                        firstName: response.firstName,
+                        lastName: response.lastName,
+                        bio: response.bio,
+                        avatar: response.avatar
+                    });
                 } else {
                     toastr.error('Error', error);
                 }
@@ -76,16 +112,33 @@ class UserInfo extends Component {
                             <Form.Field name="firstName" control={Input} label='First name'  value={this.state.firstName} onChange={this.handleInputChange}/>
                             <Form.Field name="lastName" control={Input} label='Last name'  value={this.state.lastName} onChange={this.handleInputChange}/>
                             <Form.Field name="bio" control={TextArea} label='Bio' value={this.state.bio} onChange={this.handleInputChange}/>
-                            <Button>Submit</Button>
+                            <label className="avatar-label">Avatar</label>
+                            <FileInput
+                                name="avatar"
+                                accept=".png,.jpg,.jpeg"
+                                placeholder="Avatar Image"
+                                className="upload-button"
+                                onChange={this.setFile}
+                            />
+                            <Button className="submit-button">Submit</Button>
                         </Form>
                     </Container>
                     :
                     <Container>
                         <Button onClick={()=>this.props.toggleMode()} floated={"right"}>Edit</Button>
-                        <Image src={this.props.avatar}/>
-                        <h1>{this.state.firstName} {this.state.lastName}</h1>
-                        <h2>About</h2>
-                        <p>{this.state.bio}</p>
+                        <div className="user-info-display">
+                            {this.state.avatar === '' ? null :
+                                <div className="user-info-display-left">
+                                    <Image src={this.state.avatar} size="small" shape="circular" avatar={true}
+                                           className="avatar-large"/>
+                                </div>
+                            }
+                            <div className="user-info-display-right">
+                                <h1>{this.state.firstName} {this.state.lastName}</h1>
+                                <h2>About</h2>
+                                <p>{this.state.bio}</p>
+                            </div>
+                        </div>
                     </Container>
                 }
             </Segment>
@@ -98,6 +151,7 @@ UserInfo.propTypes = {
     uploadAvatar: PropTypes.func.isRequired,
     toggleMode: PropTypes.func.isRequired,
     editMode: PropTypes.bool.isRequired,
+    avatarSet: PropTypes.bool,
     userInfo: PropTypes.shape({
         id: PropTypes.string,
         username:PropTypes.string,
