@@ -201,6 +201,7 @@ api.post('/api/'+process.env.API_VERSION+'/journeys/delete', routes.journeys.del
 // ***************************
 // * Suggestions
 // ***************************
+api.get('/api/'+process.env.API_VERSION+'/suggestions/get-all-suggestions', routes.suggestions.getAllSuggestions);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/get-suggestions', routes.suggestions.getSuggestions);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/create', routes.suggestions.create);
 api.post('/api/'+process.env.API_VERSION+'/suggestions/update', routes.suggestions.update);

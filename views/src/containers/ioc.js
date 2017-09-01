@@ -13,7 +13,7 @@ import PurchasePage from './purchase-page';
 import CalendarPage from './calendar-page';
 import FeaturesPage from './features-page';
 import GurusPage from './gurus-page';
-import GuruPage from './gurus-page';
+import GuruPage from './guru-page';
 import QuestGroupPage from './quest-group-page';
 import PlacesPage from './places-page';
 import ExplorePage from './explore-page';

@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
+import * as SuggestionsActionCreators from '../actions/suggestions_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
+import Suggestions from '../components/suggestions';
 import { Container} from 'semantic-ui-react';
 
 
@@ -19,6 +21,7 @@ class ExplorePage extends Component {
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
+        const getSuggestions  = bindActionCreators(SuggestionsActionCreators.getSuggestions, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         return (
             <div>
@@ -29,7 +32,11 @@ class ExplorePage extends Component {
                     setLoggedIn={setLoggedIn}>
                 </Nav>
                 <Container>
-                    Explore Page
+                    <Suggestions
+                        headlineText="Browse through challenges created by the Moleskine Community's art work."
+                        helpText="You can set your own time table and conditions for completing a challenge."
+                        getSuggestions={getSuggestions}
+                    />
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>
