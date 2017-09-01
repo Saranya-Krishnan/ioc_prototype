@@ -31,3 +31,5 @@ $moleskine_pallette: (
 @function setcolor($scheme, $tone: base) {
   @return map-get(map-get($moleskine_pallette, $scheme), $tone);
 }
+
+$ghostly-grey: rgba(127, 141, 146, 80%);

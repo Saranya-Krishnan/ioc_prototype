@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
+import * as WelcomeDialogActionCreators from '../actions/welcome-dialog_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 import Wall from '../components/wall';
@@ -13,6 +14,7 @@ import HowItWorksPromo from '../components/how-it-works-promo';
 import Splash from '../components/Splash';
 import LatestImages from '../components/latest-images';
 import OfferPromo from '../components/offer-promo';
+import WelcomeDialog from '../components/welcome-dialog';
 import { Container, Segment, Grid, Divider,Header } from 'semantic-ui-react';
 
 class HomePage extends Component {
@@ -26,6 +28,9 @@ class HomePage extends Component {
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
+        const doTyping =  bindActionCreators(WelcomeDialogActionCreators.doTyping, dispatch);
+        const postMessage =  bindActionCreators(WelcomeDialogActionCreators.postMessage, dispatch);
+        const getAIResponse =  bindActionCreators(WelcomeDialogActionCreators.getAIResponse, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
@@ -46,7 +51,11 @@ class HomePage extends Component {
                     </div> :
                      <div>
                         <Container>
-                            <Header content="Welcome to the Moleskine Internet of Creativity"/>
+                            <WelcomeDialog
+                                doTyping={doTyping}
+                                postMessage={postMessage}
+                                getAIResponse={getAIResponse}
+                            />
                             <Grid>
                                 <Grid.Row stretched>
                                     <Grid.Column width={4}>
