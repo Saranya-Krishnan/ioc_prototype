@@ -14,6 +14,7 @@ import writeError from './helpers/response';
 const routes = require('./routes/api');
 const scheduler = require('node-schedule');
 const favicon = require('serve-favicon');
+const conversation = require('watson-developer-cloud/conversation/v1');
 
 let app = express();
 let server = require('http').Server(app);
@@ -58,8 +59,6 @@ app.use('/view/*', router);
 
 api.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
 api.use(methodOverride());
 
 //enable CORS
@@ -99,10 +98,9 @@ api.post('/api/'+process.env.API_VERSION+'/users/get-current-notebook', routes.u
 api.post('/api/'+process.env.API_VERSION+'/images/create', routes.images.create);
 api.post('/api/'+process.env.API_VERSION+'/images/classify', routes.images.classify);
 
-//ToDo: Make Classifers db object to add dynamically
 
 api.post('/api/'+process.env.API_VERSION+'/watson/visual-recognition', function(req,res){
-    request.get(process.env.WATSON_URL+'?api_key='+ process.env.WATSON_API_KEY+'&url='+req.body.url+'&owners=me&classifier_ids=default,moleskine_71136762&version=2016-05-20', function(err, r){
+    request.get(process.env.WATSON_RECOGNITION_URL+'?api_key='+ process.env.WATSON_RECOGNITION_API_KEY+'&url='+req.body.url+'&owners=me&classifier_ids=default&version=2016-05-20', function(err, r){
         res.send(r.body);
     })
 });
@@ -215,6 +213,11 @@ api.post('/api/'+process.env.API_VERSION+'/quests/delete', routes.quests.deletio
 api.post('/api/'+process.env.API_VERSION+'/quests/display', routes.quests.display);
 api.post('/api/'+process.env.API_VERSION+'/quests/my-quests', routes.quests.mine);
 
+// ***************************
+// * Conversations
+// ***************************
+api.post('/api/'+process.env.API_VERSION+'/dialog', routes.dialog.begin);
+
 
 
 server.listen(process.env.PORT || process.env.CLIENT_PORT, function () {
@@ -225,3 +228,4 @@ apiServer.listen(process.env.PORT || process.env.API_PORT, function () {
     console.log('Neo4j server started on '+this.address().port);
     console.log('Bolt server at '+process.env.GRAPHENEDB_BOLT_URL);
 });
+
