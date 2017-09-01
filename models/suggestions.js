@@ -52,6 +52,20 @@ const getSuggestions = function (session, tagId) {
     });
 };
 
+
+const getAllSuggestions = function (session) {
+    return session.run('MATCH (s:Suggestion) RETURN s LIMIT 25'
+    ).then(results => {
+        const suggestionGroup = [];
+        let aSuggestion = null;
+        for(let n=0; n<results.records.length; n++){
+            aSuggestion = new Suggestion(results.records[n].get('s'));
+            suggestionGroup.push(aSuggestion);
+        }
+        return suggestionGroup;
+    });
+};
+
 const deletion = function (session) {
 
 };
@@ -60,5 +74,6 @@ module.exports = {
     create: create,
     update: update,
     deletion: deletion,
-    getSuggestions:getSuggestions
+    getSuggestions:getSuggestions,
+    getAllSuggestions: getAllSuggestions
 };

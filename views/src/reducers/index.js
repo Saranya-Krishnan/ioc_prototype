@@ -18,6 +18,7 @@ import NotebookReducer from './notebook';
 import CreateNotebookFormReducer from './create-notebook-form';
 import UploadSharedReducer from './upload-shared';
 import ArtworkInNotebookReducer from './artwork-in-notebook';
+import VideoBGReducer from './videoBG';
 import WelcomeDialogReducer from './welcome-dialog';
 import {reducer as toastrReducer} from 'react-redux-toastr'
 
@@ -41,6 +42,7 @@ export const mainReducer = combineReducers({
     CreateNotebookForm :CreateNotebookFormReducer,
     UploadShared: UploadSharedReducer,
     ArtworkInNotebook: ArtworkInNotebookReducer,
+    VideoBG: VideoBGReducer,
     WelcomeDialog: WelcomeDialogReducer,
     toastr: toastrReducer
 });

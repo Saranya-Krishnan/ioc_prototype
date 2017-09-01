@@ -5,44 +5,6 @@ const Suggestions = require('../../models/suggestions')
     , dbUtils = require('../../neo4j/dbUtils')
     , _ = require('lodash');
 
-
-/**
- * @swagger
- * definition:
- *   Suggestion:
- *     type: object
- *     properties:
- *       id:
- *         type: string
- *       url:
- *         type: string
- *       classificationData:
- *          type: string
- */
-
-
-/**
- * @swagger
- * /api/v0/suggestions/create:
- *   post:
- *     tags:
- *     - suggestions
- *     description: Creates a new suggestion
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
 exports.create = function (req, res, next) {
     const meaningId = _.get(req.body, 'meaningId');
     const schemaName = _.get(req.body, 'schemaName');
@@ -52,85 +14,26 @@ exports.create = function (req, res, next) {
         .catch(next);
 };
 
-/**
- * @swagger
- * /api/v0/suggestions/update:
- *   post:
- *     tags:
- *     - suggestions
- *     description: Updates an suggestion
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
 
 exports.update = function (req, res, next) {
 
 };
-
-/**
- * @swagger
- * /api/v0/suggestions/delete:
- *   post:
- *     tags:
- *     - suggestions
- *     description: Deletes an suggestion
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
 
 
 exports.deletion = function (req, res, next) {
 
 };
 
-/**
- * @swagger
- * /api/v0/suggestions/get-suggestions:
- *   post:
- *     tags:
- *     - suggestions
- *     description: Creates suggestions from meanings
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
 
 exports.getSuggestions = function (req, res, next) {
     const tagId = _.get(req.body, 'tagId');
     Suggestions.getSuggestions(dbUtils.getSession(req), tagId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};
+
+exports.getAllSuggestions = function (req, res, next) {
+    Suggestions.getAllSuggestions(dbUtils.getSession(req))
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };

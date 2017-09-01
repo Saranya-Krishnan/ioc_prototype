@@ -55,7 +55,6 @@ class Nav extends Component {
                     {!this.state.isLoggedIn ?
                         <Menu.Menu>
                             <Link to="/features" className={this.state.activeItem === 'features' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('features')}>How it works</Link>
-                            <Link to="/purchase" className={this.state.activeItem === 'purchase' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('purchase')}>Subscribe/Purchase</Link>
                         </Menu.Menu>
                     :   <Menu.Menu>
                             <Link to="/explore" className={this.state.activeItem === 'explore' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('explore')}>Get Inspired</Link>
@@ -66,11 +65,13 @@ class Nav extends Component {
                     }
                     { !this.state.isLoggedIn ?
                     <Menu.Menu position='right'>
+                        <Link to="/purchase" className={this.state.activeItem === 'purchase' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('purchase')}>Purchase</Link>
                         <Link to="/sign-in" className={this.state.activeItem === 'sign-in' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-in')}>Sign In</Link>
                         <Link to="/sign-up" className={this.state.activeItem === 'sign-up' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('sign-up')}>Sign Up</Link>
                     </Menu.Menu>
                     : <Menu.Menu position='right'>
-                        <Link to="/" className="item" onClick={ () => this.signOut()}>Sign Out</Link>
+                            <Link to="/purchase" className={this.state.activeItem === 'purchase' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('purchase')}>Purchase</Link>
+                            <Link to="/" className="item" onClick={ () => this.signOut()}>Sign Out</Link>
                         <Link to="/profile" className={this.state.activeItem === 'profile' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('profile')}><FontAwesome name="user" className="icon profile-icon"/>{this.state.userInfo.firstName}</Link>
                     </Menu.Menu>
                     }

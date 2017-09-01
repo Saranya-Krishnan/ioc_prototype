@@ -1,62 +1,89 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Card } from 'semantic-ui-react';
 import * as SuggestionsActions from '../actions/suggestions_actions'
+import ajax from 'superagent';
+import PathHelper from '../helpers/path-helper';
+import {toastr} from 'react-redux-toastr';
+import Suggestion from './suggestion';
+
 
 class Suggestions extends Component {
     constructor(props) {
         super(props);
         this.state = props;
+        this.loadSuggestions = this.loadSuggestions.bind(this);
+        this.setUser = this.setUser.bind(this);
+    }
+    loadSuggestions(){
+        ajax.get(PathHelper.apiPath + '/suggestions/get-all-suggestions')
+            .set('Content-Type', 'application/json')
+            .end((error, response) => {
+                if (!error && response) {
+                    this.props.getSuggestions(response.body);
+                } else {
+                    toastr.error('Error getting suggestions', error);
+                }
+            });
+
+    }
+    setUser(data){
+        this.userId = data.id;
     }
     componentWillReceiveProps(nextProps){
         this.setState(nextProps.state);
     }
+    componentDidMount(){
+        this.setUser(this.props.user['userInfo']);
+        this.loadSuggestions();
+    }
     render(){
+        let suggestionsOptions = null;
+        if(this.state.suggestions){
+            if(this.state.suggestions.length) {
+                const s = this.state.suggestions;
+                suggestionsOptions = s.map((suggestion, index) => (
+                    <Suggestion
+                        id={suggestion.id}
+                        prompt={suggestion.prompt}
+                        key={suggestion.id}
+                        meaningId={suggestion.meaningId}
+                    />
+                ));
+            }
+        }
         return(
             <Segment>
-                <h2>Suggestions found for this work:</h2>
-                <p>Accept a suggestion to try new things, improve your drawing and writing and accelerate your creativity.</p>
+                <h2>{this.props.headlineText}</h2>
+                <p>{this.props.helpText}</p>
+                <Card.Group itemsPerRow={4}>
+                    {suggestionsOptions}
+                </Card.Group>
             </Segment>
         )
     }
 }
 
 Suggestions.propTypes = {
-    hideMeaningGroup: PropTypes.func,
-    showMeaningGroup: PropTypes.func,
-    displayMatchingQuest: PropTypes.func,
-    dismissMatchingQuest: PropTypes.func,
-    confirmMatchingQuest: PropTypes.func,
-    questOpen: PropTypes.string,
-    meaningGroups: PropTypes.arrayOf(PropTypes.shape({
-
-    }))
+    headlineText: PropTypes.string.isRequired,
+    helpText: PropTypes.string,
+    suggestions: PropTypes.any,
+    getSuggestions: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        hideMeaningGroup: () => {
-            dispatch(SuggestionsActions.hideMeaningGroup())
-        },
-        showMeaningGroup: () => {
-            dispatch(SuggestionsActions.showMeaningGroup())
-        },
-        displayMatchingQuest: () => {
-            dispatch(SuggestionsActions.displayMatchingQuest())
-        },
-        dismissMatchingQuest: () => {
-            dispatch(SuggestionsActions.dismissMatchingQuest())
-        },
-        confirmMatchingQuest: () => {
-            dispatch(SuggestionsActions.confirmMatchingQuest())
+        getSuggestions: (data) => {
+            dispatch(SuggestionsActions.getSuggestions(data))
         }
     }
 };
 
 const mapStateToProps = (state) => {
     return {
-        state: state['Suggestions']
+        state: state['Suggestions'],
+        user: state['Nav']
     }
 };
 
