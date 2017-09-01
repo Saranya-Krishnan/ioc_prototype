@@ -6,6 +6,7 @@ import * as NavActionCreators from '../actions/nav_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import * as QuestsActionCreators from '../actions/quests_actions';
 import * as MyArtworkActionCreators from '../actions/my-artwork_actions';
+import * as UserInfoActionCreators from '../actions/user-info_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 import {Container } from 'semantic-ui-react';
@@ -26,6 +27,9 @@ class ProfilePage extends Component {
         const loadMyQuests = bindActionCreators(QuestsActionCreators.loadMyQuests, dispatch);
         const loadMyArtwork = bindActionCreators(MyArtworkActionCreators.loadMyArtwork, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
+        const toggleMode = bindActionCreators(UserInfoActionCreators.toggleMode, dispatch);
+        const edit = bindActionCreators(UserInfoActionCreators.edit, dispatch);
+        const uploadAvatar = bindActionCreators(UserInfoActionCreators.uploadAvatar, dispatch);
         return (
             <div>
                 <Container className={'main-content'}>
@@ -37,7 +41,12 @@ class ProfilePage extends Component {
                     </Nav>
                     <Container>
                         <h1>Profile</h1>
-                        <UserInfo/>
+                        <UserInfo
+                            editMode={false}
+                            toggleMode={toggleMode}
+                            edit={edit}
+                            uploadAvatar={uploadAvatar}
+                        />
                         <Quests loadMyQuests={loadMyQuests}/>
                         <MyArtwork loadMyArtwork={loadMyArtwork}/>
                     </Container>
