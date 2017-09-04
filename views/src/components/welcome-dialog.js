@@ -7,7 +7,6 @@ import PathHelper from '../helpers/path-helper';
 import {toastr} from 'react-redux-toastr';
 import * as WelcomeDialogActions from '../actions/welcome-dialog_actions';
 import { Segment, Container, Form, TextArea, Divider} from 'semantic-ui-react';
-import uuid from 'uuid';
 
 
 class WelcomeDialog extends Component {
@@ -39,21 +38,23 @@ class WelcomeDialog extends Component {
     };
 
     sendChat = (msg) => {
+
         const data = {
             input: {
                 text: msg
             },
             alternate_intents: true,
-            context: {
-                conversation_id: this.state.conversationId
-            }
+            context: this.state.context
         };
+
         ajax.post( PathHelper.apiPath + '/dialog')
             .set('Content-Type', 'application/json')
             .send(data)
             .end((error, response) => {
                 if (!error && response) {
-                    const m = new Message({id:1, message:response.body.output.text[0]});
+                    this.setState({context:response.body.context});
+                    const ind = response.body.output.text.length;
+                    const m = new Message({id:(ind), message:response.body.output.text[0]});
                     this.props.getAIResponse(m);
                 } else {
                     toastr.error('Error sending your message', error);
@@ -68,13 +69,10 @@ class WelcomeDialog extends Component {
 
     componentWillReceiveProps( nextProps ) {
         this.setState(nextProps.state);
-        const e = document.getElementById("chatContainer");
-        e.scrollTop = e.scrollHeight;
     }
 
     componentDidMount (){
-        this.setState({conversationId: uuid.v4()});
-        this.sendChat('start');
+        this.sendChat('');
     }
 
     componentWillUnmount() {
@@ -125,10 +123,10 @@ WelcomeDialog.propTypes = {
     isTyping: PropTypes.bool,
     messageCount: PropTypes.number,
     messages: PropTypes.arrayOf(Message),
-    conversationId: PropTypes.string,
     postMessage: PropTypes.func.isRequired,
     getAIResponse: PropTypes.func.isRequired,
-    doTyping: PropTypes.func.isRequired
+    doTyping: PropTypes.func.isRequired,
+    context: PropTypes.any
 };
 
 const mapDispatchToProps = (dispatch) => {
