@@ -17,6 +17,7 @@ import GuruPage from './guru-page';
 import QuestGroupPage from './quest-group-page';
 import PlacesPage from './places-page';
 import ExplorePage from './explore-page';
+import ExternalProfilePage from './external-profile-page';
 import { Route } from 'react-router-dom';
 import PathHelper from '../helpers/path-helper';
 import ajax from 'superagent';
@@ -52,14 +53,15 @@ export default class Ioc extends Component {
                 <Route path="/sign-up" component={SignUpPage}/>
                 <Route path="/sign-in" component={SignInPage}/>
                 <Route path="/journey" component={BrowsePage}/>
-                <Route path="/profile" component={ProfilePage}/>
+                <Route path="/user" component={ProfilePage}/>
+                <Route path="/user-example" component={ExternalProfilePage}/>
                 <Route path="/art/:id" component={ArtPage}/>
-                <Route path="/user/artwork/:id" component={ArtPage}/>
+                <Route path="/artwork/:id" component={ArtPage}/>
                 <Route path="/quest/:id" component={QuestPage}/>
                 <Route path="/user/quest/:id" component={QuestPage}/>
                 <Route path="/notebooks/new" component={CreateNewNotebookPage}/>
                 <Route path="/notebooks/:id" component={NotebookPage}/>
-                <Route path="/user/calendar/" component={CalendarPage}/>
+                <Route path="/calendar/" component={CalendarPage}/>
                 <Route path="/features/" component={FeaturesPage}/>
                 <Route path="/gurus/" component={GurusPage}/>
                 <Route path="/guru/:id" component={GuruPage}/>

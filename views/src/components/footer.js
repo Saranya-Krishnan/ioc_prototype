@@ -10,7 +10,7 @@ const Footer = props => {
             <Container className={"center aligned"}>
                 <Image centered={true}/>
                 <List size={"small"} link={true} divided={true} inverted={true}>
-                    <Link to="/profile" onClick={ () => props.clickFooterItem('profile')}>profile</Link>
+                    <Link to="/user" onClick={ () => props.clickFooterItem('profile')}>profile</Link>
                 </List>
             </Container>
         </Segment>

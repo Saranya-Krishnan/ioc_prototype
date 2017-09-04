@@ -60,7 +60,7 @@ class Nav extends Component {
                             <Link to="/explore" className={this.state.activeItem === 'explore' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('explore')}>Get Inspired</Link>
                             <Link to="/upload" className={this.state.activeItem === 'upload' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('upload')}>Capture Pages</Link>
                             <Link to="/gurus" className={this.state.activeItem === 'gurus' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('gurus')}>Instructors</Link>
-                            <Link to="/user/calendar" className={this.state.activeItem === 'calendar' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('calendar')}>Creativity Calendar</Link>
+                            <Link to="/calendar" className={this.state.activeItem === 'calendar' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('calendar')}>Creativity Calendar</Link>
                         </Menu.Menu>
                     }
                     { !this.state.isLoggedIn ?
@@ -72,7 +72,7 @@ class Nav extends Component {
                     : <Menu.Menu position='right'>
                             <Link to="/purchase" className={this.state.activeItem === 'purchase' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('purchase')}>Purchase</Link>
                             <Link to="/" className="item" onClick={ () => this.signOut()}>Sign Out</Link>
-                        <Link to="/profile" className={this.state.activeItem === 'profile' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('profile')}><FontAwesome name="user" className="icon profile-icon"/>{this.state.userInfo.firstName}</Link>
+                        <Link to="/user" className={this.state.activeItem === 'profile' ? 'active item' : 'item'} onClick={ () => this.props.clickMenuItem('profile')}><FontAwesome name="user" className="icon profile-icon"/>{this.state.userInfo.firstName}</Link>
                     </Menu.Menu>
                     }
                 </Menu>

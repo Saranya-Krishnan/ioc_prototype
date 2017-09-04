@@ -65,7 +65,7 @@ class HomePage extends Component {
                                     </Grid.Column>
                                     <Grid.Column width={8}>
                                         <Segment>
-                                            <Wall></Wall>
+                                            <Wall/>
                                         </Segment>
                                     </Grid.Column>
                                     <Grid.Column width={4}>
