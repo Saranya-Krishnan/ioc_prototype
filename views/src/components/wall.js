@@ -4,15 +4,19 @@ import FontAwesome from 'react-fontawesome';
 const SamplePanda = require('!!url-loader!../../assets/img/sample_panda.jpg');
 const SampleOwl = require('!!url-loader!../../assets/img/sample_owl.jpg');
 
+const Avatar1 = require('!!url-loader!../../assets/img/profile_user_1.jpg');
+const Avatar2 = require('!!url-loader!../../assets/img/profile_user_2.jpg');
+
+
 const Wall = () => (
     <div>
         <Header content="Recent Activity"/>
         <Feed size='large'>
             <Feed.Event>
-                <Feed.Label image='https://api.adorable.io/avatars/100/Elliot%40moleksine' />
+                <Feed.Label image={Avatar1}/>
                 <Feed.Content>
                     <Feed.Summary>
-                        <Feed.User>Elliot Fu</Feed.User> added you as a friend
+                        <Feed.User>Elliot Fine</Feed.User> added you as a friend
                         <Feed.Date>1 Hour Ago</Feed.Date>
                     </Feed.Summary>
                     <Feed.Meta>
@@ -40,7 +44,7 @@ const Wall = () => (
             </Feed.Event>
 
             <Feed.Event>
-                <Feed.Label image='https://api.adorable.io/avatars/100/Helen%40moleksine' />
+                <Feed.Label image={Avatar2}/>
                 <Feed.Content>
                     <Feed.Date>4 days ago</Feed.Date>
                     <Feed.Summary>
