@@ -22,7 +22,7 @@ exports[`it displays the correct footer items 1`] = `
         role="list"
       >
         <a
-          href="/profile"
+          href="/user"
           onClick={[Function]}
         >
           profile

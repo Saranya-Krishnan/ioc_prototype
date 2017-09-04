@@ -1,0 +1,2 @@
+export const VIEW_ARTWORK = 'VIEW_ARTWORK';
+export const LOAD_ARTWORK = 'LOAD_ARTWORK';

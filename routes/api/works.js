@@ -5,41 +5,6 @@ const Works = require('../../models/works')
     , dbUtils = require('../../neo4j/dbUtils')
     , _ = require('lodash');
 
-/**
- * @swagger
- * definition:
- *   Work:
- *     type: object
- *     properties:
- *       id:
- *         type: string
- *       url:
- *         type: string
- *       classificationData:
- *          type: string
- */
-/**
- * @swagger
- * /api/v0/works/create:
- *   post:
- *     tags:
- *     - works
- *     description: Creates a new work
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
 exports.create = function (req, res, next) {
     const imageId = _.get(req.body, 'imageId');
     const userId = _.get(req.body,'userId');
@@ -48,83 +13,15 @@ exports.create = function (req, res, next) {
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
-/**
- * @swagger
- * /api/v0/works/update:
- *   post:
- *     tags:
- *     - works
- *     description: Updates an work
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
 
 exports.update = function (req, res, next) {
 
 
 };
 
-/**
- * @swagger
- * /api/v0/works/delete:
- *   post:
- *     tags:
- *     - works
- *     description: Deletes an work
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
-
 exports.deletion = function (req, res, next) {
 
 };
-
-/**
- * @swagger
- * /api/v0/works/display:
- *   post:
- *     tags:
- *     - works
- *     description: Displays a work for the creator of that work with editing capabilities.
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
 
 exports.display = function (req, res, next) {
     const workId = _.get(req.body, 'workId');
@@ -133,33 +30,15 @@ exports.display = function (req, res, next) {
         .catch(next);
 };
 
-
-/**
- * @swagger
- * /api/v0/works/my-artwork:
- *   post:
- *     tags:
- *     - works
- *     description: Displays a given user's artwork
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
-
 exports.mine = function (req, res, next) {
     const userId = _.get(req.body,'userId');
     Works.mine(dbUtils.getSession(req), userId)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
+};
+
+exports.getAll = function (req, res, next) {
+    Works.getAll(dbUtils.getSession(req))
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };

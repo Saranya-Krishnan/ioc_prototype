@@ -20,6 +20,9 @@ import UploadSharedReducer from './upload-shared';
 import ArtworkInNotebookReducer from './artwork-in-notebook';
 import VideoBGReducer from './videoBG';
 import WelcomeDialogReducer from './welcome-dialog';
+import ExternalUserArtworksReducer from './external-user-artworks';
+import ExternalUserHeaderReducer from './external-user-header';
+import ExternalUserQuestsReducer from './external-user-quests';
 import {reducer as toastrReducer} from 'react-redux-toastr'
 
 export const mainReducer = combineReducers({
@@ -44,6 +47,9 @@ export const mainReducer = combineReducers({
     ArtworkInNotebook: ArtworkInNotebookReducer,
     VideoBG: VideoBGReducer,
     WelcomeDialog: WelcomeDialogReducer,
+    ExternalUserArtworks: ExternalUserArtworksReducer,
+    ExternalUserHeader: ExternalUserHeaderReducer,
+    ExternalUserQuests: ExternalUserQuestsReducer,
     toastr: toastrReducer
 });
 export default mainReducer;

@@ -69,10 +69,29 @@ const mine = function (session, userId){
     })
 };
 
+const getAll = function (session){
+    return session.run('MATCH (w:Work) MATCH ({id:w.id})-[:DISPLAYS]->(im) MATCH(i:Image {id:im.id}) RETURN i,w'
+    ).then(results => {
+        const works =[];
+        const images =[];
+        for(let i=0; i<results.records.length;i++){
+            let aWork = new Work(results.records[i].get('w'));
+            works.push(aWork);
+            let anImage = new Image(results.records[i].get('i'));
+            images.push(anImage);
+        }
+        return {
+            work: works,
+            image: images
+        }
+    })
+};
+
 module.exports = {
     create: create,
     update: update,
     deletion: deletion,
     display: display,
-    mine: mine
+    mine: mine,
+    getAll: getAll
 };

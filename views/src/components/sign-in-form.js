@@ -56,7 +56,7 @@ class SignIn extends Component {
                     </Form.Field>
                     <Button type='submit'>Submit</Button>
                 </Form>
-                {this.state.redirect ? <Redirect to="/profile"/> : ''}
+                {this.state.redirect ? <Redirect to="/user"/> : ''}
             </div>
         )
     }
