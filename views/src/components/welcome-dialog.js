@@ -15,18 +15,29 @@ class WelcomeDialog extends Component {
         super(props);
         this.state = props;
         this.handleChatInput = this.handleChatInput.bind(this);
-        this.handleTyping = this.handleTyping.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
         this.sendChat = this.sendChat.bind(this);
         this.addToMessages = this.addToMessages.bind(this);
     }
-    handleTyping = (isTyping) => {
-        if(this.state.isTyping === true && isTyping === false){
-            this.chatDelay = setInterval(()=>this.setState({isTyping:false}), 1000);
-        }else{
-            clearInterval( this.chatDelay);
-            this.setState({isTyping:isTyping});
+
+    handleKeyDown = (event) => {
+        if(this.state.isTyping === true) {
+            this.chatDelay = setInterval(() => this.setState({isTyping: false}), 1000);
+        }
+        this.setState({isTyping:true});
+        if(event.keyCode === 8 || event.key === 'Backspace'){
+            let d = this.state.chatInput;
+            d = d.slice(0,-1);
+            this.setState({chatInput: d});
         }
     };
+
+    handleKeyUp = (event) => {
+        clearInterval( this.chatDelay);
+        this.setState({isTyping:false});
+    };
+
     sendChat = (msg) => {
         const data = {
             input: {
@@ -99,8 +110,8 @@ class WelcomeDialog extends Component {
                             rows={1}
                             value={this.state.chatInput}
                             onKeyPress={this.handleChatInput}
-                            onKeyDown={()=> this.handleTyping(true)}
-                            onKeyUp={()=> this.handleTyping(false)}
+                            onKeyDown={this.handleKeyDown}
+                            onKeyUp={this.handleKeyUp}
                         />
                     </Form>
                 </Segment>
