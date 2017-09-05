@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ajax from 'superagent';
-import { Container, Segment, Header, Divider, Button, Card, Statistic} from 'semantic-ui-react';
+import { Container, Image, Header, Button, Card, Statistic} from 'semantic-ui-react';
 import * as QuestActions from '../actions/quest_actions'
 import PathHelper from '../helpers/path-helper';
 import moment from 'moment';
@@ -64,7 +64,8 @@ class Quest extends Component {
                             label: responseData.meaning.label,
                             description: responseData.meaning.description,
                             prompt: responseData.suggestion.prompt,
-                            doRedirect: false
+                            doRedirect: false,
+                            placeholderId: Math.floor(Math.random() * 1000)
                         };
                         this.setState(quest);
                         if(!this.props.promoMode){
@@ -92,6 +93,7 @@ class Quest extends Component {
                 {this.props.promoMode ?
                         <Card onClick={ () => this.state.goToQuestPage(true)} className="quest-promo-card">
                             {this.state.doRedirect ? <Redirect push to={"/quest/"+this.props.id}/> : null}
+                            <Image src={'https://unsplash.it/420/400/?image='+this.state.placeholderId}/>
                             <Card.Content header={this.state.prompt}/>
                             <Card.Content description={this.state.description}/>
                             <Card.Content extra className="goal-date-holder">
@@ -141,7 +143,8 @@ Quest.propTypes = {
         firstName:PropTypes.string,
         lastName:PropTypes.string
     }),
-    doRedirect: PropTypes.bool
+    doRedirect: PropTypes.bool,
+    placeholderId: PropTypes.number
 };
 
 const mapDispatchToProps = (dispatch) => {

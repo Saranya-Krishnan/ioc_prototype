@@ -3,11 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as ExternalUserHeaderActions from '../actions/external-user-header_actions';
 import { Container, Grid, Image, Button } from 'semantic-ui-react';
-import FontAwesome from 'react-fontawesome';
-import { Redirect } from 'react-router';
-import ajax from 'superagent';
-import PathHelper from '../helpers/path-helper';
-import {toastr} from 'react-redux-toastr';
 const Avatar2 = require('!!url-loader!../../assets/img/profile_user_2.jpg');
 
 
