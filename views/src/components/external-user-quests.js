@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import * as ExternalUserQuestsActions from '../actions/external-user-quests_actions';
 import { Segment, Card, Header } from 'semantic-ui-react';
 import Suggestion from './suggestion';
-import { Redirect } from 'react-router';
 import ajax from 'superagent';
 import PathHelper from '../helpers/path-helper';
 import {toastr} from 'react-redux-toastr';

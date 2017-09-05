@@ -2,5 +2,16 @@
   margin-top: 8rem;
   .ioc-footer{
     height: 200px;
+    .footer-link{
+      margin: 1rem;
+    }
+    .footer-img-wrapper{
+      margin-top: 1rem;
+      .footer-img{
+        margin: 2rem;
+      }
+      display: flex;
+      justify-content: center;
+    }
   }
 }

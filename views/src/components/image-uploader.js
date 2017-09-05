@@ -1,35 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Dropzone from 'react-dropzone';
 import ajax from 'superagent';
 import { Link } from 'react-router-dom';
-import { Container, Image, Loader, Dimmer } from 'semantic-ui-react';
+import { Container, Image, Loader, Dimmer, Form, Button, Input, TextArea } from 'semantic-ui-react';
 import * as ImageUploaderActions from '../actions/image-uploader_actions'
 import PathHelper from '../helpers/path-helper';
 import {toastr} from 'react-redux-toastr';
-
+const FileInput = require('react-file-input');
 
 class ImageUploader extends Component {
     constructor(props) {
         super(props);
         this.state = props;
-        this.onImageDrop = this.onImageDrop.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.checkTagsCompleted = this.checkTagsCompleted.bind(this);
         this.handleImageUpload = this.handleImageUpload.bind(this);
         this.setUser = this.setUser.bind(this);
+        this.setFile = this.setFile.bind(this);
         this.isJSON = this.isJSON.bind(this);
         this.tagCreationCount = 0;
+        this.stopper = false;
     }
+    handleInputChange(event){
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        });
+    };
     setUser(data){
         this.userId = data.id;
+        this.stopper = true;
     }
-    onImageDrop(files) {
-        this.setUser(this.props.user['userInfo']);
-        this.setState({
-            uploadedFile: files[0], hasUploaded:true
-        });
-        this.handleImageUpload(files[0]);
+    setFile(event){
+        const value = event.target.files[0];
+        this.setState({uploadedFile:value, fileSet:true});
+        if(!this.stopper){
+            this.setUser(this.props.user['userInfo']);
+        }
+        event.preventDefault();
+    }
+    handleSubmit(event) {
+        event.preventDefault();
+        if(this.state.fileSet){
+            this.setState({hasUploaded:true});
+            this.handleImageUpload(this.state.uploadedFile);
+        }else{
+            toastr.warning('No file selected.');
+        }
     }
     handleImageUpload(file) {
         this.setState({isLoading:true});
@@ -131,9 +152,10 @@ class ImageUploader extends Component {
                     const createData = {
                         imageId:imageId,
                         userId:userId,
-                        notebookId: this.currentNotebook
+                        notebookId: this.currentNotebook,
+                        title: this.state.title,
+                        description: this.state.description
                     };
-
                     let data = JSON.stringify(createData);
                     ajax.post( PathHelper.apiPath + '/works/create')
                         .set('Content-Type', 'application/json')
@@ -277,52 +299,56 @@ class ImageUploader extends Component {
         return (
             <Container className="image-uploader-hold">
                 { this.state.hasUploaded === true ? null :
-                    <h4>Upload your artwork from this Moleskine notebook.</h4>
+                    <div>
+                        <h4>Upload your artwork from this Moleskine notebook.</h4>
+                        <Form onSubmit={this.handleSubmit} inverted={true}>
+                            <Form.Field name="title" control={Input} label='Title of work'  value={this.state.title} onChange={this.handleInputChange}/>
+                            <Form.Field name="description" control={TextArea} label='Description' value={this.state.description} onChange={this.handleInputChange}/>
+                            <label className="image-file">Image File</label>
+                            <FileInput
+                                name="imageFile"
+                                accept=".png,.jpg,.jpeg"
+                                placeholder="Avatar Image"
+                                className="upload-button"
+                                onChange={this.setFile}
+                            />
+                            <Button className="submit-button" floated={'right'}>Submit</Button>
+                        </Form>
+                    </div>
                 }
-                <form>
-                    { this.state.hasUploaded === true ? null :
-                        <div className="FileUpload">
-                            <Dropzone
-                                onDrop={this.onImageDrop.bind(this)}
-                                multiple={false}
-                                accept="image/*"
-                                className="uploader-zone"
-                                activeClassName="uploader-zone-active"
-                                rejectClassName="uploader-zone-rejected">
-                                <div>Drop an image or click to select a file to upload.</div>
-                            </Dropzone>
-                        </div>}
-                        {this.state.isLoading === true ?
-                        <Dimmer active>
-                            <Loader indeterminate>Uploading Image</Loader>
-                        </Dimmer> : null
-                        }
-                        {this.state.isProcessing === true && this.state.hasUploaded === true ?
-                        <Dimmer active>
-                            <Loader indeterminate>Processing Image</Loader>
-                        </Dimmer> : null
-                        }
-                        {this.state.uploadedFileCloudinaryUrl === '' ? null :
-                            <div className="uploaded-image-holder">
-                                <Image src={this.state.uploadedFileCloudinaryUrl} className="uploaded-image"/>
-                            </div>
-                        }
-                        {this.state.isProcessed === true ?
-                            <Link className="view-artwork-button" to={"/user/artwork/"+this.state.newArtWorkId}>
-                                View My New Artwork
-                            </Link>
-                          : null
-                        }
-                </form>
+                {this.state.isLoading === true ?
+                    <Dimmer active>
+                        <Loader indeterminate>Uploading Image</Loader>
+                    </Dimmer> : null
+                }
+                {this.state.isProcessing === true && this.state.hasUploaded === true ?
+                    <Dimmer active>
+                        <Loader indeterminate>Processing Image</Loader>
+                    </Dimmer> : null
+                }
+                {this.state.uploadedFileCloudinaryUrl === '' ? null :
+                    <div className="uploaded-image-holder">
+                        <Image src={this.state.uploadedFileCloudinaryUrl} className="uploaded-image"/>
+                    </div>
+                }
+                { this.state.hasUploaded === true ?
+                    <Link className="view-artwork-button" to={"/artwork/"+this.state.newArtWorkId}>
+                        View My New Artwork
+                    </Link> : null
+                }
             </Container>
         )
     }
 }
 
+
 ImageUploader.propTypes = {
     uploadImage: PropTypes.func.isRequired,
     uploadedFileCloudinaryUrl: PropTypes.any,
     uploadedFile: PropTypes.any,
+    fileSet: PropTypes.bool,
+    title: PropTypes.string,
+    description: PropTypes.string,
     createImage: PropTypes.func.isRequired,
     createArtwork: PropTypes.func.isRequired,
     classifyImage: PropTypes.func.isRequired,

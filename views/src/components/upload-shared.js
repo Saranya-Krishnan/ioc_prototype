@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import ajax from 'superagent';
-import { Segment, Grid} from 'semantic-ui-react';
+import { Segment, Sidebar, Header, Container, Button, Image} from 'semantic-ui-react';
 import * as ImageUploadCreators from '../actions/image-uploader_actions';
 import * as MyNotebookCreators from '../actions/my-notebooks_actions';
 import * as NotebookCreators from '../actions/notebook_actions';
@@ -14,12 +14,12 @@ import MyNotebooks from '../components/my-notebooks';
 import Notebook from '../components/notebook';
 import PathHelper from '../helpers/path-helper';
 
-
 class UploadShared extends Component {
     constructor(props) {
         super(props);
         this.state = props;
         this.getNotebooks = this.getNotebooks.bind(this);
+        this.openCaptureUI = this.openCaptureUI.bind(this);
         this.setUser = this.setUser.bind(this);
         this.stopper = false;
     }
@@ -27,6 +27,9 @@ class UploadShared extends Component {
         this.userId = data.id;
         this.getNotebooks();
         this.stopper = true;
+    }
+    openCaptureUI(state){
+        this.setState({uploadUIVisible: state});
     }
     getNotebooks(){
         const data = {
@@ -58,7 +61,6 @@ class UploadShared extends Component {
             }
         }
     }
-
     render() {
         const { dispatch } = this.props;
         const displayMyNotebooks = bindActionCreators(MyNotebookCreators.displayMyNotebooks, dispatch);
@@ -78,31 +80,45 @@ class UploadShared extends Component {
         return (
             <Segment>
                 { this.state.noNotebooks ? null :
-                <Grid divided>
-                    <Grid.Column width={12}>
-
-                        <MyNotebooks
-                            myNoteBooks={this.state.sharedNotebooks}
-                            displayMyNotebooks={displayMyNotebooks}
-                        />
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                            <ImageUploader
-                                makeSuggestions={makeSuggestions}
-                                makeMeaning={makeMeaning}
-                                uploadImage={uploadImage}
-                                getNewTagOntology={getNewTagOntology}
-                                enrichNewTag={enrichNewTag}
-                                createImage={createImage}
-                                createArtwork={createArtwork}
-                                classifyImage={classifyImage}
-                                createTag={createTag}
-                                exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
-                                classificationToTags={classificationToTags}
-                                visualRecognition={visualRecognition}/>
-
-                    </Grid.Column>
-                </Grid>}
+                    <Sidebar.Pushable as={Container}>
+                        <Sidebar
+                            as={Segment}
+                            animation='push'
+                            width='wide'
+                            direction='right'
+                            visible={!this.state.uploadUIVisible}
+                            icon='labeled'
+                            vertical
+                            inverted>
+                                <ImageUploader
+                                    makeSuggestions={makeSuggestions}
+                                    makeMeaning={makeMeaning}
+                                    uploadImage={uploadImage}
+                                    getNewTagOntology={getNewTagOntology}
+                                    enrichNewTag={enrichNewTag}
+                                    createImage={createImage}
+                                    createArtwork={createArtwork}
+                                    classifyImage={classifyImage}
+                                    createTag={createTag}
+                                    exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
+                                    classificationToTags={classificationToTags}
+                                    visualRecognition={visualRecognition}/>
+                        </Sidebar>
+                    <Sidebar.Pusher>
+                        {this.state.uploadUIVisible ?
+                            <Button floated={'right'} onClick={() => this.openCaptureUI(false)} className="ui-toggle">Capture</Button>
+                            :
+                            <Button floated={'right'} onClick={() => this.openCaptureUI(true)} className="ui-toggle">Close</Button>
+                        }
+                    <Header content="My notebooks"/>
+                    <p className="add-notebook-instructions">Click to select the notebook your upload comes from.</p>
+                    <MyNotebooks
+                        myNoteBooks={this.state.sharedNotebooks}
+                        displayMyNotebooks={displayMyNotebooks}
+                    />
+                    </Sidebar.Pusher>
+                </Sidebar.Pushable>
+                }
                 {this.state.noNotebooks ?
                     <Notebook
                         isNewNotebook={true}
@@ -113,14 +129,12 @@ class UploadShared extends Component {
     }
 }
 
-
-
-
 UploadShared.propTypes = {
     sharedNotebooks: PropTypes.arrayOf(PropTypes.shape({
         id:PropTypes.string,
     })),
-    noNotebooks:PropTypes.bool
+    noNotebooks:PropTypes.bool,
+    uploadUIVisible:PropTypes.bool
 
 };
 

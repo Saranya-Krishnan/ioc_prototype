@@ -2,7 +2,9 @@ import * as ArtworkInNotebookActionTypes from '../action_types/artwork-in-notebo
 
 const initialState = {
     myArtwork:[{
-        id:''
+        id:'',
+        title:'',
+        description: ''
     }],
     haveArtwork: false,
     stopper: false,

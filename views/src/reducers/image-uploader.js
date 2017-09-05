@@ -6,7 +6,9 @@ const initialState = {
     isProcessing: false,
     isProcessed: false,
     hasUploaded:false,
-    isLoading:false
+    isLoading:false,
+    title: '',
+    description: ''
 };
 
 export default function ImageUploader(state=initialState, action) {

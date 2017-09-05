@@ -9,13 +9,14 @@ exports.create = function (req, res, next) {
     const imageId = _.get(req.body, 'imageId');
     const userId = _.get(req.body,'userId');
     const notebookId = _.get(req.body,'notebookId');
-    Works.create(dbUtils.getSession(req), imageId, userId, notebookId)
+    const title = _.get(req.body,'title');
+    const description = _.get(req.body,'description');
+    Works.create(dbUtils.getSession(req), imageId, userId, notebookId, title, description)
         .then(response => writeResponse(res, response, 201))
         .catch(next);
 };
 
 exports.update = function (req, res, next) {
-
 
 };
 

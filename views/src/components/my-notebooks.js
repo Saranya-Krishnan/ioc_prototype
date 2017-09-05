@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ajax from 'superagent';
-import { Container, Header} from 'semantic-ui-react';
+import { Container, Card} from 'semantic-ui-react';
 import PathHelper from '../helpers/path-helper';
 import NotebookTout from './note-book-tout';
 import {toastr} from 'react-redux-toastr';
@@ -33,7 +33,6 @@ class MyNotebooks extends Component {
                 }
             });
     }
-
     setNotebook(id){
         this.setState({currentNotebook:id});
         const data = {
@@ -73,11 +72,9 @@ class MyNotebooks extends Component {
         }
         return (
             <Container>
-                <Header content="My notebooks"/>
-                <p className="add-notebook-instructions">Click to select the notebook your upload comes from.</p>
-                <div className="notebook-tout-grid">
+                <Card.Group itemsPerRow={3}>
                     {notebookGroup}
-                </div>
+                </Card.Group>
             </Container>
         )
     }

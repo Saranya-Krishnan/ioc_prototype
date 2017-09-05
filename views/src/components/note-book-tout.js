@@ -9,18 +9,26 @@ const NotebookTout = props => {
       return props.linkToNotebook();
     };
     return (
-        <div className="notebook-tout-wrapper">
-            <Card onClick={() => setMe()} className={props.isActive ? 'notebook-tout active-notebook' : 'notebook-tout'}>
+
+            <Card className={props.isActive ? 'notebook-tout active-notebook' : 'notebook-tout'}>
                 <Image className="notebook-tout-image" src={img}/>
                 <Card.Content>
                 <Card.Header>{props.name}</Card.Header>
                     <Card.Description>
-                        {props.isActive ? 'Current Notebook' : null}
+                        {props.isActive ?
+                            <div>
+                                Current Notebook.
+                            </div>
+                            :
+                            <div>
+                                <a onClick={() => setMe()}>Make current notebook.</a>
+                            </div>
+                        }
+                        <Link to={'/notebooks/'+props.id} className="notebook-tout-link">View</Link>
                     </Card.Description>
                 </Card.Content>
             </Card>
-            <Link to={'/notebooks/'+props.id} className="notebook-tout-link">View</Link>
-        </div>
+
     )
 };
 

@@ -16,11 +16,11 @@ class ArtworkCard extends Component {
     render() {
         return (
             <Card onClick={() => this.state.goToArtworkPage(true)} className="artwork-card">
-                {this.state.doRedirect ? <Redirect push to={"/user/artwork/" + this.props.id}/> : null}
+                {this.state.doRedirect ? <Redirect push to={"/artwork/" + this.props.id}/> : null}
                 <Image src={this.props.image}/>
                 <Card.Content>
                     <Card.Header>
-                        {this.props.id}
+                        {this.props.title}
                     </Card.Header>
                 </Card.Content>
             </Card>
