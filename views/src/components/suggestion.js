@@ -18,7 +18,6 @@ class Suggestion extends Component {
         this.handleDatePicker = this.handleDatePicker.bind(this);
         this.acceptSuggestion = this.acceptSuggestion.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
-
     }
     handleOpen(){
         this.setState({modalOpen:true});
@@ -73,12 +72,13 @@ class Suggestion extends Component {
         this.setState(nextProps.state);
     }
     componentWillMount(){
-        this.setState({startDate: moment()});
+        this.setState({startDate: moment(), placeholderId:Math.floor(Math.random() * 1000)});
     }
     //ToDo: Respond to missing/present image for quest
     render() {
         return (
             <Card>
+                <Image src={'https://unsplash.it/420/500/?image='+this.state.placeholderId}/>
                 <Card.Content>
                     <Card.Header>
                         {this.props.prompt}
@@ -130,6 +130,7 @@ Suggestion.propTypes = {
     hideSuggestion: PropTypes.func,
     showQuest: PropTypes.func,
     startDate: PropTypes.instanceOf(Date),
+    placeholderId: PropTypes.number,
     meaning: PropTypes.shape({
         id: PropTypes.string,
         description: PropTypes.string,
