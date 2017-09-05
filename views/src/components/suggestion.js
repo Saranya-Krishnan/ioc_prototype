@@ -78,7 +78,7 @@ class Suggestion extends Component {
     render() {
         return (
             <Card>
-                <Image src={'https://unsplash.it/420/500/?image='+this.state.placeholderId}/>
+                <Image src={'https://unsplash.it/420/400/?image='+this.state.placeholderId}/>
                 <Card.Content>
                     <Card.Header>
                         {this.props.prompt}
