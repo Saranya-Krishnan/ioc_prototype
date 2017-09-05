@@ -6,7 +6,8 @@ const initialState = {
             id:''
         }
     ],
-    noNotebooks:true
+    noNotebooks:true,
+    uploadUIVisible: false
 };
 
 export default function UploadShared(state=initialState, action) {

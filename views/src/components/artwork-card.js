@@ -20,7 +20,7 @@ class ArtworkCard extends Component {
                 <Image src={this.props.image}/>
                 <Card.Content>
                     <Card.Header>
-                        {this.props.id}
+                        {this.props.title}
                     </Card.Header>
                 </Card.Content>
             </Card>

@@ -4,9 +4,13 @@ import Image from './neo4j_models/image';
 import User from './neo4j_models/user';
 import Tag from './neo4j_models/tag';
 
-const create = function (session, imageId, userId, notebookId) {
+const create = function (session, imageId, userId, notebookId, title, description) {
     const artworkId = uuid.v4();
-    return session.run('CREATE (work:Work {id: {id}}) RETURN work', {id: artworkId}
+    return session.run('CREATE (work:Work {id: {id}, title:{title}, description:{description}}) RETURN work', {
+        id: artworkId,
+        title: title,
+        description: description
+    }
     ).then(results => {
         const artResults = results;
         return session.run('MATCH (work:Work {id:{artworkId}}) MATCH(notebook:Notebook {id:{notebookId}}) CREATE (user {id:{userId}})-[:CREATED]->(work) CREATE(image {id:{imageId}})<-[:DISPLAYS]-(work) CREATE((work)-[:IS_PART_OF_THIS_NOTEBOOK]->(notebook))', {

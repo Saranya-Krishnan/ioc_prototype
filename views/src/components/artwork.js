@@ -70,6 +70,8 @@ class Artwork extends Component {
                 if (!error && response) {
                     const data ={
                         id: response.body.work.id,
+                        title: response.body.work.title,
+                        description: response.body.work.description,
                         image: {
                             colors: JSON.parse(response.body.image.colors),
                             format: response.body.image.format,
@@ -139,6 +141,8 @@ class Artwork extends Component {
                 {  this.state.work ?
                     <Container>
                         <Container textAlign={'center'}>
+                            <h1>{this.state.work.title}</h1>
+                            <p>{this.state.work.description}</p>
                             <Image
                                 src={this.state.work.image.url}
                                 width={this.state.work.image.width}

@@ -18,7 +18,7 @@ const Wall = () => (
                 <Feed.Content>
                     <Feed.Summary>
                         <Feed.User>
-                            <Link to="/user-example">Elliot Fine</Link>
+                            Elliot Fine
                         </Feed.User> added you as a friend
                         <Feed.Date>1 Hour Ago</Feed.Date>
                     </Feed.Summary>
@@ -29,7 +29,6 @@ const Wall = () => (
                     </Feed.Meta>
                 </Feed.Content>
             </Feed.Event>
-
             <Feed.Event>
                 <FontAwesome name='pencil' className="wall-icon"/>
                 <Feed.Content>
@@ -45,7 +44,6 @@ const Wall = () => (
                     </Feed.Meta>
                 </Feed.Content>
             </Feed.Event>
-
             <Feed.Event>
                 <Feed.Label image={Avatar2}/>
                 <Feed.Content>

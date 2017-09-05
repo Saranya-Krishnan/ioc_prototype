@@ -37,7 +37,7 @@ class GurusPage extends Component {
                 <Container>
                     <h1>Meet the Creativity Gurus</h1>
                     <p> Each instructor can offer you challenges that will improve your creativity.</p>
-                    <Card.Group>
+                    <Card.Group itemsPerRow={2}>
                         <Instructor
                             image={instructorImage1}
                             name={'Horus McCloud'}

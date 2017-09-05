@@ -29,6 +29,8 @@ class MyArtwork extends Component {
                         for(let i=0;i<response.body.work.length;i++){
                             let aWork = {
                                 id:response.body.work[i].id,
+                                title:response.body.work[i].title,
+                                description:response.body.work[i].description,
                                 image:response.body.image[i].url,
                                 height: response.body.image[i].height,
                                 width: response.body.image[i].width
@@ -58,7 +60,7 @@ class MyArtwork extends Component {
         if(this.state.haveArtwork){
             const artwork = this.state.myArtwork;
             ArtworkCardGroup = artwork.map((a, index) => (
-                <ArtworkCard id={a.id} title={'TK'} image={a.image} key={index}/>
+                <ArtworkCard id={a.id} title={a.title} image={a.image} key={index}/>
             ));
         }
         return (

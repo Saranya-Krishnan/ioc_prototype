@@ -29,6 +29,7 @@ class ArtWorkInNoteBook extends Component {
                         for(let i=0;i<response.body.work.length;i++){
                             let aWork = {
                                 id:response.body.work[i].id,
+                                title: response.body.title,
                                 image:response.body.image[i].url,
                                 height: response.body.image[i].height,
                                 width: response.body.image[i].width
@@ -58,7 +59,7 @@ class ArtWorkInNoteBook extends Component {
         if(this.state.haveArtwork){
             const artwork = this.state.myArtwork;
             ArtworkCardGroup = artwork.map((a, index) => (
-                <ArtworkCard id={a.id} title={'TK'} image={a.image} key={index}/>
+                <ArtworkCard id={a.id} title={a.title} image={a.image} key={index}/>
             ));
         }
         return (
@@ -72,7 +73,9 @@ class ArtWorkInNoteBook extends Component {
 
 ArtWorkInNoteBook.propTypes = {
     myArtwork: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string
+        id: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string
     })),
     haveArtwork:PropTypes.bool,
     stopper: PropTypes.bool,

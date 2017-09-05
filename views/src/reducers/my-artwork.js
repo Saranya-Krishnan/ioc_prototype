@@ -2,7 +2,9 @@ import * as MyArtworkActionTypes from '../action_types/my-artwork';
 
 const initialState = {
     myArtwork:[{
-        id:''
+        id:'',
+        title:'',
+        description:''
     }],
     haveArtwork: false,
     stopper: false
