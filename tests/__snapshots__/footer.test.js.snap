@@ -10,22 +10,48 @@ exports[`it displays the correct footer items 1`] = `
     <div
       className="ui container center aligned"
     >
-      <img
-        alt={undefined}
-        className="ui centered image"
-        height={undefined}
-        src={undefined}
-        width={undefined}
-      />
       <div
-        className="ui small divided inverted link list"
+        className="footer-img-wrapper"
+      >
+        <img
+          alt={undefined}
+          className="ui centered image footer-img"
+          height={undefined}
+          src="test-file-stub"
+          width={undefined}
+        />
+      </div>
+      <div
+        className="ui divided horizontal inverted link relaxed list"
         role="list"
       >
         <a
+          className="footer-link"
+          href="/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+        <a
+          className="footer-link"
           href="/user"
           onClick={[Function]}
         >
-          profile
+          My Profile
+        </a>
+        <a
+          className="footer-link"
+          href="/features"
+          onClick={[Function]}
+        >
+          How it works
+        </a>
+        <a
+          className="footer-link"
+          href="/purchase"
+          onClick={[Function]}
+        >
+          Get the Internet of Creativity
         </a>
       </div>
     </div>
