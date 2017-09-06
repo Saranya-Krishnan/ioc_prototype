@@ -85,8 +85,6 @@ const update = function (session, userId, username, firstName, lastName, bio, av
     });
 };
 
-
-
 function hashPassword(username, password) {
     let s = username + ':' + password;
     return crypto.createHash('sha256').update(s).digest('hex');

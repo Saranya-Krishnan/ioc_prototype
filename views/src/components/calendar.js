@@ -21,6 +21,7 @@ class Calendar extends Component {
         this.convertToEvents = this.convertToEvents.bind(this);
 
     }
+    //ToDo: Create Event Helper.
     convertToEvents(data) {
         let myEvents = [];
         for (let i = 0; i < data.length; i++) {
