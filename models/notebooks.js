@@ -36,7 +36,6 @@ const create = function (session, when, what, how, name1, name2, name3, userId) 
     })
 };
 
-
 const update = function (session3) {
 
 };
@@ -63,7 +62,6 @@ const mine = function (session, userId) {
     })
 };
 
-
 const artworkInNotebook = function (session, notebookId) {
     return session.run('MATCH ({id:{notebookId}})<-[:IS_PART_OF_THIS_NOTEBOOK]->(w) MATCH (work:Work {id:w.id}) MATCH ({id:w.id})-[:DISPLAYS]->(im) MATCH(image:Image {id:im.id}) RETURN work, image',{notebookId:notebookId}
     ).then(results => {
@@ -82,16 +80,12 @@ const artworkInNotebook = function (session, notebookId) {
     })
 };
 
-
-
-
 const display = function (session, notebookId) {
     return session.run('MATCH (n:Notebook {id:{notebookId}}) RETURN n',{notebookId:notebookId}
     ).then(results => {
         return new Notebook(results.records[0].get('n'));
     })
 };
-
 
 module.exports = {
     create: create,

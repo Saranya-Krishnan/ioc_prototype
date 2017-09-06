@@ -2,7 +2,6 @@ import uuid from 'uuid';
 import Meaning from './neo4j_models/meaning';
 const IoCSeed = require('../ioc.seed');
 
-
 const matchClassifications = function(classes){
     if(!classes || !classes.length){
         return 'none';
@@ -21,8 +20,6 @@ const matchClassifications = function(classes){
         }
     }
 };
-
-
 
 const extractFromTag = function (session, tagId, ontology) {
     const meanings = [];
@@ -50,7 +47,6 @@ const extractFromTag = function (session, tagId, ontology) {
     )
 };
 
-
 const update = function (session) {
 
 };
@@ -65,7 +61,6 @@ const retrieve = function (session, suggestionId) {
         return new Meaning(results.records[0].get('m'));
     })
 };
-
 
 module.exports = {
     extractFromTag:extractFromTag,

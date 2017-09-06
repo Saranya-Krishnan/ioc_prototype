@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ajax from 'superagent';
-import { Segment, Container} from 'semantic-ui-react';
+import { Segment, Container, Dimmer, Loader} from 'semantic-ui-react';
 import * as CalendarActions from '../actions/calendar_actions'
 import PathHelper from '../helpers/path-helper';
 import {toastr} from 'react-redux-toastr';
@@ -16,97 +16,93 @@ class Calendar extends Component {
     constructor(props) {
         super(props);
         this.state = props;
+        this.setUser = this.setUser.bind(this);
+        this.getMyEvents = this.getMyEvents.bind(this);
+        this.convertToEvents = this.convertToEvents.bind(this);
+
+    }
+    //ToDo: Create Event Helper.
+    convertToEvents(data) {
+        let myEvents = [];
+        for (let i = 0; i < data.length; i++) {
+            let event = {
+                title: 'Temporary Title',
+                allDay: true,
+                start:new Date(data[i].startDate),
+                end:  data[i].goalDate ? new Date(data[i].goalDate) : new Date(),
+                desc: data[i].statement
+            };
+            myEvents.push(event);
+        }
+        this.props.loadACalendar(myEvents);
+    }
+
+    getMyEvents(){
+        if(!this.state.stopper){
+            const data = {
+                userId: this.userId
+            };
+            ajax.post( PathHelper.apiPath + '/events/get-mine')
+                .set('Content-Type', 'application/json')
+                .send(data)
+                .end((error, response) => {
+                    if (!error && response) {
+                        this.convertToEvents(response.body);
+                    } else {
+                        toastr.error('Error retrieving your events', error);
+                    }
+                });
+        }
+    }
+    setUser(data) {
+        this.userId = data.id;
+        this.getMyEvents();
+        this.setState({stopper: true});
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState(nextProps.state);
+        if(nextProps.user.userInfo.id !=='' && nextProps.user.userInfo.id !==undefined){
+            this.setUser(nextProps.user.userInfo);
+        }
     }
     render(){
-        let myevents = [
-            {
-                'title': 'All Day Event',
-                'allDay': true,
-                'start': new Date(2017, 8, 0),
-                'end': new Date(2017, 8, 1)
-            },
-            {
-                'title': 'Long Event',
-                'start': new Date(2017, 8, 7),
-                'end': new Date(2017, 8, 10)
-            },
-
-            {
-                'title': 'DTS STARTS',
-                'start': new Date(2018, 2, 13, 0, 0, 0),
-                'end': new Date(2018, 2, 20, 0, 0, 0)
-            },
-
-            {
-                'title': 'DTS ENDS',
-                'start': new Date(2018, 10, 6, 0, 0, 0),
-                'end': new Date(2018, 10, 13, 0, 0, 0)
-            },
-
-            {
-                'title': 'Some Event',
-                'start': new Date(2017, 8, 9, 0, 0, 0),
-                'end': new Date(2017, 8, 9, 0, 0, 0)
-            },
-            {
-                'title': 'Conference',
-                'start': new Date(2017, 8, 11),
-                'end': new Date(2017, 8, 13),
-                desc: 'Big conference for important people'
-            },
-            {
-                'title': 'Meeting',
-                'start': new Date(2017, 8, 12, 10, 30, 0, 0),
-                'end': new Date(2017, 8, 12, 12, 30, 0, 0),
-                desc: 'Pre-meeting meeting, to prepare for the meeting'
-            },
-            {
-                'title': 'Lunch',
-                'start':new Date(2017, 8, 12, 12, 0, 0, 0),
-                'end': new Date(2017, 8, 12, 13, 0, 0, 0),
-                desc: 'Power lunch'
-            },
-            {
-                'title': 'Meeting',
-                'start':new Date(2017, 8, 12,14, 0, 0, 0),
-                'end': new Date(2017, 8, 12,15, 0, 0, 0)
-            },
-            {
-                'title': 'Happy Hour',
-                'start':new Date(2017, 8, 12, 17, 0, 0, 0),
-                'end': new Date(2017, 8, 12, 17, 30, 0, 0),
-                desc: 'Most important meal of the day'
-            },
-            {
-                'title': 'Dinner',
-                'start':new Date(2017, 8, 12, 20, 0, 0, 0),
-                'end': new Date(2017, 8, 12, 21, 0, 0, 0)
-            },
-            {
-                'title': 'Birthday Party',
-                'start':new Date(2017, 8, 13, 7, 0, 0),
-                'end': new Date(2017, 8, 13, 10, 30, 0)
-            }
-        ];
         return(
             <Segment>
+                {this.state.haveEvents ?
                 <BigCalendar
-                    events={myevents}
-                    startAccessor='startDate'
-                    endAccessor='endDate'
+                    events={this.state.myEvents}
+                    {...this.props}
                 />
+                    :
+                    <Container className={'calendar-loading'}>
+                        <Dimmer active>
+                            <Loader />
+                        </Dimmer>
+                    </Container>
+                }
             </Segment>
         )
     }
 }
 
 Calendar.propTypes = {
-
+    stopper: PropTypes.bool,
+    haveEvents:PropTypes.bool,
+    loadACalendar: PropTypes.func.isRequired,
+    myEvents2: PropTypes.arrayOf(PropTypes.shape({
+            title: PropTypes.string,
+            allDay: PropTypes.bool,
+            start: PropTypes.instanceOf(Date),
+            end: PropTypes.instanceOf(Date),
+            desc: PropTypes.string
+        }
+    )),
+    myEvents: PropTypes.arrayOf(PropTypes.any)
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadCalendar: () => {
+        loadACalendar: (data) => {
             dispatch(CalendarActions.loadACalendar(data))
         }
     }

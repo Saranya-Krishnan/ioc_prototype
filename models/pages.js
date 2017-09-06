@@ -1,7 +1,6 @@
 import uuid from 'uuid';
 import Page from './neo4j_models/page';
 
-
 const create = function (session) {
 
 };
@@ -17,8 +16,6 @@ const deletion = function (session) {
 const inNotebook = function (session) {
 
 };
-
-
 
 module.exports = {
     create: create,

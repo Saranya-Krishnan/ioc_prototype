@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
+import * as CalendarActionCreators from '../actions/calendar_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
@@ -20,6 +21,7 @@ class CalendarPage extends Component {
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
+        const loadACalendar = bindActionCreators(CalendarActionCreators.loadACalendar, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         return (
             <div>
@@ -30,7 +32,8 @@ class CalendarPage extends Component {
                     setLoggedIn={setLoggedIn}>
                 </Nav>
                 <Container>
-                    <Calendar/>
+                    <Calendar
+                        loadACalendar={loadACalendar}/>
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>

@@ -6,41 +6,6 @@ const Meanings = require('../../models/meanings')
     , _ = require('lodash');
 
 
-/**
- * @swagger
- * definition:
- *   Meaning:
- *     type: object
- *     properties:
- *       id:
- *         type: string
- *       url:
- *         type: string
- *       classificationData:
- *          type: string
- */
-/**
- * @swagger
- * /api/v0/meanings/extract-from-tag:
- *   post:
- *     tags:
- *     - meanings
- *     description: Creates a new meaning from a tag's ontology
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
 exports.extractFromTag = function (req, res, next) {
     const tagId = _.get(req.body,'tagId');
     const ontology = _.get(req.body,'ontology');
@@ -49,81 +14,13 @@ exports.extractFromTag = function (req, res, next) {
         .catch(next);
 };
 
-/**
- * @swagger
- * /api/v0/meanings/update:
- *   post:
- *     tags:
- *     - meanings
- *     description: Updates an meaning
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
-
 exports.update = function (req, res, next) {
 
 };
 
-/**
- * @swagger
- * /api/v0/meanings/delete:
- *   post:
- *     tags:
- *     - meanings
- *     description: Deletes an meaning
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
-
-
 exports.deletion = function (req, res, next) {
 
 };
-
-/**
- * @swagger
- * /api/v0/meanings/retrieve:
- *   post:
- *     tags:
- *     - meanings
- *     description: Gets a meaning from a suggestion
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: body
- *         in: body
- *         type: object
- *         schema:
- *           properties:
- *     responses:
- *       201:
- *         description: Data
- *       400:
- *         description: Error message(s)
- */
 
 
 exports.retrieve = function (req, res, next) {
