@@ -1,4 +1,4 @@
-const suggestionData = {
+ const suggestionData = {
     person: {
         actions: [
             {
