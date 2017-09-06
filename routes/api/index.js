@@ -11,3 +11,4 @@ exports.tags = require('./tags');
 exports.users = require('./users');
 exports.works = require('./works');
 exports.dialog = require('./dialog');
+exports.events = require('./events');

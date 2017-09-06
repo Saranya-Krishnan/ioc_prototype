@@ -220,6 +220,11 @@ api.post('/api/'+process.env.API_VERSION+'/quests/my-quests', routes.quests.mine
 // ***************************
 api.post('/api/'+process.env.API_VERSION+'/dialog', routes.dialog.begin);
 
+// ***************************
+// * Events
+// ***************************
+api.post('/api/'+process.env.API_VERSION+'/events/get-mine', routes.events.getMine);
+
 
 
 server.listen(process.env.PORT || process.env.CLIENT_PORT, function () {

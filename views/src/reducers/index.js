@@ -23,6 +23,7 @@ import WelcomeDialogReducer from './welcome-dialog';
 import ExternalUserArtworksReducer from './external-user-artworks';
 import ExternalUserHeaderReducer from './external-user-header';
 import ExternalUserQuestsReducer from './external-user-quests';
+import CalendarReducer from './calendar';
 import {reducer as toastrReducer} from 'react-redux-toastr'
 
 export const mainReducer = combineReducers({
@@ -50,6 +51,7 @@ export const mainReducer = combineReducers({
     ExternalUserArtworks: ExternalUserArtworksReducer,
     ExternalUserHeader: ExternalUserHeaderReducer,
     ExternalUserQuests: ExternalUserQuestsReducer,
+    Calendar: CalendarReducer,
     toastr: toastrReducer
 });
 export default mainReducer;
