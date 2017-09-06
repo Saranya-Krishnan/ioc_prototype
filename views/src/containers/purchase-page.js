@@ -3,10 +3,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
+import * as VideoBGActionCreators from '../actions/videoBG_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
-import { Container} from 'semantic-ui-react';
+import VideoBG from '../components/video-bg';
+import BuyCredits from '../components/buy-credits';
+import BuyNotebook from '../components/buy-notebook';
+import { Container, Segment} from 'semantic-ui-react';
 
 
 class PurchasePage extends Component {
@@ -19,6 +23,7 @@ class PurchasePage extends Component {
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
+        const clickVideo  = bindActionCreators(VideoBGActionCreators.clickVideo, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
         return (
             <div>
@@ -29,7 +34,17 @@ class PurchasePage extends Component {
                     setLoggedIn={setLoggedIn}>
                 </Nav>
                 <Container>
-                    Purchase Page
+                    <Segment className={'offer-layer'}>
+                        <VideoBG
+                            clickVideo={clickVideo}
+                        />
+                    </Segment>
+                    <Segment className={'offer-layer'}>
+                        <BuyNotebook/>
+                    </Segment>
+                    <Segment className={'offer-layer'}>
+                        <BuyCredits/>
+                    </Segment>
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>

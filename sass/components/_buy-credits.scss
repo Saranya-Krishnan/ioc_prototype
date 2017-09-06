@@ -1,0 +1,17 @@
+.credit-offer{
+  .bottom-bar{
+    display: flex;
+    justify-content: flex-end;
+    .purchase-button{
+      margin-left: 2rem;
+      .cart-icon{
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  .image-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+  }
+}
