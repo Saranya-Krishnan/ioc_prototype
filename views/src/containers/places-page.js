@@ -16,14 +16,23 @@ class PlacesPage extends Component {
     };
     render() {
         const { dispatch } = this.props;
-        const markers = [{
+        const markers = [
+            {
             position: {
                 lat: 43.1628149,
                 lng: -88.18509800000001
             },
-            key: `Sussex,WI`,
+            key: "Sussex,WI",
             defaultAnimation: 2
-        }
+            },
+            {
+                position: {
+                    lat: 51.50072919999999,
+                    lng: -0.1246254
+                },
+                key: "Big Ben",
+                defaultAnimation: 2
+            }
         ];
         const defaultCenter = {
             lat: 43.1628149,

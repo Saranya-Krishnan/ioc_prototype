@@ -36,7 +36,6 @@ class BasicMap extends Component {
         this.handleMapClick = this.handleMapClick.bind(this);
         this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
         this.getLocation = this.getLocation.bind(this);
-
         this.googleUrl = process.env.GOOGLE_MAPS_URL + "?v="+process.env.GOOGLE_MAPS_VERSION +"&key=" + process.env.GOOGLE_MAPS_API;
     }
 
@@ -74,6 +73,7 @@ class BasicMap extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+        console.log(nextProps);
         this.setState(nextProps.state);
     }
 
