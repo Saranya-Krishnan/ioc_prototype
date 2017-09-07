@@ -35,7 +35,13 @@ class BasicMap extends Component {
         this.handleMapLoad = this.handleMapLoad.bind(this);
         this.handleMapClick = this.handleMapClick.bind(this);
         this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
-        this.googleUrl = "https://maps.googleapis.com/maps/api/js?v=3.29&key=" + process.env.GOOGLE_MAPS_API;
+        this.getLocation = this.getLocation.bind(this);
+
+        this.googleUrl = process.env.GOOGLE_MAPS_URL + "?v="+process.env.GOOGLE_MAPS_VERSION +"&key=" + process.env.GOOGLE_MAPS_API;
+    }
+
+    getLocation(){
+
     }
 
     handleMapLoad(map) {

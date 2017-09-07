@@ -1,16 +1,7 @@
 import * as BasicMapActionTypes from '../action_types/basic-map';
 
 const initialState = {
-    markers:[
-        {
-            position: {
-                lat: 25.0112183,
-                lng: 121.52067570000001
-            },
-            key: `Taiwan`,
-            defaultAnimation: 2
-        }
-    ],
+    markers:[{}],
     defaultZoom: 3,
     defaultCenter:{
         lat: 25.0112183,

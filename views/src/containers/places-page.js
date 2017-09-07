@@ -16,6 +16,19 @@ class PlacesPage extends Component {
     };
     render() {
         const { dispatch } = this.props;
+        const markers = [{
+            position: {
+                lat: 43.1628149,
+                lng: -88.18509800000001
+            },
+            key: `Sussex,WI`,
+            defaultAnimation: 2
+        }
+        ];
+        const defaultCenter = {
+            lat: 43.1628149,
+            lng: -88.18509800000001
+        };
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
@@ -30,7 +43,10 @@ class PlacesPage extends Component {
                     setLoggedIn={setLoggedIn}>
                 </Nav>
                 <Container>
-                    <BasicMap/>
+                    <BasicMap
+                        markers={markers}
+                        defaultCenter={defaultCenter}
+                    />
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>
