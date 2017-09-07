@@ -7,6 +7,7 @@ import * as FooterActionCreators from '../actions/footer_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
 import { Container} from 'semantic-ui-react';
+import BasicMap from "../components/basic-map";
 
 
 class PlacesPage extends Component {
@@ -29,7 +30,7 @@ class PlacesPage extends Component {
                     setLoggedIn={setLoggedIn}>
                 </Nav>
                 <Container>
-                    Places Page
+                    <BasicMap/>
                 </Container>
                 <Footer
                     clickFooterItem={clickFooterItem}>
