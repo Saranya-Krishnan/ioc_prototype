@@ -2,30 +2,30 @@ import React, { Component } from 'react'
 import _ from "lodash";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ajax from 'superagent';
-import { Segment } from 'semantic-ui-react';
 import * as BasicMapActions from '../actions/basic-map_actions';
-import PathHelper from '../helpers/path-helper';
 import {toastr} from 'react-redux-toastr';
 import { withGoogleMap, GoogleMap, Marker} from "react-google-maps";
 import withScriptjs from "react-google-maps/lib/async/withScriptjs";
+import Seed from "../../../ioc.seed";
 
 const BasicGoogleMap = _.flowRight(withScriptjs, withGoogleMap)
     (props => (
-                <GoogleMap
-                    ref={props.onMapLoad}
-                    defaultZoom={props.defaultZoom}
-                    defaultCenter={props.defaultCenter}
-                    onClick={props.onMapClick}
-                >
-                    {props.markers ?
-                        props.markers.map(marker => (
-                            <Marker
-                                {...marker}
-                                onRightClick={() => props.onMarkerRightClick(marker)}
-                            />
-                        )) : null}
-                </GoogleMap>
+        <div>
+            <h1>{props.title}</h1>
+            <GoogleMap
+                ref={props.onMapLoad}
+                defaultZoom={props.defaultZoom}
+                defaultCenter={props.defaultCenter}
+                onClick={props.onMapClick}>
+                {props.markers ?
+                    props.markers.map(marker => (
+                        <Marker
+                            {...marker}
+                            onRightClick={() => props.onMarkerRightClick(marker)}
+                        />
+                    )) : null}
+            </GoogleMap>
+        </div>
         ));
 
 class BasicMap extends Component {
@@ -37,6 +37,11 @@ class BasicMap extends Component {
         this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
         this.getLocation = this.getLocation.bind(this);
         this.googleUrl = process.env.GOOGLE_MAPS_URL + "?v="+process.env.GOOGLE_MAPS_VERSION +"&key=" + process.env.GOOGLE_MAPS_API;
+        if(this.user){
+            this.mapStart = this.user['coords'] ? {lat: this.user['coords'].latitude, lng: this.user['coords'].longitude} : Seed.defaultLocation;
+        }else{
+            this.mapStart =  Seed.defaultLocation;
+        }
     }
 
     getLocation(){
@@ -57,7 +62,7 @@ class BasicMap extends Component {
             },
         ];
         this.setState({
-            markers: nextMarkers,
+            markers: nextMarkers
         });
 
         if (nextMarkers.length === 3) {
@@ -68,37 +73,40 @@ class BasicMap extends Component {
     handleMarkerRightClick(targetMarker) {
         const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
         this.setState({
-            markers: nextMarkers,
+            markers: nextMarkers
         });
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
         this.setState(nextProps.state);
     }
 
     render() {
+        console.log('>>',this.state.markers);
         return (
+            <div>
+                <h1>{this.props.title}</h1>
             <BasicGoogleMap
                 googleMapURL={this.googleUrl}
                 onMapLoad={this.handleMapLoad}
                 onMapClick={this.handleMapClick}
                 markers={this.state.markers}
                 onMarkerRightClick={this.handleMarkerRightClick}
-                defaultZoom={this.state.defaultZoom}
-                defaultCenter={this.state.defaultCenter}
+                defaultZoom={13}
+                defaultCenter={this.mapStart}
                 loadingElement={
-                    <div style={{ height: `1000px` }}>
+                    <div style={{ height: `400px` }}>
                         Loading
                     </div>
                 }
                 containerElement={
-                    <div style={{ height: `1000px%` }} />
+                    <div style={{ height: `400px` }} />
                 }
                 mapElement={
-                    <div style={{ height: `1000px` }} />
+                    <div style={{ height: `400px` }} />
                 }
             />
+            </div>
         );
     }
 }
@@ -112,14 +120,10 @@ BasicMap.propTypes = {
         lng: PropTypes.number
     }),
     onClick: PropTypes.func,
-    markers: PropTypes.arrayOf(PropTypes.shape({
-        position: PropTypes.shape({
-            lat: PropTypes.number,
-            lng: PropTypes.number
-        }),
-        key: PropTypes.string,
-        defaultAnimation: PropTypes.number
-    }))
+    markers: PropTypes.any,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    title: PropTypes.string
 };
 
 const mapDispatchToProps = (dispatch) => {

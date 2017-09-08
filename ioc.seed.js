@@ -203,7 +203,13 @@
     }
 };
 
+const defaultLocation = {
+    lat: 38.905415,
+    lng: -77.059903
+};
+
 
 module.exports = {
-    suggestionData: suggestionData
+    suggestionData: suggestionData,
+    defaultLocation:defaultLocation
 };

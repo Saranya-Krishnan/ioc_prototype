@@ -9,6 +9,7 @@ import ajax from 'superagent';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import {toastr} from 'react-redux-toastr';
+import BasicMap from "../components/basic-map";
 
 class Suggestion extends Component {
     constructor(props) {
@@ -98,6 +99,11 @@ class Suggestion extends Component {
                                     <h3>{this.state.meaning.label}</h3>  : null }
                                 { this.state.meaning ?
                                     <p>{this.state.meaning.description}</p>  : null }
+                                {this.state.meaning ?
+                                    <div>
+                                        {this.state.meaning.schemaName === "place" ? <BasicMap/> : null}
+                                    </div>
+                                :null}
                                 <div className="bottom-holder">
                                     <div className="ui form">
                                         <div className="field">

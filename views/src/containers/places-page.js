@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as NavActionCreators from '../actions/nav_actions';
+import * as BasicMapActionCreators from '../actions/basic-map_actions';
 import * as FooterActionCreators from '../actions/footer_actions';
 import Nav from '../components/nav';
 import Footer from '../components/footer';
@@ -16,45 +17,44 @@ class PlacesPage extends Component {
     };
     render() {
         const { dispatch } = this.props;
-        const markers = [
-            {
-            position: {
-                lat: 43.1628149,
-                lng: -88.18509800000001
-            },
-            key: "Sussex,WI",
-            defaultAnimation: 2
-            },
-            {
-                position: {
-                    lat: 51.50072919999999,
-                    lng: -0.1246254
-                },
-                key: "Big Ben",
-                defaultAnimation: 2
-            }
-        ];
-        const defaultCenter = {
-            lat: 43.1628149,
-            lng: -88.18509800000001
-        };
         const clickMenuItem = bindActionCreators(NavActionCreators.clickMenuItem, dispatch);
         const updateUserInfo = bindActionCreators(NavActionCreators.updateUserInfo, dispatch);
         const setLoggedIn = bindActionCreators(NavActionCreators.setLoggedIn, dispatch);
+        const getLocation = bindActionCreators(NavActionCreators.getLocation, dispatch);
         const signOut = bindActionCreators(NavActionCreators.signOut, dispatch);
+        const onMapLoad = bindActionCreators(BasicMapActionCreators.onMapLoad, dispatch);
+        const onMapClick = bindActionCreators(BasicMapActionCreators.onMapClick, dispatch);
+        const getLocationData = bindActionCreators(BasicMapActionCreators.getLocationData, dispatch);
         const clickFooterItem = bindActionCreators(FooterActionCreators.clickFooterItem, dispatch);
+        const tempMarkerExample =         [
+            {
+                position: {
+                    lat: 39.190064,
+                    lng:-77.241930
+                },
+                key: "Cider Barrel",
+                defaultAnimation: 2
+            }
+        ];
+        const tempTitleExample = "Help";
+
         return (
             <div>
                 <Nav
                     signOut={signOut}
                     clickMenuItem={clickMenuItem}
                     updateUserInfo={updateUserInfo}
-                    setLoggedIn={setLoggedIn}>
+                    setLoggedIn={setLoggedIn}
+                    getLocation={getLocation}
+                >
                 </Nav>
                 <Container>
                     <BasicMap
-                        markers={markers}
-                        defaultCenter={defaultCenter}
+                        onMapLoad={onMapLoad}
+                        onMapClick={onMapClick}
+                        getLocationData={getLocationData}
+                        markers={tempMarkerExample}
+                        title={tempTitleExample}
                     />
                 </Container>
                 <Footer
