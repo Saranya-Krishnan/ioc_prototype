@@ -9,7 +9,18 @@ const initialState = {
         username:'',
         firstName:'',
         lastName:''
-    }
+    },
+    coords: {
+        latitude:'',
+        longitude:'',
+        altitude:'',
+        heading:'',
+        speed:''
+    },
+    isGeolocationAvailable: true,
+    isGeolocationEnabled: true,
+    positionError: false,
+    checkedLocation: false
 };
 
 export default function Nav(state=initialState, action) {
@@ -29,6 +40,10 @@ export default function Nav(state=initialState, action) {
         case NavActionTypes.SIGN_OUT:
             return Object.assign({}, state, {
                 isLoggedIn: false
+            });
+        case NavActionTypes.GET_LOCATION:
+            return Object.assign({}, state, {
+                coords: action.coords
             });
         default:
             return state;

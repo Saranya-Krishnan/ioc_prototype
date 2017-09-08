@@ -24,3 +24,10 @@ export const signOut = () => {
         type: NavActionTypes.SIGN_OUT
     };
 };
+
+export const getLocation = () => {
+    return {
+        type: NavActionTypes.GET_LOCATION
+    };
+};
+

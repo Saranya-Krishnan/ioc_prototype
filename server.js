@@ -225,7 +225,14 @@ api.post('/api/'+process.env.API_VERSION+'/dialog', routes.dialog.begin);
 // ***************************
 api.post('/api/'+process.env.API_VERSION+'/events/get-mine', routes.events.getMine);
 
-
+// ***************************
+// * Locations
+// ***************************
+api.post('/api/'+process.env.API_VERSION+'/locations/create', routes.locations.create);
+api.post('/api/'+process.env.API_VERSION+'/locations/createFromMeaning', routes.locations.createFromMeaning);
+api.post('/api/'+process.env.API_VERSION+'/locations/update', routes.locations.update);
+api.post('/api/'+process.env.API_VERSION+'/locations/delete', routes.locations.deletion);
+api.get('/api/'+process.env.API_VERSION+'/locations/display', routes.locations.display);
 
 server.listen(process.env.PORT || process.env.CLIENT_PORT, function () {
     console.log("IoC Express server listening on port " + this.address().port);
