@@ -22,5 +22,11 @@ exports.display = function (req, res, next) {
 };
 
 exports.createFromMeaning = function (req, res, next) {
-
+    const meaningId = _.get(req.body,'meaningId');
+    const label = _.get(req.body,'label');
+    const latitude = _.get(req.body,'latitude');
+    const longitude = _.get(req.body,'longitude');
+    Locations.extractFromTag(dbUtils.getSession(req),meaningId, label, latitude, longitude)
+        .then(response => writeResponse(res, response, 201))
+        .catch(next);
 };

@@ -85,3 +85,18 @@ export const makeSuggestions = meaning => {
         meaning
     };
 };
+
+export const getMeaningLocation = (meaning) => {
+    return {
+        type: ImageUploaderActionTypes.GET_MEANING_LOCATION,
+        meaning
+    };
+};
+
+export const makeMeaningLocation = (meaning, location) => {
+    return {
+        type: ImageUploaderActionTypes.MAKE_MEANING_LOCATION,
+        meaning,
+        location
+    };
+};

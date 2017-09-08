@@ -65,6 +65,14 @@ export default function ImageUploader(state=initialState, action) {
             return Object.assign({}, state, {
                 ...state
             });
+        case ImageUploaderActionTypes.GET_MEANING_LOCATION :
+            return Object.assign({}, state, {
+                ...state
+            });
+        case ImageUploaderActionTypes.MAKE_MEANING_LOCATION :
+            return Object.assign({}, state, {
+                ...state
+            });
         default:
             return state;
     }

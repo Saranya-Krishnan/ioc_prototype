@@ -264,9 +264,13 @@ class ImageUploader extends Component {
                 .send(data)
                 .end((error, response) => {
                     if (!error && response) {
-                        this.makeSuggestions(response);
-                        this.tagCreationCount++;
-                        this.checkTagsCompleted(false);
+                        if(response.body.schemaName === 'place'){
+                            this.getLocationMeaning(response);
+                        }else{
+                            this.makeSuggestions(response);
+                            this.tagCreationCount++;
+                            this.checkTagsCompleted(false);
+                        }
                     } else {
                         toastr.error('Error extracting meaning from your tag.', error);
                         this.tagCreationCount++;
@@ -277,6 +281,44 @@ class ImageUploader extends Component {
             this.tagCreationCount++;
             this.checkTagsCompleted(false);
         }
+    }
+
+    makeMeaningLocation(meaning,location){
+        const data = {
+            meaningId: meaning.body.id,
+            label: meaning.body.label,
+            latitude: location.body.latitude,
+            longitude: location.body.longitude
+        };
+        ajax.post( PathHelper.apiPath + '/locations/create-from-meaning/')
+            .set('Content-Type', 'application/json')
+            .send(data)
+            .end((error, response) => {
+                this.makeSuggestions(meaning);
+                this.tagCreationCount++;
+                this.checkTagsCompleted(false);
+                if (error && response) {
+                    toastr.error('Error extracting a location from your meaning.', error);
+                    this.tagCreationCount++;
+                    this.checkTagsCompleted(false);
+                }
+            });
+    }
+
+    getLocationMeaning(meaning){
+        const data = {
+            label: meaning.body.label
+        };
+        ajax.post( PathHelper.apiPath + '/locations/get-geolocation/')
+            .set('Content-Type', 'application/json')
+            .send(data)
+            .end((error, response) => {
+                this.makeMeaningLocation(meaning,response);
+                toastr.success('Found a location from the meaning!', error);
+                if (error && response) {
+                    toastr.error('Error extracting a location from your meaning.', error);
+                }
+            });
     }
     makeSuggestions(meaning){
         if(meaning.body.schemaName && meaning.body.schemaName!=='none'){
@@ -360,6 +402,8 @@ ImageUploader.propTypes = {
     exploreBasedOnThisArtwork: PropTypes.func.isRequired,
     classificationToTags: PropTypes.func.isRequired,
     visualRecognition: PropTypes.func.isRequired,
+    getMeaningLocation: PropTypes.func.isRequired,
+    makeMeaningLocation: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
     hasUploaded: PropTypes.bool,
     isProcessing: PropTypes.bool,
@@ -410,6 +454,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         visualRecognition: (url) =>{
             dispatch(ImageUploaderActions.visualRecognition(url))
+        },
+        getMeaningLocation: (meaning) =>{
+            dispatch(ImageUploaderActions.getMeaningLocation(meaning))
+        },
+        makeMeaningLocation: (meaning, location) =>{
+            dispatch(ImageUploaderActions.makeMeaningLocation(meaning, location))
         }
     }
 };

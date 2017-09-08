@@ -156,7 +156,7 @@ api.post('/api/'+process.env.API_VERSION+'/tags/ontology', function(req,res){
     const word = req.body.body.word;
     const id = req.body.body.id;
     let options = {
-        url: 'http://lookup.dbpedia.org/api/search/KeywordSearch?QueryString='+ word,
+        url: process.env.SEMANTIC_DB_URL+'?QueryString='+ word,
         headers: {
             'Accept': 'application/json'
         }
@@ -229,10 +229,32 @@ api.post('/api/'+process.env.API_VERSION+'/events/get-mine', routes.events.getMi
 // * Locations
 // ***************************
 api.post('/api/'+process.env.API_VERSION+'/locations/create', routes.locations.create);
-api.post('/api/'+process.env.API_VERSION+'/locations/createFromMeaning', routes.locations.createFromMeaning);
+api.post('/api/'+process.env.API_VERSION+'/locations/create-from-meaning', routes.locations.createFromMeaning);
 api.post('/api/'+process.env.API_VERSION+'/locations/update', routes.locations.update);
 api.post('/api/'+process.env.API_VERSION+'/locations/delete', routes.locations.deletion);
 api.get('/api/'+process.env.API_VERSION+'/locations/display', routes.locations.display);
+api.post('/api/'+process.env.API_VERSION+'/locations/get-geolocation/', function(req,res){
+    const label = req.body.body.label;
+    let options = {
+        url: process.env.GOOGLE_GEOCODE_URL+'?address='+label+'&key='+process.env.GOOGLE_MAPS_API,
+        headers: {
+            'Accept': 'application/json'
+        }
+    };
+    function cb(error, response, body){
+        if (!error && response.statusCode === 200) {
+            let data = {
+                latitude: body.geometry.location.latitude,
+                longitude: body.geometry.location.longitude
+            };
+            res.send(data);
+        }else{
+            console.log('error getting location for '+label)
+        }
+    }
+    request(options, cb);
+});
+
 
 server.listen(process.env.PORT || process.env.CLIENT_PORT, function () {
     console.log("IoC Express server listening on port " + this.address().port);

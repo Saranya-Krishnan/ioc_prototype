@@ -77,6 +77,8 @@ class UploadShared extends Component {
         const exploreBasedOnThisArtwork = bindActionCreators(ImageUploadCreators.exploreBasedOnThisArtwork, dispatch);
         const classificationToTags = bindActionCreators(ImageUploadCreators.classificationToTags, dispatch);
         const visualRecognition = bindActionCreators(ImageUploadCreators.visualRecognition, dispatch);
+        const getMeaningLocation = bindActionCreators(ImageUploadCreators.getMeaningLocation, dispatch);
+        const makeMeaningLocation = bindActionCreators(ImageUploadCreators.makeMeaningLocation, dispatch);
         return (
             <Segment>
                 { this.state.noNotebooks ? null :
@@ -102,7 +104,9 @@ class UploadShared extends Component {
                                     createTag={createTag}
                                     exploreBasedOnThisArtwork={exploreBasedOnThisArtwork}
                                     classificationToTags={classificationToTags}
-                                    visualRecognition={visualRecognition}/>
+                                    visualRecognition={visualRecognition}
+                                    getMeaningLocation={getMeaningLocation}
+                                    makeMeaningLocation={makeMeaningLocation}/>
                         </Sidebar>
                     <Sidebar.Pusher>
                         {this.state.uploadUIVisible ?
