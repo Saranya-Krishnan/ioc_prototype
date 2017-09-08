@@ -82,7 +82,6 @@ class BasicMap extends Component {
     }
 
     render() {
-        console.log('>>',this.state.markers);
         return (
             <div>
                 <h1>{this.props.title}</h1>
