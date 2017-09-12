@@ -39,6 +39,7 @@ const deletion = function (session) {
 
 };
 const display = function (session, workId) {
+
     return session.run('MATCH (work:Work {id:{id}})-[:DISPLAYS]->(i) MATCH (work:Work {id:{id}})<-[:CREATED]-(u) MATCH (work:Work {id:{id}})-[:ASSOCIATED_WITH]->(t) MATCH(tag:Tag {id:t.id}) MATCH (user:User {id:u.id}) MATCH (image:Image {id:i.id}) RETURN work, image, user, tag',{id:workId}
     ).then(results => {
         const workTags =[];

@@ -154,7 +154,7 @@ class ImageUploader extends Component {
                         userId:userId,
                         notebookId: this.currentNotebook,
                         title: this.state.title,
-                        description: this.state.description
+                        description: this.state.description ?  this.state.description : ' '
                     };
                     let data = JSON.stringify(createData);
                     ajax.post( PathHelper.apiPath + '/works/create')
@@ -168,7 +168,7 @@ class ImageUploader extends Component {
                                 toastr.error('Error saving your artwork', error);                            }
                         });
                 } else {
-                    console.log('error retrieving your quests', error);
+                   toastr.error('error retrieving your quests', error);
                 }
             });
     }

@@ -29,7 +29,7 @@ nconf.env(['PORT', 'NODE_ENV'])
         'neo4j-local': process.env.GRAPHENEDB_BOLT_URL,
         'neo4j-remote': process.env.GRAPHENEDB_BOLT_URL,
         'base_url': process.env.BASE_URL + ':' + process.env.API_PORT || process.env.BASE_URL + ':' + process.env.PORT,
-        'api_path': '/api/v0'
+        'api_path': '/api/'+process.env.API_VERSION
     });
 
 module.exports = nconf;
