@@ -1,0 +1,26 @@
+dependencies: \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTWebView.m \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTWebView.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTView.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTComponent.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTAutoInsetsProtocol.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/gabrielwalsh/Sites/ioc_prototype/MobileIoC/node_modules/react-native/React/Views/UIView+React.h
