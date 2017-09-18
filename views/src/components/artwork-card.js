@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {Card, Image } from 'semantic-ui-react';
+import {Card } from 'semantic-ui-react';
 import * as ArtworkCardActions from '../actions/artwork-card_actions';
-import { Redirect } from 'react-router';
 
 class ArtworkCard extends Component {
     constructor(props) {
@@ -15,15 +14,11 @@ class ArtworkCard extends Component {
     }
     render() {
         return (
-            <Card onClick={() => this.state.goToArtworkPage(true)} className="artwork-card">
-                {this.state.doRedirect ? <Redirect push to={"/artwork/" + this.props.id}/> : null}
-                <Image src={this.props.image}/>
-                <Card.Content>
-                    <Card.Header>
-                        {this.props.title}
-                    </Card.Header>
-                </Card.Content>
-            </Card>
+            <Card
+                href={'/artwork/' + this.props.id}
+                image={this.props.image}
+                header={this.props.title}
+            />
         )
     }
 }

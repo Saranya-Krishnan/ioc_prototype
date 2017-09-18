@@ -18,8 +18,8 @@ const register = function (session, email, password, firstName, lastName, bio, a
                         firstName: firstName,
                         lastName: lastName,
                         password: hashPassword(email, password),
-                        bio:bio,
-                        avatar: avatar,
+                        bio:'',
+                        avatar: '',
                         api_key: randomstring.generate({
                             length: 20,
                             charset: 'hex'
