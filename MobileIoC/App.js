@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, Button, View } from 'react-native';
-
-export default class HelloWorldApp extends Component {
+import { AppRegistry, Button, View } from 'react-native';
+import TextTest  from './components/text-test';
+export default class MobileIoC extends Component {
     render() {
         onPressLearnMore = () =>{
           console.log('hiu')
         };
         return (
             <View>
-              <Text>hi</Text>
+                <TextTest></TextTest>
               <Button
                 onPress={onPressLearnMore}
                 title="Learn More"
@@ -21,4 +21,4 @@ export default class HelloWorldApp extends Component {
 }
 
 // skip this line if using Create React Native App
-AppRegistry.registerComponent('MobileIoC', () => HelloWorldApp);
+AppRegistry.registerComponent('MobileIoC', () => MobileIoC);
