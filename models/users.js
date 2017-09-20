@@ -11,7 +11,7 @@ const register = function (session, email, password, firstName, lastName, bio, a
             if (!_.isEmpty(results.records)) {
                 throw {err: 'username already in use', status: 400}
             } else {
-                return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, bio:{bio}, avatar:{avatar} api_key: {api_key}}) RETURN user',
+                return session.run('CREATE (user:User {id: {id}, email: {email}, password: {password}, firstName: {firstName}, lastName:{lastName}, bio:{bio}, avatar:{avatar}, api_key: {api_key}}) RETURN user',
                     {
                         id: uuid.v4(),
                         email: email,
