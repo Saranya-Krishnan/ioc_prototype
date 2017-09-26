@@ -13,7 +13,7 @@ This application will outline some of the capabilities of a the actual applicati
 5. Launch the Neo4j desktop app and then create a `Neo4j` directory in `Sites` or wherever you work locally.
 6. Change the Database Location in the Neo4j Desktop app to this new `Neo4j` directory.
 7. Start Neo4j at `locahost:7474` or use the `neo4j.config.js` to point toward your desired port.
-8. From inside the Neo4j GUI run `:server connect` with the default credentials of username `neo4j', password: `neo4j`.
+8. From inside the Neo4j GUI run `:server connect` with the default credentials of username `neo4j`, password: `neo4j`.
 9. Follow the instructions to reset the password to match the one in your `.env` file's `GRAPHENEDB_BOLT_PASSWORD` variable.
 10. Run `nodemon start`
 11. And in another terminal keep `webpack --watch` up while developing.
